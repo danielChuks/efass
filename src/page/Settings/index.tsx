@@ -1,11 +1,18 @@
 'use client';
 
 import styles from './index.module.scss';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { settingsAtom } from '../../state/settings';
+import { useSettingsActions } from '../../actions/settings';
+import { useEffect } from 'react';
 
 export const Settings = () => {
-  const darkMode = useRecoilState(settingsAtom);
+  const { getSettings } = useSettingsActions();
+  const darkMode = useRecoilValue(settingsAtom);
+
+  useEffect(() => {
+    getSettings();
+  }, [getSettings]);
 
   console.log(darkMode);
   return (
