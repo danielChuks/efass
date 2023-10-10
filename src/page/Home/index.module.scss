@@ -1,11 +1,29 @@
-@import '../../styles/index.scss';
+.header {
+  color: #0d1740;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+}
 
-.container {
-    background-color: aquamarine;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
- 
+.card-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #fff;
+  padding: 1rem 0 2rem 1rem;
+  margin-top: 1rem;
+  display: flex;
+  border-radius: 8px;
+}
+
+.card-container {
+  background: #dfe9ff;
+  border-radius: 0.5rem;
+  width: 15.875rem;
+  height: 7.25rem;
+  padding: 2rem;
+  h3 {
+    font-weight: 600;
+    font-size: .9375rem;
+  }
 }

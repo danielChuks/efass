@@ -7,7 +7,7 @@ import { useSettingsActions } from '../../actions/settings';
 import { useEffect } from 'react';
 import BaseLayout from '../../components/BaseLayout';
 
-export const Settings = () => {
+export const UserManagement = () => {
     const { getSettings } = useSettingsActions();
     const darkMode = useRecoilValue(settingsAtom);
 
@@ -19,7 +19,7 @@ export const Settings = () => {
     return (
         <BaseLayout>
         <div className={styles['container']}>
-            <h4>Settings Tim</h4>
+            <h4>Seqw222ttings Tim</h4>
         </div>
         </BaseLayout>
     );
