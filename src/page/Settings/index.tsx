@@ -18,9 +18,9 @@ export const Settings = () => {
     console.log(darkMode);
     return (
         <BaseLayout>
-        <div className={styles['container']}>
-            <h4>Settings Tim</h4>
-        </div>
+            <div className={styles['container']}>
+                <h4>Settings Tim</h4>
+            </div>
         </BaseLayout>
     );
 };

@@ -18,9 +18,9 @@ export const UserManagement = () => {
     console.log(darkMode);
     return (
         <BaseLayout>
-        <div className={styles['container']}>
-            <h4>Seqw222ttings Tim</h4>
-        </div>
+            <div className={styles['container']}>
+                <h4>Seqw222ttings Tim</h4>
+            </div>
         </BaseLayout>
     );
 };
