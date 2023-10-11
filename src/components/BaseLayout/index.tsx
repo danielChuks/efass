@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default function BaseLayout({children} : Props) {
+    
   return (
       <div className='layout'>
         <Sidebar />
