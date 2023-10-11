@@ -23,6 +23,15 @@ export const HomePage = () => {
       <p>0</p>
     </div>
   </div>
+
+  <div className={styles['table_container']}>
+    <div className="table_header">
+      <h4 className="title">Recent Activity</h4>
+    </div>
+    <div className={styles['table_body']}>
+
+    </div>
+    </div>
     </BaseLayout>
   );
 };

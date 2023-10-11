@@ -1,7 +1,8 @@
 import { BiSolidDashboard } from 'react-icons/bi';
 import Link from 'next/link';
-import './index.module.scss';
-import { Settings } from '../../page/Settings';
+import styles from "./index.module.scss";
+import { useState } from 'react';
+
 
 const sidebarItems = [
   {
@@ -28,18 +29,18 @@ const sidebarItems = [
 ];
 
 export default function Sidebar() {
-    
+    const [activeItem, setActiveItem] = useState('/');
   return (
     <div>
-        <aside className='sidebar'>
-        <ul className='sidebar_list'>
+        <aside className={styles['sidebar']}>
+        <ul className={styles['sidebar_list']}>
           {sidebarItems.map(({ name, href, icon: Icon }) => (
-            <li className='sidebar_item' key={name}>
-              <Link href={href} className='sidebar_link'>
-                <div className="sidebar_icon">
+            <li className={styles['sidebar_item']} key={name}>
+              <Link href={href} className={styles['sidebar_link']}>
+                <div className={styles['sidebar_icon']}>
                   <Icon />
                 </div>
-                <span className='sidebar_name'>{name}</span>
+                <span className={styles['sidebar_name']}>{name}</span>
               </Link>
             </li>
           ))}
