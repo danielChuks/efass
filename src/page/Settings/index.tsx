@@ -19,7 +19,7 @@ export const Settings = () => {
     return (
         <BaseLayout>
         <div className={styles['container']}>
-            <h4>Settings Tim</h4>
+            <h4>Settings Timi</h4>
         </div>
         </BaseLayout>
     );
