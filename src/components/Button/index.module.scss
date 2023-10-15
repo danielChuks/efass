@@ -1,0 +1,18 @@
+.button {
+	border-radius: 0.3125rem;
+	background: #1c317e;
+    color: #fff;
+    width: 27rem;
+    height: 3.125rem;
+    padding: 0.875rem 2rem 0.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+}
+.error_msg{
+    color: #FF0000;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
