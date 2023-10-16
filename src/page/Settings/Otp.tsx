@@ -10,7 +10,7 @@ function Otp() {
 	const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
-	const navigatePassword = () => {
+	const verifyOtp = () => {
         router.push("settings?tab=new_password");
     };
 	return (
@@ -31,7 +31,7 @@ function Otp() {
 
 				<SettingsButton
 					text={"Verify"}
-					handleAction={navigatePassword}
+					handleAction={verifyOtp}
 					// error={error}
 					// errorText={errorText}
 				/>
