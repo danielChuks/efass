@@ -1,19 +1,24 @@
-import React from 'react';
+import React from "react";
 import styles from "./index.module.scss";
 
-type CustomInputProps = {
-  label: string;
-  type: string;
-  name: string;
-};
+interface InputGroupProps {
+    name:string
+    value: string;
+    label: string;
+    type: string;
+    disabled?: boolean;
+    placeholder?: string;
+    maxLength?: number;
+    handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const CustomInput: React.FC<CustomInputProps> = ({ label, type, name }) => {
-  return (
-    <div className={styles["input"]}>
-      <label>{label}</label>
-      <input type={type} name={name} />
-    </div>
-  );
-};
+function InputGroup({label, type, disabled, value, name, placeholder, maxLength, handleChange}: InputGroupProps) {
+	return (
+		<div className={styles["input_Group"]}>
+			<label>{label}</label>
+			<input type={type} value={value} name={name} disabled={disabled} maxLength={maxLength} placeholder={placeholder} onChange={handleChange}/>
+		</div>
+	);
+}
 
-export default CustomInput;
+export default InputGroup;

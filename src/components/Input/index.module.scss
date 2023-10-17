@@ -1,17 +1,23 @@
-.input {
-  display: flex;
-  flex-direction: column;
-  
-  input {
-    display: inline-flex;
-    height: 50px;
-    padding: 16px 5px 16px 10px;
-    align-items: center;
-    gap: 148px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    border: 1px solid #9a9a9a;
-    background: #f0f0f3;
-    margin-bottom: 1.875rem;
-  }
+.input_Group{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: .5rem;
+border-radius: 0.5rem;
+padding: .7rem;
+width: 27rem;
+}
+
+.input_Group > label{
+font-size: 1rem;
+font-weight: 600;
+}
+
+.input_Group > input{
+padding: .5rem;
+border: 1px solid #9A9A9A;
+background: #F0F0F3;
+border-radius: 0.3125rem;
+width: 100%;
+height: 3rem;
 }
