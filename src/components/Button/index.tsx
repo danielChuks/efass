@@ -9,7 +9,7 @@ interface SettingsButtonProps {
 	handleAction?: (value: any) => void;
 }
 
-export const SettingsButton = ({
+export const Button = ({
 	text,
 	disabled,
 	error,
