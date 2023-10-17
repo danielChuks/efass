@@ -9,14 +9,15 @@ interface InputGroupProps {
     disabled?: boolean;
     placeholder?: string;
     maxLength?: number;
+    required?: boolean;
     handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function InputGroup({label, type, disabled, value, name, placeholder, maxLength, handleChange}: InputGroupProps) {
+function InputGroup({label, type, disabled, value, name, placeholder, maxLength, required, handleChange}: InputGroupProps) {
 	return (
 		<div className={styles["input_Group"]}>
 			<label>{label}</label>
-			<input type={type} value={value} name={name} disabled={disabled} maxLength={maxLength} placeholder={placeholder} onChange={handleChange}/>
+			<input type={type} value={value} name={name} disabled={disabled} maxLength={maxLength} placeholder={placeholder} required={required} onChange={handleChange}/>
 		</div>
 	);
 }

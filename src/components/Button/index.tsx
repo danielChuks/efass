@@ -9,7 +9,13 @@ interface SettingsButtonProps {
 	handleAction?: (value: any) => void;
 }
 
-export const Button = ({
+interface CustomButtonProps {
+	text: string;
+	icon?: any;
+	handleAction?: (value: any) => void;
+}
+
+export const SettingsButton = ({
 	text,
 	disabled,
 	error,
@@ -27,5 +33,17 @@ export const Button = ({
 			</button>
 			{error && <p className={styles["error_msg"]}>{errorText}</p>}
 		</>
+	);
+};
+
+export const CustomButton = ({
+	text,
+	icon,
+	handleAction,
+}: CustomButtonProps) => {
+	return (
+		<button onClick={handleAction} className={styles["customButton"]}>
+			{text} {icon}
+		</button>
 	);
 };
