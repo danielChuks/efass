@@ -1,11 +1,13 @@
 @import '../../styles/index.scss';
 
-.container {
-    background-color: aquamarine;
-    width: 100vw;
-    height: 100vh;
+.headerContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
- 
+    justify-content: space-between;
+
+
+    .timeContainer {
+        display: flex;
+        gap: 10px;
+        margin-right: 140px;
+    }
 }
