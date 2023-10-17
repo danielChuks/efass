@@ -17,3 +17,17 @@
     font-weight: 600;
     margin-top: 0.5rem;
 }
+
+.customButton{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    color: #fff;
+    background: #1c317e;
+    padding: .5rem;
+    border-radius: .3rem;
+    cursor: pointer;
+    outline: none;
+    border: none;
+
+}
