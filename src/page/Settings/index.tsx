@@ -7,10 +7,10 @@ import { useSettingsActions } from "../../actions/settings";
 import { useEffect, useState } from "react";
 import BaseLayout from "../../components/BaseLayout";
 import InputGroup from "@/components/Input";
-import { SettingsButton } from "@/components/Button";
 import { useRouter, useSearchParams } from "next/navigation";
 import Otp from "./Otp";
 import NewPassword from "./NewPassword";
+import { Button } from "@/components/Button/index";
 
 export const Settings = () => {
 	const { getSettings } = useSettingsActions();
@@ -104,7 +104,7 @@ export const Settings = () => {
 										handleChange={handleInputchange}
 									/>
 
-									<SettingsButton
+									<Button
 										text={"Continue"}
 										handleAction={navigateOtp}
 										error={error}
