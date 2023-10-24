@@ -1,9 +1,10 @@
 import BaseLayout from '../../components/BaseLayout';
 import styles from './index.module.scss';
+import { DASHBOARD_PAGES } from '../../enums';
 
 export const HomePage = () => {
     return (
-        <BaseLayout>
+        <BaseLayout page={DASHBOARD_PAGES.HOME}>
             <div className={styles.header}>DASHBOARD (Overview)</div>
             <div className={styles['card-body']}>
                 <div className={styles['card-container']}>

@@ -9,6 +9,8 @@ import Card from "../../components/Card/index";
 import { CustomButton } from "@/components/Button";
 import { BsPlusLg } from "react-icons/bs";
 import Dialog from "../../components/Dialog";
+import { DASHBOARD_PAGES } from "../../enums";
+
 
 export const UserManagement = () => {
 	const { getSettings } = useSettingsActions();
@@ -38,7 +40,7 @@ export const UserManagement = () => {
 
 	console.log(darkMode);
 	return (
-		<BaseLayout>
+		<BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
 			{openModal && (
 				<Dialog
 					openModal={openModal}
