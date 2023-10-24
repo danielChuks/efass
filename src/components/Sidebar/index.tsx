@@ -1,51 +1,48 @@
+"use client";
 import { BiSolidDashboard } from 'react-icons/bi';
-import Link from 'next/link';
 import styles from './index.module.scss';
-import { useState } from 'react';
+// import { useState } from 'react';
+import { DASHBOARD_PAGES } from '../../enums';
+import { useRouter } from "next/navigation";
+import { SideNavItem } from './SideBarItems';
 
-const sidebarItems = [
-    {
-        name: 'Dashboard',
-        href: '/',
-        icon: BiSolidDashboard,
-    },
-    {
-        name: 'Generate Report',
-        href: '/generate-report',
-        icon: BiSolidDashboard,
-    },
-    {
-        name: 'User Management',
-        href: '/user-management',
-        icon: BiSolidDashboard,
-    },
+interface SideNavProps {
+    page?: DASHBOARD_PAGES;
+}
 
-    {
-        name: 'Settings',
-        href: '/settings',
-        icon: BiSolidDashboard,
-    },
-];
+export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
+    // const router = useRouter();
 
-export default function Sidebar() {
-    const [activeItem, setActiveItem] = useState('/');
     return (
         <div>
             <aside className={styles['sidebar']}>
-                <ul className={styles['sidebarList']}>
-                    {sidebarItems.map(({ name, href, icon: Icon }) => (
-                        <li className={styles['sidebarItem']} key={name}>
-                            <Link href={href} className={styles['sidebaLink']}>
-                                <div className={styles['sidebar_icon']}>
-                                    <Icon />
-                                </div>
-                                <span className={styles['sidebarName']}>
-                                    {name}
-                                </span>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                <div className={styles['items']}>
+                    <SideNavItem
+                        pageUrl={'/'}
+                        icon={<BiSolidDashboard />}
+                        title={'Dashboard'}
+                        active={page === DASHBOARD_PAGES.HOME}
+                    />
+
+                    <SideNavItem
+                        pageUrl={'/generate-report'}
+                        icon={<BiSolidDashboard />}
+                        title={'Generate Report'}
+                        active={page === DASHBOARD_PAGES.GENERATE_REPORT}
+                    />
+                    <SideNavItem
+                        pageUrl={'/user-management'}
+                        icon={<BiSolidDashboard />}
+                        title={'User Management'}
+                        active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
+                    />
+                    <SideNavItem
+                        pageUrl={'/settings'}
+                        icon={<BiSolidDashboard />}
+                        title={'Settings'}
+                        active={page === DASHBOARD_PAGES.SETTINGS}
+                    />
+                </div>
             </aside>
         </div>
     );
