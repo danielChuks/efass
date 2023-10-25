@@ -1,9 +1,10 @@
 import BaseLayout from '../../components/BaseLayout/index';
 import styles from './index.module.scss';
+import { DASHBOARD_PAGES } from '../../enums';
 
 export const GenerateReport = () => {
     return (
-        <BaseLayout>
+        <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
             <div className={styles['headerContainer']}>
                 <div>Generate Report (Overview)</div>
                 <div className={styles['timeContainer']}>
