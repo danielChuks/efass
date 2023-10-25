@@ -1,6 +1,4 @@
 'use client';
-
-import styles from './index.module.scss';
 import { useRecoilValue } from 'recoil';
 import { settingsAtom } from '../../state/settings';
 import { useSettingsActions } from '../../actions/settings';
@@ -12,47 +10,32 @@ import Otp from './Otp';
 import NewPassword from './NewPassword';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SettingsButton } from '../../components/Button';
+import { DASHBOARD_PAGES } from '../../enums';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import AccountInformation from './AccountInformation';
+import ChangePassword from './ChangePassword';
+
 
 export const Settings = () => {
     const { getSettings } = useSettingsActions();
-    const [activeTab, setActiveTab] = useState('account_information');
     const darkMode = useRecoilValue(settingsAtom);
-    const [data, setData] = useState({ email: '', password: '' });
-    const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState('');
-    const searchParams = useSearchParams();
-    const tab = searchParams.get('tab');
-    // console.log(tab);
-    // console.log(pathname)
-    const router = useRouter();
-
-    const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-    };
-
-    const navigateOtp = () => {
-        setError(true);
-        setErrorText('Invalid email or password');
-        // console.log("otp");
-        router.push('settings?tab=otp');
-    };
-
-    //temporary till i switch to material ui tabs
-    const setAccountInformation = () => {
-        setActiveTab('account_information');
-        router.push('settings');
-    };
-
-    const setChangePassword = () => {
-        setActiveTab('change_password');
-        router.push('settings');
-    };
-
+    const [value, setValue] = useState(0);
     useEffect(() => {
         getSettings();
     }, [getSettings]);
 
-    console.log(darkMode);
+    //accessibility prop for screen readers
+    function a11yProps(index: number) {
+        return {
+            id: `settings-tab-${index}`,
+            'aria-controls': `settings-tabpanel-${index}`,
+        };
+    }
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
     return (
         <BaseLayout page={DASHBOARD_PAGES.SETTINGS}>
             <div className={styles['container']}>
@@ -129,6 +112,53 @@ export const Settings = () => {
                     ) : null}
                 </div>
             </div>
-        </BaseLayout>
+            <Box
+                sx={{
+                    width: '100%',
+                    backgroundColor: '#fff',
+                    borderRadius: '0.5rem',
+                    height: ' 32.5rem',
+                }}
+            >
+                <Box
+                    sx={{
+                        borderBottom: 1,
+                        borderColor: '#0D1740',
+                        borderWidth: '1px',
+                    }}
+                >
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="settings tabs"
+                        TabIndicatorProps={{
+                            style: { background: '#0D1740', bottom: '-1px' },
+                        }}
+                        textColor="inherit"
+                    >
+                        <Tab
+                            sx={{
+                                fontFamily: 'baloo 2',
+                                color: '#6C757D',
+                                textTransform: 'Capitalize',
+                            }}
+                            label="Account Information"
+                            {...a11yProps(0)}
+                        />
+                        <Tab
+                            sx={{
+                                fontFamily: 'baloo 2',
+                                color: '#6C757D',
+                                textTransform: 'Capitalize',
+                            }}
+                            label="Change Password"
+                            {...a11yProps(1)}
+                        />
+                    </Tabs>
+                </Box>
+                <AccountInformation value={value} index={0} />
+                <ChangePassword value={value} index={1} />
+            </Box>        
+      </BaseLayout>
     );
 };
