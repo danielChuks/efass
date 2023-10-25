@@ -28,14 +28,14 @@ const sidebarItems = [
 ];
 
 export default function Sidebar() {
-    const [activeItem, setActiveItem] = useState('/');
+    const [activeItem, setActiveItem] = useState(true);
     return (
         <div>
             <aside className={styles['sidebar']}>
                 <ul className={styles['sidebarList']}>
                     {sidebarItems.map(({ name, href, icon: Icon }) => (
-                        <li className={styles['sidebarItem']} key={name}>
-                            <Link href={href} className={styles['sidebaLink']}>
+                        <li className={styles['sidebarItem']} key={name} >
+                            <Link href={href} className={styles['sidebarLink']}>
                                 <div className={styles['sidebar_icon']}>
                                     <Icon />
                                 </div>
