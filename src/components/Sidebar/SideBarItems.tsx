@@ -8,7 +8,7 @@ interface SideNavItemProps {
     pageUrl: string;
     icon: ReactElement;
     title: string;
-    active: boolean;
+    active?: boolean;
 }
 
 export function SideNavItem({
