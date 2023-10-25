@@ -1,5 +1,9 @@
 "use client";
 import { BiSolidDashboard } from 'react-icons/bi';
+import { FaClipboardList } from 'react-icons/fa';
+import { FaUserCog } from 'react-icons/fa';
+import { FiSettings } from 'react-icons/fi';
+
 import styles from './index.module.scss';
 // import { useState } from 'react';
 import { DASHBOARD_PAGES } from '../../enums';
@@ -26,19 +30,19 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
 
                     <SideNavItem
                         pageUrl={'/generate-report'}
-                        icon={<BiSolidDashboard />}
+                        icon={<FaClipboardList />}
                         title={'Generate Report'}
                         active={page === DASHBOARD_PAGES.GENERATE_REPORT}
                     />
                     <SideNavItem
                         pageUrl={'/user-management'}
-                        icon={<BiSolidDashboard />}
+                        icon={<FaUserCog />}
                         title={'User Management'}
                         active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
                     />
                     <SideNavItem
                         pageUrl={'/settings'}
-                        icon={<BiSolidDashboard />}
+                        icon={<FiSettings />}
                         title={'Settings'}
                         active={page === DASHBOARD_PAGES.SETTINGS}
                     />

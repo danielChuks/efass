@@ -2,17 +2,9 @@
   width: 13.75rem;
   height: 100%;
   background-color: #0d1740;
-  padding: 7rem 0rem 0 1rem;
+  padding: 7rem 0rem 0 0rem;
 }
 
-.sidebar_top {
-  width: max-content;
-  display: flex;
-  align-content: center;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #e5e7eb;
-}
 
 // .sidebar_logo {
 //   width: 3.4rem;
@@ -73,7 +65,8 @@
   }
 
   &.active {
-      background-color: #333333;
-      border-radius: 8px;
+      background-color: #fff;
+      color: #0D1740;
+      border-radius: .375rem;
   }
 }

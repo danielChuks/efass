@@ -6,8 +6,8 @@ import Image from "next/image";
 import CustomInput from "@/components/Input/index";
 import InputGroup from "@/components/Input/index";
 import { useState } from "react";
-import { Button } from "@/components/Button/index";
 import { useRouter } from "next/navigation";
+import { CustomButton, SettingsButton } from "../../components/Button";
 
 export const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -21,10 +21,17 @@ export const Login = () => {
   };
 
   const navigateOtp = () => {
-    setError(true);
-    setErrorText("Invalid email or password");
-    // console.log("otp");
-    router.push("settings?tab=otp");
+    if (!data.email || !data.password) {
+
+      setError(true);
+      setErrorText("Invalid email or password");
+      // console.log("otp");
+    } else {
+      setError(false);
+      setErrorText('');
+      router.push("/");
+    }
+    console.log(setErrorText)
 };
   return (
     <div className={styles["background"]}>
@@ -59,15 +66,13 @@ export const Login = () => {
               placeholder=""
               handleChange={handleInputchange}
             />
-            <Button
+            <SettingsButton
               text={"Login"}
               handleAction={navigateOtp}
-              error={error}
-              errorText={errorText}
-            />{" "}
+            />
           </form>
         </div>
-        <div className="footer">2023 eFASS by Neptune Software Group.</div>
+        <div className={styles["footer"]}>2023 &copy; eFASS by Neptune Software Group.</div>
       </div>
     </div>
   );
