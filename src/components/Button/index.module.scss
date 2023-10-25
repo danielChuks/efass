@@ -1,6 +1,6 @@
 .button {
-	border-radius: 0.3125rem;
-	background: #1c317e;
+    border-radius: 0.3125rem;
+    background: #1c317e;
     color: #fff;
     width: 27rem;
     height: 3.125rem;
@@ -12,21 +12,21 @@
     font-weight: 800;
     margin-top: 3rem;
 }
-.error_msg{
-    color: #FF0000;
+.error_msg {
+    color: #ff0000;
     font-size: 0.875rem;
     font-weight: 600;
     margin-top: 0.5rem;
 }
 
-.customButton{
+.customButton {
     display: flex;
-    gap: .5rem;
+    gap: 0.5rem;
     align-items: center;
     color: #fff;
     background: #1c317e;
-    padding: .5rem;
-    border-radius: .3rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
     cursor: pointer;
     outline: none;
     border: none;
