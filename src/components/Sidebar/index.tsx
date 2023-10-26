@@ -3,6 +3,7 @@ import { BiSolidDashboard } from 'react-icons/bi';
 import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
+import { BiLogIn } from 'react-icons/bi';
 
 import styles from './index.module.scss';
 // import { useState } from 'react';
@@ -40,12 +41,19 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                         title={'User Management'}
                         active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
                     />
+                    <div className={styles['sidebar_settings']}>
                     <SideNavItem
                         pageUrl={'/settings'}
                         icon={<FiSettings />}
                         title={'Settings'}
                         active={page === DASHBOARD_PAGES.SETTINGS}
                     />
+                    <SideNavItem
+                        pageUrl={''}
+                        icon={<BiLogIn />}
+                        title={'Log out'}
+                    />
+                    </div>
                 </div>
             </aside>
         </div>
