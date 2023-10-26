@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 
 interface InputGroupProps {
     name:string
-    value: string;
+    value?: string;
     label: string;
     type: string;
     disabled?: boolean;

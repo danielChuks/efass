@@ -21,7 +21,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
     return (
         <div>
             <aside className={styles['sidebar']}>
-                <div className={styles['items']}>
+                <div className={styles['']}>
                     <SideNavItem
                         pageUrl={'/'}
                         icon={<BiSolidDashboard />}
