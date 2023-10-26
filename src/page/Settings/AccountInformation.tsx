@@ -1,6 +1,8 @@
 'use client';
 import React from 'react';
 import styles from './index.module.scss';
+import logo from '../../../public/logo.png'
+import Image from 'next/image';
 
 interface AccountInfoProps {
     value: number;
@@ -17,7 +19,7 @@ function AccountInformation({ value, index }: AccountInfoProps) {
         >
             {value === index && (
                 <>
-                    <img className="" src="../logo.png" alt="logo" />
+                    <Image className="" src={logo} alt="logo" />
                     <div>
                         <h4>BUI MICROFINANCE BANK</h4>
                         <div className={styles['content']}>
