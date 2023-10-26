@@ -8,36 +8,6 @@
 .sidebar_settings {
   margin-top: 14.5625rem;
 }
-// .sidebar_logo {
-//   width: 3.4rem;
-//   height: 3.4rem;
-//   object-fit: cover;
-//   border-radius: 1rem;
-// }
-
-// .sidebar_list {
-//   list-style: none;
-// }
-
-// .sidebar_link {
-//   display: inline-block;
-//   font-size: 1rem;
-//   text-decoration: none;
-//   color: #ffffff;
-//   padding: 0.5rem 0.5rem;
-//   display: flex;
-//   margin-bottom: 1rem;
-//   border-radius: 0.4rem 0rem 0rem 0.4rem;
-// }
-
-// .active {
-//   background-color: #ffffff;
-//   color: #000000;
-// }
-
-// .sidebar_icon {
-//   font-size: 1.2rem;
-// }
 
 .side-nav-item {
   cursor: pointer;
@@ -47,28 +17,30 @@
   transition: 0.3s linear;
   margin-top: 5px;
   padding: 12px 15px;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-size: 16px;
-  margin-right: 12px;
   margin-left: 12px;
 
   svg {
-      font-size: 23px;
+    font-size: 23px;
   }
 
   p {
-      margin-left: 10px;
-      font-size: 14px;
+    margin-left: 10px;
+    font-size: 14px;
   }
 
   &:hover {
-      transform: scale(105%);
-      // padding-left: 30px;
+    transform: scale(105%);
   }
 
   &.active {
-      background-color: #fff;
-      color: #0D1740;
-      border-radius: .375rem;
+    background-color: #fff;
+    border-radius: 0.375rem 0px 0px 0.375rem;
+    color: #0d1740;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
   }
 }
