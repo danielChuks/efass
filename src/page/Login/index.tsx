@@ -3,14 +3,21 @@ import styles from "./index.module.scss";
 import EfassLogo from "../../components/Images/Frame.png";
 import NeptuneLogo from "../../components/Images/NeptuneLogo.png";
 import Image from "next/image";
-import CustomInput from "@/components/Input/index";
 import InputGroup from "@/components/Input/index";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CustomButton, SettingsButton } from "../../components/Button";
+import { SettingsButton } from "../../components/Button";
+
+interface LoginState {
+  email: string;
+  password: string;
+}
 
 export const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState<LoginState>({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
 
@@ -21,18 +28,20 @@ export const Login = () => {
   };
 
   const navigateOtp = () => {
-    if (!data.email || !data.password) {
+    router.push("/generate-report");
+    // if (!data.email || !data.password) {
 
-      setError(true);
-      setErrorText("Invalid email or password");
-      // console.log("otp");
-    } else {
-      setError(false);
-      setErrorText('');
-      router.push("/");
-    }
-    console.log(setErrorText)
-};
+    //   setError(true);
+    //   setErrorText("Invalid email or password");
+    //   router.push("/generate-report");
+    //   // console.log("otp");
+    // } else {
+    //   setError(false);
+    //   setErrorText('');
+    //   router.push("/generate-report");
+    // }
+    // console.log(setErrorText)
+  };
   return (
     <div className={styles["background"]}>
       <div className={styles["login-logo"]}>
@@ -66,13 +75,12 @@ export const Login = () => {
               placeholder=""
               handleChange={handleInputchange}
             />
-            <SettingsButton
-              text={"Login"}
-              handleAction={navigateOtp}
-            />
+            <SettingsButton text={"Login"} handleAction={navigateOtp} />
           </form>
         </div>
-        <div className={styles["footer"]}>2023 &copy; eFASS by Neptune Software Group.</div>
+        <div className={styles["footer"]}>
+          2023 &copy; eFASS by Neptune Software Group.
+        </div>
       </div>
     </div>
   );
