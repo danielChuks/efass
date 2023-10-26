@@ -1,7 +1,12 @@
+'use client';
+
 import BaseLayout from '../../components/BaseLayout/index';
 import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 import { ReportHeader } from './ReportHeader';
+import { ContentSection } from './ContentSection';
+
+
 
 export const GenerateReport = () => {
     return (
@@ -13,7 +18,8 @@ export const GenerateReport = () => {
                     <div>July 12, 2023, 12:23 pm</div>
                 </div>
             </div>
-                <ReportHeader />
+            <ReportHeader />
+            <ContentSection />
         </BaseLayout>
     );
 };
