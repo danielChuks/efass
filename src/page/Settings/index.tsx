@@ -4,18 +4,12 @@ import { settingsAtom } from '../../state/settings';
 import { useSettingsActions } from '../../actions/settings';
 import { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout';
-import InputGroup from '@/components/Input';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Otp from './Otp';
-import NewPassword from './NewPassword';
 import { DASHBOARD_PAGES } from '../../enums';
-import { SettingsButton } from '../../components/Button';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import AccountInformation from './AccountInformation';
 import ChangePassword from './ChangePassword';
-
 
 export const Settings = () => {
     const { getSettings } = useSettingsActions();
@@ -26,7 +20,7 @@ export const Settings = () => {
     }, [getSettings]);
 
     //accessibility prop for screen readers
-    function a11yProps(index: number) {
+    function accessibilityProps(index: number) {
         return {
             id: `settings-tab-${index}`,
             'aria-controls': `settings-tabpanel-${index}`,
@@ -34,15 +28,18 @@ export const Settings = () => {
     }
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+        // console.log(newValue);
     };
     return (
         <BaseLayout page={DASHBOARD_PAGES.SETTINGS}>
+            <h4>SETTINGS</h4>
             <Box
                 sx={{
                     width: '100%',
                     backgroundColor: '#fff',
                     borderRadius: '0.5rem',
                     height: ' 32.5rem',
+                    marginTop:'.5rem'
                 }}
             >
                 <Box
@@ -68,7 +65,7 @@ export const Settings = () => {
                                 textTransform: 'Capitalize',
                             }}
                             label="Account Information"
-                            {...a11yProps(0)}
+                            {...accessibilityProps(0)}
                         />
                         <Tab
                             sx={{
@@ -77,13 +74,13 @@ export const Settings = () => {
                                 textTransform: 'Capitalize',
                             }}
                             label="Change Password"
-                            {...a11yProps(1)}
+                            {...accessibilityProps(1)}
                         />
                     </Tabs>
                 </Box>
                 <AccountInformation value={value} index={0} />
                 <ChangePassword value={value} index={1} />
-            </Box>        
-      </BaseLayout>
+            </Box>
+        </BaseLayout>
     );
 };

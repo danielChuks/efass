@@ -1,6 +1,9 @@
-.dialog_content{
+.dialog_content {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
+}
+.cursor {
+    cursor: pointer;
 }
