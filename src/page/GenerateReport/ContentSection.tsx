@@ -6,6 +6,7 @@ import { Pagination } from '../../interfaces';
 import SearchBar from '../../components/SearchBar';
 import styles from './index.module.scss';
 import MonthPicker from '../../components/MonthPicker';
+import Filter from '../../components/FilterBy';
 
 export const ContentSection = () => {
     const pagination: Pagination = {
@@ -21,12 +22,7 @@ export const ContentSection = () => {
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
-                <div className={styles['selectContainer']}>
-                    <label>Filter by</label>
-                    <select>
-                        <option value="">Most recent</option>
-                    </select>
-                </div>
+                <Filter />
             </div>
             <PaginationTable pagination={pagination} reports={data} />
         </div>
