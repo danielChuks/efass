@@ -1,8 +1,6 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Sidebar from '../components/Sidebar'
 import { HomePage } from '../page/Home';
+import { Login } from '../page/Login';
 
 export default function Home() {
-  return (<HomePage />);
+  return (<Login />);
 }

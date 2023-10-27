@@ -4,7 +4,7 @@ import EfassLogo from "../../components/Images/Frame.png";
 import NeptuneLogo from "../../components/Images/NeptuneLogo.png";
 import Image from "next/image";
 import InputGroup from "@/components/Input/index";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SettingsButton } from "../../components/Button";
 
@@ -27,20 +27,18 @@ export const Login = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const navigateOtp = () => {
-    router.push("/generate-report");
-    // if (!data.email || !data.password) {
-
-    //   setError(true);
-    //   setErrorText("Invalid email or password");
-    //   router.push("/generate-report");
-    //   // console.log("otp");
-    // } else {
-    //   setError(false);
-    //   setErrorText('');
-    //   router.push("/generate-report");
-    // }
-    // console.log(setErrorText)
+  const navigateOtp = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(data);
+    if (!data.email || !data.password) {
+      setError(true);
+      setErrorText("Input email or password");
+      // console.log("otp");
+    } else {
+      setError(false);
+      setErrorText('');
+      router.push("/dashboard");
+    }
   };
   return (
     <div className={styles["background"]}>
@@ -75,7 +73,13 @@ export const Login = () => {
               placeholder=""
               handleChange={handleInputchange}
             />
-            <SettingsButton text={"Login"} handleAction={navigateOtp} />
+             <SettingsButton
+              text="Login"
+              error={error}
+              errorText={errorText} 
+              handleAction={navigateOtp}
+              type="submit"
+            />
           </form>
         </div>
         <div className={styles["footer"]}>

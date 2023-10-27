@@ -5,6 +5,7 @@ import styles from "./index.module.scss";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "../../components/SearchBar";
 import { DASHBOARD_PAGES } from "../../enums";
+import Box from "@mui/material/Box";
 
 const rows: GridRowsProp = [
   {
@@ -45,10 +46,15 @@ const rows: GridRowsProp = [
 ];
 
 const columns: GridColDef[] = [
-  { field: "col1", headerName: "S/N", width: 150 },
-  { field: "col2", headerName: "REPORT DETAILS", width: 450 },
-  { field: "col3", headerName: "DATE GENERATED", width: 250 },
-  { field: "col4", headerName: "ACTION", width: 150 },
+  {
+    field: "col1",
+    headerName: "S/N",
+    width: 150,
+    headerClassName: "super-app-theme--header",
+  },
+  { field: "col2", headerName: "REPORT DETAILS", width: 380, headerClassName: "super-app-theme--header"},
+  { field: "col3", headerName: "DATE GENERATED", width: 400,  headerClassName: "super-app-theme--header" },
+  { field: "col4", headerName: "ACTION", width: 100,  headerClassName: "super-app-theme--header" },
 ];
 
 export const HomePage = () => {
@@ -81,15 +87,25 @@ export const HomePage = () => {
         <div className={styles["table_body"]}>
           <SearchBar />
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: { pageSize: 25, page: 0 },
+            <Box
+              sx={{
+                height: 300,
+                width: "100%",
+                "& .super-app-theme--header": {
+                  backgroundColor: "#DFE9FF",
                 },
               }}
-            />
+            >
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: { pageSize: 25, page: 0 },
+                  },
+                }}
+              />
+            </Box>
           </div>
         </div>
       </div>
