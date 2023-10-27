@@ -6,7 +6,7 @@ import { DASHBOARD_PAGES } from '../../enums';
 
 interface Props {
     children?: ReactNode
-    page: DASHBOARD_PAGES;
+    page?: DASHBOARD_PAGES;
 }
 
 export default function BaseLayout({ children, page }: Props) {
