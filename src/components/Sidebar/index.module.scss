@@ -1,46 +1,53 @@
+@import '../../styles/index.scss';
+
 .sidebar {
-  width: 13.75rem;
-  height: 100%;
-  background-color: #0d1740;
-  padding: 7rem 0rem 0 0rem;
+    width: 13.75rem;
+    height: 100%;
+    background-color: #0d1740;
+    padding: 7rem 0rem 0 0rem;
 }
 
 .sidebar_settings {
-  margin-top: 14.5625rem;
+    margin-top: 14.5625rem;
 }
 
 .side-nav-item {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  color: white;
-  transition: 0.3s linear;
-  margin-top: 5px;
-  padding: 12px 15px;
-  font-family: "Inter";
-  font-size: 16px;
-  margin-left: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white;
+    transition: 0.3s linear;
+    margin-top: 5px;
+    padding: 12px 15px;
+    font-family: 'Inter';
+    font-size: 16px;
+    margin-right: 12px;
+    margin-left: 12px;
+    font-family: 'Baloo 2';
 
-  svg {
-    font-size: 23px;
-  }
+    svg {
+        font-size: 23px;
+    }
 
-  p {
-    margin-left: 10px;
-    font-size: 14px;
-  }
+    p {
+        margin-left: 10px;
+        font-size: 14px;
+    }
 
-  &:hover {
-    transform: scale(105%);
-  }
+    &:hover {
+        transform: scale(105%);
+        // padding-left: 30px;
+    }
 
-  &.active {
-    background-color: #fff;
-    border-radius: 0.375rem 0px 0px 0.375rem;
-    color: #0d1740;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
-  }
+    &.active {
+        background-color: #fff;
+        color: #0d1740;
+        border-radius: 0.375rem;
+        font-family: 'Baloo 2';
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 29px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
 }
