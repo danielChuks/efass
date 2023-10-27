@@ -16,7 +16,7 @@
 	font-weight: 600;
 	color: #0d1740;
 	cursor: pointer;
-    // border: 1px solid red; 
+    // border: 1px solid red;
 }
 .account_information {
 	padding: 1rem 5rem;
@@ -43,6 +43,11 @@
 
 .change_password {
 	padding: 1rem 5rem;
+}
+
+.change_password > header{
+    display: flex;
+    gap: 1rem;
 }
 .change_password > .title {
 	color: #0d1740;
