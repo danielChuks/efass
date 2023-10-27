@@ -3,8 +3,8 @@ import { Metadata } from 'next'
 import { GenerateReport } from '../../page/GenerateReport'
 
 export const metadata: Metadata = {
-    title: 'Settings | EFASS',
-    description: 'Settings page for EFASS',
+    title: 'Generate Report | EFASS',
+    description: 'Generate Report page for EFASS',
 }
 
 export default function GenerateReportPage() {

@@ -16,14 +16,16 @@ interface SideNavProps {
 }
 
 export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
-    // const router = useRouter();
-
+    const router = useRouter();
+    const submit = () => {
+          router.push("/dashboard");
+      };
     return (
         <div>
             <aside className={styles['sidebar']}>
                 <div className={styles['']}>
                     <SideNavItem
-                        pageUrl={'/'}
+                        pageUrl={'/dashboard'}
                         icon={<BiSolidDashboard />}
                         title={'Dashboard'}
                         active={page === DASHBOARD_PAGES.HOME}
@@ -49,7 +51,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                         active={page === DASHBOARD_PAGES.SETTINGS}
                     />
                     <SideNavItem
-                        pageUrl={''}
+                        pageUrl={'/'}
                         icon={<BiLogIn />}
                         title={'Log out'}
                     />

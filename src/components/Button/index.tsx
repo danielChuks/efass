@@ -6,6 +6,7 @@ interface SettingsButtonProps {
 	disabled?: boolean;
 	error?: boolean;
 	errorText?: string;
+	type?: string;
 	handleAction?: (value: any) => void;
 }
 
@@ -20,6 +21,7 @@ export const SettingsButton = ({
 	disabled,
 	error,
 	errorText,
+	type,
 	handleAction,
 }: SettingsButtonProps) => {
 	return (
@@ -28,6 +30,7 @@ export const SettingsButton = ({
 				disabled={disabled}
 				onClick={handleAction}
 				className={styles["button"]}
+				type="submit"
 			>
 				{text}
 			</button>

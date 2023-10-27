@@ -14,7 +14,7 @@ export function ReportHeader() {
         setSelectedGroup(group);
     };
 
-    //year picker component...................................
+    //year picker component..................................
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const minYear = 2010;
@@ -67,6 +67,8 @@ export function ReportHeader() {
                     </div>
                 </div>
             </div>
+
+            
         </div>
     );
 }
