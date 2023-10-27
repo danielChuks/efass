@@ -31,13 +31,25 @@
 .table_container {
     margin-top: 1.5rem;
 }
+.empty_state {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20%;
+}
 
 .table_body {
     margin-top: .625rem;
     background-color: #fff;
     width: 100%;
-    height: 24.125rem;
+    height: 26rem;
     padding: 1rem 3rem 1rem 3rem;
+}
+
+.contentTopSection {
+  display: flex;
+  gap: 20px;
 }
 
 

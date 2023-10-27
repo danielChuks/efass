@@ -6,58 +6,72 @@ import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "../../components/SearchBar";
 import { DASHBOARD_PAGES } from "../../enums";
 import Box from "@mui/material/Box";
+import Filter from "../../components/FilterBy";
+import style from "../GenerateReport/index.module.scss"
+import { useEffect, useState } from "react";
 
 const rows: GridRowsProp = [
-  {
-    id: 1,
-    col1: "1",
-    col2: "Monthly report generated for April, 2023",
-    col3: "21-02-2023  09:10 am",
-    col4: "...",
-  },
-  {
-    id: 2,
-    col1: "2",
-    col2: "Monthly report generated for April, 2023",
-    col3: "21-02-2023  09:10 am",
-    col4: "...",
-  },
-  {
-    id: 3,
-    col1: "3",
-    col2: "Monthly report generated for April, 2023",
-    col3: "21-02-2023  09:10 am",
-    col4: "...",
-  },
-  {
-    id: 4,
-    col1: "4",
-    col2: "Monthly report generated for April, 2023",
-    col3: "21-02-2023  09:10 am",
-    col4: "...",
-  },
-  {
-    id: 5,
-    col1: "5",
-    col2: "Monthly report generated for April, 2023",
-    col3: "21-02-2023  09:10 am",
-    col4: "...",
-  },
+//   {
+//     id: 1,
+//     col1: "1",
+//     col2: "Monthly report generated for April, 2023",
+//     col3: "21-02-2023  09:10 am",
+//     col4: "...",
+//   },
+//   {
+//     id: 2,
+//     col1: "2",
+//     col2: "Monthly report generated for April, 2023",
+//     col3: "21-02-2023  09:10 am",
+//     col4: "...",
+//   },
+//   {
+//     id: 3,
+//     col1: "3",
+//     col2: "Monthly report generated for April, 2023",
+//     col3: "21-02-2023  09:10 am",
+//     col4: "...",
+//   },
+//   {
+//     id: 4,
+//     col1: "4",
+//     col2: "Monthly report generated for April, 2023",
+//     col3: "21-02-2023  09:10 am",
+//     col4: "...",
+//   },
+//   {
+//     id: 5,
+//     col1: "5",
+//     col2: "Monthly report generated for April, 2023",
+//     col3: "21-02-2023  09:10 am",
+//     col4: "...",
+//   },
 ];
 
 const columns: GridColDef[] = [
-  {
-    field: "col1",
-    headerName: "S/N",
-    width: 150,
-    headerClassName: "super-app-theme--header",
-  },
+  { field: "col1", headerName: "S/N", width: 150, headerClassName: "super-app-theme--header"},
   { field: "col2", headerName: "REPORT DETAILS", width: 380, headerClassName: "super-app-theme--header"},
   { field: "col3", headerName: "DATE GENERATED", width: 400,  headerClassName: "super-app-theme--header" },
   { field: "col4", headerName: "ACTION", width: 100,  headerClassName: "super-app-theme--header" },
 ];
 
 export const HomePage = () => {
+    const [currentDate, setCurrentDate]= useState(new Date());
+
+    useEffect(() => {
+        const fetchCurrentDate = () => {
+          const now = new Date();
+          setCurrentDate(now);
+        };
+    
+        fetchCurrentDate();
+    }, [])
+    const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+
   return (
     <BaseLayout page={DASHBOARD_PAGES.HOME}>
       <div className={styles.header}>DASHBOARD (Overview)</div>
@@ -72,7 +86,7 @@ export const HomePage = () => {
         </div>
         <div className={styles["card-container"]}>
           <h3>Current Date:</h3>
-          <p>0</p>
+          <p>{formattedCurrentDate}</p>
         </div>
         <div className={styles["card-container"]}>
           <h3>Users Created:</h3>
@@ -85,7 +99,14 @@ export const HomePage = () => {
           <h4 className="title">Recent Activity</h4>
         </div>
         <div className={styles["table_body"]}>
-          <SearchBar />
+        <div className={styles['contentTopSection']}>
+                <SearchBar />
+                <Filter />
+            </div>
+        {/* <div className={styles["empty_state"]}>
+					<img src='../empty.png' alt='' />
+					<p>No data found</p>
+				</div> */}
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
             <Box
               sx={{

@@ -1,4 +1,3 @@
-import styles from './index.module.scss';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { BiSearch } from 'react-icons/bi';
