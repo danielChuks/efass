@@ -1,14 +1,7 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
+import { Token } from '../../interfaces/token.interface';
 
-export const authAtom = atom({
-    key: 'auth-atom',
-    default: {
-        isLoggedIn: false,
-        token: '',
-    },
-});
-
-export const tokenAtom = atom<string | null>({
-    key: 'token-atom',
+export const authAtom = atom<Token | null>({
+    key: 'auth',
     default: null,
 });
