@@ -10,28 +10,31 @@ export const useAuthActions = () => {
     const [, setAuth] = useRecoilState<Token | null>(authAtom);
     const router = useRouter();
 
-    const login = useCallback(async (username: string, password: string) => {
-        try {
-            const response = await fetchWrapper.post(`authenticate`, {
-                username,
-                password,
-            });
-            if (response?.error) {
-                throw new Error(response.error);
+    const login = useCallback(
+        async (username: string, password: string) => {
+            try {
+                const response = await fetchWrapper.post(`authenticate`, {
+                    username,
+                    password,
+                });
+                if (response?.error) {
+                    throw new Error(response.error);
+                }
+                const token: Token = response?.token;
+                setAuth(token);
+                localStorage.setItem('auth', JSON.stringify(token));
+                return response;
+            } catch (error) {
+                return { error };
             }
-            const token: Token = response?.token;
-            setAuth(token);
-            localStorage.setItem('auth', JSON.stringify(token));
-            return response;
-        } catch (error) {
-            return { error };
-        }
-    }, []);
+        },
+        [fetchWrapper, setAuth]
+    );
 
     const logout = useCallback(async () => {
         await localStorage.removeItem('auth');
         router.push('/login');
-    }, []);
+    }, [router]);
 
     return {
         login,

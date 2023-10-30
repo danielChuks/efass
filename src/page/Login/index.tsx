@@ -1,7 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import EfassLogo from '../../components/Images/Frame.png';
-import NeptuneLogo from '../../components/Images/NeptuneLogo.png';
+import NeptuneLogo from '../../../public/Images/Neptunelogo.png';
 import Image from 'next/image';
 import InputGroup from '@/components/Input/index';
 import { FormEvent, useState } from 'react';
@@ -30,7 +30,6 @@ export const Login = () => {
 
     const navigateOtp = async (e: FormEvent) => {
         e.preventDefault();
-        // console.log(data);
         if (!data.email || !data.password) {
             setError(true);
             setErrorText('Input email or password');
@@ -38,7 +37,7 @@ export const Login = () => {
             setError(false);
             setErrorText('');
             const response = await login(data.email, data.password);
-            // router.push('/dashboard');
+            router.push('/dashboard');
 
             console.log("user", response);
         }
