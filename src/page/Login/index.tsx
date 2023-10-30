@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import EfassLogo from '../../components/Images/Frame.png';
+import EfassLogo from '../../../public/Images/Frame.png'
 import NeptuneLogo from '../../../public/Images/Neptunelogo.png';
 import Image from 'next/image';
 import InputGroup from '@/components/Input/index';
@@ -38,8 +38,6 @@ export const Login = () => {
             setErrorText('');
             const response = await login(data.email, data.password);
             router.push('/dashboard');
-
-            console.log("user", response);
         }
     };
     return (

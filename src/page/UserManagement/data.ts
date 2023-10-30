@@ -34,12 +34,12 @@ export const header: readonly tableHeader[] = [
 ];
 
 export const tableData: data[] = [
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
-    { name: 'test', code: 'test', population: 1, size: 1, density: 1 },
+    { name: 'test', code: 'test1', population: 1, size: 1, density: 3},
+    { name: 'test', code: 'test2', population: 1, size: 1, density: 13 },
+    { name: 'test', code: 'test3', population: 1, size: 1, density: 15 },
+    { name: 'test', code: 'test6', population: 1, size: 1, density: 12 },
+    { name: 'test', code: 'test4', population: 1, size: 1, density: 10 },
+    { name: 'test', code: 'test10', population: 1, size: 1, density: 61 },
+    { name: 'test', code: 'test12', population: 1, size: 1, density: 91 },
+    { name: 'test', code: 'test14', population: 1, size: 1, density: 11 },
 ];
