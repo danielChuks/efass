@@ -41,7 +41,7 @@ const PaginationTable = ({ pagination, reports }: PaginationTableProps) => {
                 <tbody>
                     {displayedReports.map((report, index) => (
                         <tr
-                            key={index}
+                            key={report.userId}
                             className={index % 2 === 0 ? 'even-row' : 'odd-row'}
                         >
                             <td>{report.userId}</td>

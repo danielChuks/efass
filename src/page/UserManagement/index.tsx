@@ -23,7 +23,6 @@ import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import { header, tableData } from './data';
 
-
 export const UserManagement = () => {
     const { getSettings } = useSettingsActions();
     const darkMode = useRecoilValue(settingsAtom);
@@ -50,30 +49,30 @@ export const UserManagement = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-     const [page, setPage] = useState(0);
-     const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
-     const handleChangePage = (event: unknown, newPage: number) => {
-         setPage(newPage);
-     };
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
 
-     const handleChangeRowsPerPage = (
-         event: React.ChangeEvent<HTMLInputElement>
-     ) => {
-         setRowsPerPage(+event.target.value);
-         setPage(0);
-     };
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
-     const StyledTableCell = styled(TableCell)(({ theme }) => ({
-         [`&.${tableCellClasses.head}`]: {
-             backgroundColor: '#DFE9FF',
-             color: theme.palette.common.black,
-             fontWeight:'600'
-         },
-         [`&.${tableCellClasses.body}`]: {
-             fontSize: 14,
-         },
-     }));
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: '#DFE9FF',
+            color: theme.palette.common.black,
+            fontWeight: '600',
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
 
     // console.log(darkMode);
     return (
