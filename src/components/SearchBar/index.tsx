@@ -9,7 +9,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: 0,
     width: '540px',
     height: 44,
-    border: '0.1px solid #ccc'
+    border: '0.1px solid #ccc',
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({

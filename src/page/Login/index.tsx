@@ -4,20 +4,20 @@ import EfassLogo from '../../../public/Images/Frame.png';
 import NeptuneLogo from '../../../public/Images/Neptunelogo.png';
 import Image from 'next/image';
 import InputGroup from '@/components/Input/index';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SettingsButton } from '../../components/Button';
 import { useAuthActions } from '../../actions/auth';
 
-interface LoginState {
-    email: string;
+interface LoginProps {
+    username: string;
     password: string;
 }
 
 export const Login = () => {
     const { login } = useAuthActions();
-    const [data, setData] = useState<LoginState>({
-        email: '',
+    const [data, setData] = useState<LoginProps>({
+        username: '',
         password: '',
     });
     const [error, setError] = useState(false);
@@ -26,18 +26,31 @@ export const Login = () => {
     const router = useRouter();
 
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
     };
 
-    const onSubmit = async (e: FormEvent) => {
-        if (!data.email && !data.password) {
+    const validateInput = () => {
+        if (!data.username && !data.password) {
             setError(true);
-            setErrorText('Input email or password');
-        } else {
-            setError(false);
-            setErrorText('');
-            const response = await login(data.email, data.password);
-            router.push('/dashboard');
+            setErrorText('Please enter both username and password.');
+            return false;
+        }
+        setError(false);
+        setErrorText('');
+        return true;
+    };
+
+    const onSubmit = async () => {
+        if (validateInput()) {
+            const response = await login(data.username, data.password);
+            if (response) {
+                router.push('/dashboard');
+            } else {
+                setError(true);
+                setErrorText('Login failed. Please check your credentials.');
+                router.push('/login');
+            }
         }
     };
     return (
@@ -66,8 +79,8 @@ export const Login = () => {
                             type="text"
                             label="Username"
                             placeholder=""
-                            value={data.email}
-                            name="email"
+                            value={data.username}
+                            name="username"
                             handleChange={handleInputchange}
                         />
                         <InputGroup

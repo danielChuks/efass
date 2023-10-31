@@ -4,9 +4,7 @@ import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogIn } from 'react-icons/bi';
-
 import styles from './index.module.scss';
-// import { useState } from 'react';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';
 
@@ -46,7 +44,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                             active={page === DASHBOARD_PAGES.SETTINGS}
                         />
                         <SideNavItem
-                            pageUrl={'/'}
+                            pageUrl={'/login'}
                             icon={<BiLogIn />}
                             title={'Log out'}
                         />
