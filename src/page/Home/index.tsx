@@ -1,5 +1,5 @@
 "use client";
-import Table from "@mui/material/Table";
+import * as React from 'react';
 import BaseLayout from "../../components/BaseLayout";
 import styles from "./index.module.scss";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
@@ -7,53 +7,17 @@ import SearchBar from "../../components/SearchBar";
 import { DASHBOARD_PAGES } from "../../enums";
 import Box from "@mui/material/Box";
 import Filter from "../../components/FilterBy";
-import style from "../GenerateReport/index.module.scss"
 import { useEffect, useState } from "react";
+import {MaterialTable} from '../../components/MaterialTable';
 
-const rows: GridRowsProp = [
-//   {
-//     id: 1,
-//     col1: "1",
-//     col2: "Monthly report generated for April, 2023",
-//     col3: "21-02-2023  09:10 am",
-//     col4: "...",
-//   },
-//   {
-//     id: 2,
-//     col1: "2",
-//     col2: "Monthly report generated for April, 2023",
-//     col3: "21-02-2023  09:10 am",
-//     col4: "...",
-//   },
-//   {
-//     id: 3,
-//     col1: "3",
-//     col2: "Monthly report generated for April, 2023",
-//     col3: "21-02-2023  09:10 am",
-//     col4: "...",
-//   },
-//   {
-//     id: 4,
-//     col1: "4",
-//     col2: "Monthly report generated for April, 2023",
-//     col3: "21-02-2023  09:10 am",
-//     col4: "...",
-//   },
-//   {
-//     id: 5,
-//     col1: "5",
-//     col2: "Monthly report generated for April, 2023",
-//     col3: "21-02-2023  09:10 am",
-//     col4: "...",
-//   },
-];
 
-const columns: GridColDef[] = [
-  { field: "col1", headerName: "S/N", width: 150, headerClassName: "super-app-theme--header"},
-  { field: "col2", headerName: "REPORT DETAILS", width: 380, headerClassName: "super-app-theme--header"},
-  { field: "col3", headerName: "DATE GENERATED", width: 400,  headerClassName: "super-app-theme--header" },
-  { field: "col4", headerName: "ACTION", width: 100,  headerClassName: "super-app-theme--header" },
-];
+const columnHeader = [
+      { id: "name", label: "Name", minWidth: 170 },
+      { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
+      { id: "writ", label: "Name", minWidth: 170 },
+      { id: "number", label: "ISO\u00a0Code", minWidth: 100 },
+]
+
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate]= useState(new Date());
@@ -67,6 +31,7 @@ export const HomePage = () => {
         fetchCurrentDate();
     }, [])
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -108,7 +73,7 @@ export const HomePage = () => {
 					<p>No data found</p>
 				</div> */}
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-            <Box
+            {/* <Box
               sx={{
                 height: 300,
                 width: "100%",
@@ -126,7 +91,9 @@ export const HomePage = () => {
                   },
                 }}
               />
-            </Box>
+            </Box> */}
+            <MaterialTable columnHeader={columnHeader}/>
+     
           </div>
         </div>
       </div>

@@ -4,20 +4,20 @@ import EfassLogo from '../../../public/Images/Frame.png';
 import NeptuneLogo from '../../../public/Images/Neptunelogo.png';
 import Image from 'next/image';
 import InputGroup from '@/components/Input/index';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SettingsButton } from '../../components/Button';
 import { useAuthActions } from '../../actions/auth';
 
-interface LoginState {
-    email: string;
+interface LoginProps {
+    username: string;
     password: string;
 }
 
 export const Login = () => {
     const { login } = useAuthActions();
-    const [data, setData] = useState<LoginState>({
-        email: '',
+    const [data, setData] = useState<LoginProps>({
+        username: '',
         password: '',
     });
     const [error, setError] = useState(false);
@@ -26,20 +26,35 @@ export const Login = () => {
     const router = useRouter();
 
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
     };
 
-    const navigateOtp = async (e: FormEvent) => {
-        e.preventDefault();
-        if (!data.email || !data.password) {
+    const validateInput = () => {
+        if (!data.username && !data.password) {
             setError(true);
-            setErrorText('Input email or password');
-        } else {
-            setError(false);
-            setErrorText('');
-            const response = await login(data.email, data.password);
-            console.log(response)
-            router.push('/dashboard');
+            setErrorText('Please enter both username and password.');
+            return false;
+        }
+        setError(false);
+        setErrorText('');
+        return true;
+    };
+
+    const onSubmit = async () => {
+        if (validateInput()) {
+            const response = await login(data.username, data.password);
+            if (response.responseCode === 0) {
+                router.push('/dashboard');
+            } else if (response.responseCode !== 0) {
+                setError(true);
+                router.push('/login');
+                setErrorText('Invalid username or password. Please try again.');
+            } else {
+                setError(true);
+                router.push('/login');
+                setErrorText('An error occurred. Please try again later.');
+            }
         }
     };
     return (
@@ -62,14 +77,14 @@ export const Login = () => {
                         width={198}
                         height={64}
                     />
-                    <form className={styles['form']}>
+                    <div className={styles['form']}>
                         <div className={styles['header']}>Log In</div>
                         <InputGroup
                             type="text"
                             label="Username"
                             placeholder=""
-                            value={data.email}
-                            name="email"
+                            value={data.username}
+                            name="username"
                             handleChange={handleInputchange}
                         />
                         <InputGroup
@@ -84,10 +99,10 @@ export const Login = () => {
                             text="Login"
                             error={error}
                             errorText={errorText}
-                            handleAction={navigateOtp}
+                            handleAction={onSubmit}
                             type="submit"
                         />
-                    </form>
+                    </div>
                 </div>
                 <div className={styles['footer']}>
                     2023 &copy; eFASS by Neptune Software Group.
