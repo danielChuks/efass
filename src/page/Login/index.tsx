@@ -29,9 +29,8 @@ export const Login = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    const navigateOtp = async (e: FormEvent) => {
-        e.preventDefault();
-        if (!data.email || !data.password) {
+    const onSubmit = async (e: FormEvent) => {
+        if (!data.email && !data.password) {
             setError(true);
             setErrorText('Input email or password');
         } else {
@@ -61,7 +60,7 @@ export const Login = () => {
                         width={198}
                         height={64}
                     />
-                    <form className={styles['form']}>
+                    <div className={styles['form']}>
                         <div className={styles['header']}>Log In</div>
                         <InputGroup
                             type="text"
@@ -83,10 +82,10 @@ export const Login = () => {
                             text="Login"
                             error={error}
                             errorText={errorText}
-                            handleAction={navigateOtp}
+                            handleAction={onSubmit}
                             type="submit"
                         />
-                    </form>
+                    </div>
                 </div>
                 <div className={styles['footer']}>
                     2023 &copy; eFASS by Neptune Software Group.

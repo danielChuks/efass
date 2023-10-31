@@ -10,18 +10,9 @@ import { CustomButton } from '@/components/Button';
 import { BsPlusLg } from 'react-icons/bs';
 import Dialog from '../../components/Dialog';
 import { DASHBOARD_PAGES } from '../../enums';
-import Image from 'next/image';
-import emptyImage from '../../../public/empty.png';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
-import { header, tableData } from './data';
+import {MaterialTable} from '../../components/MaterialTable';
 
 export const UserManagement = () => {
     const { getSettings } = useSettingsActions();
@@ -74,6 +65,13 @@ export const UserManagement = () => {
         },
     }));
 
+	const columnHeader = [
+		{ id: "1", label: "Name", minWidth: 170 },
+		{ id: "2", label: "ISO\u00a0Code", minWidth: 100 },
+		{ id: "3", label: "Name", minWidth: 170 },
+		{ id: "4", label: "ISO\u00a0Code", minWidth: 100 },
+  ]
+
     // console.log(darkMode);
     return (
         <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
@@ -110,7 +108,7 @@ export const UserManagement = () => {
                     <Image className="" src={emptyImage} alt="logo" />
                     <p>No data found</p>
                 </div> */}
-                <Paper
+         {/* <Paper
                     sx={{
                         width: '100%',
                         overflow: 'hidden',
@@ -181,7 +179,10 @@ export const UserManagement = () => {
                         onPageChange={handleChangePage}
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
-                </Paper>
+                </Paper>        */}
+				<MaterialTable 
+				columnHeader={columnHeader}
+				/>
             </div>
         </BaseLayout>
     );
