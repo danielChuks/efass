@@ -23,6 +23,8 @@ const PaginationTable = ({ pagination, reports }: PaginationTableProps) => {
         }
     };
 
+    const handlePageNumberChange = () => {};
+
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayedReports = reports.slice(startIndex, endIndex);
@@ -86,7 +88,10 @@ const PaginationTable = ({ pagination, reports }: PaginationTableProps) => {
                 </div>
                 <div className={styles['itemNumber']}>
                     Items per page
-                    <select value="pageNumber">
+                    <select
+                        value="pageNumber"
+                        onChange={handlePageNumberChange}
+                    >
                         <option value="5">5</option>
                     </select>
                 </div>

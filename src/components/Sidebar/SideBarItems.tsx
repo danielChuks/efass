@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRouter } from 'next/navigation';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 
 import styles from './index.module.scss';
 
