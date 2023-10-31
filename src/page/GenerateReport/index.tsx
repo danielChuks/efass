@@ -6,16 +6,18 @@ import { DASHBOARD_PAGES } from '../../enums';
 import { ReportHeader } from './ReportHeader';
 import { ContentSection } from './ContentSection';
 
-
-
+interface GenerateReportProps {
+    date: string;
+}
 export const GenerateReport = () => {
+    const date = new Date().toLocaleString();
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
             <div className={styles['topNav']}>
                 <div>Generate Report (Overview)</div>
                 <div className={styles['timeContainer']}>
                     <div>Current Date:</div>
-                    <div>July 12, 2023, 12:23 pm</div>
+                    <div>{date}</div>
                 </div>
             </div>
             <ReportHeader />
