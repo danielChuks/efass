@@ -67,6 +67,7 @@ export const HomePage = () => {
         fetchCurrentDate();
     }, [])
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
