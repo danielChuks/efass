@@ -28,13 +28,13 @@ export const useAuthActions = () => {
                 return { error };
             }
         },
-        []
+        [fetchWrapper, setAuth]
     );
 
     const logout = useCallback(async () => {
         await localStorage.removeItem('auth');
         router.push('/login');
-    }, []);
+    }, [router]);
 
     return {
         login,

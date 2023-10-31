@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
@@ -8,7 +8,6 @@ import { BiLogIn } from 'react-icons/bi';
 import styles from './index.module.scss';
 // import { useState } from 'react';
 import { DASHBOARD_PAGES } from '../../enums';
-import { useRouter } from "next/navigation";
 import { SideNavItem } from './SideBarItems';
 
 interface SideNavProps {
@@ -16,10 +15,6 @@ interface SideNavProps {
 }
 
 export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
-    const router = useRouter();
-    const submit = () => {
-          router.push("/dashboard");
-      };
     return (
         <div>
             <aside className={styles['sidebar']}>
@@ -44,17 +39,17 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                         active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
                     />
                     <div className={styles['sidebar_settings']}>
-                    <SideNavItem
-                        pageUrl={'/settings'}
-                        icon={<FiSettings />}
-                        title={'Settings'}
-                        active={page === DASHBOARD_PAGES.SETTINGS}
-                    />
-                    <SideNavItem
-                        pageUrl={'/'}
-                        icon={<BiLogIn />}
-                        title={'Log out'}
-                    />
+                        <SideNavItem
+                            pageUrl={'/settings'}
+                            icon={<FiSettings />}
+                            title={'Settings'}
+                            active={page === DASHBOARD_PAGES.SETTINGS}
+                        />
+                        <SideNavItem
+                            pageUrl={'/'}
+                            icon={<BiLogIn />}
+                            title={'Log out'}
+                        />
                     </div>
                 </div>
             </aside>
