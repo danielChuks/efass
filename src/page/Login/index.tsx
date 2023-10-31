@@ -38,6 +38,7 @@ export const Login = () => {
             setError(false);
             setErrorText('');
             const response = await login(data.email, data.password);
+            console.log(response)
             router.push('/dashboard');
         }
     };
