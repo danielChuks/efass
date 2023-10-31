@@ -30,7 +30,7 @@ export const Login = () => {
     };
 
     const onSubmit = async (e: FormEvent) => {
-        if (!data.email || !data.password) {
+        if (!data.email && !data.password) {
             setError(true);
             setErrorText('Input email or password');
         } else {
@@ -60,7 +60,7 @@ export const Login = () => {
                         width={198}
                         height={64}
                     />
-                    <form className={styles['form']}>
+                    <div className={styles['form']}>
                         <div className={styles['header']}>Log In</div>
                         <InputGroup
                             type="text"
@@ -85,7 +85,7 @@ export const Login = () => {
                             handleAction={onSubmit}
                             type="submit"
                         />
-                    </form>
+                    </div>
                 </div>
                 <div className={styles['footer']}>
                     2023 &copy; eFASS by Neptune Software Group.
