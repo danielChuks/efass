@@ -6,14 +6,18 @@ import RadioButton from "../../components/RadioButton";
 import YearPicker from "../../components/YearPicker";
 import MonthPicker from "../../components/MonthPicker";
 import QuarterlyPicker from "@/components/QuaterlyPicker";
+interface disabledProps {
+    isYearDisabled: boolean;
+    isMonthDisabled: boolean;
+    isQuarterDisabled: boolean;
+}
 export function ReportHeader() {
     // return this.http.get(`${environment.baseApi}/tableList/${this.reportGroup}`)
 	const [selectedGroup, setSelectedGroup] = useState<string>("weekly");
 	const [currentMonth, setCurrentMonth] = useState<number | undefined>();
 	const [selectedYear, setSelectedYear] = useState<string | undefined>();
 	const [selectedQuarter, setSelectedQuarter] = useState<string | undefined>();
-	//create interface
-	const [disableFields, setDisabledFields] = useState({
+	const [disableFields, setDisabledFields] = useState<disabledProps>({
 		isYearDisabled: true,
 		isMonthDisabled: true,
 		isQuarterDisabled: true,
