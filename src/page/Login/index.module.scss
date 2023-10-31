@@ -1,46 +1,46 @@
 .background {
-  background-image: url("../../../public/Images/NeptuneBackground.png");
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 8rem;
+    background-image: url('../../../public/Images/NeptuneBackground.png');
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8rem;
 }
 .login-logo {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 .login-field {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 0.75rem;
-  height: 32.5625rem;
-  width: 32.4375rem;
-  margin-top: 18%;
-  padding: 1.375rem 5.25rem;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 0.75rem;
+    height: 32.5625rem;
+    width: 32.4375rem;
+    margin-top: 18%;
+    padding: 1.375rem 5.25rem;
+    align-items: center;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 8%;
-  
-  .header {
-    color: #0d1740;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: 0.0175rem;
-    margin-bottom: 1rem;
-  }
+    display: flex;
+    flex-direction: column;
+    margin-top: 8%;
+
+    .header {
+        color: #0d1740;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.0175rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .footer {
-  display: flex;
-  justify-content: center;
-  color: #fff;
-  margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    margin-top: 1rem;
 }
