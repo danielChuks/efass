@@ -14,8 +14,8 @@ export const ContentSection = () => {
         page: 1,
         numOfItemsPerPage: 5,
         itemCount: data.length,
-        pageCount: Math.ceil(data.length / 10),
-        hasPreviousPage: false,
+        pageCount: Math.ceil(data.length / 5),
+        hasPreviousPage: true,
         hasNextPage: true,
     };
 
