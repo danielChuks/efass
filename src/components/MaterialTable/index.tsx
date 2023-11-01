@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import styles from "./index.module.scss";
 
 interface Column {
   id: string;
@@ -15,32 +16,6 @@ interface Column {
   align?: "center";
   format?: (value: number) => string;
 }
-
-// const columns: readonly Column[] = [
-//   { id: "name", label: "Name", minWidth: 170 },
-//   { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-//   {
-//     id: "population",
-//     label: "Population",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value: number) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "size",
-//     label: "Size\u00a0(km\u00b2)",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value: number) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "density",
-//     label: "Density",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value: number) => value.toFixed(2),
-//   },
-// ];
 
 interface Data {
   name: string;
@@ -93,6 +68,7 @@ export const MaterialTable = ({ columnHeader }: { columnHeader: Column[] }) => {
                     key={column.id}
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
+                    className={styles.columns}
                   >
                     {column.label}
                   </TableCell>

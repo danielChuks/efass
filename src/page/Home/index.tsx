@@ -5,17 +5,16 @@ import styles from "./index.module.scss";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "../../components/SearchBar";
 import { DASHBOARD_PAGES } from "../../enums";
-import Box from "@mui/material/Box";
 import Filter from "../../components/FilterBy";
 import { useEffect, useState } from "react";
 import {MaterialTable} from '../../components/MaterialTable';
 
 
 const columnHeader = [
-      { id: "name", label: "Name", minWidth: 170 },
-      { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-      { id: "writ", label: "Name", minWidth: 170 },
-      { id: "number", label: "ISO\u00a0Code", minWidth: 100 },
+      { id: "1", label: "S/NO", minWidth: 170 },
+      { id: "2", label: "Report details", minWidth: 170, },
+      { id: "3", label: "Date generated", minWidth: 170 },
+      { id: "4", label: "ACTION", minWidth: 100 },
 ]
 
 
@@ -68,30 +67,7 @@ export const HomePage = () => {
                 <SearchBar />
                 <Filter />
             </div>
-        {/* <div className={styles["empty_state"]}>
-					<img src='../empty.png' alt='' />
-					<p>No data found</p>
-				</div> */}
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-            {/* <Box
-              sx={{
-                height: 300,
-                width: "100%",
-                "& .super-app-theme--header": {
-                  backgroundColor: "#DFE9FF",
-                },
-              }}
-            >
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                initialState={{
-                  pagination: {
-                    paginationModel: { pageSize: 25, page: 0 },
-                  },
-                }}
-              />
-            </Box> */}
             <MaterialTable columnHeader={columnHeader}/>
      
           </div>
