@@ -21,8 +21,8 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
                 <input
                     type='radio'
                     name='reportGroup'
-                    value='weekly'
-                    checked={selectedGroup === "weekly"}
+                    value='W'
+                    checked={selectedGroup === "W"}
                     onChange={handleGroupChange}
                 />
                 Weekly
@@ -31,8 +31,8 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
                 <input
                     type='radio'
                     name='reportGroup'
-                    value='monthly'
-                    checked={selectedGroup === "monthly"}
+                    value='M'
+                    checked={selectedGroup === "M"}
                     onChange={handleGroupChange}
                 />
                 Monthly
@@ -41,8 +41,8 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
                 <input
                     type='radio'
                     name='reportGroup'
-                    value='quarterly'
-                    checked={selectedGroup === "quarterly"}
+                    value='Q'
+                    checked={selectedGroup === "Q"}
                     onChange={handleGroupChange}
                 />
                 Quarterly
@@ -51,8 +51,8 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
                 <input
                     type='radio'
                     name='reportGroup'
-                    value='yearly'
-                    checked={selectedGroup === "yearly"}
+                    value='Y'
+                    checked={selectedGroup === "Y"}
                     onChange={handleGroupChange}
                 />
                 Yearly

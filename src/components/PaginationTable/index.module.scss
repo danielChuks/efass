@@ -27,9 +27,12 @@
     letter-spacing: 0em;
 
     .actionButton {
-        background-color: blue;
+        background-color: rgb(18, 18, 41);
         cursor: pointer;
         color: #fff;
+        padding: 10px;
+        border-radius: 6px;
+        cursor: pointer;
     }
 }
 

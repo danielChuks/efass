@@ -6,6 +6,7 @@ interface YearPickerProps {
     onYearChange: any;
     minYear: number;
     maxYear: number;
+    isDisabled?:boolean;
 }
 
 const YearPicker = ({
@@ -13,6 +14,7 @@ const YearPicker = ({
     onYearChange,
     minYear,
     maxYear,
+    isDisabled
 }: YearPickerProps) => {
     const years = [];
 
@@ -22,7 +24,8 @@ const YearPicker = ({
 
     return (
         <div className={styles["select-container"]}>
-            <select value={selectedYear} onChange={onYearChange}>
+            <select disabled={isDisabled} value={selectedYear} onChange={onYearChange}>
+            <option value=''>select</option>
                 {years.map((year) => (
                     <option key={year} value={year}>
                         {year}

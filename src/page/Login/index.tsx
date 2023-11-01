@@ -44,12 +44,16 @@ export const Login = () => {
     const onSubmit = async () => {
         if (validateInput()) {
             const response = await login(data.username, data.password);
-            if (response) {
+            if (response.responseCode === 0) {
                 router.push('/dashboard');
+            } else if (response.responseCode !== 0) {
+                setError(true);
+                router.push('/login');
+                setErrorText('Invalid username or password. Please try again.');
             } else {
                 setError(true);
-                setErrorText('Login failed. Please check your credentials.');
                 router.push('/login');
+                setErrorText('An error occurred. Please try again later.');
             }
         }
     };
