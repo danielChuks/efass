@@ -74,7 +74,7 @@ const PaginationTable = ({
             </table>
             <div className={styles["paginationSection"]}>
                 <div>
-                    Showing {endIndex } of {itemCount}
+                    Showing {endIndex} of {itemCount}
                 </div>
                 <div className={styles["buttonContainer"]}>
                     <div className={styles["buttonItemAlign"]}>
@@ -88,8 +88,12 @@ const PaginationTable = ({
                         </button>
                     </div>
                     <div className={styles["countDisplay"]}>
-                        <span>{`${currentPage}`}</span>
-                        <span>{`${pagination.pageCount}`}</span>
+                        <div
+                            className={styles["count"]}
+                        >{`${currentPage}`}</div>
+                        <div
+                            className={styles["count"]}
+                        >{`${pagination.pageCount}`}</div>
                     </div>
                     <div className={styles["buttonItemAlign"]}>
                         <button

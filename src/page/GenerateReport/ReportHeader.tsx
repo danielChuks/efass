@@ -100,7 +100,7 @@ export function ReportHeader() {
 					<div className={styles["title"]}>{"Select Date"}</div>
 					<div className={styles["selectDateContainer"]}>
 						<div className={styles["date-group"]}>
-							<p>YEAR</p>
+							<div>YEAR</div>
 							<YearPicker
 								selectedYear={selectedYear}
 								onYearChange={handleYearChange}
@@ -111,7 +111,7 @@ export function ReportHeader() {
 						</div>
 
 						<div className={styles["date-group"]}>
-							<p>MONTH</p>
+							<div>MONTH</div>
 							<MonthPicker
 								selectedMonth={currentMonth}
 								onMonthChange={handleMonthChange}
@@ -120,7 +120,7 @@ export function ReportHeader() {
 						</div>
 
 						<div className={styles["date-group"]}>
-							<p>QUARTER</p>
+							<div>QUARTER</div>
 							<QuarterlyPicker
 								selectedQuarter={selectedQuarter}
 								onQuarterChange={handleQuaterlyChange}
@@ -133,7 +133,7 @@ export function ReportHeader() {
 				<div className={styles["selectDate"]}>
 					<p className={styles["title"]}>CBN DATE</p>
 					<div className={styles["date-group"]}>
-						<p>YEAR</p>
+						<div>YEAR</div>
 						<YearPicker
 							selectedYear={selectedYear}
 							onYearChange={handleYearChange}
@@ -144,7 +144,7 @@ export function ReportHeader() {
 					</div>
 				</div>
 
-				<div className={styles["generate_button"]}>
+				<div className={styles["reportButton"]}>
 					<button onClick={generateReport}>Generate Report</button>
 				</div>
 			</div>
