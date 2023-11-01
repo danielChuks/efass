@@ -8,6 +8,7 @@ import styles from "./index.module.scss";
 import MonthPicker from "../../components/MonthPicker";
 import Filter from "../../components/FilterBy";
 import { Report } from "../../interfaces";
+import { FaDownload } from "react-icons/fa";
 
 export const ContentSection = () => {
     const pagination: Pagination = {
@@ -23,11 +24,22 @@ export const ContentSection = () => {
         console.log(report);
     };
 
+    const generateReport = () => {};
+
     return (
         <div className={styles["contentContainer"]}>
             <div className={styles["contentTopSection"]}>
                 <SearchBar />
                 <Filter />
+                <div className={styles["rightSide"]}>
+                    <div
+                        className={styles["reportButton"]}
+                        onClick={generateReport}
+                    >
+                        Download Report
+                        <FaDownload />
+                    </div>
+                </div>
             </div>
             <PaginationTable
                 pagination={pagination}
