@@ -19,7 +19,7 @@
 .custom-table td {
     padding: 14px 43px 14px 43px;
     border: 1px solid #ddd;
-    font-family: 'Baloo 2';
+    font-family: "Baloo 2";
     text-align: left;
     font-size: 16px;
     font-weight: 600;
@@ -27,12 +27,23 @@
     letter-spacing: 0em;
 
     .actionButton {
-        background-color: rgb(18, 18, 41);
-        cursor: pointer;
+        display: flex;
+        width: 89.203px;
+        height: 34px;
+        padding: 14px 32px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border-radius: 5px;
+        background: #1c317e;
         color: #fff;
-        padding: 10px;
-        border-radius: 6px;
         cursor: pointer;
+        font-family: "Baloo 2";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
     }
 }
 
@@ -53,7 +64,7 @@
         align-items: center;
 
         .button {
-            font-family: 'Baloo 2';
+            font-family: "Baloo 2";
             border: none;
             background-color: #fff;
             cursor: pointer;
@@ -67,6 +78,14 @@
         justify-content: space-around;
         width: 100%;
         gap: 16px;
+
+        .count {
+            padding: 5px 10px 5px 10px;
+            border-radius: 4px;
+            background: #f5f5fa;
+            width: 100%;
+            color: black;
+        }
     }
 }
 
