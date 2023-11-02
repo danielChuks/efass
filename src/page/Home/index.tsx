@@ -7,34 +7,61 @@ import { DASHBOARD_PAGES } from "../../enums";
 import Filter from "../../components/FilterBy";
 import { useEffect, useState } from "react";
 import {MaterialTable} from '../../components/MaterialTable';
+import { useReportHistoryActions } from '../../actions/history';
+import { useRecoilValue } from 'recoil';
+import { reportHistoryAtom } from '../../state/reportHistory';
 
-const columnHeader = [
-      { id: "name", label: "S/NO", minWidth: 170 },
-      { id: "calories", label: "Report details", minWidth: 170, },
-      { id: "3", label: "Date generated", minWidth: 170 },
-      { id: "4", label: "ACTION", minWidth: 100 },
-]
-interface Data {
-    [key: string]: any;
-  }
 
-const homeRows: Data[] = [
-    { name: 'Frozen yoghurt', calories: 159, carbs: 24 },
-    { name: 'Ice cream sandwich', calories: 237, carbs: 37 },
-  ];
+
+// const homeRows: Data[] = [
+//     { name: 'Frozen yoghurt', calories: 159, carbs: 24 },
+//     { name: 'Ice cream sandwich', calories: 237, carbs: 37 },
+//   ];
+
 
 
 export const HomePage = () => {
-    const [currentDate, setCurrentDate]= useState(new Date());
-
-    useEffect(() => {
-        const fetchCurrentDate = () => {
-          const now = new Date();
-          setCurrentDate(now);
-        };
+  const [currentDate, setCurrentDate]= useState(new Date());
+  const { handlereportHistory } = useReportHistoryActions();
+  const reportData = useRecoilValue(reportHistoryAtom);
+  
+  useEffect(() => {
+    const fetchCurrentDate = () => {
+      const now = new Date();
+      setCurrentDate(now);
+    };
     
-        fetchCurrentDate();
-    }, [])
+    fetchCurrentDate();
+    fetchData();
+    
+  }, [])
+  const columnHeader = [
+    { id: "serial_no", label: "S/NO", minWidth: 170 },
+    { id: "reportDescription", label: "Report details", minWidth: 170, },
+    { id: "dateDescription", label: "Date generated", minWidth: 170 },
+    { id: "4", label: "ACTION", minWidth: 100 },
+]
+
+interface Data {
+  serial_no: number;
+  reportDescription: string;
+  dateDescription: string;
+}
+  const homeRows: Data[] = reportData.map((data, index) => ({
+  serial_no: index + 1,
+  reportDescription: data.reportDescription,
+  dateDescription: data.dateDescription,
+}));
+
+    const fetchData = async () => {
+    try {
+      await handlereportHistory();
+      console.log(reportData)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'long',
         year: 'numeric',
