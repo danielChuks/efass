@@ -1,11 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import PaginationTable from '../../components/PaginationTable';
 import { data } from './data';
 import { Pagination } from '../../interfaces';
 import SearchBar from '../../components/SearchBar';
 import styles from './index.module.scss';
-import MonthPicker from '../../components/MonthPicker';
 import Filter from '../../components/FilterBy';
 import { Report } from '../../interfaces';
 import { FaDownload } from 'react-icons/fa';
@@ -26,9 +24,6 @@ export const ContentSection = () => {
         hasNextPage: true,
     };
 
-    const handleRowClick = (report: Report) => {
-        console.log(report);
-    };
 
     const handleReportInformation = async () => {
         const response = await getReportInformation('mdfir101', selectedDate);
