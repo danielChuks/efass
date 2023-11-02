@@ -41,14 +41,27 @@ export const UserManagement = () => {
   };
 
   const columnHeader = [
-    { id: "1", label: "S/NO", minWidth: 170 },
-    { id: "2", label: "USERNAME", minWidth: 170 },
-    { id: "3", label: "EMAIL ADDRESS", minWidth: 170 },
-    { id: "4", label: "LAST ACTIVITY DATE", minWidth: 100 },
+    { id: "name", label: "S/NO", minWidth: 170 },
+    { id: "population", label: "USERNAME", minWidth: 170 },
+    { id: "size", label: "EMAIL ADDRESS", minWidth: 170 },
+    { id: "density", label: "LAST ACTIVITY DATE", minWidth: 100 },
     { id: "5", label: "STATUS", minWidth: 170 },
     { id: "6", label: "ACTION", minWidth: 100 },
   ];
 
+  interface Data {
+    name: string;
+	population: number;
+	size: number;
+	density: number;
+  }
+  const userRows: Data[] = [
+	{ name: 'Item 1', population: 100, size: 50, density: 5 },
+	{ name: 'Item 2', population: 200, size: 40, density: 10 },
+	{ name: 'Item 3', population: 200, size: 40, density: 10 },
+	{ name: 'Item 4', population: 200, size: 40, density: 10 },
+	{ name: 'Item 5', population: 200, size: 40, density: 10 },
+  ];
   // console.log(darkMode);
   return (
     <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
@@ -85,7 +98,7 @@ export const UserManagement = () => {
           />
           </div>
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-            <MaterialTable columnHeader={columnHeader} />
+          <MaterialTable columnHeader={columnHeader} data={userRows} />
           </div>
         </div>
       </div>

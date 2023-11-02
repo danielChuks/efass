@@ -2,20 +2,26 @@
 import * as React from 'react';
 import BaseLayout from "../../components/BaseLayout";
 import styles from "./index.module.scss";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import SearchBar from "../../components/SearchBar";
 import { DASHBOARD_PAGES } from "../../enums";
 import Filter from "../../components/FilterBy";
 import { useEffect, useState } from "react";
 import {MaterialTable} from '../../components/MaterialTable';
 
-
 const columnHeader = [
-      { id: "1", label: "S/NO", minWidth: 170 },
-      { id: "2", label: "Report details", minWidth: 170, },
+      { id: "name", label: "S/NO", minWidth: 170 },
+      { id: "calories", label: "Report details", minWidth: 170, },
       { id: "3", label: "Date generated", minWidth: 170 },
       { id: "4", label: "ACTION", minWidth: 100 },
 ]
+interface Data {
+    [key: string]: any;
+  }
+
+const homeRows: Data[] = [
+    { name: 'Frozen yoghurt', calories: 159, carbs: 24 },
+    { name: 'Ice cream sandwich', calories: 237, carbs: 37 },
+  ];
 
 
 export const HomePage = () => {
@@ -68,7 +74,7 @@ export const HomePage = () => {
                 <Filter />
             </div>
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-            <MaterialTable columnHeader={columnHeader}/>
+          <MaterialTable columnHeader={columnHeader} data={homeRows} />
      
           </div>
         </div>
