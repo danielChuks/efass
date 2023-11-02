@@ -7,8 +7,8 @@ export interface ReportData {
     return_name: string;
 }
 export interface Report {
-    data: Array<ReportData>;
+    data: ReportData[];
     responseCode: number;
     responseMessage: string;
-    tableSheet: Array<ReportData>;
+    tableSheet: ReportData[];
 }
