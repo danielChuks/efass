@@ -17,6 +17,7 @@ const PaginationTable = ({
 }: PaginationTableProps) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = pagination.numOfItemsPerPage;
+    const itemCount = pagination.itemCount;
 
     useEffect(() => {
         setCurrentPage(1);
@@ -72,21 +73,27 @@ const PaginationTable = ({
                 </tbody>
             </table>
             <div className={styles["paginationSection"]}>
-                <div>Showing 10 of 320</div>
+                <div>
+                    Showing {endIndex} of {itemCount}
+                </div>
                 <div className={styles["buttonContainer"]}>
                     <div className={styles["buttonItemAlign"]}>
                         <TbMathLower color={"#6c757d"} />
                         <button
                             className={styles["button"]}
                             onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={pagination.hasPreviousPage}
+                            disabled={!pagination.hasPreviousPage}
                         >
                             Prev
                         </button>
                     </div>
                     <div className={styles["countDisplay"]}>
-                        <span>{`${currentPage}`}</span>
-                        <span>{`${pagination.pageCount}`}</span>
+                        <div
+                            className={styles["count"]}
+                        >{`${currentPage}`}</div>
+                        <div
+                            className={styles["count"]}
+                        >{`${pagination.pageCount}`}</div>
                     </div>
                     <div className={styles["buttonItemAlign"]}>
                         <button
@@ -105,7 +112,7 @@ const PaginationTable = ({
                         value='pageNumber'
                         onChange={handlePageNumberChange}
                     >
-                        <option value='5'>5</option>
+                        <option value='5'>{itemsPerPage}</option>
                     </select>
                 </div>
             </div>

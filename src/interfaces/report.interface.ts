@@ -1,6 +1,14 @@
+export interface ReportData {
+    serial_number: number;
+    sheet_number: string;
+    bank_code: string;
+    bank_name: string;
+    return_code: string;
+    return_name: string;
+}
 export interface Report {
-        userId: number;
-        reportCode: string;
-        description: string;
-        action: string;
+    data: Array<ReportData>;
+    responseCode: number;
+    responseMessage: string;
+    tableSheet: Array<ReportData>;
 }
