@@ -1,4 +1,4 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 
 .topNav {
     display: flex;
@@ -35,7 +35,6 @@
                 padding-bottom: 10px;
                 color: #0d1740;
                 color: #0d1740;
-                // font-family: Baloo 2;
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
@@ -104,7 +103,7 @@
                 color: #fff;
                 width: 173px;
                 cursor: pointer;
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 800;
@@ -127,7 +126,7 @@
             display: flex;
             padding: 10px;
             gap: 10px;
-            font-family: "Baloo 2";
+            font-family: 'Baloo 2';
             align-items: center;
 
             label {
@@ -150,14 +149,14 @@
 
             .reportButton {
                 display: flex;
-                padding: 17px;
+                padding: 10px;
                 align-content: center;
                 justify-content: center;
                 gap: 20px;
                 border-radius: 5px;
                 background: #1c317e;
                 color: #fff;
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 800;
