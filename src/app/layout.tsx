@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Registry } from '../registry';
 import './global.scss';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export const metadata: Metadata = {
     title: 'Efass',

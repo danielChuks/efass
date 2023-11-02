@@ -12,6 +12,8 @@ import { FaDownload } from 'react-icons/fa';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useRecoilValue } from 'recoil';
 import { selectedDateAtom } from '../../state/generateReport';
+import { PaginatedTable } from "@/components/PaginatedTable";
+
 export const ContentSection = () => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { getReportInformation } = useGenerateReportActions();
@@ -20,7 +22,7 @@ export const ContentSection = () => {
         numOfItemsPerPage: 5,
         itemCount: data.length,
         pageCount: Math.ceil(data.length / 5),
-        hasPreviousPage: true,
+        hasPreviousPage: false,
         hasNextPage: true,
     };
 
@@ -45,10 +47,29 @@ export const ContentSection = () => {
                     </div>
                 </div>
             </div>
-            <PaginationTable
+            <PaginatedTable<Report> 
+                headers={['Report Details', 'Date Generated', 'Action']}
+                data={data}
+                fetchPage={handleReportInformation}
                 pagination={pagination}
-                reports={data}
-                onRowClick={handleRowClick}
+                // loading
+                columns={[
+                    { 
+                        render: (data, index) => {
+                            return data.responseCode;
+                        }
+                    },
+                    { 
+                        render: (data, index) => {
+                            return data.responseMessage;
+                        }
+                    },
+                    { 
+                        render: (data, index) => {
+                            return '...'
+                        }
+                    },
+                ]}
             />
         </div>
     );
