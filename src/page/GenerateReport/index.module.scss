@@ -1,4 +1,4 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 
 .topNav {
     display: flex;
@@ -12,28 +12,32 @@
 }
 
 //report styles...
-.contianier {
-    display: flex;
+.container {
     width: 100%;
     background-color: #fff;
     height: auto;
-    padding-left: 58px;
-    padding-right: 49px;
+    padding: 1rem;
+    // padding-left: 58px;
+    // padding-right: 49px;
     margin-bottom: 40px;
+    // border: 1px solid red;
 
     .wrapper {
-        display: flex;
-        gap: 50px;
-        padding-top: 19px;
-        padding-bottom: 19px;
+        // display: flex;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        // gap: 50px;
+        // padding-top: 19px;
+        // padding-bottom: 19px;
+        // border: 1px solid blue;
 
         .reportGroup {
             gap: 40px;
             border-right: 1px black solid;
+            padding: 0.5rem;
 
             .title {
                 padding-bottom: 10px;
-                color: #0d1740;
                 color: #0d1740;
                 // font-family: Baloo 2;
                 font-size: 18px;
@@ -52,13 +56,13 @@
         .selectDate {
             display: flex;
             flex-direction: column;
-            width: 100%;
-            padding-right: 2rem;
+            // width: 100%;
+            // padding-right: 2rem;
             border-right: 1px solid black;
+            padding: 1rem;
 
             .title {
                 padding-bottom: 10px;
-                color: #0d1740;
                 color: #0d1740;
                 font-size: 18px;
                 font-style: normal;
@@ -95,20 +99,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 25px;
+            padding: 0.5rem;
+            margin-bottom: 20px;
             width: 100%;
             button {
+                outline: none;
                 background: #1c317e;
+                border: none;
                 border-radius: 5px;
-                padding: 10px;
+                padding: 8px;
                 color: #fff;
                 width: 173px;
                 cursor: pointer;
-                font-family: "Baloo 2";
-                font-size: 18px;
+                font-family: 'Baloo 2';
+                font-size: 1rem;
                 font-style: normal;
-                font-weight: 800;
-                line-height: 24px;
+                font-weight: 600;
             }
         }
     }
@@ -127,7 +133,7 @@
             display: flex;
             padding: 10px;
             gap: 10px;
-            font-family: "Baloo 2";
+            font-family: 'Baloo 2';
             align-items: center;
 
             label {
@@ -157,7 +163,7 @@
                 border-radius: 5px;
                 background: #1c317e;
                 color: #fff;
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 800;
