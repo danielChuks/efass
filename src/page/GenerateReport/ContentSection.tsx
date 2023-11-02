@@ -25,10 +25,6 @@ export const ContentSection = () => {
         hasNextPage: true,
     };
 
-    const handleRowClick = (report: Report) => {
-        console.log(report);
-    };
-
     const handleReportInformation = async () => {
         const response = await getReportInformation("mdfir101", selectedDate);
         console.log(response);
