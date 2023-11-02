@@ -1,19 +1,17 @@
-"use client";
-import React, { useState } from "react";
-import PaginationTable from "../../components/PaginationTable";
-import { data } from "./data";
-import { Pagination } from "../../interfaces";
-import SearchBar from "../../components/SearchBar";
-import styles from "./index.module.scss";
-import MonthPicker from "../../components/MonthPicker";
-import Filter from "../../components/FilterBy";
-import { Report } from "../../interfaces";
-import { FaDownload } from "react-icons/fa";
+'use client';
+import React, { useState } from 'react';
+import PaginationTable from '../../components/PaginationTable';
+import { data } from './data';
+import { Pagination } from '../../interfaces';
+import SearchBar from '../../components/SearchBar';
+import styles from './index.module.scss';
+import MonthPicker from '../../components/MonthPicker';
+import Filter from '../../components/FilterBy';
+import { Report } from '../../interfaces';
+import { FaDownload } from 'react-icons/fa';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useRecoilValue } from 'recoil';
-import {
-    selectedDateAtom,
-} from '../../state/generateReport';
+import { selectedDateAtom } from '../../state/generateReport';
 export const ContentSection = () => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { getReportInformation } = useGenerateReportActions();
@@ -30,14 +28,13 @@ export const ContentSection = () => {
         console.log(report);
     };
 
-    const handleReportInformation = async() => {
+    const handleReportInformation = async () => {
         const response = await getReportInformation('mdfir101', selectedDate);
-        console.log(response)
+        console.log(response);
     };
 
     return (
         <div className={styles['contentContainer']}>
-            <button onClick={handleReportInformation}>view</button>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
                 <Filter />
