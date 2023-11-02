@@ -7,10 +7,11 @@
     font-style: normal;
     font-weight: 700;
   }
-  
+
 
   .main {
-    flex: 1;
+    // flex: 1;
     overflow-y: auto; /* Add scrolling if content exceeds height */
-    padding: 1.3rem 2rem 0 2.0625rem;
+    // padding: 1.3rem 2rem 0 2.0625rem;
+    padding: 1rem;
   }
