@@ -6,9 +6,6 @@ import { BASEAPI_EXTENSION } from '../../enums';
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
      const setReportData = useSetRecoilState(generateReportAtom);
-    //  return this.http.get<any>(
-    //      `${environment.baseApi}/` + this.sheetName + this.reportSelectedDate
-    //  );
     const handleGenerateReport = useCallback(async (reportType: string) => {
         try {
             const response = await fetchWrapper.get(
@@ -32,9 +29,24 @@ export const useGenerateReportActions = () => {
         }
     }, []);
 
-    const getReportInformation = useCallback(async()=>{
-
-    },[])
+    const getReportInformation = useCallback(
+        async (sheetName: string, selectedDate:string) => {
+            try {
+                const response = await fetchWrapper.get(
+                    `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
+                );
+                if (response.responseCode === 0) {
+                    return response;
+                } else {
+                    return [];
+                }
+            } catch (error) {
+                console.log(error);
+                return error;
+            }
+        },
+        []
+    );
 
 
     return { handleGenerateReport, getReportInformation};
