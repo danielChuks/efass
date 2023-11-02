@@ -27,11 +27,9 @@
     letter-spacing: 0em;
 
     .actionButton {
-        display: flex;
-        width: 89.203px;
-        height: 34px;
-        padding: 14px 32px;
-        justify-content: center;
+    display: flex;
+    padding: 14px 14px;
+    justify-content: center;
         align-items: center;
         gap: 8px;
         flex-shrink: 0;
