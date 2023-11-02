@@ -8,6 +8,10 @@ import MonthPicker from '../../components/MonthPicker';
 import QuarterlyPicker from '@/components/QuaterlyPicker';
 import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+    selectedDateAtom,
+} from '../../state/generateReport';
 
 interface disabledProps {
     isYearDisabled: boolean;
@@ -15,6 +19,7 @@ interface disabledProps {
     isQuarterDisabled: boolean;
 }
 export function ReportHeader() {
+    const setSelectedDate = useSetRecoilState(selectedDateAtom);
     const { handleGenerateReport } = useGenerateReportActions();
     const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
     const [currentMonth, setCurrentMonth] = useState<number | undefined>();
@@ -59,6 +64,10 @@ export function ReportHeader() {
             });
         }
         setSelectedGroup(group);
+        //empty state
+        setSelectedYear('');
+        setSelectedQuarter('')
+        setCurrentMonth(0)
         console.log(group);
     };
 
@@ -68,14 +77,22 @@ export function ReportHeader() {
     const minYear = 1960;
     const maxYear = currentYear;
 
+    //don't generate report if date is not selected
+    // loader for api.calls
+    //css
+    //find way around the report information/ask faith
     const generateReport = async () => {
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
         if (selectedGroup === 'M') {
             console.log(monthlyDateFormatter(selectedYear, currentMonth));
+            setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
             const response = await handleGenerateReport(selectedGroup);
             console.log(response); // use response for report table
         } else if (selectedGroup === 'Q') {
             console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
+            setSelectedDate(
+                QuarterlyDateFormatter(selectedYear, selectedQuarter)
+            );
             const response = await handleGenerateReport(selectedGroup);
             console.log(response);
         }
@@ -104,66 +121,66 @@ export function ReportHeader() {
                         {'Select Report Group'}
                     </div>
 
-					<div className={styles["subReportContainer"]}>
-						<RadioButton
-							selectedGroup={selectedGroup}
-							onGroupChange={handleGroupChange}
-						/>
-						{/* <div className={styles["borderLine"]}></div> */}
-					</div>
-				</div>
-				<div className={styles["selectDate"]}>
-					<div className={styles["title"]}>{"Select Date"}</div>
-					<div className={styles["selectDateContainer"]}>
-						<div className={styles["date-group"]}>
-							<div>YEAR</div>
-							<YearPicker
-								selectedYear={selectedYear}
-								onYearChange={handleYearChange}
-								minYear={minYear}
-								maxYear={maxYear}
-								isDisabled={disableFields.isYearDisabled}
-							/>
-						</div>
+                    <div className={styles['subReportContainer']}>
+                        <RadioButton
+                            selectedGroup={selectedGroup}
+                            onGroupChange={handleGroupChange}
+                        />
+                        {/* <div className={styles["borderLine"]}></div> */}
+                    </div>
+                </div>
+                <div className={styles['selectDate']}>
+                    <div className={styles['title']}>{'Select Date'}</div>
+                    <div className={styles['selectDateContainer']}>
+                        <div className={styles['date-group']}>
+                            <div>YEAR</div>
+                            <YearPicker
+                                selectedYear={selectedYear}
+                                onYearChange={handleYearChange}
+                                minYear={minYear}
+                                maxYear={maxYear}
+                                isDisabled={disableFields.isYearDisabled}
+                            />
+                        </div>
 
-						<div className={styles["date-group"]}>
-							<div>MONTH</div>
-							<MonthPicker
-								selectedMonth={currentMonth}
-								onMonthChange={handleMonthChange}
-								isDisabled={disableFields?.isMonthDisabled}
-							/>
-						</div>
+                        <div className={styles['date-group']}>
+                            <div>MONTH</div>
+                            <MonthPicker
+                                selectedMonth={currentMonth}
+                                onMonthChange={handleMonthChange}
+                                isDisabled={disableFields?.isMonthDisabled}
+                            />
+                        </div>
 
-						<div className={styles["date-group"]}>
-							<div>QUARTER</div>
-							<QuarterlyPicker
-								selectedQuarter={selectedQuarter}
-								onQuarterChange={handleQuaterlyChange}
-								isDisabled={disableFields.isQuarterDisabled}
-							/>
-						</div>
-					</div>
-				</div>
+                        <div className={styles['date-group']}>
+                            <div>QUARTER</div>
+                            <QuarterlyPicker
+                                selectedQuarter={selectedQuarter}
+                                onQuarterChange={handleQuaterlyChange}
+                                isDisabled={disableFields.isQuarterDisabled}
+                            />
+                        </div>
+                    </div>
+                </div>
 
-				<div className={styles["selectDate"]}>
-					<p className={styles["title"]}>CBN DATE</p>
-					<div className={styles["date-group"]}>
-						<div>YEAR</div>
-						<YearPicker
-							selectedYear={selectedYear}
-							onYearChange={handleYearChange}
-							minYear={minYear}
-							maxYear={maxYear}
-							isDisabled={disableFields.isYearDisabled}
-						/>
-					</div>
-				</div>
+                <div className={styles['selectDate']}>
+                    <p className={styles['title']}>CBN DATE</p>
+                    <div className={styles['date-group']}>
+                        <div>YEAR</div>
+                        <YearPicker
+                            selectedYear={selectedYear}
+                            onYearChange={handleYearChange}
+                            minYear={minYear}
+                            maxYear={maxYear}
+                            isDisabled={disableFields.isYearDisabled}
+                        />
+                    </div>
+                </div>
 
-				<div className={styles["reportButton"]}>
-					<button onClick={generateReport}>Generate Report</button>
-				</div>
-			</div>
-		</div>
-	);
+                <div className={styles['reportButton']}>
+                    <button onClick={generateReport}>Generate Report</button>
+                </div>
+            </div>
+        </div>
+    );
 }
