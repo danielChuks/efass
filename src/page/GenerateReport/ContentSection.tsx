@@ -4,7 +4,7 @@ import SearchBar from '../../components/SearchBar';
 import styles from './index.module.scss';
 // import MonthPicker from "../../components/MonthPicker";
 import Filter from '../../components/FilterBy';
-import { Pagination, Report } from '../../interfaces';
+import { ReportData } from '../../interfaces';
 import { FaDownload } from 'react-icons/fa';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useRecoilValue } from 'recoil';
@@ -13,30 +13,26 @@ import {
     selectedDateAtom,
 } from '../../state/generateReport';
 import { PaginatedTable } from '@/components/PaginatedTable';
-// import { mockData } from '../../components/PaginatedTable/mock';
+import { mockData } from '../../components/PaginatedTable/mock';
+import { SettingsButton } from '@/components/Button';
 
 export const ContentSection = () => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const reportHistoryData = useRecoilValue(generateReportAtom);
     const { getReportInformation } = useGenerateReportActions();
-    const pagination: Pagination = {
-        page: 1,
-        numOfItemsPerPage: 5,
-        itemCount: reportHistoryData.length,
-        pageCount: Math.ceil(reportHistoryData.length / 5),
-        hasPreviousPage: false,
-        hasNextPage: true,
-    };
-
+    const [loading, setLoading] = useState(true);
+    
     const handleReportInformation = async () => {
         const response = await getReportInformation('mdfir101', selectedDate);
         console.log(response);
     };
 
-    console.log('this', reportHistoryData);
-
     useEffect(() => {
         handleReportInformation();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 4000);
     }, []);
 
     return (
@@ -51,27 +47,31 @@ export const ContentSection = () => {
                     </div>
                 </div>
             </div>
-            <PaginatedTable<Report>
+            <PaginatedTable<ReportData>
                 headers={['Report Details', 'Date Generated', 'Action']}
-                data={reportHistoryData}
-                fetchPage={handleReportInformation}
-                pagination={pagination}
-                // loading
+                data={mockData}
+                loading={loading}
                 columns={[
                     {
                         render: (data, index) => {
-                            return data.responseCode;
+                            return data.bank_name;
                         },
                     },
                     {
                         render: (data, index) => {
-                            return data.responseMessage;
+                            return data.return_name;
                         },
+                        width: '20%',
                     },
                     {
                         render: (data, index) => {
-                            return '...';
+                            return (
+                                <div>
+                                    <button>View</button>
+                                </div>
+                            );
                         },
+                        width: '10%',
                     },
                 ]}
             />

@@ -2,18 +2,20 @@ import { Pagination } from "@/interfaces";
 import styles from "./index.module.scss";
 import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import classNames from "classnames";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 interface Props {
     pagination: Pagination;
     loading?: boolean;
     goToPage?: (page: number) => any;
+    changeItemsPerPage: (num: number) => void;
 }
 
 export function TablePagination({
     pagination,
     loading,
     goToPage = () => null,
+    changeItemsPerPage,
 }: Props) {
     const {
         page,
@@ -102,21 +104,36 @@ export function TablePagination({
                 Showing {numOfItemsPerPage * page} of {itemCount}
             </div>
             <div className={styles.pagination}>
-                <button disabled={!hasPreviousPage}>
+                <button 
+                    disabled={!hasPreviousPage}
+                    onClick={() => {
+                        goToPage(page - 1);
+                    }}
+                >
                     <MdOutlineArrowBackIosNew />
                     Prev
                 </button>
                 <div className={styles["page-numbers"]}>
                     {renderPageNumbers()}
                 </div>
-                <button disabled={!hasNextPage}>
+                <button 
+                    disabled={!hasNextPage}
+                    onClick={() => {
+                        goToPage(page + 1);
+                    }}
+                >
                     Next
                     <MdArrowForwardIos />
                 </button>
             </div>
             <div className={styles["items-per-page"]}>
                 <div className={styles.text}>Items per page</div>
-                <select value={numOfItemsPerPage}>
+                <select 
+                    value={numOfItemsPerPage}
+                    onChange={(event) => {
+                        changeItemsPerPage(Number(event.target.value))
+                    }}
+                >
                     {Array.from({ length: 10 }).map((_, idx) => (
                         <option key={idx} value={(idx + 1) * 5}>
                             {(idx + 1) * 5}

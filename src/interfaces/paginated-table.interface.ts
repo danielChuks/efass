@@ -7,6 +7,7 @@ export interface PaginatedTableColumn<T = any> {
     ) => JSX.Element | string | number;
     style?: CSSProperties;
     disableClick?: boolean;
+    width?: string | number;
 }
 
 export interface PaginatedTableHeaderColumn {
