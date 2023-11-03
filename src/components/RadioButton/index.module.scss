@@ -1,8 +1,10 @@
 .reportItemContainer {
+      input[type='radio']:checked {
+        accent-color: #000;
+    }
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // align-items: center;
     gap: 10px;
 
     /* ReportGroupSelector.module.scss */
@@ -11,7 +13,6 @@
     .quarterly,
     .yearly {
         display: flex;
-        // align-items: center;
         margin-right: 16px; /* Add margin to create space */
         cursor: pointer;
         gap: 10px;
