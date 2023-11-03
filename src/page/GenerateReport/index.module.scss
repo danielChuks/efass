@@ -12,110 +12,92 @@
 }
 
 //report styles...
-.container {
-    width: 100%;
+
+.wrapper {
     background-color: #fff;
-    height: auto;
-    padding: 1rem;
-    // padding-left: 58px;
-    // padding-right: 49px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
     margin-bottom: 40px;
-    // border: 1px solid red;
+    padding: 1rem 1.5rem;
 
-    .wrapper {
-        // display: flex;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        // gap: 50px;
-        // padding-top: 19px;
-        // padding-bottom: 19px;
-        // border: 1px solid blue;
+    .reportGroup {
+        gap: 2rem;
+        border-right: 1px solid #b4b4b4;
 
-        .reportGroup {
-            gap: 40px;
-            border-right: 1px black solid;
-            padding: 0.5rem;
-
-            .title {
-                padding-bottom: 10px;
-                color: #0d1740;
-                // font-family: Baloo 2;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-            }
-
-            .subReportContainer {
-                display: flex;
-                gap: 41px;
-                padding-right: 50px;
-            }
-        }
-
-        .selectDate {
-            display: flex;
-            flex-direction: column;
-            // width: 100%;
-            // padding-right: 2rem;
-            border-right: 1px solid black;
-            padding: 1rem;
-
-            .title {
-                padding-bottom: 10px;
-                color: #0d1740;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: normal;
-            }
-
-            .selectDateContainer {
-                display: flex;
-                width: 100%;
-                gap: 50px;
-
-                .select-container select {
-                    width: 144px;
-                    padding-left: 2px;
-                    padding-right: 20px;
-                    padding-top: 10px;
-                    padding-bottom: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    background-color: #f0f0f3;
-                    font-size: 14px;
-                    color: #333;
-                }
-            }
-        }
-
-        .date-group {
+        .title {
+            color: #0d1740;
+            font-size: 1rem;
+            font-style: normal;
             font-weight: 600;
-            color: var(--gray-0, #252525);
+            line-height: normal;
         }
 
-        .reportButton {
+        .subReportContainer {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0.5rem;
-            margin-bottom: 20px;
+            gap: 41px;
+            padding-right: 50px;
+        }
+    }
+
+    .selectDate {
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #b4b4b4;
+        padding: 0 1rem;
+        align-self: flex-start;
+        height: 100%;
+        gap: 1rem;
+        .title {
+            color: #0d1740;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        .selectDateContainer {
+            display: flex;
             width: 100%;
-            button {
-                outline: none;
-                background: #1c317e;
-                border: none;
+            gap: 2rem;
+
+            .select-container select {
+                width: 144px;
+                border: 1px solid #ccc;
                 border-radius: 5px;
-                padding: 8px;
-                color: #fff;
-                width: 173px;
-                cursor: pointer;
-                font-family: 'Baloo 2';
-                font-size: 1rem;
-                font-style: normal;
-                font-weight: 600;
+                background-color: #f0f0f3;
+                font-size: 14px;
+                color: #333;
             }
+        }
+    }
+
+    .date-group {
+        font-weight: 600;
+        color: var(--gray-0, #252525);
+        font-size: 0.8rem;
+    }
+
+    .reportButton {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        justify-content: center;
+        margin-top: 0.6rem;
+        width: 100%;
+        button {
+            outline: none;
+            background: #1c317e;
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+            color: #fff;
+            width: 173px;
+            cursor: pointer;
+            font-family: 'Baloo 2';
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 600;
         }
     }
 }
@@ -156,18 +138,17 @@
 
             .reportButton {
                 display: flex;
-                padding: 10px;
+                border-radius: 5px;
+                padding: 8px;
                 align-content: center;
                 justify-content: center;
                 gap: 20px;
-                border-radius: 5px;
                 background: #1c317e;
                 color: #fff;
                 font-family: 'Baloo 2';
-                font-size: 18px;
+                font-size: 1rem;
                 font-style: normal;
-                font-weight: 800;
-                line-height: 24px;
+                font-weight: 600;
             }
         }
     }
