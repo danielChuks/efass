@@ -8,8 +8,9 @@ import MonthPicker from '../../components/MonthPicker';
 import QuarterlyPicker from '@/components/QuaterlyPicker';
 import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { selectedDateAtom } from '../../state/generateReport';
+import SnackbarComponent from '../../components/Snackbar';
 
 interface disabledProps {
     isYearDisabled: boolean;
@@ -30,7 +31,12 @@ export function ReportHeader() {
         isMonthDisabled: true,
         isQuarterDisabled: true,
     });
-
+    //snackbar props
+    const [isopen, setIsOpen] = useState(false);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    const handleClose = () => {
+        setIsOpen(false);
+    };
     const handleGroupChange = (group: string) => {
         if (group === 'M') {
             setDisabledFields({
@@ -75,18 +81,16 @@ export function ReportHeader() {
     const minYear = 1960;
     const maxYear = currentYear;
 
-
-
     //don't generate report if date is not selected
     // loader for api.calls
     //css
     //find way around the report information/ask faith
     const generateReport = async () => {
-
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
         if (selectedGroup === 'M') {
-            if(!selectedYear || currentMonth === 0){
-                alert('invalid date')
+            if (!selectedYear || currentMonth === 0) {
+                setIsOpen(true);
+                setSnackbarMessage('invalid date selected');
                 return;
             }
             console.log(monthlyDateFormatter(selectedYear, currentMonth));
@@ -94,9 +98,10 @@ export function ReportHeader() {
             const response = await handleGenerateReport(selectedGroup);
             console.log(response); // use response for report table
         } else if (selectedGroup === 'Q') {
-            if(!selectedYear || !selectedQuarter){
-                 alert('invalid quaters');
-                 return;
+            if (!selectedYear || !selectedQuarter) {
+                setIsOpen(true);
+                setSnackbarMessage('invalid date selected');
+                return;
             }
             console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
             setSelectedDate(
@@ -105,6 +110,8 @@ export function ReportHeader() {
             const response = await handleGenerateReport(selectedGroup);
             console.log(response);
         }
+        setSnackbarMessage('Please select a valid date');
+        setIsOpen(true);
     };
 
     const handleYearChange = (e: any) => {
@@ -124,9 +131,13 @@ export function ReportHeader() {
 
     return (
         <div className={styles['wrapper']}>
+            <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isopen}
+                message={SnackbarMessage}
+            />
             <div className={styles['reportGroup']}>
                 <div className={styles['title']}>{'Select Report Group'}</div>
-
                 <div className={styles['subReportContainer']}>
                     <RadioButton
                         selectedGroup={selectedGroup}
