@@ -1,8 +1,8 @@
-import { useCallback } from "react";
-import { useFetchWrapper } from "../../hooks/useFetchWrapper";
-import { useSetRecoilState } from "recoil";
-import { generateReportAtom } from "../../state/generateReport";
-import { BASEAPI_EXTENSION } from "../../enums";
+import { useCallback } from 'react';
+import { useFetchWrapper } from '../../hooks/useFetchWrapper';
+import { useSetRecoilState } from 'recoil';
+import { generateReportAtom } from '../../state/generateReport';
+import { BASEAPI_EXTENSION } from '../../enums';
 
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
@@ -13,16 +13,11 @@ export const useGenerateReportActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}tableList/${reportType}`
             );
             if (response.responseCode === 0) {
-                return response.data;
-                // setReportData(response.data);
-                // console.log(response.data);
+                setReportData(response.data);
             } else {
                 return [];
-                // console.log(response);
-                // setReportData([])
             }
         } catch (error) {
-            // setReportData([]);
             console.log(error);
             return error;
         }

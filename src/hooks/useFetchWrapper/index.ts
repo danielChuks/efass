@@ -42,7 +42,7 @@ export const useFetchWrapper = () => {
                     return { code: response.message };
                 }
 
-                console.log(data);
+                // console.log(data);
                 return data;
             });
         },

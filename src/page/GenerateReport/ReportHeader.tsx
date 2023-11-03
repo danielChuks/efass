@@ -8,7 +8,7 @@ import MonthPicker from '../../components/MonthPicker';
 import QuarterlyPicker from '@/components/QuaterlyPicker';
 import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { selectedDateAtom } from '../../state/generateReport';
 
 interface disabledProps {
@@ -66,7 +66,7 @@ export function ReportHeader() {
         setSelectedYear('');
         setSelectedQuarter('');
         setCurrentMonth(0);
-        console.log(group);
+        // console.log(group);
     };
 
     //year picker component..................................
@@ -75,50 +75,47 @@ export function ReportHeader() {
     const minYear = 1960;
     const maxYear = currentYear;
 
-
-
     //don't generate report if date is not selected
     // loader for api.calls
     //css
     //find way around the report information/ask faith
     const generateReport = async () => {
-
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
         if (selectedGroup === 'M') {
-            if(!selectedYear || currentMonth === 0){
-                alert('invalid date')
+            if (!selectedYear || currentMonth === 0) {
+                alert('invalid date');
                 return;
             }
-            console.log(monthlyDateFormatter(selectedYear, currentMonth));
+            // console.log(monthlyDateFormatter(selectedYear, currentMonth));
             setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
             const response = await handleGenerateReport(selectedGroup);
-            console.log(response); // use response for report table
+            // console.log(response); // use response for report table
         } else if (selectedGroup === 'Q') {
-            if(!selectedYear || !selectedQuarter){
-                 alert('invalid quaters');
-                 return;
+            if (!selectedYear || !selectedQuarter) {
+                alert('invalid quaters');
+                return;
             }
-            console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
+            // console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
             setSelectedDate(
                 QuarterlyDateFormatter(selectedYear, selectedQuarter)
             );
             const response = await handleGenerateReport(selectedGroup);
-            console.log(response);
+            // console.log(response);
         }
     };
 
     const handleYearChange = (e: any) => {
         setSelectedYear(e.target.value);
-        console.log(e.target.value);
+        // console.log(e.target.value);
     };
 
     const handleMonthChange = (newMonth: number) => {
-        console.log(newMonth);
+        // console.log(newMonth);
         setCurrentMonth(newMonth);
     };
 
     const handleQuaterlyChange = (quarter: string) => {
-        console.log(quarter);
+        // console.log(quarter);
         setSelectedQuarter(quarter);
     };
 
