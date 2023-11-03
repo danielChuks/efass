@@ -7,6 +7,7 @@ import { BASEAPI_EXTENSION } from '../../enums';
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
     const setReportData = useSetRecoilState(generateReportAtom);
+    
     const handleGenerateReport = useCallback(async (reportType: string) => {
         try {
             const response = await fetchWrapper.get(
