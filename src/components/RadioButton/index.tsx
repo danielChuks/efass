@@ -14,7 +14,7 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
         onGroupChange(e.target.value)
     }
 
-    
+
     return (
         <div className={styles["reportItemContainer"]}>
             <label className={styles["weekly"]}>
@@ -60,3 +60,8 @@ export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonP
         </div>
     );
 }
+
+//to-do efass
+// login loader
+// data fetching loader
+// home and user mgt
