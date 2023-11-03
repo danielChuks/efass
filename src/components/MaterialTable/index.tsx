@@ -27,7 +27,7 @@ interface Data {
   }
   
   export const MaterialTable = ({ columnHeader, data }: MaterialTableProps) => {
-    console.log(columnHeader, data)
+    // console.log(columnHeader, data)
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
   
@@ -65,7 +65,7 @@ interface Data {
                     {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
                   <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     {columnHeader.map((column) => (
-                      <TableCell key={column.id} align="right">
+                      <TableCell key={column.id} align="left">
                         {row[column.id]}
                       </TableCell>
                     ))}
