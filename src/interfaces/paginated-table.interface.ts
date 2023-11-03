@@ -3,7 +3,7 @@ import { CSSProperties } from 'react';
 export interface PaginatedTableColumn<T = any> {
     render: (
         data: T,
-        index?: number,
+        index: number,
     ) => JSX.Element | string | number;
     style?: CSSProperties;
     disableClick?: boolean;
