@@ -25,7 +25,6 @@ export const ContentSection = () => {
         hasNextPage: true,
     };
 
-
     const handleReportInformation = async () => {
         const response = await getReportInformation("mdfir101", selectedDate);
         console.log(response);

@@ -1,27 +1,26 @@
-import { useCallback } from 'react';
-import { useFetchWrapper } from '../../hooks/useFetchWrapper';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { generateReportAtom } from '../../state/generateReport';
-import { BASEAPI_EXTENSION } from '../../enums';
+import { useCallback } from "react";
+import { useFetchWrapper } from "../../hooks/useFetchWrapper";
+import { useSetRecoilState } from "recoil";
+import { generateReportAtom } from "../../state/generateReport";
+import { BASEAPI_EXTENSION } from "../../enums";
+
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
-     const setReportData = useSetRecoilState(generateReportAtom);
+    const setReportData = useSetRecoilState(generateReportAtom);
     const handleGenerateReport = useCallback(async (reportType: string) => {
         try {
             const response = await fetchWrapper.get(
                 `${BASEAPI_EXTENSION.BASEAPI}tableList/${reportType}`
             );
-            if(response.responseCode === 0){
-                return response.data
+            if (response.responseCode === 0) {
+                return response.data;
                 // setReportData(response.data);
                 // console.log(response.data);
-            }
-            else{
-                return []
+            } else {
+                return [];
                 // console.log(response);
                 // setReportData([])
             }
-
         } catch (error) {
             // setReportData([]);
             console.log(error);
@@ -30,7 +29,7 @@ export const useGenerateReportActions = () => {
     }, []);
 
     const getReportInformation = useCallback(
-        async (sheetName: string, selectedDate:string) => {
+        async (sheetName: string, selectedDate: string) => {
             try {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
@@ -48,6 +47,5 @@ export const useGenerateReportActions = () => {
         []
     );
 
-
-    return { handleGenerateReport, getReportInformation};
+    return { handleGenerateReport, getReportInformation };
 };
