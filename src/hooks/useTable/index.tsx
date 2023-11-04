@@ -6,10 +6,7 @@ interface Props<T = any> {
     data: T[];
 }
 
-export function useTable<T = any>({
-    numOfItemsPerPage = 10,
-    data,
-}: Props) {
+export function useTable<T = any>({ numOfItemsPerPage = 5, data }: Props) {
     const [compiledData, setCompiledData] = useState<Record<number, T[]>>({});
     const [pagination, setPagination] = useState<Pagination>({
         page: 1,
@@ -19,12 +16,8 @@ export function useTable<T = any>({
         hasPreviousPage: false,
         hasNextPage: false,
     });
-    
-    const {
-        page,
-        numOfItemsPerPage: itemsPerPage,
-        pageCount,
-    } = pagination;
+
+    const { page, numOfItemsPerPage: itemsPerPage, pageCount } = pagination;
 
     const goToPage = (page: number) => {
         if (compiledData[page]) {
@@ -42,13 +35,13 @@ export function useTable<T = any>({
 
         for (let i = 1; i <= pageCount; i++) {
             const pageData: T[] = [];
-            const initial = itemsPerPage * (i -1);
+            const initial = itemsPerPage * (i - 1);
             const upperLimit = initial + itemsPerPage;
 
             inner: for (let j = initial; j < upperLimit; j++) {
                 if (j >= data.length) {
-                    break inner
-                };
+                    break inner;
+                }
 
                 console.log(j);
 
@@ -90,5 +83,5 @@ export function useTable<T = any>({
         goToPage,
         changeItemsPerPage,
         tableData,
-    }
+    };
 }
