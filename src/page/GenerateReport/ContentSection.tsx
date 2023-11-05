@@ -15,9 +15,11 @@ import {
 import { PaginatedTable } from "@/components/PaginatedTable";
 import { mockData } from "../../components/PaginatedTable/mock";
 import { SettingsButton } from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 export const ContentSection = () => {
     const selectedDate = useRecoilValue(selectedDateAtom);
+    const { push } = useRouter();
     const reportHistoryData = useRecoilValue(generateReportAtom);
     const { getReportInformation } = useGenerateReportActions();
     const [loading, setLoading] = useState(true);
@@ -66,13 +68,27 @@ export const ContentSection = () => {
                     {
                         render: (data, index) => {
                             return (
-                                <div className={styles["viewButton"]}>View</div>
+                                <div 
+                                    className={styles["viewButton"]}
+                                    onClick={() => push(`/generate-report/${data.return_name}?selectedDate=09-02-90`)}
+                                >View</div>
                             );
                         },
                         width: "10%",
                     },
                 ]}
             />
+
+            {/* <PaginatedTable<ReportData>
+                headers={Object.keys(mockData[0]).filter((val) => val !== 'serial_number')}
+                data={mockData}
+                loading={loading}
+                columns={Object.keys(mockData[0]).filter((val) => val !== 'serial_number').map((key) => ({
+                    render: (data, index) => {
+                        return (data as any)[key]
+                    }
+                }))}
+            /> */}
         </div>
     );
 };

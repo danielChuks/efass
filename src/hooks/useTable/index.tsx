@@ -14,7 +14,7 @@ export function useTable<T = any>({ numOfItemsPerPage = 5, data }: Props) {
         itemCount: data.length,
         pageCount: Math.ceil(data.length / numOfItemsPerPage),
         hasPreviousPage: false,
-        hasNextPage: false,
+        hasNextPage: Math.ceil(data.length / numOfItemsPerPage) > 1,
     });
 
     const { page, numOfItemsPerPage: itemsPerPage, pageCount } = pagination;
@@ -42,8 +42,6 @@ export function useTable<T = any>({ numOfItemsPerPage = 5, data }: Props) {
                 if (j >= data.length) {
                     break inner;
                 }
-
-                console.log(j);
 
                 pageData.push(data[j]);
             }

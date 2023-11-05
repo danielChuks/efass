@@ -67,9 +67,9 @@ export function TableBody<T = any>({
             )}
 
             {loading &&
-                Array.from({ length: 10 }).map((_, index) => (
+                Array.from({ length: 5 }).map((_, index) => (
                     <div key={index} className={styles["loader-row"]}>
-                        <Skeleton height={22} />
+                        <Skeleton height={25} />
                     </div>
                 ))}
         </div>
