@@ -76,6 +76,12 @@ export function useTable<T = any>({ numOfItemsPerPage = 5, data }: Props) {
         }));
     }, [data, itemsPerPage]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            goToPage(1);
+        }, 1000);
+    }, []);
+
     const tableData = compiledData[page] || [];
 
     return {
