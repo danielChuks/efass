@@ -3,17 +3,22 @@
 .topNav {
     display: flex;
     justify-content: space-between;
+    color: #0d1740;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    width: 100%;
 
     .timeContainer {
         display: flex;
         gap: 10px;
-        margin-right: 140px;
     }
 }
 
 //report styles...
 
 .wrapper {
+    margin-top: 0.5rem;
     background-color: #fff;
     display: grid;
     grid-template-columns: repeat(4, 1fr);

@@ -14,7 +14,7 @@ export const GenerateReport = () => {
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
             <div className={styles["topNav"]}>
-                <div>Generate Report (Overview)</div>
+                <div>Generate Report</div>
                 <div className={styles["timeContainer"]}>
                     <div>Current Date:</div>
                     <div>{"20/10/2023"}</div>
