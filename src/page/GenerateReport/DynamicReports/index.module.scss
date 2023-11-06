@@ -1,0 +1,11 @@
+@import "../../../styles/index.scss";
+
+
+.wrapper {
+    background-color: #fff;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 1rem 1.5rem;
+}

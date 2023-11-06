@@ -70,7 +70,9 @@ export const UserManagement = () => {
         role: string;
         density: string;
       }
-      const userRows: Data[] = userData.map((user) => ({
+
+      console.log(userData);
+      const userRows: Data[] = userData?.map((user) => ({
         username: user.username,
         password: user.password,
         role: user.role,

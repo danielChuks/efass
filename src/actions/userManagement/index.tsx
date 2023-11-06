@@ -14,7 +14,7 @@ export const useUserListActions = () => {
       const response = await fetchWrapper.get(
         `${BASEAPI_EXTENSION.BASEAPI}users`
         );
-        if (response) {
+        if (response && !response.error) {
             setUserData(response);
         } else {
         return [];

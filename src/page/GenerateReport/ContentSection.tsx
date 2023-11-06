@@ -1,70 +1,103 @@
-"use client";
-import React, { useState } from "react";
-import { data } from "./data";
-import SearchBar from "../../components/SearchBar";
-import styles from "./index.module.scss";
+'use client';
+import React, { useEffect, useState } from 'react';
+import SearchBar from '../../components/SearchBar';
+import styles from './index.module.scss';
 // import MonthPicker from "../../components/MonthPicker";
-import Filter from "../../components/FilterBy";
-import { Pagination, Report } from "../../interfaces";
-import { FaDownload } from "react-icons/fa";
-import { useGenerateReportActions } from "../../actions/GenerateReport";
-import { useRecoilValue } from "recoil";
-import { selectedDateAtom } from "../../state/generateReport";
-import { PaginatedTable } from "@/components/PaginatedTable";
-import { mockData } from "../../components/PaginatedTable/mock";
+import Filter from '../../components/FilterBy';
+import { ReportData } from '../../interfaces';
+import { FaDownload } from 'react-icons/fa';
+import { useGenerateReportActions } from '../../actions/GenerateReport';
+import { useRecoilValue } from 'recoil';
+import {
+    generateReportAtom,
+    selectedDateAtom,
+} from '../../state/generateReport';
+import { PaginatedTable } from '@/components/PaginatedTable';
+import { mockData } from '../../components/PaginatedTable/mock';
+import { SettingsButton } from '@/components/Button';
+import { useRouter } from 'next/navigation';
 
 export const ContentSection = () => {
     const selectedDate = useRecoilValue(selectedDateAtom);
+    const { push } = useRouter();
+    const reportHistoryData = useRecoilValue(generateReportAtom);
     const { getReportInformation } = useGenerateReportActions();
-    const pagination: Pagination = {
-        page: 1,
-        numOfItemsPerPage: 5,
-        itemCount: data.length,
-        pageCount: Math.ceil(data.length / 5),
-        hasPreviousPage: false,
-        hasNextPage: true,
-    };
+    const [loading, setLoading] = useState(true);
 
     const handleReportInformation = async () => {
-        const response = await getReportInformation("mdfir101", selectedDate);
+        const response = await getReportInformation('mdfir101', selectedDate);
         console.log(response);
     };
 
+    useEffect(() => {
+        handleReportInformation();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 4000);
+    }, []);
+
     return (
-        <div className={styles["contentContainer"]}>
-            <div className={styles["contentTopSection"]}>
+        <div className={styles['contentContainer']}>
+            <div className={styles['contentTopSection']}>
                 <SearchBar />
                 <Filter />
-                <div className={styles["rightSide"]}>
-                    <div className={styles["reportButton"]}>
+                <div className={styles['rightSide']}>
+                    <div className={styles['reportButton']}>
                         Download Report
                         <FaDownload />
                     </div>
                 </div>
             </div>
-            <PaginatedTable<Report>
-                headers={["Report Details", "Date Generated", "Action"]}
-                data={data}
-                fetchPage={handleReportInformation}
-                pagination={pagination}
-                // loading
+            <PaginatedTable<ReportData>
+                headers={['Report Code', 'Report Description', 'Action']}
+                data={mockData}
+                loading={loading}
                 columns={[
                     {
                         render: (data, index) => {
-                            return data.responseCode;
+                            return data.return_name;
                         },
                     },
                     {
                         render: (data, index) => {
-                            return data.responseMessage;
+                            return data.bank_name;
                         },
+                        width: '50%',
                     },
                     {
                         render: (data, index) => {
-                            return "...";
+                            return (
+                                <div
+                                    className={styles['viewButton']}
+                                    onClick={() =>
+                                        push(
+                                            `/generate-report/${data.return_name}?selectedDate=${selectedDate}`
+                                        )
+                                    }
+                                >
+                                    View
+                                </div>
+                            );
                         },
+                        width: '10%',
                     },
                 ]}
+            />
+
+            <PaginatedTable<ReportData>
+                headers={Object.keys(mockData[0]).filter(
+                    (val) => val !== 'serial_number'
+                )}
+                data={mockData}
+                loading={loading}
+                columns={Object.keys(mockData[0])
+                    .filter((val) => val !== 'serial_number')
+                    .map((key) => ({
+                        render: (data, index) => {
+                            return (data as any)[key];
+                        },
+                    }))}
             />
         </div>
     );

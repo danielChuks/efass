@@ -56,7 +56,7 @@ interface Data {
     const fetchData = async () => {
     try {
       await handlereportHistory();
-      console.log(reportData)
+      // console.log(reportData)
     } catch (error) {
       console.error(error);
     }

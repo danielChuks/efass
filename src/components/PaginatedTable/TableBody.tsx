@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { PaginatedTableColumn } from "@/interfaces";
+import { PaginatedTableColumn, Pagination } from "@/interfaces";
 import styles from "./index.module.scss";
 import Skeleton from "react-loading-skeleton";
 
@@ -8,6 +8,7 @@ interface Props<T = any> {
     data?: T[];
     loading?: boolean;
     rowClickHandler?: (data: T) => any;
+    pagination: Pagination;
 }
 
 export function TableBody<T = any>({
@@ -15,13 +16,27 @@ export function TableBody<T = any>({
     data = [],
     loading = false,
     rowClickHandler = () => null,
+    pagination,
 }: Props<T>) {
+    const {
+        page,
+        numOfItemsPerPage,
+    } = pagination;
+
     return (
         <div className={styles["body"]}>
             {!loading &&
                 data.map((row, index) => (
                     <div className={styles["body-row"]} key={index}>
-                        <div className={styles["body-column"]}>{index + 1}</div>
+                        <div 
+                            className={styles["body-column"]}
+                            style={{
+                                flex: 'unset',
+                                width: 80,
+                            }}
+                        >
+                            {((page - 1) * numOfItemsPerPage) + 1 + index}
+                        </div>
                         {columns.map((column, idx) => (
                             <div
                                 className={styles["body-column"]}
@@ -35,6 +50,8 @@ export function TableBody<T = any>({
                                     cursor: column?.disableClick
                                         ? "default"
                                         : "pointer",
+                                    width: column?.width,
+                                    flex: column?.width ? 'unset' : undefined,
                                 }}
                             >
                                 {column.render(row, idx)}
@@ -50,9 +67,9 @@ export function TableBody<T = any>({
             )}
 
             {loading &&
-                Array.from({ length: 10 }).map((_, index) => (
+                Array.from({ length: 5 }).map((_, index) => (
                     <div key={index} className={styles["loader-row"]}>
-                        <Skeleton height={22} />
+                        <Skeleton height={25} />
                     </div>
                 ))}
         </div>
