@@ -23,11 +23,14 @@ export const ContentSection = () => {
     const reportHistoryData = useRecoilValue(generateReportAtom);
     const { getReportInformation } = useGenerateReportActions();
     const [loading, setLoading] = useState(true);
+    const reportData = useRecoilValue(generateReportAtom);
 
     const handleReportInformation = async () => {
         const response = await getReportInformation('mdfir101', selectedDate);
         console.log(response);
     };
+
+    console.log(reportData);
 
     useEffect(() => {
         handleReportInformation();
@@ -51,12 +54,12 @@ export const ContentSection = () => {
             </div>
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action']}
-                data={mockData}
+                data={reportData}
                 loading={loading}
                 columns={[
                     {
                         render: (data, index) => {
-                            return data.return_name;
+                            return data.return_code;
                         },
                     },
                     {
@@ -72,7 +75,7 @@ export const ContentSection = () => {
                                     className={styles['viewButton']}
                                     onClick={() =>
                                         push(
-                                            `/generate-report/${data.return_name}?selectedDate=${selectedDate}`
+                                            `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
                                         )
                                     }
                                 >
@@ -85,7 +88,7 @@ export const ContentSection = () => {
                 ]}
             />
 
-            <PaginatedTable<ReportData>
+            {/* <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(
                     (val) => val !== 'serial_number'
                 )}
@@ -98,7 +101,7 @@ export const ContentSection = () => {
                             return (data as any)[key];
                         },
                     }))}
-            />
+            /> */}
         </div>
     );
 };

@@ -12,28 +12,20 @@ import { useRecoilValue } from 'recoil';
 import { reportHistoryAtom } from '../../state/reportHistory';
 
 
-
-// const homeRows: Data[] = [
-//     { name: 'Frozen yoghurt', calories: 159, carbs: 24 },
-//     { name: 'Ice cream sandwich', calories: 237, carbs: 37 },
-//   ];
-
-
-
 export const HomePage = () => {
   const [currentDate, setCurrentDate]= useState(new Date());
   const { handlereportHistory } = useReportHistoryActions();
   const reportData = useRecoilValue(reportHistoryAtom);
-  
+
   useEffect(() => {
     const fetchCurrentDate = () => {
       const now = new Date();
       setCurrentDate(now);
     };
-    
+
     fetchCurrentDate();
     fetchData();
-    
+
   }, [])
   const columnHeader = [
     { id: "serial_no", label: "S/NO", minWidth: 170 },
@@ -102,7 +94,7 @@ interface Data {
             </div>
           <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
           <MaterialTable columnHeader={columnHeader} data={homeRows} />
-     
+
           </div>
         </div>
       </div>
