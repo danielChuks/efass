@@ -72,7 +72,7 @@ export function ReportHeader() {
         setSelectedYear('');
         setSelectedQuarter('');
         setCurrentMonth(0);
-        // console.log(group);
+        console.log(group);
     };
 
     //year picker component..................................
@@ -93,22 +93,23 @@ export function ReportHeader() {
                 setSnackbarMessage('invalid date selected');
                 return;
             }
-            // console.log(monthlyDateFormatter(selectedYear, currentMonth));
+            console.log(monthlyDateFormatter(selectedYear, currentMonth));
             setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
             const response = await handleGenerateReport(selectedGroup);
-            // console.log(response); // use response for report table
+            console.log(response);
+            return;// use response for report table
         } else if (selectedGroup === 'Q') {
             if (!selectedYear || !selectedQuarter) {
                 setIsOpen(true);
                 setSnackbarMessage('invalid date selected');
                 return;
             }
-            // console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
+            console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
             setSelectedDate(
                 QuarterlyDateFormatter(selectedYear, selectedQuarter)
             );
             const response = await handleGenerateReport(selectedGroup);
-            // console.log(response);
+            console.log(response);
         }
         setSnackbarMessage('Please select a valid date');
         setIsOpen(true);
@@ -116,16 +117,16 @@ export function ReportHeader() {
 
     const handleYearChange = (e: any) => {
         setSelectedYear(e.target.value);
-        // console.log(e.target.value);
+        console.log(e.target.value);
     };
 
     const handleMonthChange = (newMonth: number) => {
-        // console.log(newMonth);
+        console.log(newMonth);
         setCurrentMonth(newMonth);
     };
 
     const handleQuaterlyChange = (quarter: string) => {
-        // console.log(quarter);
+        console.log(quarter);
         setSelectedQuarter(quarter);
     };
 

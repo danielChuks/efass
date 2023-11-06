@@ -3,8 +3,6 @@ import { useFetchWrapper } from "../../hooks/useFetchWrapper";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { BASEAPI_EXTENSION } from "../../enums";
 import { reportHistoryAtom } from "../../state/reportHistory";
-
-
 export const useReportHistoryActions = () => {
   const fetchWrapper = useFetchWrapper();
   const setReportData = useSetRecoilState(reportHistoryAtom);

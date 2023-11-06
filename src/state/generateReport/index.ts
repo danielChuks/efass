@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { Report } from '../../interfaces';
+import { ReportData } from '../../interfaces';
 
-export const generateReportAtom = atom<Report[]>({
+export const generateReportAtom = atom<ReportData[]>({
     default: [],
     key: 'generateReport',
 });

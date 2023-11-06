@@ -1,10 +1,9 @@
 'use client';
-
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function ContentSection() {
-    const { 
+    const {
         ['report-id']: reportId,
     } = useParams();
     const searchParams = useSearchParams();
