@@ -12,10 +12,10 @@ export const mockData: ReportData[] = [
     {
         serial_number: 0,
         bank_name: "NIGERIAN EXPORT IMPORT BANK (NEXIM)",
-        sheet_number: "MCFPR1",
+        sheet_number: "MCFPR2",
         bank_code: "00405",
         return_code: "RETURN_2",
-        return_name: "MCFPR1",
+        return_name: "MCFPR2",
     },
     {
         serial_number: 0,
