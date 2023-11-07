@@ -43,6 +43,7 @@ function index({
                         backgroundColor: '#DFE9FF',
                         color: '#0D1740',
                         fontWeight: 'bold',
+                        fontFamily: 'Baloo 2',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
@@ -99,7 +100,7 @@ function index({
                         />
 
                         <SettingsButton
-                            text={'Create User'}
+                            text={header}
                             handleAction={handleAction}
                             error={error}
                             errorText={errorText}
