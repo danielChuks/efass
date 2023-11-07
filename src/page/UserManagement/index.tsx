@@ -15,109 +15,166 @@ import SearchBar from "../../components/SearchBar";
 import Filter from "../../components/FilterBy";
 import { useUserListActions } from "../../actions/userManagement";
 import { userAtom } from "../../state/userList";
+import { PaginatedTable } from "@/components/PaginatedTable";
+import { userData } from "./data";
+import { User } from "@/interfaces";
 
 export const UserManagement = () => {
-      const { getSettings } = useSettingsActions();
-      const darkMode = useRecoilValue(settingsAtom);
-      const [openModal, setOpenModal] = useState(false);
-      const [data, setData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      const [error, setError] = useState(false);
-      const [errorText, setErrorText] = useState("");
-      const { handleuserList } = useUserListActions();
-      const userData = useRecoilValue(userAtom); 
-      const addUser = () => {
+    const handleCreateUser = () => {
+		console.log(data);
+	};
+	const { getSettings } = useSettingsActions();
+	const [loading, setLoading] = useState(true);
+	const darkMode = useRecoilValue(settingsAtom);
+	const [openModal, setOpenModal] = useState(false);
+    const [modalHeader, setModalHeader] = useState("Create User")
+    const [modalAction, setModalAction] = useState(()=>handleCreateUser)
+    //form data
+	const [data, setData] = useState({
+		username: "",
+		email: "",
+		password: "",
+		confirmPassword: "",
+	});
+	const [error, setError] = useState(false);
+	const [errorText, setErrorText] = useState("");
+	const { handleuserList } = useUserListActions();
+	// const userData = useRecoilValue(userAtom);
+	const addUser = () => {
+        setModalHeader("Create User")
+		setOpenModal(true);
+        setData({username: "", email: "", password: "", confirmPassword: ""})
+        setModalAction(()=>handleCreateUser)
+	};
+	
+	useEffect(() => {
+		getSettings();
+		fetchData();
+	}, [getSettings]);
+	const fetchData = async () => {
+		try {
+			await handleuserList();
+			console.log(userData);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setData({ ...data, [e.target.name]: e.target.value });
+	};
+	const editUser = (data: User) => {
+        setModalHeader("Edit User")
+        setData({username: data.userName, email: data.email, password: "", confirmPassword: ""})
+		console.log(data);
         setOpenModal(true);
-      };
-      const createUser = () => {
-        console.log(data);
-      };
-      useEffect(() => {
-        getSettings();
-        fetchData();
-      }, [getSettings]);
+        setModalAction(()=>handleEditUser)
+	};
+    const handleEditUser = () => {
+        console.log('edittt')
+    }
 
-      
-      const fetchData = async () => {
-        try {
-          await handleuserList();
-          console.log(userData);
-        } catch (error) {
-          console.error(error);
-        }
-      };
+	// console.log(darkMode);
+	return (
+		<BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
+			{openModal && (
+				<Dialog
+					openModal={openModal}
+					setOpenModal={setOpenModal}
+					handleAction={modalAction}
+					header={modalHeader}
+					data={data}
+					setData={setData}
+					handleInputchange={handleInputchange}
+					error={error}
+					errorText={errorText}
+				/>
+			)}
+			<div className={styles["container"]}>
+				<h4>USER MANAGEMENT</h4>
+			</div>
+			<div className={styles["card-body"]}>
+				<Card title={"Users Created"} content={"0"} />
+				<Card title={"Active Users"} content={"0"} />
+				<Card title={"Inactive Users"} content={"0"} />
+			</div>
+			<div className={styles["table_container"]}>
+				<div className={styles["table_body"]}>
+					<div className={styles["contentTopSection"]}>
+						<SearchBar />
+						<Filter />
+						<CustomButton
+							text={"Create User"}
+							icon={<BsPlusLg size={18} />}
+							handleAction={addUser}
+						/>
+					</div>
+					<PaginatedTable<User>
+						headers={[
+							"USERNAME",
+							"EMAIL ADDRESS",
+							"LAST ACTIVITY DATE",
+							"STATUS",
+							"ACTION",
+						]}
+						data={userData}
+						// loading={loading}
+						columns={[
+							{
+								render: (data, index) => {
+									return data.userName;
+								},
+								width: "30%",
+							},
+							{
+								render: (data, index) => {
+									return data.email;
+								},
+								width: "50%",
+							},
 
-      const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-      };
-
-      const columnHeader = [
-        { id: "username", label: "S/NO", minWidth: 170 },
-        { id: "password", label: "USERNAME", minWidth: 170 },
-        { id: "role", label: "EMAIL ADDRESS", minWidth: 170 },
-        { id: "density", label: "LAST ACTIVITY DATE", minWidth: 100 },
-        { id: "5", label: "STATUS", minWidth: 170 },
-        { id: "6", label: "ACTION", minWidth: 100 },
-      ];
-
-      interface Data {
-        username: string;
-        password: string;
-        role: string;
-        density: string;
-      }
-
-      console.log(userData);
-      const userRows: Data[] = userData?.map((user) => ({
-        username: user.username,
-        password: user.password,
-        role: user.role,
-        density: user.role, // Assuming 'lastActivityDate' is the relevant property
-      }));
-      // console.log(darkMode);
-      return (
-        <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
-          {openModal && (
-            <Dialog
-              openModal={openModal}
-              setOpenModal={setOpenModal}
-              handleAction={createUser}
-              header={"Create User"}
-              data={data}
-              setData={setData}
-              handleInputchange={handleInputchange}
-              error={error}
-              errorText={errorText}
-            />
-          )}
-          <div className={styles["container"]}>
-            <h4>USER MANAGEMENT</h4>
-          </div>
-          <div className={styles["card-body"]}>
-            <Card title={"Users Created"} content={"0"} />
-            <Card title={"Active Users"} content={"0"} />
-            <Card title={"Inactive Users"} content={"0"} />
-          </div>
-          <div className={styles["table_container"]}>
-            <div className={styles["table_body"]}>
-              <div className={styles["contentTopSection"]}>
-                <SearchBar />
-                <Filter />
-                <CustomButton
-                  text={"Create User"}
-                  icon={<BsPlusLg size={18} />}
-                  handleAction={addUser}
-                />
-              </div>
-              <div style={{ height: 320, width: "100%", padding: "1rem 0 1rem 0" }}>
-                <MaterialTable columnHeader={columnHeader} data={userRows} />
-              </div>
-            </div>
-          </div>
-        </BaseLayout>
-      );
+							{
+								render: (data, index) => {
+									return data.lastActivityDate;
+								},
+								width: "50%",
+							},
+							{
+								render: (data, index) => {
+									if (data.status === "Active") {
+										return (
+											<button className={styles["styledButton_active"]}>
+												{data.status}
+											</button>
+										);
+									} else {
+										return (
+											<button className={styles["styledButton_inactive"]}>
+												{data.status}
+											</button>
+										);
+									}
+								},
+								width: "50%",
+							},
+							{
+								render: (data, index) => {
+									return (
+										<div
+											className={styles["viewButton"]}
+											onClick={() => {
+												editUser(data);
+											}}
+										>
+											...
+										</div>
+									);
+								},
+								width: "10%",
+							},
+						]}
+					/>
+				</div>
+			</div>
+		</BaseLayout>
+	);
 };
