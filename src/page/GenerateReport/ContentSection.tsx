@@ -54,7 +54,7 @@ export const ContentSection = () => {
             </div>
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action']}
-                data={reportData}
+                data={mockData}
                 loading={loading}
                 columns={[
                     {

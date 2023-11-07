@@ -1,11 +1,119 @@
 @import "../../../styles/index.scss";
 
+.topItems {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 21px;
 
-.wrapper {
+    .arrowContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 43px;
+        color: #0d1740;
+        font-family: "Baloo 2";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+        .back {
+            cursor: pointer;
+        }
+    }
+
+    .date {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        .currentDate {
+            color: #0d1740;
+            font-family: "Baloo 2";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+
+            .currentDateValue {
+                color: #3e3e3e;
+                font-family: "Baloo 2";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
+}
+
+.reportHeader {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
     background-color: #fff;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-    margin-bottom: 40px;
-    padding: 1rem 1.5rem;
+    color: white;
+    color: black;
+
+    .leftSection {
+        display: grid;
+        grid-template-columns: (2 1fr);
+        padding: 39px;
+        gap: 30px;
+
+        .bankNameCode {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+
+            .displayTitle {
+                color: #0d1740;
+                font-family: "Baloo 2";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+
+            .displayText {
+                color: #3e3e3e;
+                font-family: Baloo 2;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
+
+    .rightSection {
+        display: grid;
+        grid-template-columns: (2 1fr);
+        padding: 39px;
+        gap: 30px;
+
+        .returnNameCode {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+
+            .displayTitle {
+                color: #0d1740;
+                font-family: "Baloo 2";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+
+            .displayText {
+                color: #3e3e3e;
+                font-family: Baloo 2;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+            }
+        }
+    }
 }
