@@ -43,8 +43,35 @@
     margin-top: .625rem;
     background-color: #fff;
     width: 100%;
-    height: 26rem;
     padding: 1rem 3rem 1rem 3rem;
+}
+
+.styledButton_active{
+border: none;
+border-radius: 0.3125rem;
+background: rgba(50, 160, 113, 0.10);
+color: #32A071;
+width: 6rem;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 0.625rem;
+padding: .5rem;
+font-family: 'Baloo 2';
+}
+
+.styledButton_inactive{
+  border: none;
+  border-radius: 0.3125rem;
+  background: rgba(249, 19, 19, 0.10);
+  color: #F91313;
+  width: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  padding: .5rem;
+  font-family: 'Baloo 2';
 }
 
 .contentTopSection {

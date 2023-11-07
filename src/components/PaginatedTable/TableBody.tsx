@@ -62,7 +62,8 @@ export function TableBody<T = any>({
 
             {data.length === 0 && !loading && (
                 <div className={styles["no-data"]}>
-                    <img alt='Empty Box' src='/empty.png' />
+                    <img alt='Empty data' src='/empty.png' />
+                    <p>No data found</p>
                 </div>
             )}
 

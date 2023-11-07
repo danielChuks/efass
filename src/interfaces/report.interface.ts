@@ -12,3 +12,9 @@ export interface Report {
     responseMessage: string;
     tableSheet: ReportData[];
 }
+
+export interface ReportHistory{
+    serialNumber: number;
+    reportDetails:string;
+    date:string;
+}

@@ -47,8 +47,8 @@ interface Data {
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
+              <TableHead >
+                <TableRow sx={{ fontFamily:'Baloo 2'}}>
                   {columnHeader.map((column) => (
                     <TableCell
                       key={column.id}
