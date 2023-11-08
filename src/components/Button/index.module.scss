@@ -1,23 +1,39 @@
 @import "../../styles/index.scss";
 .button {
-    border-radius: 0.3125rem;
-    background: #1c317e;
-    color: #fff;
-    width: 27rem;
-    height: 3.125rem;
-    padding: 0.875rem 2rem 0.5rem 2rem;
     display: flex;
+    border-radius: 5px;
+    background: $backgroundColor;
+    color: $generalWhiteColor;
+    width: 432px;
+    padding: 8px 32px 8px 32px;
     justify-content: center;
     border: none;
     cursor: pointer;
     font-weight: 800;
-    margin-top: 3rem;
+    margin-top: 48px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    .spinner {
+        animation: spin 0.5s linear infinite;
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    }
 }
 .error_msg {
-    color: #ff0000;
-    font-size: 0.875rem;
+    color: $error;
+    font-size: 14px;
     font-weight: 600;
-    margin-top: 0.5rem;
+    margin-top: 8px;
 }
 
 .customButton {

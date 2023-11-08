@@ -13,7 +13,7 @@ import {
     selectedDateAtom,
 } from '../../state/generateReport';
 import { PaginatedTable } from '@/components/PaginatedTable';
-import { mockData } from '../../components/PaginatedTable/mock';
+// import { mockData } from '../../components/PaginatedTable/mock';
 import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
 
@@ -54,7 +54,7 @@ export const ContentSection = () => {
             </div>
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action']}
-                data={mockData}
+                data={reportData}
                 loading={loading}
                 columns={[
                     {

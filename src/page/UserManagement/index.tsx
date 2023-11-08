@@ -117,11 +117,6 @@ export const UserManagement = () => {
                                     <BsPlusLg size={22} color={"#fff"} />
                                 </div>
                             </div>
-                            {/* <CustomButton
-                                text={"Create User"}
-                                icon={<BsPlusLg size={22} color={"#fff"} />}
-                                handleAction={addUser}
-                            /> */}
                         </div>
                     </div>
                     <PaginatedTable<User>

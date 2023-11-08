@@ -1,10 +1,15 @@
+@import "../../styles/index.scss";
+
 .background {
-    background-image: url('../../../public/Images/NeptuneBackground.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 429px;
+    background-image: url("../../../public/Images/NeptuneBackground.png");
     width: 100vw;
     height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 8rem;
+    padding-right: 153px;
+    background-color: $backgroundColor;
 }
 .login-logo {
     display: flex;
@@ -13,13 +18,15 @@
 .login-field {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: $generalWhiteColor;
     border-radius: 0.75rem;
     height: 32.5625rem;
     width: 32.4375rem;
     margin-top: 18%;
     padding: 1.375rem 5.25rem;
     align-items: center;
+    border-radius: 0.75rem;
+    height: 32.5625rem;
 }
 
 .form {
@@ -28,7 +35,7 @@
     margin-top: 8%;
 
     .header {
-        color: #0d1740;
+        color: $fontColor;
         font-size: 1.5rem;
         font-style: normal;
         font-weight: 700;
@@ -41,6 +48,6 @@
 .footer {
     display: flex;
     justify-content: center;
-    color: #fff;
+    color: $generalWhiteColor;
     margin-top: 1rem;
 }

@@ -1,13 +1,13 @@
-'use client';
-import styles from './index.module.scss';
-import EfassLogo from '../../../public/Images/Frame.png';
-import NeptuneLogo from '../../../public/Images/Neptunelogo.png';
-import Image from 'next/image';
-import InputGroup from '@/components/Input/index';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { SettingsButton } from '../../components/Button';
-import { useAuthActions } from '../../actions/auth';
+"use client";
+import styles from "./index.module.scss";
+import EfassLogo from "../../../public/Images/Frame.png";
+import NeptuneLogo from "../../../public/Images/Neptunelogo.png";
+import Image from "next/image";
+import InputGroup from "@/components/Input/index";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { SettingsButton } from "../../components/Button";
+import { useAuthActions } from "../../actions/auth";
 
 interface LoginProps {
     username: string;
@@ -17,11 +17,12 @@ interface LoginProps {
 export const Login = () => {
     const { login } = useAuthActions();
     const [data, setData] = useState<LoginProps>({
-        username: '',
-        password: '',
+        username: "",
+        password: "",
     });
     const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState('');
+    const [errorText, setErrorText] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
@@ -33,78 +34,81 @@ export const Login = () => {
     const validateInput = () => {
         if (!data.username && !data.password) {
             setError(true);
-            setErrorText('Please enter both username and password.');
+            setErrorText("Please enter both username and password.");
             return false;
         }
         setError(false);
-        setErrorText('');
+        setErrorText("");
         return true;
     };
 
     const onSubmit = async () => {
+        setLoading(true);
         if (validateInput()) {
             const response = await login(data.username, data.password);
+            setLoading(false);
             if (response.responseCode === 0) {
-                router.push('/dashboard');
+                router.push("/dashboard");
             } else if (response.responseCode !== 0) {
                 setError(true);
-                router.push('/login');
-                setErrorText('Invalid username or password. Please try again.');
+                router.push("/login");
+                setErrorText("Invalid username or password. Please try again.");
             } else {
                 setError(true);
-                router.push('/login');
-                setErrorText('An error occurred. Please try again later.');
+                router.push("/login");
+                setErrorText("An error occurred. Please try again later.");
             }
         }
     };
     return (
-        <div className={styles['background']}>
-            <div className={styles['login-logo']}>
+        <div className={styles["background"]}>
+            <div className={styles["login-logo"]}>
                 <Image
                     src={EfassLogo}
-                    alt="efass logo"
+                    alt='efass logo'
                     width={245}
                     height={136}
                 />
             </div>
 
-            <div className="login-layout">
-                <div className={styles['login-field']}>
+            <div className='login-layout'>
+                <div className={styles["login-field"]}>
                     <Image
-                        className={styles['form-logo']}
+                        className={styles["form-logo"]}
                         src={NeptuneLogo}
-                        alt="Neptune logo"
+                        alt='Neptune logo'
                         width={198}
                         height={64}
                     />
-                    <div className={styles['form']}>
-                        <div className={styles['header']}>Log In</div>
+                    <div className={styles["form"]}>
+                        <div className={styles["header"]}>Log In</div>
                         <InputGroup
-                            type="text"
-                            label="Username"
-                            placeholder=""
+                            type='text'
+                            label='Username'
+                            placeholder=''
                             value={data.username}
-                            name="username"
+                            name='username'
                             handleChange={handleInputchange}
                         />
                         <InputGroup
-                            type="password"
-                            label="Password"
+                            type='password'
+                            label='Password'
                             value={data.password}
-                            name="password"
-                            placeholder=""
+                            name='passwdisplay: flex;ord'
+                            placeholder=''
                             handleChange={handleInputchange}
                         />
                         <SettingsButton
-                            text="Login"
+                            text='Login'
                             error={error}
                             errorText={errorText}
                             handleAction={onSubmit}
-                            type="submit"
+                            type='submit'
+                            loading={loading}
                         />
                     </div>
                 </div>
-                <div className={styles['footer']}>
+                <div className={styles["footer"]}>
                     2023 &copy; eFASS by Neptune Software Group.
                 </div>
             </div>
