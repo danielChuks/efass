@@ -161,10 +161,11 @@
         display: flex;
         justify-content: center;
         border: none;
-        padding-left: 32px;
-        padding-right: 32px;
-        padding-top: 14px;
-        padding-bottom: 14px;
+        padding: .5rem;
+        // padding-left: 32px;
+        // padding-right: 32px;
+        // padding-top: 14px;
+        // padding-bottom: 14px;
         width: 80px;
         background-color: $backgroundColor;
         color: $generalWhiteColor;

@@ -13,8 +13,15 @@ export interface Report {
     tableSheet: ReportData[];
 }
 
-export interface ReportHistory{
-    serialNumber: number;
-    reportDetails:string;
-    date:string;
+export interface ReportHistory {
+    id: number;
+    dateDescription: string;
+    reportDescription: string;
+    timestamp: string;
 }
+
+export interface ReportPageProps {
+    loading: boolean;
+    setLoading: (value: boolean) => void;
+}
+

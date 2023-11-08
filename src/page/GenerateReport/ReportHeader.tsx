@@ -1,26 +1,30 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styles from "./index.module.scss";
-import RadioButton from "../../components/RadioButton";
-import YearPicker from "../../components/YearPicker";
-import MonthPicker from "../../components/MonthPicker";
-import QuarterlyPicker from "@/components/QuaterlyPicker";
-import { QuarterlyDateFormatter, monthlyDateFormatter } from "./utils";
-import { useGenerateReportActions } from "../../actions/GenerateReport";
-import { useSetRecoilState } from "recoil";
-import { selectedDateAtom } from "../../state/generateReport";
-import SnackbarComponent from "../../components/Snackbar";
+import React, { useState } from 'react';
+import styles from './index.module.scss';
+import RadioButton from '../../components/RadioButton';
+import YearPicker from '../../components/YearPicker';
+import MonthPicker from '../../components/MonthPicker';
+import QuarterlyPicker from '@/components/QuaterlyPicker';
+import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
+import { useGenerateReportActions } from '../../actions/GenerateReport';
+import { useSetRecoilState } from 'recoil';
+import { selectedDateAtom } from '../../state/generateReport';
+import SnackbarComponent from '../../components/Snackbar';
+import { ReportPageProps } from '@/interfaces';
+import { generateReportAtom } from '../../state/generateReport';
 
 interface disabledProps {
     isYearDisabled: boolean;
     isMonthDisabled: boolean;
     isQuarterDisabled: boolean;
 }
-export function ReportHeader() {
+
+export function ReportHeader({ loading, setLoading }: ReportPageProps) {
+    const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
-    const { handleGenerateReport } = useGenerateReportActions();
-    const [selectedGroup, setSelectedGroup] = useState<string>("weekly");
+    const { handleGenerateReport, postReportDate } = useGenerateReportActions();
+    const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
     const [currentMonth, setCurrentMonth] = useState<number | undefined>();
     const [selectedYear, setSelectedYear] = useState<string | undefined>();
     const [selectedQuarter, setSelectedQuarter] = useState<
@@ -33,34 +37,34 @@ export function ReportHeader() {
     });
     //snackbar props
     const [isopen, setIsOpen] = useState(false);
-    const [SnackbarMessage, setSnackbarMessage] = useState<string>("");
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
 
     const handleClose = () => {
         setIsOpen(false);
     };
     const handleGroupChange = (group: string) => {
-        if (group === "M") {
+        if (group === 'M') {
             setDisabledFields({
                 ...disableFields,
                 isQuarterDisabled: true,
                 isMonthDisabled: false,
                 isYearDisabled: false,
             });
-        } else if (group === "Y") {
+        } else if (group === 'Y') {
             setDisabledFields({
                 ...disableFields,
                 isQuarterDisabled: true,
                 isMonthDisabled: true,
                 isYearDisabled: true,
             });
-        } else if (group === "Q") {
+        } else if (group === 'Q') {
             setDisabledFields({
                 ...disableFields,
                 isQuarterDisabled: false,
                 isMonthDisabled: true,
                 isYearDisabled: false,
             });
-        } else if (group === "W") {
+        } else if (group === 'W') {
             setDisabledFields({
                 ...disableFields,
                 isQuarterDisabled: true,
@@ -70,9 +74,11 @@ export function ReportHeader() {
         }
         setSelectedGroup(group);
         //empty state
-        setSelectedYear("");
-        setSelectedQuarter("");
+        setSelectedYear('');
+        setSelectedQuarter('');
         setCurrentMonth(0);
+        setReportData([]);
+        console.log(group);
     };
 
     //year picker component..................................
@@ -87,20 +93,24 @@ export function ReportHeader() {
     //find way around the report information/ask faith
     const generateReport = async () => {
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
-        if (selectedGroup === "M") {
+        if (selectedGroup === 'M') {
             if (!selectedYear || currentMonth === 0) {
                 setIsOpen(true);
-                setSnackbarMessage("invalid date selected");
+                setSnackbarMessage('invalid date selected');
                 return;
             }
             setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
+            //post date to server
+            const dateResponse = await postReportDate(
+                monthlyDateFormatter(selectedYear, currentMonth)
+            );
             const response = await handleGenerateReport(selectedGroup);
-
+            setLoading(false);
             return; // use response for report table
-        } else if (selectedGroup === "Q") {
+        } else if (selectedGroup === 'Q') {
             if (!selectedYear || !selectedQuarter) {
                 setIsOpen(true);
-                setSnackbarMessage("invalid date selected");
+                setSnackbarMessage('invalid date selected');
                 return;
             }
             console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
@@ -108,8 +118,10 @@ export function ReportHeader() {
                 QuarterlyDateFormatter(selectedYear, selectedQuarter)
             );
             const response = await handleGenerateReport(selectedGroup);
+            setLoading(false);
+            return;
         }
-        setSnackbarMessage("Please select a valid date");
+        setSnackbarMessage('Please select a valid date');
         setIsOpen(true);
     };
 
@@ -126,25 +138,25 @@ export function ReportHeader() {
     };
 
     return (
-        <div className={styles["wrapper"]}>
+        <div className={styles['wrapper']}>
             <SnackbarComponent
                 handleClose={handleClose}
                 isopen={isopen}
                 message={SnackbarMessage}
             />
-            <div className={styles["reportGroup"]}>
-                <div className={styles["title"]}>{"Select Report Group"}</div>
-                <div className={styles["subReportContainer"]}>
+            <div className={styles['reportGroup']}>
+                <div className={styles['title']}>{'Select Report Group'}</div>
+                <div className={styles['subReportContainer']}>
                     <RadioButton
                         selectedGroup={selectedGroup}
                         onGroupChange={handleGroupChange}
                     />
                 </div>
             </div>
-            <div className={styles["selectDate"]}>
-                <div className={styles["title"]}>{"Select Date"}</div>
-                <div className={styles["selectDateContainer"]}>
-                    <div className={styles["date-group"]}>
+            <div className={styles['selectDate']}>
+                <div className={styles['title']}>{'Select Date'}</div>
+                <div className={styles['selectDateContainer']}>
+                    <div className={styles['date-group']}>
                         <div>YEAR</div>
                         <YearPicker
                             selectedYear={selectedYear}
@@ -155,7 +167,7 @@ export function ReportHeader() {
                         />
                     </div>
 
-                    <div className={styles["date-group"]}>
+                    <div className={styles['date-group']}>
                         <div>MONTH</div>
                         <MonthPicker
                             selectedMonth={currentMonth}
@@ -164,7 +176,7 @@ export function ReportHeader() {
                         />
                     </div>
 
-                    <div className={styles["date-group"]}>
+                    <div className={styles['date-group']}>
                         <div>QUARTER</div>
                         <QuarterlyPicker
                             selectedQuarter={selectedQuarter}
@@ -175,10 +187,10 @@ export function ReportHeader() {
                 </div>
             </div>
 
-            <div className={styles["selectDate"]}>
-                <p className={styles["title"]}>CBN DATE</p>
-                <div className={styles["date-group"]}>
-                    <div>YEAR</div>
+            <div className={styles['selectDate']}>
+                <p className={styles['title']}>CBN DATE</p>
+                <div className={styles['date-group']}>
+                    <div>Date(only for Report 100)</div>
                     <YearPicker
                         selectedYear={selectedYear}
                         onYearChange={handleYearChange}
@@ -189,7 +201,7 @@ export function ReportHeader() {
                 </div>
             </div>
 
-            <div className={styles["reportButton"]}>
+            <div className={styles['reportButton']}>
                 <button onClick={generateReport}>Generate Report</button>
             </div>
         </div>

@@ -70,10 +70,10 @@ function index({
                         />
 
                         <InputGroup
-                            type="email"
-                            label="Email Address"
-                            value={data?.email}
-                            name="email"
+                            type="text"
+                            label="Role"
+                            value={data?.role}
+                            name="role"
                             placeholder=""
                             handleChange={handleInputchange}
                             required={true}
@@ -92,8 +92,8 @@ function index({
                         <InputGroup
                             type="password"
                             label="Confirm Password"
-                            value={data.confirmPassword}
-                            name="confirmPassword"
+                            value={data.password}
+                            name="password"
                             placeholder=""
                             handleChange={handleInputchange}
                             required={true}
