@@ -94,7 +94,7 @@ export const Login = () => {
                             type='password'
                             label='Password'
                             value={data.password}
-                            name='passwdisplay: flex;ord'
+                            name='password'
                             placeholder=''
                             handleChange={handleInputchange}
                         />
