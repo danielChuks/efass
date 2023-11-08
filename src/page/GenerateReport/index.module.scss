@@ -19,7 +19,7 @@
 
 .wrapper {
     margin-top: 0.5rem;
-    background-color: #fff;
+    background-color: $generalWhiteColor;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
@@ -28,10 +28,10 @@
 
     .reportGroup {
         gap: 2rem;
-        border-right: 1px solid #b4b4b4;
+        border-right: 1px solid $ShadowColor;
 
         .title {
-            color: #0d1740;
+            color: $fontColor;
             font-size: 1rem;
             font-style: normal;
             font-weight: 600;
@@ -48,13 +48,13 @@
     .selectDate {
         display: flex;
         flex-direction: column;
-        border-right: 1px solid #b4b4b4;
+        border-right: 1px solid $ShadowColor;
         padding: 0 1rem;
         align-self: flex-start;
         height: 100%;
         gap: 1rem;
         .title {
-            color: #0d1740;
+            color: $fontColor;
             font-size: 1rem;
             font-style: normal;
             font-weight: 600;
@@ -68,18 +68,18 @@
 
             .select-container select {
                 width: 144px;
-                border: 1px solid #ccc;
+                border: 1px solid $ShadowColor;
                 border-radius: 5px;
-                background-color: #f0f0f3;
+                background-color: $generalWhiteColor;
                 font-size: 14px;
-                color: #333;
+                color: $fontColor;
             }
         }
     }
 
     .date-group {
         font-weight: 600;
-        color: var(--gray-0, #252525);
+        color: var(--gray-0, $fontColor);
         font-size: 0.8rem;
     }
 
@@ -92,11 +92,11 @@
         width: 100%;
         button {
             outline: none;
-            background: #1c317e;
+            background: $backgroundColor;
             border: none;
             border-radius: 5px;
             padding: 8px;
-            color: #fff;
+            color: $generalWhiteColor;
             width: 173px;
             cursor: pointer;
             font-family: "Baloo 2";
@@ -108,7 +108,7 @@
 }
 
 .contentContainer {
-    background-color: #fff;
+    background-color: $generalWhiteColor;
     padding: 36px;
 
     .contentTopSection {
@@ -124,13 +124,13 @@
             align-items: center;
 
             label {
-                color: #474747;
+                color: $backgroundColor;
             }
             select {
-                border: #ccc 1px solid;
+                border: $generalWhiteColor 1px solid;
                 padding: 5px;
                 border-radius: 3px;
-                color: #130019;
+                color: $backgroundColor;
                 outline: none;
             }
         }
@@ -148,8 +148,8 @@
                 align-content: center;
                 justify-content: center;
                 gap: 20px;
-                background: #1c317e;
-                color: #fff;
+                background: $backgroundColor;
+                color: $generalWhiteColor;
                 font-family: "Baloo 2";
                 font-size: 1rem;
                 font-style: normal;
@@ -166,8 +166,8 @@
         padding-top: 14px;
         padding-bottom: 14px;
         width: 80px;
-        background-color: #1c317e;
-        color: #fff;
+        background-color: $backgroundColor;
+        color: $generalWhiteColor;
         font-family: "Baloo 2";
         font-size: 16px;
         font-style: normal;

@@ -1,3 +1,4 @@
+@import "../../styles/index.scss";
 .table-wrapper {
     margin-top: 20px;
 
@@ -9,12 +10,12 @@
         gap: 8px;
         padding: 14px 43px;
         border-radius: 4px;
-        background: #DFE9FF;
+        background: $ShadowColor;
 
         .header-column {
             flex: 1;
-            color: var(--grey-1, #343A40);
-            font-family: 'Baloo 2';
+            color: var(--grey-1, $fontColor);
+            font-family: "Baloo 2";
             font-size: 18px;
             font-style: normal;
             font-weight: 700;
@@ -30,16 +31,16 @@
             flex-direction: row;
             align-items: top;
             border-radius: 3px;
-            border: 1px solid #E6E6E6;
-            background: #FFF;
+            border: 1px solid #e6e6e6;
+            background: #fff;
             gap: 8px;
             padding: 24px 43px;
         }
 
         .body-column {
             flex: 1;
-            color: var(--grey-1, #343A40);
-            font-family: 'Baloo 2';
+            color: var(--grey-1, #343a40);
+            font-family: "Baloo 2";
             font-size: 16px;
             font-style: normal;
             font-weight: 600;
@@ -58,7 +59,7 @@
 
         .loader-row {
             padding: 20px 43px;
-            border: 1px solid #E6E6E6;
+            border: 1px solid #e6e6e6;
         }
     }
 
@@ -70,8 +71,8 @@
         justify-content: space-between;
 
         .showing {
-            color: var(--grey-2, #6C757D);
-            font-family: 'Baloo 2';
+            color: var(--grey-2, #6c757d);
+            font-family: "Baloo 2";
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -93,7 +94,7 @@
                 align-items: center;
                 gap: 4px;
                 color: var(--black, #080730);
-                font-family: 'Baloo 2';
+                font-family: "Baloo 2";
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -102,7 +103,7 @@
                 cursor: pointer;
 
                 &:disabled {
-                    color: var(--grey-2, #6C757D);
+                    color: var(--grey-2, #6c757d);
                     cursor: not-allowed;
                 }
             }
@@ -116,7 +117,7 @@
                 .number {
                     padding: 4px 8px;
                     border-radius: 4px;
-                    color: var(--grey-1, #343A40);
+                    color: var(--grey-1, #343a40);
                     font-family: Inter;
                     font-size: 14px;
                     font-style: normal;
@@ -127,12 +128,12 @@
 
                     &.selected {
                         border-radius: 4px;
-                        background: #F5F5FA;
+                        background: #f5f5fa;
                     }
 
                     &:hover {
                         border-radius: 4px;
-                        background: #F5F5FA;
+                        background: #f5f5fa;
                     }
                 }
             }
@@ -145,7 +146,7 @@
             gap: 4px;
 
             .text {
-                color: var(--grey-2, #6C757D);
+                color: var(--grey-2, #6c757d);
                 font-family: Inter;
                 font-size: 14px;
                 font-style: normal;
@@ -155,7 +156,7 @@
             }
 
             select {
-                color: var(--grey-2, #6C757D);
+                color: var(--grey-2, #6c757d);
                 font-family: Inter;
                 font-size: 14px;
                 font-style: normal;
@@ -165,7 +166,7 @@
                 padding-left: 5px;
                 border: none;
                 background-color: transparent;
-                border-bottom: 1px solid #6C757D;
+                border-bottom: 1px solid #6c757d;
                 outline: none;
             }
         }
