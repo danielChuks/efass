@@ -1,0 +1,91 @@
+@import "../../styles/index.scss";
+
+.card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: #fff;
+    padding: 1rem 0 2rem 1rem;
+    margin-top: 1rem;
+    display: flex;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.table_body {
+    margin-top: 0.625rem;
+    background-color: #fff;
+    width: 100%;
+    padding: 1rem 3rem 1rem 3rem;
+}
+
+.styledButton_active {
+    border: none;
+    border-radius: 0.3125rem;
+    background: rgba(50, 160, 113, 0.1);
+    color: #32a071;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    font-family: "Baloo 2";
+}
+
+.styledButton_inactive {
+    border: none;
+    border-radius: 0.3125rem;
+    background: rgba(249, 19, 19, 0.1);
+    color: #f91313;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    font-family: "Baloo 2";
+}
+
+.card-container {
+    background: #dfe9ff;
+    border-radius: 0.5rem;
+    width: 15.875rem;
+    height: 7.25rem;
+    padding: 2rem;
+    h3 {
+        font-weight: 600;
+        font-size: 0.9375rem;
+    }
+}
+
+.contentContainer {
+    background-color: $generalWhiteColor;
+    padding: 25px;
+}
+.contentTopSection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
+.rightSide {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    align-items: center;
+
+    .reportButton {
+        display: flex;
+        border-radius: 5px;
+        padding: 8px;
+        align-content: center;
+        justify-content: center;
+        gap: 20px;
+        background: $backgroundColor;
+        color: $generalWhiteColor;
+        font-family: "Baloo 2";
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 600;
+    }
+}

@@ -54,6 +54,7 @@
     background-color: #fff;
     color: white;
     color: black;
+    margin-bottom: 40px;
 
     .leftSection {
         display: grid;
@@ -113,6 +114,59 @@
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
+            }
+        }
+    }
+}
+
+.contentContainer {
+    background-color: #fff;
+    padding: 36px;
+
+    .contentTopSection {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+
+        .selectContainer {
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+            font-family: "Baloo 2";
+            align-items: center;
+
+            label {
+                color: #474747;
+            }
+            select {
+                border: #ccc 1px solid;
+                padding: 5px;
+                border-radius: 3px;
+                color: #130019;
+                outline: none;
+            }
+        }
+
+        .rightSide {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            align-items: center;
+
+            .reportButton {
+                display: flex;
+                border-radius: 5px;
+                padding: 8px;
+                align-items: center;
+                justify-content: center;
+                background: #1c317e;
+                color: #fff;
+                font-family: "Baloo 2";
+                cursor: pointer;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 800;
+                line-height: 24px;
             }
         }
     }
