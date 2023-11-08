@@ -11,13 +11,17 @@ import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useSetRecoilState } from 'recoil';
 import { selectedDateAtom } from '../../state/generateReport';
 import SnackbarComponent from '../../components/Snackbar';
+import { ReportPageProps } from '@/interfaces'
+import { generateReportAtom } from '../../state/generateReport';
 
 interface disabledProps {
     isYearDisabled: boolean;
     isMonthDisabled: boolean;
     isQuarterDisabled: boolean;
 }
-export function ReportHeader() {
+
+export function ReportHeader({ loading, setLoading }: ReportPageProps) {
+    const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
     const { handleGenerateReport } = useGenerateReportActions();
     const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
@@ -35,7 +39,6 @@ export function ReportHeader() {
     const [isopen, setIsOpen] = useState(false);
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
 
-    
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -74,6 +77,7 @@ export function ReportHeader() {
         setSelectedYear('');
         setSelectedQuarter('');
         setCurrentMonth(0);
+        setReportData([])
         console.log(group);
     };
 
@@ -98,8 +102,8 @@ export function ReportHeader() {
             console.log(monthlyDateFormatter(selectedYear, currentMonth));
             setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
             const response = await handleGenerateReport(selectedGroup);
-            console.log(response);
-            return;// use response for report table
+            setLoading(false);
+            return; // use response for report table
         } else if (selectedGroup === 'Q') {
             if (!selectedYear || !selectedQuarter) {
                 setIsOpen(true);
@@ -111,7 +115,8 @@ export function ReportHeader() {
                 QuarterlyDateFormatter(selectedYear, selectedQuarter)
             );
             const response = await handleGenerateReport(selectedGroup);
-            console.log(response);
+            setLoading(false);
+            return;
         }
         setSnackbarMessage('Please select a valid date');
         setIsOpen(true);

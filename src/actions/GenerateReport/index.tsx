@@ -1,12 +1,18 @@
 import { useCallback } from 'react';
 import { useFetchWrapper } from '../../hooks/useFetchWrapper';
 import { useSetRecoilState } from 'recoil';
-import { generateReportAtom } from '../../state/generateReport';
+import {
+    generateReportAtom,
+    generateReportInformationAtom,
+} from '../../state/generateReport';
 import { BASEAPI_EXTENSION } from '../../enums';
 
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
     const setReportData = useSetRecoilState(generateReportAtom);
+    const setReportInformation = useSetRecoilState(
+        generateReportInformationAtom
+    );
 
     const handleGenerateReport = useCallback(async (reportType: string) => {
         try {
@@ -17,6 +23,7 @@ export const useGenerateReportActions = () => {
                 console.log(response.data);
                 setReportData(response.data);
             } else {
+                setReportData([]);
                 return [];
             }
         } catch (error) {
@@ -32,13 +39,16 @@ export const useGenerateReportActions = () => {
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
                 );
                 if (response.responseCode === 0) {
-                    return response;
+                    //response should be consistent for ease
+                    console.log(response);
+                    setReportInformation(response.sheetMcfpr1);
+                    // return response;
                 } else {
-                    return [];
+                    setReportInformation([]);
                 }
             } catch (error) {
                 console.log(error);
-                return error;
+                setReportInformation([]);
             }
         },
         []

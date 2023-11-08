@@ -6,10 +6,10 @@ export const generateReportAtom = atom<ReportData[]>({
     key: 'generateReport',
 });
 
-// export const generateReportInformationAtom = atom<>({
-//     default:{},
-//     key:'generateReportInformation'
-// })
+export const generateReportInformationAtom = atom<any>({
+    default:[],
+    key:'generateReportInformation'
+})
 
 export const selectedDateAtom = atom<string>({
     default: '',

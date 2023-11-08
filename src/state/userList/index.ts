@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { User} from '../../interfaces';
+import { User } from '@/interfaces';
 
 export const userAtom = atom<User[]>({
     default: [],

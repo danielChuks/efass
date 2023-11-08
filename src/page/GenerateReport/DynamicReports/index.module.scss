@@ -1,4 +1,4 @@
-@import "../../../styles/index.scss";
+@import '../../../styles/index.scss';
 
 .topItems {
     display: flex;
@@ -11,8 +11,8 @@
         align-items: center;
         gap: 43px;
         color: $fontColor;
-        font-family: "Baloo 2";
-        font-size: 20px;
+        font-family: 'Baloo 2';
+        font-size: 16px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
@@ -29,15 +29,15 @@
 
         .currentDate {
             color: $fontColor;
-            font-family: "Baloo 2";
-            font-size: 18px;
+            font-family: 'Baloo 2';
+            font-size: 16px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
 
             .currentDateValue {
                 color: $fontColor;
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 500;
@@ -54,6 +54,7 @@
     background-color: $generalWhiteColor;
     color: $fontColor;
     margin-bottom: 40px;
+    // border: 1px solid red;
 
     .leftSection {
         display: grid;
@@ -68,8 +69,8 @@
 
             .displayTitle {
                 color: $fontColor;
-                font-family: "Baloo 2";
-                font-size: 20px;
+                font-family: 'Baloo 2';
+                font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -78,7 +79,7 @@
             .displayText {
                 color: $fontColor;
                 font-family: Baloo 2;
-                font-size: 20px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -99,8 +100,8 @@
 
             .displayTitle {
                 color: $fontColor;
-                font-family: "Baloo 2";
-                font-size: 20px;
+                font-family: 'Baloo 2';
+                font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -109,7 +110,7 @@
             .displayText {
                 color: $fontColor;
                 font-family: Baloo 2;
-                font-size: 20px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -121,6 +122,9 @@
 .contentContainer {
     background-color: $generalWhiteColor;
     padding: 36px;
+    // width: 100%;
+    // border: 1px solid red;
+    overflow-x: auto;
 
     .contentTopSection {
         display: grid;
@@ -131,7 +135,7 @@
             display: flex;
             padding: 10px;
             gap: 10px;
-            font-family: "Baloo 2";
+            font-family: 'Baloo 2';
             align-items: center;
 
             label {
@@ -160,9 +164,10 @@
                 justify-content: center;
                 background: $backgroundColor;
                 color: $generalWhiteColor;
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 cursor: pointer;
-                font-size: 18px;
+                font-size: 16px;
+                gap: 8px;
                 font-style: normal;
                 font-weight: 800;
                 line-height: 24px;

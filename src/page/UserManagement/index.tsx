@@ -15,7 +15,7 @@ import Filter from "../../components/FilterBy";
 import { useUserListActions } from "../../actions/userManagement";
 import { userAtom } from "../../state/userList";
 import { PaginatedTable } from "@/components/PaginatedTable";
-import { userData } from "./data";
+// import { userData } from "./data";
 import { User } from "@/interfaces";
 import styles from "./index.module.scss";
 
@@ -31,19 +31,19 @@ export const UserManagement = () => {
     const [modalAction, setModalAction] = useState(() => handleCreateUser);
     //form data
     const [data, setData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+        username: '',
+        role: '',
+        password: '',
+        confirmPassword: '',
     });
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState("");
     const { handleuserList } = useUserListActions();
-    // const userData = useRecoilValue(userAtom);
+    const userData = useRecoilValue(userAtom);
     const addUser = () => {
         setModalHeader("Create User");
         setOpenModal(true);
-        setData({ username: "", email: "", password: "", confirmPassword: "" });
+        setData({ username: "", role: "", password: "", confirmPassword: "" });
         setModalAction(() => handleCreateUser);
     };
 
@@ -54,9 +54,9 @@ export const UserManagement = () => {
     const fetchData = async () => {
         try {
             await handleuserList();
-            console.log(userData);
+            setLoading(false);
         } catch (error) {
-            console.error(error);
+            setLoading(false);
         }
     };
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,10 +65,10 @@ export const UserManagement = () => {
     const editUser = (data: User) => {
         setModalHeader("Edit User");
         setData({
-            username: data.userName,
-            email: data.email,
-            password: "",
-            confirmPassword: "",
+            username: data.username,
+            role: data.role,
+            password: data.password,
+            confirmPassword: data.password,
         });
         console.log(data);
         setOpenModal(true);
@@ -94,96 +94,96 @@ export const UserManagement = () => {
                     errorText={errorText}
                 />
             )}
-            <div className={styles["container"]}>
+            <div className={styles['container']}>
                 <h4>USER MANAGEMENT</h4>
             </div>
-            <div className={styles["card-body"]}>
-                <Card title={"Users Created"} content={"0"} />
-                <Card title={"Active Users"} content={"0"} />
-                <Card title={"Inactive Users"} content={"0"} />
+            <div className={styles['card-body']}>
+                <Card
+                    title={'Users Created'}
+                    content={userData?.length.toString()}
+                />
+                <Card
+                    title={'Active Users'}
+                    content={userData?.length.toString()}
+                />
+                <Card title={'Inactive Users'} content={'0'} />
             </div>
-            <div className={styles["contentContainer"]}>
-                <div className={styles["table_body"]}>
-                    <div className={styles["contentTopSection"]}>
+            <div className={styles['contentContainer']}>
+                <div className={styles['table_body']}>
+                    <div className={styles['contentTopSection']}>
                         <SearchBar />
                         <Filter />
-                        <div className={styles["righSide"]}>
-                            <div className={styles["rightSide"]}>
+                        <div className={styles['righSide']}>
+                            <div className={styles['rightSide']}>
                                 <div
-                                    className={styles["reportButton"]}
+                                    className={styles['reportButton']}
                                     onClick={addUser}
                                 >
                                     Create User
-                                    <BsPlusLg size={22} color={"#fff"} />
+                                    <BsPlusLg size={22} color={'#fff'} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <PaginatedTable<User>
-                        headers={[
-                            "USERNAME",
-                            "EMAIL ADDRESS",
-                            "LAST ACTIVITY DATE",
-                            "STATUS",
-                            "ACTION",
-                        ]}
+                        headers={['USERNAME', 'ROLE', 'PASSWORD', 'ACTION']}
                         data={userData}
-                        // loading={loading}
+                        loading={loading}
                         columns={[
                             {
                                 render: (data, index) => {
-                                    return data.userName;
+                                    return data.username;
                                 },
-                                width: "30%",
+                                width: '30%',
                             },
                             {
                                 render: (data, index) => {
-                                    return data.email;
+                                    return data.role;
                                 },
-                                width: "50%",
+                                width: '50%',
                             },
 
                             {
                                 render: (data, index) => {
-                                    return data.lastActivityDate;
+                                    return <p>********</p>;
                                 },
-                                width: "50%",
+                                width: '50%',
                             },
-                            {
-                                render: (data, index) => {
-                                    if (data.status === "Active") {
-                                        return (
-                                            <button
-                                                className={
-                                                    styles[
-                                                        "styledButton_active"
-                                                    ]
-                                                }
-                                            >
-                                                {data.status}
-                                            </button>
-                                        );
-                                    } else {
-                                        return (
-                                            <button
-                                                className={
-                                                    styles[
-                                                        "styledButton_inactive"
-                                                    ]
-                                                }
-                                            >
-                                                {data.status}
-                                            </button>
-                                        );
-                                    }
-                                },
-                                width: "50%",
-                            },
+                            // {
+                            //     render: (data, index) => {
+                            //         if (data.status === "Active") {
+                            //             return (
+                            //                 <button
+                            //                     className={
+                            //                         styles[
+                            //                             "styledButton_active"
+                            //                         ]
+                            //                     }
+                            //                 >
+                            //                     {data.status}
+                            //                 </button>
+                            //             );
+                            //         } else {
+                            //             return (
+                            //                 <button
+                            //                     className={
+                            //                         styles[
+                            //                             "styledButton_inactive"
+                            //                         ]
+                            //                     }
+                            //                 >
+                            //                     {data.status}
+                            //                 </button>
+                            //             );
+                            //         }
+                            //     },
+                            //     width: "50%",
+                            // },
                             {
                                 render: (data, index) => {
                                     return (
                                         <div
-                                            className={styles["viewButton"]}
+                                            className={styles['viewButton']}
                                             onClick={() => {
                                                 editUser(data);
                                             }}
@@ -192,7 +192,7 @@ export const UserManagement = () => {
                                         </div>
                                     );
                                 },
-                                width: "10%",
+                                width: '10%',
                             },
                         ]}
                     />

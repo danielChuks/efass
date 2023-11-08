@@ -14,32 +14,14 @@ import {
 } from '../../state/generateReport';
 import { PaginatedTable } from '@/components/PaginatedTable';
 // import { mockData } from '../../components/PaginatedTable/mock';
-import { SettingsButton } from '@/components/Button';
+// import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
+import { ReportPageProps } from '@/interfaces';
 
-export const ContentSection = () => {
+export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
-    const reportHistoryData = useRecoilValue(generateReportAtom);
-    const { getReportInformation } = useGenerateReportActions();
-    const [loading, setLoading] = useState(true);
     const reportData = useRecoilValue(generateReportAtom);
-
-    const handleReportInformation = async () => {
-        const response = await getReportInformation('mdfir101', selectedDate);
-        console.log(response);
-    };
-
-    console.log(reportData);
-
-    useEffect(() => {
-        handleReportInformation();
-
-        setTimeout(() => {
-            setLoading(false);
-        }, 4000);
-    }, []);
-
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>

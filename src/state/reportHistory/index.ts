@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { history } from '../../interfaces/history.interface';
+import { ReportHistory } from '@/interfaces';
 
-export const reportHistoryAtom = atom<any[]>({
+export const reportHistoryAtom = atom<ReportHistory[]>({
     default: [],
     key: 'reportHistory',
 });
