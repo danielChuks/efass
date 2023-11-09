@@ -36,7 +36,8 @@ export const useGenerateReportActions = () => {
     const postReportDate = useCallback(async (selectedDate: string) => {
         try {
             const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}date`,selectedDate
+                `${BASEAPI_EXTENSION.BASEAPI}date`,
+                selectedDate
             );
             console.log(response);
             // if (response.responseCode === 0) {
@@ -52,12 +53,15 @@ export const useGenerateReportActions = () => {
         }
     }, []);
 
-    const handleDownloadReports = useCallback(
-        async (generatedReports: any) => {
-             
-        },
-        []
-    );
+    const handleDownloadReports = useCallback(async (url: string) => {
+        try {
+            const response = await fetchWrapper.get(url)
+            console.log(response)
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    }, []);
 
     const getReportInformation = useCallback(
         async (sheetName: string, selectedDate: string) => {
@@ -81,5 +85,10 @@ export const useGenerateReportActions = () => {
         []
     );
 
-    return { handleGenerateReport, getReportInformation, postReportDate };
+    return {
+        handleGenerateReport,
+        getReportInformation,
+        postReportDate,
+        handleDownloadReports,
+    };
 };

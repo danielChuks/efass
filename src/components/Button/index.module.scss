@@ -37,6 +37,7 @@
 }
 
 .customButton {
+    padding: .5rem;
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -49,7 +50,7 @@
     border: none;
     font-family: "Baloo 2";
     width: 167px;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 800;
     line-height: 24px;
