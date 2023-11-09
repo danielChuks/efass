@@ -4,6 +4,7 @@ import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogIn } from 'react-icons/bi';
+import { PiNotebookBold } from 'react-icons/pi';
 import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';
@@ -35,6 +36,12 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                         icon={<FaUserCog />}
                         title={'User Management'}
                         active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
+                    />
+                      <SideNavItem
+                        pageUrl={'/gl-mapping'}
+                        icon={<PiNotebookBold />}
+                        title={'GL Mapping'}
+                        active={page === DASHBOARD_PAGES.GL_MAPPING}
                     />
                     <div className={styles['sidebar_settings']}>
                         <SideNavItem
