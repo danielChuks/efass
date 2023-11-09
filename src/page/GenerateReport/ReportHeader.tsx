@@ -9,7 +9,7 @@ import QuarterlyPicker from '@/components/QuaterlyPicker';
 import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useSetRecoilState } from 'recoil';
-import { selectedDateAtom } from '../../state/generateReport';
+import { selectedDateAtom, selectedGroupAtom } from '../../state/generateReport';
 import SnackbarComponent from '../../components/Snackbar';
 import { ReportPageProps } from '@/interfaces';
 import { generateReportAtom } from '../../state/generateReport';
@@ -23,6 +23,7 @@ interface disabledProps {
 export function ReportHeader({ loading, setLoading }: ReportPageProps) {
     const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
+    const setReportGroup = useSetRecoilState(selectedGroupAtom);
     const { handleGenerateReport, postReportDate } = useGenerateReportActions();
     const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
     const [currentMonth, setCurrentMonth] = useState<number | undefined>();
@@ -73,6 +74,7 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
             });
         }
         setSelectedGroup(group);
+        setReportGroup(group); //global state
         //empty state
         setSelectedYear('');
         setSelectedQuarter('');
