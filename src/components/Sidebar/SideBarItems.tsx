@@ -11,6 +11,7 @@ interface SideNavItemProps {
     title: string;
     active?: boolean;
     signout?: boolean;
+    open?: boolean;
 }
 
 export function SideNavItem({
@@ -19,6 +20,7 @@ export function SideNavItem({
     title,
     active,
     signout = false,
+    open = true,
 }: SideNavItemProps) {
     const { replace } = useRouter();
     const { logout } = useAuthActions();
@@ -36,7 +38,7 @@ export function SideNavItem({
             onClick={signout ? logout : redirect}
         >
             {icon}
-            <p>{title}</p>
+            {open && (<p>{title}</p>)}
         </div>
     );
 }

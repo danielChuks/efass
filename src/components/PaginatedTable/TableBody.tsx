@@ -27,8 +27,8 @@ export function TableBody<T = any>({
         <div className={styles["body"]}>
             {!loading &&
                 data.map((row, index) => (
-                    <div className={styles["body-row"]} key={index}>
-                        <div 
+                    <tr className={styles["body-row"]} key={index}>
+                        <td 
                             className={styles["body-column"]}
                             style={{
                                 flex: 'unset',
@@ -36,9 +36,9 @@ export function TableBody<T = any>({
                             }}
                         >
                             {((page - 1) * numOfItemsPerPage) + 1 + index}
-                        </div>
+                        </td>
                         {columns.map((column, idx) => (
-                            <div
+                            <td
                                 className={styles["body-column"]}
                                 key={idx}
                                 onClick={() => {
@@ -55,9 +55,9 @@ export function TableBody<T = any>({
                                 }}
                             >
                                 {column.render(row, idx)}
-                            </div>
+                            </td>
                         ))}
-                    </div>
+                    </tr>
                 ))}
 
             {data.length === 0 && !loading && (

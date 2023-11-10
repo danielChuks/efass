@@ -17,6 +17,7 @@ import { PaginatedTable } from "@/components/PaginatedTable";
 // import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import { ReportPageProps } from '@/interfaces';
+import { mockData } from "@/components/PaginatedTable/mock";
 
 export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -34,7 +35,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                     </div>
                 </div>
             </div>
-            <PaginatedTable<ReportData>
+            {/* <PaginatedTable<ReportData>
                 headers={["Report Code", "Report Description", "Action"]}
                 data={reportData}
                 loading={loading}
@@ -68,14 +69,14 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                         width: "10%",
                     },
                 ]}
-            />
+            /> */}
 
-            {/* <PaginatedTable<ReportData>
+            <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(
                     (val) => val !== 'serial_number'
-                )}
+                ).map((val) => val.split('_').join(' '))}
                 data={mockData}
-                loading={loading}
+                loading={false}
                 columns={Object.keys(mockData[0])
                     .filter((val) => val !== 'serial_number')
                     .map((key) => ({
@@ -83,7 +84,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                             return (data as any)[key];
                         },
                     }))}
-            /> */}
+            />
         </div>
     );
 };

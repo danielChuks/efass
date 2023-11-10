@@ -29,21 +29,25 @@ export function PaginatedTable<T>({
 
     return (
         <div className={styles['table-wrapper']}>
-            {data.length === 0 || loading ? 
-                null : (
-                    <TableHeader 
-                        headers={headers}
+            <div className={styles['table-container']}>
+                <table className={styles['header-and-body']}>
+                    {data.length === 0 || loading ? 
+                        null : (
+                            <TableHeader 
+                                headers={headers}
+                                columns={columns}
+                            />
+                        )
+                    }
+                    <TableBody 
                         columns={columns}
+                        data={tableData}
+                        loading={loading}
+                        rowClickHandler={rowClickHandler}
+                        pagination={pagination} 
                     />
-                )
-            }
-            <TableBody 
-                columns={columns}
-                data={tableData}
-                loading={loading}
-                rowClickHandler={rowClickHandler}
-                pagination={pagination} 
-            />
+                </table>
+            </div>
             {data.length === 0 || loading ? 
                 null : (
                     <TablePagination 
