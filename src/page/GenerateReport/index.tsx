@@ -6,7 +6,7 @@ import styles from "./index.module.scss";
 import { DASHBOARD_PAGES } from "../../enums";
 import { ReportHeader } from "./ReportHeader";
 import { ContentSection } from "./ContentSection";
-
+import { getCurrentDateAndTime } from './utils';
 
 interface GenerateReportProps {
     date: string;
@@ -19,7 +19,7 @@ export const GenerateReport = () => {
                 <div>Generate Report</div>
                 <div className={styles['timeContainer']}>
                     <div>Current Date:</div>
-                    <div>{'20/10/2023'}</div>
+                    <div>{getCurrentDateAndTime()}</div>
                 </div>
             </div>
             <ReportHeader loading={loading} setLoading={setLoading} />

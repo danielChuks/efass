@@ -7,6 +7,7 @@ import BaseLayout from '../../../components/BaseLayout';
 import { DASHBOARD_PAGES } from '../../../enums';
 import { useRouter} from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { getCurrentDateAndTime } from '../utils';
 
 export function DynamicReports() {
     const router = useRouter();
@@ -27,7 +28,7 @@ export function DynamicReports() {
                             Current Date:
                         </div>
                         <div className={styles['currentDateValue']}>
-                            July 12, 2023, 12:23 pm
+                            {getCurrentDateAndTime()}
                         </div>
                     </div>
                 </div>
