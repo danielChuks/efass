@@ -23,8 +23,6 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
-    console.log(reportData);
-    console.log(loading);
     return (
         <div className={styles["contentContainer"]}>
             <div className={styles["contentTopSection"]}>
@@ -37,7 +35,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                     </div>
                 </div>
             </div>
-            {/* <PaginatedTable<ReportData>
+            <PaginatedTable<ReportData>
                 headers={["Report Code", "Report Description", "Action"]}
                 data={reportData}
                 loading={loading}
@@ -71,9 +69,9 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                         width: "10%",
                     },
                 ]}
-            /> */}
+            />
 
-            <PaginatedTable<ReportData>
+            {/* <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(
                     (val) => val !== 'serial_number'
                 ).map((val) => val.split('_').join(' '))}
@@ -86,7 +84,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                             return (data as any)[key];
                         },
                     }))}
-            />
+            /> */}
         </div>
     );
 };
