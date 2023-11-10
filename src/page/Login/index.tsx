@@ -2,6 +2,7 @@
 import styles from "./index.module.scss";
 import EfassLogo from "../../../public/Images/Frame.png";
 import NeptuneLogo from "../../../public/Images/Neptunelogo.png";
+import BoiLogo from "../../../public/logo.png"
 import Image from "next/image";
 import InputGroup from "@/components/Input/index";
 import { useState } from "react";
@@ -61,54 +62,54 @@ export const Login = () => {
         }
     };
     return (
-        <div className={styles["background"]}>
-            <div className={styles["login-logo"]}>
+        <div className={styles['background']}>
+            <div className={styles['login-logo']}>
                 <Image
                     src={EfassLogo}
-                    alt='efass logo'
+                    alt="efass logo"
                     width={245}
                     height={136}
                 />
             </div>
 
-            <div className='login-layout'>
-                <div className={styles["login-field"]}>
+            <div className="login-layout">
+                <div className={styles['login-field']}>
                     <Image
-                        className={styles["form-logo"]}
-                        src={NeptuneLogo}
-                        alt='Neptune logo'
+                        className={styles['form-logo']}
+                        src={BoiLogo}
+                        alt="logo"
                         width={198}
                         height={64}
                     />
-                    <div className={styles["form"]}>
-                        <div className={styles["header"]}>Log In</div>
+                    <div className={styles['form']}>
+                        <div className={styles['header']}>Log In</div>
                         <InputGroup
-                            type='text'
-                            label='Username'
-                            placeholder=''
+                            type="text"
+                            label="Username"
+                            placeholder=""
                             value={data.username}
-                            name='username'
+                            name="username"
                             handleChange={handleInputchange}
                         />
                         <InputGroup
-                            type='password'
-                            label='Password'
+                            type="password"
+                            label="Password"
                             value={data.password}
-                            name='password'
-                            placeholder=''
+                            name="password"
+                            placeholder=""
                             handleChange={handleInputchange}
                         />
                         <SettingsButton
-                            text='Login'
+                            text="Login"
                             error={error}
                             errorText={errorText}
                             handleAction={onSubmit}
-                            type='submit'
+                            type="submit"
                             loading={loading}
                         />
                     </div>
                 </div>
-                <div className={styles["footer"]}>
+                <div className={styles['footer']}>
                     2023 &copy; eFASS by Neptune Software Group.
                 </div>
             </div>

@@ -1,5 +1,7 @@
 @import '../../../styles/index.scss';
 
+
+
 .topItems {
     display: flex;
     justify-content: space-between;
@@ -122,9 +124,10 @@
 .contentContainer {
     background-color: $generalWhiteColor;
     padding: 36px;
+     width: 100%; /* Set the width of the container */
+    overflow-x: scroll;
     // width: 100%;
     // border: 1px solid red;
-    overflow-x: auto;
 
     .contentTopSection {
         display: grid;

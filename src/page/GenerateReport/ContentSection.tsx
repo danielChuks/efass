@@ -27,57 +27,12 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
     const reportGroup = useRecoilValue(selectedGroupAtom);
 
     const downloadXmlReports = () => {
-        // let selectedReport: any = [];
-        // reportData.forEach((report) => {
-        //     selectedReport.push(report.return_code);
-        // });
-        // //let endpoint = `${process.env.apiUrl}/download/MDFIR1200`;
-        // let endpoint = `${process.env.apiUrl}/download/`;
-        // selectedReport
-        //     .filter((item: string) => !item.startsWith('QDFIR400'))
-        //     .filter((item: string) => !item.startsWith('QDFIR450'))
-        //     .filter((item: string) => !item.startsWith('MDFIR450'))
-        //     .filter((item: string) => !item.startsWith('MDFIR400'))
-        //     .forEach((item: string) => {
-        //         endpoint += item;
-        //         endpoint += ',';
-        //     });
-
-        // // console.log(endpoint)
-
-        // if (reportGroup === 'Q') {
-        //     endpoint += 'QDFIR400';
-        //     endpoint += ', QDFIR450';
-        // }
-
-        // if (reportGroup === 'M') {
-        //     endpoint += 'MDFIR400';
-        //     endpoint += ',MDFIR450';
-        // }
-
-        // const response = await handleDownloadReports(endpoint)
-
-    //     console.log(endpoint);
-    //     this.download(endpoint).subscribe((blob) => {
-    //         const a = document.createElement('a');
-    //         const objectUrl = URL.createObjectURL(blob);
-    //         a.href = objectUrl;
-    //         a.download =
-    //             'Reports downloaded for ' + this.reportSelectedDate + '.zip';
-    //         a.click();
-    //         URL.revokeObjectURL(objectUrl);
-    //     });
-    // };
-
-    //  const download = (url: string) => {
-    //     return this.http.get(url, {
-    //       responseType: 'blob'
-    //     });
-
-    //  const download = (url: string): Observable<Blob> {
-    //     return this.http.get(url, {
-    //       responseType: 'blob'
-    //     });
+        const response = handleDownloadReports(
+            reportData,
+            reportGroup,
+            selectedDate
+        );
+        console.log(response)
     }
 
     return (
@@ -87,7 +42,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                 <Filter />
                 <div className={styles['rightSide']}>
                     <div
-                        // onClick={downloadXmlReports}
+                        onClick={downloadXmlReports}
                         className={styles['reportButton']}
                     >
                         Download Report

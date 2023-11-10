@@ -54,12 +54,12 @@
 	.viewButton {
 		background-color: $backgroundColor;
         color: $generalWhiteColor;
-		padding: 0.5rem;
+		padding: 0.2rem;
 		border-radius: 0.3125rem;
 		font-family: "Baloo 2";
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
-        font: 1rem;
+        font-size: 14px;
 	}
 }
