@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { PaginatedTableColumn } from '@/interfaces';
 import { TableBody } from './TableBody';
 import { TableHeader } from './TableHeader';
@@ -47,6 +48,13 @@ export function PaginatedTable<T>({
                         pagination={pagination} 
                     />
                 </table>
+
+                {data.length === 0 && !loading && (
+                    <div className={styles["no-data"]}>
+                        <img alt='Empty data' src='/empty.png' />
+                        <p>No data found</p>
+                    </div>
+                )}
             </div>
             {data.length === 0 || loading ? 
                 null : (

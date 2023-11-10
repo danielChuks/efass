@@ -23,6 +23,8 @@ export function TableBody<T = any>({
         numOfItemsPerPage,
     } = pagination;
 
+    console.log(loading);
+
     return (
         <div className={styles["body"]}>
             {!loading &&
@@ -59,13 +61,6 @@ export function TableBody<T = any>({
                         ))}
                     </tr>
                 ))}
-
-            {data.length === 0 && !loading && (
-                <div className={styles["no-data"]}>
-                    <img alt='Empty data' src='/empty.png' />
-                    <p>No data found</p>
-                </div>
-            )}
 
             {loading &&
                 Array.from({ length: 5 }).map((_, index) => (
