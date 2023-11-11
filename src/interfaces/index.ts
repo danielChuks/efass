@@ -6,3 +6,4 @@ export * from './config.interface';
 export * from './requestOptions.interface';
 export * from './paginated-table.interface';
 export * from './gl.interface';
+export * from './custom-data.interface';
