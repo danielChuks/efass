@@ -26,25 +26,25 @@ export const AuthWrapper = (prop: AuthWrapperProps) => {
     const checkLogin = async () => {
         setLoading(true);
         const authFromStorageText = await localStorage.getItem('auth');
-    
+
         if (!authFromStorageText) {
             await logout();
             setLoading(false);
             return;
         }
-    
+
         const authFromStorage: Token = JSON.parse(authFromStorageText);
-    
+
         if (!authFromStorage || !authFromStorage.token) {
             await logout();
         } else {
             // Token is present, set user as authenticated
             setAuth(authFromStorage);
         }
-    
+
         setLoading(false);
     };
-    
+
     useEffect(() => {
         checkLogin();
     }, []);

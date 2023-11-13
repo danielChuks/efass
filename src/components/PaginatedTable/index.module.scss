@@ -1,4 +1,4 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 .table-wrapper {
     margin-top: 20px;
     width: 100%;
@@ -11,7 +11,8 @@
         table.header-and-body {
             overflow-x: scroll;
             border-collapse: collapse;
-    
+            min-width: 100%;
+
             .header-row {
                 display: flex;
                 width: fit-content;
@@ -23,32 +24,31 @@
                 border-radius: 4px;
                 background: $ShadowColor;
                 flex-wrap: nowrap;
-        
+
                 .header-column {
                     flex: 1;
                     color: var(--grey-1, $fontColor);
-                    font-family: "Baloo 2";
-                    font-size: 16px;
+                    font-family: 'Baloo 2';
                     font-style: normal;
                     font-weight: 700;
                     line-height: normal;
                     letter-spacing: 0.036px;
                     text-transform: uppercase;
                     min-width: 95px;
-                    text-align: left;
+                    text-align: center;
                     user-select: none;
-
                     text-overflow: ellipsis;
                     -webkit-line-clamp: 1;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
+                    font-size: 13px;
                 }
             }
-        
+
             .body {
                 max-width: 100%;
-        
+
                 .body-row {
                     display: flex;
                     flex-direction: row;
@@ -61,18 +61,19 @@
                     min-width: 100%;
                     width: fit-content;
                 }
-        
+
                 .body-column {
                     flex: 1;
                     color: var(--grey-1, #343a40);
-                    font-family: "Baloo 2";
+                    font-family: 'Baloo 2';
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: normal;
                     min-width: 95px;
+                    text-align: center;
                 }
-        
+
                 .no-data {
                     display: flex;
                     justify-content: center;
@@ -84,7 +85,7 @@
                     width: 100%;
                     background-color: red;
                 }
-        
+
                 .loader-row {
                     padding: 20px 43px;
                     border: 1px solid #e6e6e6;
@@ -113,7 +114,7 @@
 
         .showing {
             color: var(--grey-2, #6c757d);
-            font-family: "Baloo 2";
+            font-family: 'Baloo 2';
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -135,7 +136,7 @@
                 align-items: center;
                 gap: 4px;
                 color: var(--black, #080730);
-                font-family: "Baloo 2";
+                font-family: 'Baloo 2';
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
