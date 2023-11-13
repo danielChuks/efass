@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
-import BaseLayout from "../../components/BaseLayout/index";
-import styles from "./index.module.scss";
-import { DASHBOARD_PAGES } from "../../enums";
-import { ReportHeader } from "./ReportHeader";
-import { ContentSection } from "./ContentSection";
+import BaseLayout from '../../components/BaseLayout/index';
+import styles from './index.module.scss';
+import { DASHBOARD_PAGES } from '../../enums';
+import { ReportHeader } from './ReportHeader';
+import { ContentSection } from './ContentSection';
 import { getCurrentDateAndTime } from './utils';
 
 interface GenerateReportProps {
@@ -18,7 +18,7 @@ export const GenerateReport = () => {
             <div className={styles['topNav']}>
                 <div>Generate Report</div>
                 <div className={styles['timeContainer']}>
-                    <div>Current Date:</div>
+                    {/* <div>Current Date:</div> */}
                     <div>{getCurrentDateAndTime()}</div>
                 </div>
             </div>

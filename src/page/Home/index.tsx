@@ -11,8 +11,12 @@ import { useRecoilValue } from 'recoil';
 import { reportHistoryAtom } from '../../state/reportHistory';
 import { PaginatedTable } from '@/components/PaginatedTable';
 import { ReportHistory } from '@/interfaces';
-import { dummyData } from './dummyData';
 import Card from '../../components/Card/index';
+import date from '../../../public/Images/case.png';
+import lastActivity from '../../../public/Images/calender.png';
+import userAdded from '../../../public/Images/person.png';
+import Image from 'next/image';
+import { options } from '../../components/FilterBy/dommy';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -20,12 +24,12 @@ export const HomePage = () => {
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
 
-     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
-         weekday: 'long',
-         year: 'numeric',
-         month: 'long',
-         day: 'numeric',
-     });
+    const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
 
     useEffect(() => {
         const fetchCurrentDate = () => {
@@ -44,23 +48,48 @@ export const HomePage = () => {
     const fetchData = async () => {
         try {
             await handlereportHistory();
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
             console.error(error);
-             setLoading(false);
+            setLoading(false);
         }
     };
-
-
 
     return (
         <BaseLayout page={DASHBOARD_PAGES.HOME}>
             <div className={styles.header}>DASHBOARD (Overview)</div>
             <div className={styles['card-body']}>
-                <Card title={'User'} content={'0'} />
-                <Card title={'Last activity date'} content={'0'} />
-                <Card title={'Current Date'} content={formattedCurrentDate} />
-                <Card title={'Users Created'} content={'0'} />
+                <Card
+                    title={'USER'}
+                    content={'0'}
+                    image={
+                        <Image src={userAdded} alt="" width={30} height={30} />
+                    }
+                />
+                <Card
+                    title={'LAST ACTIVITY DATE'}
+                    content={'0'}
+                    image={<Image src={date} alt="" width={30} height={30} />}
+                />
+                <Card
+                    title={'CURRENT DATE'}
+                    content={formattedCurrentDate}
+                    image={
+                        <Image
+                            src={lastActivity}
+                            alt=""
+                            width={30}
+                            height={30}
+                        />
+                    }
+                />
+                <Card
+                    title={'USER CREATED'}
+                    content={'0'}
+                    image={
+                        <Image src={userAdded} alt="" width={30} height={30} />
+                    }
+                />
             </div>
             <div className={styles['table_container']}>
                 <div className="table_header">
@@ -69,7 +98,7 @@ export const HomePage = () => {
                 <div className={styles['table_body']}>
                     <div className={styles['contentTopSection']}>
                         <SearchBar />
-                        <Filter />
+                        <Filter options={options} />
                     </div>
 
                     <PaginatedTable<ReportHistory>

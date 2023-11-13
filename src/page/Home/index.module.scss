@@ -1,85 +1,85 @@
+@import '../../styles/index.scss';
+
 .header {
-  color: #0d1740;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
+    color: #0d1740;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
 }
 
 .card-body {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  background-color: #fff;
-  padding: 1rem 0 2rem 1rem;
-  margin-top: 1rem;
-  display: flex;
-  border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 50px 29px 50px 29px;
+    margin-top: 1rem;
+    display: flex;
+
+    gap: 50px;
 }
 
 .card-container {
-  background: #dfe9ff;
-  border-radius: 0.5rem;
-  width: 15.875rem;
-  height: 7.25rem;
-  padding: 2rem;
-  h3 {
+    background: #dfe9ff;
+    border-radius: 0.5rem;
+    width: 15.875rem;
+    height: 7.25rem;
+    padding: 2rem;
     font-weight: 600;
-    font-size: .9375rem;
-  }
+    font-size: 0.9375rem;
 }
 
 .table_container {
     margin-top: 1.5rem;
 }
 .empty_state {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20%;
 }
 
 .table_body {
-    margin-top: .625rem;
+    margin-top: 0.625rem;
     background-color: #fff;
     width: 100%;
     padding: 1rem 3rem 1rem 3rem;
 }
 
-.styledButton_active{
-border: none;
-border-radius: 0.3125rem;
-background: rgba(50, 160, 113, 0.10);
-color: #32A071;
-width: 6rem;
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 0.625rem;
-padding: .5rem;
-font-family: 'Baloo 2';
+.styledButton_active {
+    border: none;
+    border-radius: 0.3125rem;
+    background: rgba(50, 160, 113, 0.1);
+    color: #32a071;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    font-family: $fontStyle;
 }
 
-.styledButton_inactive{
-  border: none;
-  border-radius: 0.3125rem;
-  background: rgba(249, 19, 19, 0.10);
-  color: #F91313;
-  width: 6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
-  padding: .5rem;
-  font-family: 'Baloo 2';
+.styledButton_inactive {
+    border: none;
+    border-radius: 0.3125rem;
+    background: rgba(249, 19, 19, 0.1);
+    color: #f91313;
+    width: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.5rem;
+    font-family: $fontStyle;
 }
 
 .contentTopSection {
-  display: flex;
-  gap: 20px;
+    display: flex;
+    gap: 20px;
 }
 
-
 .super-app-theme--header {
-  background-color: #0d1740;
+    background-color: #0d1740;
 }

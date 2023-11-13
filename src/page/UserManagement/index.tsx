@@ -1,23 +1,29 @@
-"use client";
-import { useRecoilValue } from "recoil";
-import { settingsAtom } from "../../state/settings";
-import { useSettingsActions } from "../../actions/settings";
-import { useEffect, useState } from "react";
-import BaseLayout from "../../components/BaseLayout";
-import Card from "../../components/Card/index";
-import { CustomButton } from "@/components/Button";
-import { BsPlusLg } from "react-icons/bs";
-import Dialog from "../../components/Dialog";
-import { DASHBOARD_PAGES } from "../../enums";
-import { MaterialTable } from "../../components/MaterialTable";
-import SearchBar from "../../components/SearchBar";
-import Filter from "../../components/FilterBy";
-import { useUserListActions } from "../../actions/userManagement";
-import { userAtom } from "../../state/userList";
-import { PaginatedTable } from "@/components/PaginatedTable";
+'use client';
+import { useRecoilValue } from 'recoil';
+import { settingsAtom } from '../../state/settings';
+import { useSettingsActions } from '../../actions/settings';
+import { useEffect, useState } from 'react';
+import BaseLayout from '../../components/BaseLayout';
+import Card from '../../components/Card/index';
+import { CustomButton } from '@/components/Button';
+import { BsPlusLg } from 'react-icons/bs';
+import Dialog from '../../components/Dialog';
+import { DASHBOARD_PAGES } from '../../enums';
+import { MaterialTable } from '../../components/MaterialTable';
+import SearchBar from '../../components/SearchBar';
+import Filter from '../../components/FilterBy';
+import { useUserListActions } from '../../actions/userManagement';
+import { userAtom } from '../../state/userList';
+import { PaginatedTable } from '@/components/PaginatedTable';
 // import { userData } from "./data";
-import { User } from "@/interfaces";
-import styles from "./index.module.scss";
+import { User } from '@/interfaces';
+import styles from './index.module.scss';
+import { options } from '../../components/FilterBy/dommy';
+import Image from 'next/image';
+import users from '../../../public/Images/users.png';
+import date from '../../../public/Images/case.png';
+import lastActivity from '../../../public/Images/calender.png';
+import userAdded from '../../../public/Images/person.png';
 
 export const UserManagement = () => {
     const handleCreateUser = () => {
@@ -27,7 +33,7 @@ export const UserManagement = () => {
     const [loading, setLoading] = useState(true);
     const darkMode = useRecoilValue(settingsAtom);
     const [openModal, setOpenModal] = useState(false);
-    const [modalHeader, setModalHeader] = useState("Create User");
+    const [modalHeader, setModalHeader] = useState('Create User');
     const [modalAction, setModalAction] = useState(() => handleCreateUser);
     //form data
     const [data, setData] = useState({
@@ -37,13 +43,13 @@ export const UserManagement = () => {
         confirmPassword: '',
     });
     const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState("");
+    const [errorText, setErrorText] = useState('');
     const { handleuserList } = useUserListActions();
     const userData = useRecoilValue(userAtom);
     const addUser = () => {
-        setModalHeader("Create User");
+        setModalHeader('Create User');
         setOpenModal(true);
-        setData({ username: "", role: "", password: "", confirmPassword: "" });
+        setData({ username: '', role: '', password: '', confirmPassword: '' });
         setModalAction(() => handleCreateUser);
     };
 
@@ -63,7 +69,7 @@ export const UserManagement = () => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
     const editUser = (data: User) => {
-        setModalHeader("Edit User");
+        setModalHeader('Edit User');
         setData({
             username: data.username,
             role: data.role,
@@ -75,7 +81,7 @@ export const UserManagement = () => {
         setModalAction(() => handleEditUser);
     };
     const handleEditUser = () => {
-        console.log("edittt");
+        console.log('edittt');
     };
 
     // console.log(darkMode);
@@ -101,18 +107,32 @@ export const UserManagement = () => {
                 <Card
                     title={'Users Created'}
                     content={userData?.length.toString()}
+                    image={<Image src={users} alt="" width={30} height={30} />}
                 />
                 <Card
                     title={'Active Users'}
                     content={userData?.length.toString()}
+                    image={<Image src={userAdded} alt="" width={30} height={30} />}
                 />
-                <Card title={'Inactive Users'} content={'0'} />
+
+                <Card
+                    title={'Inactive Users'}
+                    content={'0'}
+                    image={
+                        <Image
+                            src={lastActivity}
+                            alt=""
+                            width={30}
+                            height={30}
+                        />
+                    }
+                />
             </div>
             <div className={styles['contentContainer']}>
                 <div className={styles['table_body']}>
                     <div className={styles['contentTopSection']}>
                         <SearchBar />
-                        <Filter />
+                        <Filter options={options} />
                         <div className={styles['righSide']}>
                             <div className={styles['rightSide']}>
                                 <div
