@@ -24,7 +24,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
     };
 
     return (
-        <div 
+        <div
             className={styles['sidebar']}
             style={{
                 width: isOpen ? 220 : 77,
@@ -56,6 +56,18 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'User Management'}
                 active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
                 open={isOpen}
+            />
+            <SideNavItem
+                pageUrl={'/gl-mapping'}
+                icon={<PiNotebookBold />}
+                title={'GL Mapping'}
+                active={page === DASHBOARD_PAGES.GL_MAPPING}
+            />
+            <SideNavItem
+                pageUrl={'/custom-data'}
+                icon={<MdOutlineDashboardCustomize />}
+                title={'Custom Data'}
+                active={page === DASHBOARD_PAGES.CUSTOM_DATA}
             />
             <div className={styles['sidebar_settings']}>
                 <SideNavItem

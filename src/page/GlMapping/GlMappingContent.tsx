@@ -83,7 +83,7 @@ function GlMappingContent() {
 			<div className={styles["content_header"]}>
 				<div className={styles["search"]}>
 					<SearchBar />
-					<Filter />
+					<Filter options={[]} />
 				</div>
 
 				<CustomButton
