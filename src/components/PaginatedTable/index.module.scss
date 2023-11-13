@@ -28,7 +28,7 @@
                 .header-column {
                     flex: 1;
                     color: var(--grey-1, $fontColor);
-                    font-family: 'Baloo 2';
+                    font-family: $fontStyle;
                     font-style: normal;
                     font-weight: 700;
                     line-height: normal;
@@ -65,8 +65,8 @@
                 .body-column {
                     flex: 1;
                     color: var(--grey-1, #343a40);
-                    font-family: 'Baloo 2';
-                    font-size: 16px;
+                    font-family: $fontStyle;
+                    font-size: 12px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: normal;
@@ -114,7 +114,7 @@
 
         .showing {
             color: var(--grey-2, #6c757d);
-            font-family: 'Baloo 2';
+            font-family: $fontStyle;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -136,7 +136,7 @@
                 align-items: center;
                 gap: 4px;
                 color: var(--black, #080730);
-                font-family: 'Baloo 2';
+                font-family: $fontStyle;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -160,7 +160,7 @@
                     padding: 4px 8px;
                     border-radius: 4px;
                     color: var(--grey-1, #343a40);
-                    font-family: Inter;
+                    font-family: $fontStyle;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
@@ -189,7 +189,7 @@
 
             .text {
                 color: var(--grey-2, #6c757d);
-                font-family: Inter;
+                font-family: $fontStyle;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -199,7 +199,7 @@
 
             select {
                 color: var(--grey-2, #6c757d);
-                font-family: Inter;
+                font-family: $fontStyle;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 500;

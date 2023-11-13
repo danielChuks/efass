@@ -18,7 +18,8 @@ import { PaginatedTable } from '@/components/PaginatedTable';
 // import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import { ReportPageProps } from '@/interfaces';
-import { mockData } from '@/components/PaginatedTable/mock';
+// import { mockData } from '@/components/PaginatedTable/mock';
+import { options } from '../../components/FilterBy/dommy';
 
 export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
     const { handleDownloadReports } = useGenerateReportActions();
@@ -40,7 +41,11 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
-                <Filter />
+                <Filter
+                    options={options}
+                    defaultOption={''}
+                    onSelect={(selectedValue) => console.log(selectedValue)}
+                />
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadXmlReports}

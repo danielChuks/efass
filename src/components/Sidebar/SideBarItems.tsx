@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { ReactElement } from "react";
-import Link from "next/link";
 
 import styles from "./index.module.scss";
 import { useAuthActions } from "../../actions/auth";

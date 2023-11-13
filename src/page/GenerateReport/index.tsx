@@ -18,7 +18,7 @@ export const GenerateReport = () => {
             <div className={styles['topNav']}>
                 <div>Generate Report</div>
                 <div className={styles['timeContainer']}>
-                    <div>Current Date:</div>
+                    {/* <div>Current Date:</div> */}
                     <div>{getCurrentDateAndTime()}</div>
                 </div>
             </div>
