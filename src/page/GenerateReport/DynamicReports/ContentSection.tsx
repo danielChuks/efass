@@ -14,7 +14,6 @@ import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
 
 export default function ContentSection() {
-
     const { ['report-id']: reportId } = useParams();
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
@@ -33,6 +32,10 @@ export default function ContentSection() {
             // Handle the case where reportId is not a string
         }
     };
+
+    useEffect(() => {
+        handleReportInformation();
+    }, [reportId]);
 
     console.log(reportInformation);
 

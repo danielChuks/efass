@@ -141,6 +141,7 @@ export const useGenerateReportActions = () => {
 
     const getReportInformation = useCallback(
         async (sheetName: string, selectedDate: string) => {
+            console.log('called')
             try {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
