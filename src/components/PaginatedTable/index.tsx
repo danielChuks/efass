@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { PaginatedTableColumn } from '@/interfaces';
 import { TableBody } from './TableBody';
 import { TableHeader } from './TableHeader';
@@ -29,21 +30,32 @@ export function PaginatedTable<T>({
 
     return (
         <div className={styles['table-wrapper']}>
-            {data.length === 0 || loading ? 
-                null : (
-                    <TableHeader 
-                        headers={headers}
+            <div className={styles['table-container']}>
+                <table className={styles['header-and-body']}>
+                    {data.length === 0 || loading ? 
+                        null : (
+                            <TableHeader 
+                                headers={headers}
+                                columns={columns}
+                            />
+                        )
+                    }
+                    <TableBody 
                         columns={columns}
+                        data={tableData}
+                        loading={loading}
+                        rowClickHandler={rowClickHandler}
+                        pagination={pagination} 
                     />
-                )
-            }
-            <TableBody 
-                columns={columns}
-                data={tableData}
-                loading={loading}
-                rowClickHandler={rowClickHandler}
-                pagination={pagination} 
-            />
+                </table>
+
+                {data.length === 0 && !loading && (
+                    <div className={styles["no-data"]}>
+                        <img alt='Empty data' src='/empty.png' />
+                        <p>No data found</p>
+                    </div>
+                )}
+            </div>
             {data.length === 0 || loading ? 
                 null : (
                     <TablePagination 

@@ -12,7 +12,7 @@ interface GenerateReportProps {
     date: string;
 }
 export const GenerateReport = () => {
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
             <div className={styles['topNav']}>

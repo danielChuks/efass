@@ -31,6 +31,7 @@ export default function ContentSection() {
                 reportId.toLowerCase(),
                 selectedDate || ''
             );
+            setLoading(false)
         } else {
             // Handle the case where reportId is not a string
         }
@@ -56,26 +57,23 @@ export default function ContentSection() {
                     </div>
                 </div>
             </div>
-
-            <div>
-                {reportInformation.length > 0 ? (
-                    <PaginatedTable<any>
-                        headers={Object.keys(reportInformation[0]).filter(
-                            (val) => val !== 'id'
-                        )}
-                        data={reportInformation}
-                        loading={!loading}
-                        columns={Object.keys(reportInformation[0])
-                            .filter((val) => val !== 'id')
-                            .map((key) => ({
-                                render: (data, index) => {
-                                    return (data as any)[key];
-                                },
-                                width: '10%',
-                            }))}
-                    />
-                ) : null}
-            </div>
+            {reportInformation.length > 0 ? (
+                <PaginatedTable<any>
+                    headers={Object.keys(reportInformation[0]).filter(
+                        (val) => val !== 'id'
+                    )}
+                    data={reportInformation}
+                    loading={loading}
+                    columns={Object.keys(reportInformation[0])
+                        .filter((val) => val !== 'id')
+                        .map((key) => ({
+                            render: (data, index) => {
+                                return (data as any)[key];
+                            },
+                            width: '10%',
+                        }))}
+                />
+            ) : null}
         </div>
     );
 }

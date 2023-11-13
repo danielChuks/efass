@@ -1,26 +1,27 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import SearchBar from "../../components/SearchBar";
-import styles from "./index.module.scss";
+'use client';
+import React, { useEffect, useState } from 'react';
+import SearchBar from '../../components/SearchBar';
+import styles from './index.module.scss';
 // import MonthPicker from "../../components/MonthPicker";
-import Filter from "../../components/FilterBy";
-import { ReportData } from "../../interfaces";
-import { FaDownload } from "react-icons/fa";
-import { useGenerateReportActions } from "../../actions/GenerateReport";
-import { useRecoilValue } from "recoil";
+import Filter from '../../components/FilterBy';
+import { ReportData } from '../../interfaces';
+import { FaDownload } from 'react-icons/fa';
+import { useGenerateReportActions } from '../../actions/GenerateReport';
+import { useRecoilValue } from 'recoil';
 import {
     generateReportAtom,
     selectedDateAtom,
-    selectedGroupAtom
-} from "../../state/generateReport";
-import { PaginatedTable } from "@/components/PaginatedTable";
+    selectedGroupAtom,
+} from '../../state/generateReport';
+import { PaginatedTable } from '@/components/PaginatedTable';
 // import { mockData } from '../../components/PaginatedTable/mock';
 // import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import { ReportPageProps } from '@/interfaces';
+import { mockData } from '@/components/PaginatedTable/mock';
 
 export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
-    const {handleDownloadReports} = useGenerateReportActions()
+    const { handleDownloadReports } = useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
@@ -32,8 +33,8 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
             reportGroup,
             selectedDate
         );
-        console.log(response)
-    }
+        console.log(response);
+    };
 
     return (
         <div className={styles['contentContainer']}>
@@ -89,9 +90,9 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
             {/* <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(
                     (val) => val !== 'serial_number'
-                )}
+                ).map((val) => val.split('_').join(' '))}
                 data={mockData}
-                loading={loading}
+                loading={false}
                 columns={Object.keys(mockData[0])
                     .filter((val) => val !== 'serial_number')
                     .map((key) => ({
