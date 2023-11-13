@@ -20,10 +20,35 @@ body {
     position: relative;
     gap: 0rem;
     flex-direction: row;
+    max-width: 100vw;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #75817c;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #e6e1e1;
+        opacity: 0.5;
+    }
+
+    // Standard version (Firefox only for now)
+    scrollbar-color: #75817c #e6e1e1;
 }

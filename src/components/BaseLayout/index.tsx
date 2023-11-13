@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import Sidebar from '../Sidebar';
 import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
-import { LoadingScreen } from '../LoadingScreen';
+
 
 interface Props {
     children?: ReactNode

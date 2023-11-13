@@ -21,8 +21,8 @@ export const useAuthActions = () => {
                     throw new Error(response.error);
                 }
                 const token: Token = response?.token;
-                setAuth(token);
-                localStorage.setItem('auth', JSON.stringify(token));
+                setAuth(response);
+                localStorage.setItem('auth', JSON.stringify(response));
                 return response;
             } catch (error) {
                 return { error };

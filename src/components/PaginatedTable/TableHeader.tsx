@@ -1,5 +1,6 @@
 import { PaginatedTableColumn } from '@/interfaces';
 import styles from './index.module.scss';
+import { capitaliseText } from '@/utils';
 
 interface TableHeaderProps {
     headers?: string[];
@@ -8,8 +9,8 @@ interface TableHeaderProps {
 
 export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
     return (
-        <div className={styles['header-row']}>
-            <div 
+        <thead className={styles['header-row']}>
+            <th 
                 className={styles['header-column']}
                 style={{
                     flex: 'unset',
@@ -17,9 +18,9 @@ export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
                 }}
             >
                 S/NO
-            </div>
+            </th>
             {headers.map((item, index) => (
-                <div 
+                <th
                     className={styles['header-column']} 
                     key={index}
                     style={
@@ -28,10 +29,11 @@ export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
                             flex: 'unset',
                         } : {}
                     }
+                    title={capitaliseText(item)}
                 >
                     {item}
-                </div>
+                </th>
             ))}
-        </div>
+        </thead>
     );
 }

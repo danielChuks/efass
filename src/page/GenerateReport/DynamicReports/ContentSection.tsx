@@ -31,6 +31,7 @@ export default function ContentSection() {
                 reportId.toLowerCase(),
                 selectedDate || ''
             );
+            setLoading(false)
         } else {
             // Handle the case where reportId is not a string
         }
@@ -64,7 +65,7 @@ export default function ContentSection() {
                             reportInformation[1] || reportInformation[0]
                         ).filter((val) => val !== 'id')}
                         data={reportInformation}
-                        loading={!loading}
+                        loading={loading}
                         columns={Object.keys(
                             reportInformation[1] || reportInformation[0]
                         )
