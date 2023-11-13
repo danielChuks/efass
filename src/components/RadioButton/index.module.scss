@@ -1,5 +1,5 @@
 .reportItemContainer {
-      input[type='radio']:checked {
+    input[type='radio']:checked {
         accent-color: #000;
     }
     display: flex;
@@ -16,7 +16,7 @@
         margin-right: 16px; /* Add margin to create space */
         cursor: pointer;
         gap: 10px;
-        font-size: 1rem;
+        font-size: 13px;
     }
 
     /* Add this class for label spacing */

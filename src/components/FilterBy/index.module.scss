@@ -1,8 +1,9 @@
+@import '../../styles/index.scss';
 .selectContainer {
     display: flex;
     padding: 10px;
     gap: 15px;
-    font-family: 'Baloo 2';
+    font-family: $fontStyle;
     align-items: center;
 
     label {

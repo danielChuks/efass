@@ -1,18 +1,21 @@
-import React from "react";
-import styles from "./index.module.scss";
+import React, { ReactNode } from 'react';
+import styles from './index.module.scss';
 
 interface cardProps {
-	title: string;
-	content: string;
+    title: string;
+    content: string;
+    image: any;
 }
 
-function index({ title, content }: cardProps) {
-	return (
-		<div className={styles["card-container"]}>
-			<h3>{title}:</h3>
-			<p>{content}</p>
-		</div>
-	);
+function Card({ title, content, image }: cardProps) {
+    return (
+        <div className={styles['card-container']}>
+            <div className={styles['image-title-container']}>
+                {image} <div>{title}</div>
+            </div>
+            <div>{content}</div>
+        </div>
+    );
 }
 
-export default index;
+export default Card;

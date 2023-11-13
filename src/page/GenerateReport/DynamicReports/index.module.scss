@@ -1,7 +1,5 @@
 @import '../../../styles/index.scss';
 
-
-
 .topItems {
     display: flex;
     justify-content: space-between;
@@ -13,7 +11,7 @@
         align-items: center;
         gap: 43px;
         color: $fontColor;
-        font-family: 'Baloo 2';
+        font-family: $fontStyle;
         font-size: 16px;
         font-style: normal;
         font-weight: 700;
@@ -31,7 +29,7 @@
 
         .currentDate {
             color: $fontColor;
-            font-family: 'Baloo 2';
+            font-family: $fontStyle;
             font-size: 16px;
             font-style: normal;
             font-weight: 600;
@@ -39,7 +37,7 @@
 
             .currentDateValue {
                 color: $fontColor;
-                font-family: 'Baloo 2';
+                font-family: $fontStyle;
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 500;
@@ -71,7 +69,7 @@
 
             .displayTitle {
                 color: $fontColor;
-                font-family: 'Baloo 2';
+                font-family: $fontStyle;
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
@@ -80,7 +78,7 @@
 
             .displayText {
                 color: $fontColor;
-                font-family: Baloo 2;
+                font-family: $fontStyle;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
@@ -102,7 +100,7 @@
 
             .displayTitle {
                 color: $fontColor;
-                font-family: 'Baloo 2';
+                font-family: $fontStyle;
                 font-size: 18px;
                 font-style: normal;
                 font-weight: 600;
@@ -111,7 +109,7 @@
 
             .displayText {
                 color: $fontColor;
-                font-family: Baloo 2;
+                font-family: $fontStyle;
                 font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
@@ -124,7 +122,7 @@
 .contentContainer {
     background-color: $generalWhiteColor;
     padding: 36px;
-     width: 100%; /* Set the width of the container */
+    width: 100%; /* Set the width of the container */
     overflow-x: scroll;
     // width: 100%;
     // border: 1px solid red;
@@ -138,7 +136,7 @@
             display: flex;
             padding: 10px;
             gap: 10px;
-            font-family: 'Baloo 2';
+            font-family: $fontStyle;
             align-items: center;
 
             label {
@@ -167,7 +165,7 @@
                 justify-content: center;
                 background: $backgroundColor;
                 color: $generalWhiteColor;
-                font-family: 'Baloo 2';
+                font-family: $fontStyle;
                 cursor: pointer;
                 font-size: 16px;
                 gap: 8px;

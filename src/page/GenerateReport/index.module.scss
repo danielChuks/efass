@@ -27,13 +27,15 @@
     padding: 1rem 1.5rem;
 
     .reportGroup {
-        gap: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
         border-right: 1px solid $ShadowColor;
 
         .title {
             color: $fontColor;
-            font-size: 1rem;
-            font-style: normal;
+            font-size: 15;
+            font-style: $fontStyle;
             font-weight: 600;
             line-height: normal;
         }
@@ -112,7 +114,7 @@
             color: $generalWhiteColor;
             width: 173px;
             cursor: pointer;
-            font-family: 'Baloo 2';
+            font-family: $fontStyle;
             font-size: 1rem;
             font-style: normal;
             font-weight: 600;
@@ -133,7 +135,7 @@
             display: flex;
             padding: 10px;
             gap: 10px;
-            font-family: 'Baloo 2';
+            font-family: $fontStyle;
             align-items: center;
 
             label {
@@ -164,7 +166,7 @@
                 gap: 20px;
                 background: $backgroundColor;
                 color: $generalWhiteColor;
-                font-family: 'Baloo 2';
+                font-family: '$fontStyle';
                 font-size: 1rem;
                 font-style: normal;
                 font-weight: 600;
@@ -179,7 +181,7 @@
         width: 80px;
         background-color: $backgroundColor;
         color: $generalWhiteColor;
-        font-family: 'Baloo 2';
+        font-family: $fontStyle;
         font-size: 16px;
         font-style: normal;
         font-weight: 600;

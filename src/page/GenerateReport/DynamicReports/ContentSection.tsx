@@ -28,7 +28,7 @@ export default function ContentSection() {
                 reportId.toLowerCase(),
                 selectedDate || ''
             );
-            setLoading(false)
+            setLoading(false);
         } else {
             // Handle the case where reportId is not a string
         }
@@ -40,7 +40,7 @@ export default function ContentSection() {
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
-                <Filter />
+                <Filter options={[]} />
                 <div className={styles['rightSide']}>
                     <div
                         className={styles['reportButton']}
