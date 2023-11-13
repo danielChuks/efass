@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./index.module.scss";
+import "../../styles/index.scss";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -40,7 +41,7 @@ function index({
                 <DialogTitle
                     id="alert-dialog-title"
                     sx={{
-                        backgroundColor: '#DFE9FF',
+                        backgroundColor: '#d9e8dc',
                         color: '#0D1740',
                         fontWeight: 'bold',
                         fontFamily: 'Baloo 2',

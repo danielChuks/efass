@@ -4,6 +4,8 @@ import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogIn } from 'react-icons/bi';
+import { PiNotebookBold } from 'react-icons/pi';
+import { MdOutlineDashboardCustomize } from 'react-icons/md';
 import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';

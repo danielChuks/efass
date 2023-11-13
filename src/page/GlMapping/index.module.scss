@@ -1,0 +1,65 @@
+@import "../../styles/index.scss";
+.header {
+	display: flex;
+	// background-color: $backgroundColor;
+	justify-content: space-between;
+	align-content: center;
+	gap: 1rem;
+	font-family: "Baloo 2";
+
+	.back {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		color: $backgroundColor;
+		font-weight: 600;
+		cursor: pointer;
+	}
+
+	.date_container {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+
+		.title {
+			color: $backgroundColor;
+			font-weight: 600;
+		}
+		.date {
+		}
+	}
+}
+
+.content {
+	margin-top: 2rem;
+	background-color: $generalWhiteColor;
+	padding: 1rem;
+	width: 100%;
+
+	.content_header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-grow: 2;
+		flex-shrink: 1;
+
+		.search {
+			display: flex;
+			align-items: center;
+			gap: 1.5rem;
+		}
+		// flex-grow: ;
+	}
+
+	.viewButton {
+		background-color: $backgroundColor;
+        color: $generalWhiteColor;
+		padding: 0.2rem;
+		border-radius: 0.3125rem;
+		font-family: "Baloo 2";
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+        font-size: 14px;
+	}
+}

@@ -16,4 +16,9 @@ export const selectedDateAtom = atom<string>({
     key: 'selectedDate',
 });
 
+export const selectedGroupAtom = atom<string>({
+    default: '',
+    key: 'selectedGroup',
+});
+
 

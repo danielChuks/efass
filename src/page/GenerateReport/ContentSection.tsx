@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import {
     generateReportAtom,
     selectedDateAtom,
+    selectedGroupAtom
 } from "../../state/generateReport";
 import { PaginatedTable } from "@/components/PaginatedTable";
 // import { mockData } from '../../components/PaginatedTable/mock';
@@ -20,23 +21,38 @@ import { ReportPageProps } from '@/interfaces';
 import { mockData } from "@/components/PaginatedTable/mock";
 
 export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
+    const {handleDownloadReports} = useGenerateReportActions()
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
+    const reportGroup = useRecoilValue(selectedGroupAtom);
+
+    const downloadXmlReports = () => {
+        const response = handleDownloadReports(
+            reportData,
+            reportGroup,
+            selectedDate
+        );
+        console.log(response)
+    }
+
     return (
-        <div className={styles["contentContainer"]}>
-            <div className={styles["contentTopSection"]}>
+        <div className={styles['contentContainer']}>
+            <div className={styles['contentTopSection']}>
                 <SearchBar />
                 <Filter />
-                <div className={styles["rightSide"]}>
-                    <div className={styles["reportButton"]}>
+                <div className={styles['rightSide']}>
+                    <div
+                        onClick={downloadXmlReports}
+                        className={styles['reportButton']}
+                    >
                         Download Report
                         <FaDownload />
                     </div>
                 </div>
             </div>
             <PaginatedTable<ReportData>
-                headers={["Report Code", "Report Description", "Action"]}
+                headers={['Report Code', 'Report Description', 'Action']}
                 data={reportData}
                 loading={loading}
                 columns={[
@@ -49,13 +65,13 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                         render: (data, index) => {
                             return data.bank_name;
                         },
-                        width: "50%",
+                        width: '50%',
                     },
                     {
                         render: (data, index) => {
                             return (
                                 <div
-                                    className={styles["viewButton"]}
+                                    className={styles['viewButton']}
                                     onClick={() =>
                                         push(
                                             `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
@@ -66,7 +82,7 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                                 </div>
                             );
                         },
-                        width: "10%",
+                        width: '10%',
                     },
                 ]}
             />

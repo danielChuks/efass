@@ -9,7 +9,10 @@ import QuarterlyPicker from '@/components/QuaterlyPicker';
 import { QuarterlyDateFormatter, monthlyDateFormatter } from './utils';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
 import { useSetRecoilState } from 'recoil';
-import { selectedDateAtom } from '../../state/generateReport';
+import {
+    selectedDateAtom,
+    selectedGroupAtom,
+} from '../../state/generateReport';
 import SnackbarComponent from '../../components/Snackbar';
 import { ReportPageProps } from '@/interfaces';
 import { generateReportAtom } from '../../state/generateReport';
@@ -23,7 +26,10 @@ interface disabledProps {
 export function ReportHeader({ loading, setLoading }: ReportPageProps) {
     const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
-    const { handleGenerateReport, postReportDate } = useGenerateReportActions();
+    const setReportGroup = useSetRecoilState(selectedGroupAtom);
+    const [cbnDate, setCbnDate] = useState<string>('');
+    const { handleGenerateReport, postReportDate, postCbnDate,  } =
+        useGenerateReportActions();
     const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
     const [currentMonth, setCurrentMonth] = useState<number | undefined>();
     const [selectedYear, setSelectedYear] = useState<string | undefined>();
@@ -73,11 +79,13 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
             });
         }
         setSelectedGroup(group);
+        setReportGroup(group); //global state
         //empty state
         setSelectedYear('');
         setSelectedQuarter('');
         setCurrentMonth(0);
         setReportData([]);
+        setCbnDate('');
         console.log(group);
     };
 
@@ -104,6 +112,11 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
             const dateResponse = await postReportDate(
                 monthlyDateFormatter(selectedYear, currentMonth)
             );
+            //only send cbn date if it's selected
+            if (cbnDate) {
+                const cbnDateResponse = await postCbnDate(cbnDate);
+            }
+
             const response = await handleGenerateReport(selectedGroup);
             setLoading(false);
             return; // use response for report table
@@ -117,6 +130,14 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
             setSelectedDate(
                 QuarterlyDateFormatter(selectedYear, selectedQuarter)
             );
+            //post date to server
+            const dateResponse = await postReportDate(
+                QuarterlyDateFormatter(selectedYear, selectedQuarter)
+            );
+            //only send cbn date if it's selected
+            if (cbnDate) {
+                const cbnDateResponse = await postCbnDate(cbnDate);
+            }
             const response = await handleGenerateReport(selectedGroup);
             setLoading(false);
             return;
@@ -127,6 +148,11 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
 
     const handleYearChange = (e: any) => {
         setSelectedYear(e.target.value);
+    };
+
+    const handleCbnDate = (e: any) => {
+        // console.log(e.target.value)
+        setCbnDate(e.target.value);
     };
 
     const handleMonthChange = (newMonth: number) => {
@@ -191,12 +217,12 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
                 <p className={styles['title']}>CBN DATE</p>
                 <div className={styles['date-group']}>
                     <div>Date(only for Report 100)</div>
-                    <YearPicker
-                        selectedYear={selectedYear}
-                        onYearChange={handleYearChange}
-                        minYear={minYear}
-                        maxYear={maxYear}
-                        isDisabled={disableFields.isYearDisabled}
+                    <input
+                        name="cbnDate"
+                        type="date"
+                        placeholder="select date"
+                        value={cbnDate}
+                        onChange={handleCbnDate}
                     />
                 </div>
             </div>

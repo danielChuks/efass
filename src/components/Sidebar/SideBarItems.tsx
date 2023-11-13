@@ -1,9 +1,10 @@
-import classNames from 'classnames';
-import { useRouter } from 'next/navigation';
-import { ReactElement } from 'react';
+import classNames from "classnames";
+import { useRouter } from "next/navigation";
+import { ReactElement } from "react";
+import Link from "next/link";
 
-import styles from './index.module.scss';
-import { useAuthActions } from '../../actions/auth';
+import styles from "./index.module.scss";
+import { useAuthActions } from "../../actions/auth";
 
 interface SideNavItemProps {
     pageUrl: string;
@@ -22,12 +23,13 @@ export function SideNavItem({
     signout = false,
     open = true,
 }: SideNavItemProps) {
-    const { replace } = useRouter();
-    const { logout } = useAuthActions();
+	const router = useRouter();
+	const { logout } = useAuthActions();
 
-    const redirect = () => {
-        replace(pageUrl);
-    };
+	const redirect = () => {
+		router.push(pageUrl);
+		// replace(pageUrl);
+	};
 
     return (
         <div
