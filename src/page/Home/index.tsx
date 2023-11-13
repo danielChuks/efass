@@ -20,12 +20,12 @@ export const HomePage = () => {
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
 
-     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
-         weekday: 'long',
-         year: 'numeric',
-         month: 'long',
-         day: 'numeric',
-     });
+    const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
 
     useEffect(() => {
         const fetchCurrentDate = () => {
@@ -44,14 +44,12 @@ export const HomePage = () => {
     const fetchData = async () => {
         try {
             await handlereportHistory();
-            setLoading(false)
+            setLoading(false);
         } catch (error) {
             console.error(error);
-             setLoading(false);
+            setLoading(false);
         }
     };
-
-
 
     return (
         <BaseLayout page={DASHBOARD_PAGES.HOME}>
