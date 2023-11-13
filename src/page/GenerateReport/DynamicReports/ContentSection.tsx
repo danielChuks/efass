@@ -60,12 +60,14 @@ export default function ContentSection() {
             <div>
                 {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
-                        headers={Object.keys(reportInformation[0]).filter(
-                            (val) => val !== 'id'
-                        )}
+                        headers={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        ).filter((val) => val !== 'id')}
                         data={reportInformation}
                         loading={!loading}
-                        columns={Object.keys(reportInformation[0])
+                        columns={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data, index) => {
