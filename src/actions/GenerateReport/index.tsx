@@ -7,7 +7,10 @@ import {
 } from '../../state/generateReport';
 import { BASEAPI_EXTENSION } from '../../enums';
 import { ReportData } from '../../interfaces';
-import { removeFirstFiveCharacters } from '../../page/GenerateReport/utils';
+import {
+    removeFirstFiveCharacters,
+    replaceDot,
+} from '../../page/GenerateReport/utils';
 
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
@@ -138,28 +141,98 @@ export const useGenerateReportActions = () => {
 
     const getReportInformation = useCallback(
         async (sheetName: string, selectedDate: string) => {
-           try {
-               const response = await fetchWrapper.get(
-                   `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
-               );
-               if (response.responseCode === 0) {
-                //temporary till the response is given a generic name like "data"
-                   const modifiedSheetName =
-                       removeFirstFiveCharacters(sheetName);
-                   console.log(modifiedSheetName);
-                   // Dynamically construct the property name for response.sheet
-                   const dynamicPropertyName = `sheet${modifiedSheetName}`;
-                   console.log(dynamicPropertyName);
-                   console.log(response);
-                   // Access the dynamically named property
-                   setReportInformation(response[dynamicPropertyName]);
-               } else {
-                   setReportInformation([]);
-               }
-           } catch (error) {
-               console.log(error);
-               setReportInformation([]);
-           }
+            try {
+                const response = await fetchWrapper.get(
+                    `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
+                );
+                // Temporary until the response is given a generic name like "data"
+                if (response.responseCode === 0) {
+                    const modifiedSheetName =
+                        removeFirstFiveCharacters(sheetName);
+                    // Check if modifiedSheetName is not null before using it
+                    if (modifiedSheetName !== null) {
+                        console.log(modifiedSheetName);
+                        const specialReportNumbers = [
+                            '292.1',
+                            '292.2',
+                            '292.3',
+                            '371.1',
+                            '371.2',
+                            '371.3',
+                            '400.1',
+                            '400.2',
+                            '400.3',
+                            '400.4',
+                            '400.5',
+                            '400.6',
+                            '400.8',
+                            '400.10',
+                            '400.11',
+                            '400.12',
+                            '400.13',
+                            '400.14',
+                            '400.15',
+                            '450.1',
+                            '450.2',
+                            '450.3',
+                            '450.4',
+                            '450.5',
+                            '450.6',
+                            '450.8',
+                            '450.9',
+                            '450.10',
+                            '450.11',
+                            '450.12',
+                            '450.13',
+                            '450.14',
+                            '450.15',
+                        ];
+
+                        if (specialReportNumbers.includes(modifiedSheetName)) {
+                            const reportWithUnderScore =
+                                replaceDot(modifiedSheetName);
+                            const dynamicPropertyName = `sheet${reportWithUnderScore}`;
+                            setReportInformation(response[dynamicPropertyName]);
+                            return;
+                        }
+
+                        if (sheetName === 'mcfpr1') {
+                            console.log(response['sheetMcfpr1']);
+                            setReportInformation(response['sheetMcfpr1']);
+                            return;
+                        }
+
+                        if(sheetName === 'mstdr1'){
+                            console.log(response['sheet001']);
+                            setReportInformation(response['sheet001']);
+                            return;
+                        }
+
+                        if (sheetName === 'mstdr2') {
+                            console.log(response['sheet001']);
+                            setReportInformation(response['sheet002']);
+                            return;
+                        }
+
+                        //reports with consistent format
+                        // Dynamically construct the property name for response.sheet
+                        const dynamicPropertyName = `sheet${modifiedSheetName}`;
+                        console.log(dynamicPropertyName);
+                        console.log(response);
+                        // Access the dynamically named property
+                        setReportInformation(response[dynamicPropertyName]);
+                    } else {
+                        // Handle the case where modifiedSheetName is null
+                        console.error('modifiedSheetName is null');
+                        setReportInformation([]);
+                    }
+                } else {
+                    setReportInformation([]);
+                }
+            } catch (error) {
+                console.log(error);
+                setReportInformation([]);
+            }
         },
         []
     );

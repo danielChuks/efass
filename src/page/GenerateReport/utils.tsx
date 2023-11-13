@@ -64,6 +64,11 @@ export const  removeFirstFiveCharacters = (sheetName : string)=>{
     }
 }
 
+export const replaceDot = (sheetName: string) => {
+    const replacedString = sheetName.replace('.', '_');
+    return replacedString
+};
+
 // const downloadXmlReports = ()=>{
 //     let selectedReport = [];
 //     reportData.forEach((report) => {

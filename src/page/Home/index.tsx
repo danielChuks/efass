@@ -58,7 +58,7 @@ export const HomePage = () => {
             <div className={styles.header}>DASHBOARD (Overview)</div>
             <div className={styles['card-body']}>
                 <Card title={'User'} content={'0'} />
-                <Card title={'Last activity date'} content={'0'} />
+                <Card title={'Last activity date'} content={'N/A'} />
                 <Card title={'Current Date'} content={formattedCurrentDate} />
                 <Card title={'Users Created'} content={'0'} />
             </div>

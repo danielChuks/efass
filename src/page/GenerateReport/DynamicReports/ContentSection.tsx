@@ -14,9 +14,6 @@ import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
 
 export default function ContentSection() {
-    useEffect(() => {
-        handleReportInformation();
-    }, []);
 
     const { ['report-id']: reportId } = useParams();
     const searchParams = useSearchParams();
