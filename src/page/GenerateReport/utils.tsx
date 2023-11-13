@@ -52,6 +52,18 @@ export const getCurrentDateAndTime = ()=> {
     return formattedDate;
 }
 
+export const  removeFirstFiveCharacters = (sheetName : string)=>{
+    // Check if the input string is long enough
+    if (sheetName.length > 5) {
+        // Use substring to remove the first five characters
+        return sheetName.substring(5);
+    } else {
+        // Handle cases where the string is too short
+        console.error('Input string is too short!');
+        return null; // or any other appropriate value
+    }
+}
+
 // const downloadXmlReports = ()=>{
 //     let selectedReport = [];
 //     reportData.forEach((report) => {

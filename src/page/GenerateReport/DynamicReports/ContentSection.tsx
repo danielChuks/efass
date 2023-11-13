@@ -57,23 +57,28 @@ export default function ContentSection() {
                     </div>
                 </div>
             </div>
-            {reportInformation.length > 0 ? (
-                <PaginatedTable<any>
-                    headers={Object.keys(reportInformation[0]).filter(
-                        (val) => val !== 'id'
-                    )}
-                    data={reportInformation}
-                    loading={loading}
-                    columns={Object.keys(reportInformation[0])
-                        .filter((val) => val !== 'id')
-                        .map((key) => ({
-                            render: (data, index) => {
-                                return (data as any)[key];
-                            },
-                            width: '10%',
-                        }))}
-                />
-            ) : null}
+
+            <div>
+                {reportInformation.length > 0 ? (
+                    <PaginatedTable<any>
+                        headers={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        ).filter((val) => val !== 'id')}
+                        data={reportInformation}
+                        loading={loading}
+                        columns={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        )
+                            .filter((val) => val !== 'id')
+                            .map((key) => ({
+                                render: (data, index) => {
+                                    return (data as any)[key];
+                                },
+                                width: '10%',
+                            }))}
+                    />
+                ) : null}
+            </div>
         </div>
     );
 }
