@@ -50,12 +50,14 @@ export default function ContentSection() {
                         onClick={router.back}
                     >
                         <AiOutlineArrowLeft
-                            size={24}
+                            size={20}
                             className={styles['back']}
                         />
                         Go Back
                     </div>
                 </div>
+
+                
             </div>
 
             <div>

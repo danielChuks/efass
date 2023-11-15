@@ -12,6 +12,7 @@
     .timeContainer {
         display: flex;
         gap: 10px;
+        font-size: 14px;
     }
 }
 
@@ -168,25 +169,26 @@
                 color: $generalWhiteColor;
                 font-family: 'inter';
                 // font-family: '$fontStyle';
-                font-size: 1rem;
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 600;
             }
         }
     }
-    .viewButton {
+
+    .actionButton {
         display: flex;
         justify-content: center;
+        align-items: center;
         border: none;
-        padding: 0.5rem;
-        width: 80px;
-        background-color: $backgroundColor;
-        color: $generalWhiteColor;
-        font-family: $fontStyle;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 24px;
+        background-color: $ShadowColor;
+        color: $backgroundColor;
+        font-size: 14px;
         border-radius: 8px;
+        font-family: $fontStyle;
+        padding: .5rem;
+        gap: .5rem;
+        font-weight: 600;
     }
+
 }

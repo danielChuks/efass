@@ -21,6 +21,10 @@ import { ReportPageProps } from '@/interfaces';
 // import { mockData } from '@/components/PaginatedTable/mock';
 import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import { BiShow } from 'react-icons/bi';
+import { FaUpload } from 'react-icons/fa';
+import SnackbarComponent from '../../components/Snackbar';
+import { UploadDialog } from '../../components/UploadDialog';
 
 export const ContentSection = ({
     loading,
@@ -33,8 +37,44 @@ export const ContentSection = ({
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
     const reportGroup = useRecoilValue(selectedGroupAtom);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [isopen, setIsOpen] = useState(false);
+
+    //DIALOG PROPS
+    const [openModal, setOpenModal] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorText, setErrorText] = useState('');
+    const uploadableReports: string[] = [
+        'MDFIR223',
+        'MDFIR271',
+        'MDFIR291',
+        'MDFIR311',
+        'MDFIR333',
+        'MDFIR371.3',
+        'MDFIR372',
+        'MDFIR382',
+        'MDFIR533',
+        'MDFIR101',
+        'MDFIR250',
+        'MDFIR600',
+        'MDFIR601',
+        'MDFIR1300',
+        'MDFIR1301',
+        'MDFIR1600',
+        'MDFIR1700',
+        'MDFIR920',
+        'MDFIR921',
+        'MCFPR1',
+    ];
 
     const downloadXmlReports = () => {
+        if (reportData.length <= 0) {
+            setIsOpen(true);
+            setSnackbarMessage(
+                'Report must be generated before you click on download!'
+            );
+            return;
+        }
         const response = handleDownloadReports(
             reportData,
             reportGroup,
@@ -42,9 +82,35 @@ export const ContentSection = ({
         );
         console.log(response);
     };
+    const handleClose = () => {
+        setIsOpen(false);
+    };
+
+    const handleReportUpload = () => {
+        console.log('uploadddddd');
+    };
+    const handleInputchange = () => {
+        console.log('uccccploadddddd');
+    };
 
     return (
         <div className={styles['contentContainer']}>
+            {openModal && (
+                <UploadDialog
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                    handleAction={handleReportUpload}
+                    handleInputchange={handleInputchange}
+                    error={error}
+                    errorText={errorText}
+                />
+            )}
+            <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isopen}
+                message={SnackbarMessage}
+            />
+
             <div className={styles['contentTopSection']}>
                 <SearchBar />
                 <Filter
@@ -85,16 +151,34 @@ export const ContentSection = ({
                             render: (data, index) => {
                                 return (
                                     <div
-                                        className={styles['viewButton']}
+                                        className={styles['actionButton']}
                                         onClick={() =>
                                             push(
                                                 `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
                                             )
                                         }
                                     >
+                                        <BiShow size={20} />
                                         View
                                     </div>
                                 );
+                            },
+                            width: '10%',
+                        },
+
+                        {
+                            render: (data, index) => {
+                                return uploadableReports.includes(
+                                    data.sheet_number
+                                ) ? (
+                                    <div
+                                        className={styles['actionButton']}
+                                        onClick={() => setOpenModal(true)}
+                                    >
+                                        <FaUpload size={18} />
+                                        Upload
+                                    </div>
+                                ) : null;
                             },
                             width: '10%',
                         },
