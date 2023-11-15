@@ -39,7 +39,7 @@ export const Settings = () => {
                     backgroundColor: '#fff',
                     borderRadius: '0.5rem',
                     height: ' 32.5rem',
-                    marginTop:'.5rem'
+                    marginTop: '.5rem',
                 }}
             >
                 <Box
@@ -60,7 +60,7 @@ export const Settings = () => {
                     >
                         <Tab
                             sx={{
-                                fontFamily: 'baloo 2',
+                                fontFamily: 'inter',
                                 color: '#6C757D',
                                 textTransform: 'Capitalize',
                             }}
@@ -69,7 +69,7 @@ export const Settings = () => {
                         />
                         <Tab
                             sx={{
-                                fontFamily: 'baloo 2',
+                                fontFamily: 'inter',
                                 color: '#6C757D',
                                 textTransform: 'Capitalize',
                             }}

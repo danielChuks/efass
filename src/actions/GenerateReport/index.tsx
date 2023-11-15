@@ -27,6 +27,11 @@ export const useGenerateReportActions = () => {
             if (response.responseCode === 0) {
                 console.log(response.data);
                 setReportData(response.data);
+                sessionStorage.setItem(
+                    'listOfReports',
+                    JSON.stringify(response.data)
+                );
+                return response;
             } else {
                 setReportData([]);
                 return [];
@@ -39,19 +44,17 @@ export const useGenerateReportActions = () => {
 
     //save selected date to db
     const postReportDate = useCallback(async (selectedDate: string) => {
+        // console.log(selectedDate);
         try {
             const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}date`,
-                selectedDate
+                `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}`
             );
             console.log(response);
-            // if (response.responseCode === 0) {
-            //     //  console.log(response.data);
-            //     //  setReportData(response.data);
-            // } else {
-            //     //  setReportData([]);
-            //     return [];
-            // }
+            if (response.responseCode === 0) {
+                return response;
+            } else {
+                return response;
+            }
         } catch (error) {
             console.log(error);
             return error;
@@ -65,83 +68,129 @@ export const useGenerateReportActions = () => {
                 selectedCbnDate
             );
             console.log(response);
-            // if (response.responseCode === 0) {
-            //     //  console.log(response.data);
-            //     //  setReportData(response.data);
-            // } else {
-            //     //  setReportData([]);
-            //     return [];
-            // }
+            console.log(response);
+            if (response.responseCode === 0) {
+                return response;
+            } else {
+                return response;
+            }
         } catch (error) {
             console.log(error);
             return error;
         }
     }, []);
 
-    const handleDownloadReports = useCallback(
-        async (
-            reportData: any,
-            reportGroup: string,
-            reportSelectedDate: string
-        ) => {
-            try {
-                let selectedReport = reportData.map(
-                    (report: any) => report.return_code
-                );
+    const handleDownloadReports = async (
+        reportData: any,
+        reportGroup: string,
+        reportSelectedDate: string
+    ) => {
+        let selectedReport: any[] = [];
+        reportData.forEach((report: any) => {
+            selectedReport.push(report.return_code);
+        });
 
-                // Build the download endpoint URL
-                let endpoint = `${process.env.apiUrl}/download/`;
+        let endpoint = `http://10.100.80.139:9006/api/v1/download/`;
+        selectedReport
+            .filter((item) => !item.startsWith('QDFIR400'))
+            .filter((item) => !item.startsWith('QDFIR450'))
+            .filter((item) => !item.startsWith('MDFIR450'))
+            .filter((item) => !item.startsWith('MDFIR400'))
+            .forEach((item) => {
+                endpoint += item;
+                endpoint += ',';
+            });
 
-                selectedReport
-                    .filter((item: any) => !item.startsWith('QDFIR400'))
-                    .filter((item: any) => !item.startsWith('QDFIR450'))
-                    .filter((item: any) => !item.startsWith('MDFIR450'))
-                    .filter((item: any) => !item.startsWith('MDFIR400'))
-                    .forEach((item: any) => {
-                        endpoint += item;
-                        endpoint += ',';
-                    });
+        console.log(endpoint);
 
-                // Add additional conditions based on reportGroup
-                if (reportGroup === 'Q') {
-                    endpoint += 'QDFIR400,QDFIR450';
-                }
+        if (reportGroup === 'Q') {
+            endpoint += 'QDFIR400,QDFIR450';
+        }
 
-                if (reportGroup === 'M') {
-                    endpoint += 'MDFIR400,MDFIR450';
-                }
+        if (reportGroup === 'M') {
+            endpoint += 'MDFIR400,MDFIR450';
+        }
 
-                // Log the final endpoint (optional)
-                console.log(endpoint);
+        console.log(endpoint);
 
-                // Download the reports
-                const blob = await fetchWrapper.get(endpoint, {
-                    responseType: 'blob',
-                });
-                console.log(blob);
+        try {
+            const response = await fetch(endpoint);
+            console.log(response);
+            const blob = await response.blob();
+            console.log(reportSelectedDate);
 
-                // Create a link and trigger the download
-                const a = document.createElement('a');
-                const objectUrl = URL.createObjectURL(blob);
-                a.href = objectUrl;
-                a.download = `Reports downloaded for ${reportSelectedDate}.zip`;
-                a.click();
-                URL.revokeObjectURL(objectUrl);
+            const a = document.createElement('a');
+            const objectUrl = URL.createObjectURL(blob);
+            a.href = objectUrl;
+            a.download = 'Reports downloaded for' + reportSelectedDate + '.zip';
+            a.click();
+            URL.revokeObjectURL(objectUrl);
+        } catch (error) {
+            console.error('Error downloading reports:', error);
+        }
+    };
 
-                // Optionally, return some result
-                return { success: true };
-            } catch (error) {
-                // Handle errors
-                console.error('Error downloading reports:', error);
-                return { success: false, error };
-            }
-        },
-        [fetchWrapper]
-    );
+    // const handleDownloadReports = useCallback(
+    //     async (
+    //         reportData: any,
+    //         reportGroup: string,
+    //         reportSelectedDate: string
+    //     ) => {
+    //         try {
+    //             let selectedReport = reportData.map(
+    //                 (report: any) => report.return_code
+    //             );
+
+    //             // Build the download endpoint URL
+    //             let endpoint = `download/`;
+
+    //             selectedReport
+    //                 .filter((item: any) => !item.startsWith('QDFIR400'))
+    //                 .filter((item: any) => !item.startsWith('QDFIR450'))
+    //                 .filter((item: any) => !item.startsWith('MDFIR450'))
+    //                 .filter((item: any) => !item.startsWith('MDFIR400'))
+    //                 .forEach((item: any) => {
+    //                     endpoint += item;
+    //                     endpoint += ',';
+    //                 });
+
+    //             // Add additional conditions based on reportGroup
+    //             if (reportGroup === 'Q') {
+    //                 endpoint += 'QDFIR400,QDFIR450';
+    //             }
+
+    //             if (reportGroup === 'M') {
+    //                 endpoint += 'MDFIR400,MDFIR450';
+    //             }
+
+    //             // Log the final endpoint (optional)
+    //             console.log(endpoint);
+
+    //             // Download the reports
+    //             const blob = await fetchWrapper.get(endpoint);
+    //             console.log(blob);
+
+    //             // Create a link and trigger the download
+    //             const a = document.createElement('a');
+    //             const objectUrl = URL.createObjectURL(blob);
+    //             a.href = objectUrl;
+    //             a.download = `Reports downloaded for ${reportSelectedDate}.zip`;
+    //             a.click();
+    //             URL.revokeObjectURL(objectUrl);
+
+    //             // Optionally, return some result
+    //             return { success: true };
+    //         } catch (error) {
+    //             // Handle errors
+    //             console.error('Error downloading reports:', error);
+    //             return { success: false, error };
+    //         }
+    //     },
+    //     [fetchWrapper]
+    // );
 
     const getReportInformation = useCallback(
         async (sheetName: string, selectedDate: string) => {
-            console.log('called')
             try {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
@@ -203,7 +252,7 @@ export const useGenerateReportActions = () => {
                             return;
                         }
 
-                        if(sheetName === 'mstdr1'){
+                        if (sheetName === 'mstdr1') {
                             console.log(response['sheet001']);
                             setReportInformation(response['sheet001']);
                             return;

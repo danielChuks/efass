@@ -34,7 +34,7 @@
 
         .title {
             color: $fontColor;
-            font-size: 15;
+            font-size: 14px;
             font-style: $fontStyle;
             font-weight: 600;
             line-height: normal;
@@ -57,7 +57,7 @@
         gap: 1rem;
         .title {
             color: $fontColor;
-            font-size: 1rem;
+            font-size: 14px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
@@ -82,7 +82,7 @@
     .date-group {
         font-weight: 600;
         color: var(--gray-0, $fontColor);
-        font-size: 0.8rem;
+        font-size: 12px;
 
         input {
             width: 144px;
@@ -109,13 +109,13 @@
             outline: none;
             background: $backgroundColor;
             border: none;
+            // width: 173px;
             border-radius: 5px;
             padding: 8px;
             color: $generalWhiteColor;
-            width: 173px;
             cursor: pointer;
-            font-family: $fontStyle;
-            font-size: 1rem;
+            font-family: 'inter';
+            font-size: 14px;
             font-style: normal;
             font-weight: 600;
         }
@@ -166,7 +166,8 @@
                 gap: 20px;
                 background: $backgroundColor;
                 color: $generalWhiteColor;
-                font-family: '$fontStyle';
+                font-family: 'inter';
+                // font-family: '$fontStyle';
                 font-size: 1rem;
                 font-style: normal;
                 font-weight: 600;

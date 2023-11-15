@@ -20,8 +20,14 @@ import { useRouter } from 'next/navigation';
 import { ReportPageProps } from '@/interfaces';
 // import { mockData } from '@/components/PaginatedTable/mock';
 import { options } from '../../components/FilterBy/dommy';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
-export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
+export const ContentSection = ({
+    loading,
+    setLoading,
+    spinner,
+    setSpinner,
+}: ReportPageProps) => {
     const { handleDownloadReports } = useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
@@ -56,41 +62,45 @@ export const ContentSection = ({ loading, setLoading }: ReportPageProps) => {
                     </div>
                 </div>
             </div>
-            <PaginatedTable<ReportData>
-                headers={['Report Code', 'Report Description', 'Action']}
-                data={reportData}
-                loading={loading}
-                columns={[
-                    {
-                        render: (data, index) => {
-                            return data.return_code;
+            {spinner ? (
+                <LoadingScreen />
+            ) : (
+                <PaginatedTable<ReportData>
+                    headers={['Report Code', 'Report Description', 'Action']}
+                    data={reportData}
+                    loading={loading}
+                    columns={[
+                        {
+                            render: (data, index) => {
+                                return data.return_code;
+                            },
                         },
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.bank_name;
+                        {
+                            render: (data, index) => {
+                                return data.bank_name;
+                            },
+                            width: '50%',
                         },
-                        width: '50%',
-                    },
-                    {
-                        render: (data, index) => {
-                            return (
-                                <div
-                                    className={styles['viewButton']}
-                                    onClick={() =>
-                                        push(
-                                            `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
-                                        )
-                                    }
-                                >
-                                    View
-                                </div>
-                            );
+                        {
+                            render: (data, index) => {
+                                return (
+                                    <div
+                                        className={styles['viewButton']}
+                                        onClick={() =>
+                                            push(
+                                                `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
+                                            )
+                                        }
+                                    >
+                                        View
+                                    </div>
+                                );
+                            },
+                            width: '10%',
                         },
-                        width: '10%',
-                    },
-                ]}
-            />
+                    ]}
+                />
+            )}
 
             {/* <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(

@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function GenerateReportPage() {
     return (
-        <AuthWrapper>
+        // <AuthWrapper>
             <GenerateReport />
-        </AuthWrapper>
+        // </AuthWrapper>
     );
 }

@@ -69,6 +69,9 @@ export const replaceDot = (sheetName: string) => {
     return replacedString
 };
 
+//refactor spinner logic, too many ifs
+
+
 // const downloadXmlReports = ()=>{
 //     let selectedReport = [];
 //     reportData.forEach((report) => {

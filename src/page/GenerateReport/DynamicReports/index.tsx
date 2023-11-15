@@ -24,9 +24,9 @@ export function DynamicReports() {
                         Report Details
                     </div>
                     <div className={styles['date']}>
-                        <div className={styles['currentDate']}>
+                        {/* <div className={styles['currentDate']}>
                             Current Date:
-                        </div>
+                        </div> */}
                         <div className={styles['currentDateValue']}>
                             {getCurrentDateAndTime()}
                         </div>

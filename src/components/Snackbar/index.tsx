@@ -16,14 +16,13 @@ const SnackbarComponent = ({
     handleClose,
     message,
 }: SnackbarProps) => {
-
     return (
         <>
             <Snackbar
                 ContentProps={{
                     sx: {
                         background: '#d32f2f',
-                        fontFamily: 'Baloo 2',
+                        fontFamily: 'inter',
                     },
                 }}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}

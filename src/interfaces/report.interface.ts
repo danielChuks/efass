@@ -23,5 +23,7 @@ export interface ReportHistory {
 export interface ReportPageProps {
     loading: boolean;
     setLoading: (value: boolean) => void;
+    spinner: boolean;
+    setSpinner: (value: boolean) => void;
 }
 

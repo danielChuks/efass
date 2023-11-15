@@ -23,14 +23,14 @@ export function TableBody<T = any>({
         numOfItemsPerPage,
     } = pagination;
 
-    console.log(loading);
+    // console.log(loading);
 
     return (
         <div className={styles["body"]}>
             {!loading &&
                 data.map((row, index) => (
                     <tr className={styles["body-row"]} key={index}>
-                        <td 
+                        <td
                             className={styles["body-column"]}
                             style={{
                                 flex: 'unset',

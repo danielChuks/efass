@@ -37,7 +37,7 @@ export default function ContentSection() {
         handleReportInformation();
     }, [reportId]);
 
-    console.log(reportInformation);
+    // console.log(reportInformation);
 
     return (
         <div className={styles['contentContainer']}>

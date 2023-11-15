@@ -50,6 +50,9 @@ export const useFetchWrapper = () => {
         []
     );
 
+
+
+
     const request = useCallback((method: RequestMethod) => {
         return (url: string, body?: any, token?: Token) => {
             let accessToken = auth;

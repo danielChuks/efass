@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function SettingsPage() {
     return (
-        <AuthWrapper>
+        // <AuthWrapper>
             <HomePage />
-        </AuthWrapper>
+        // </AuthWrapper>
     );
 }
