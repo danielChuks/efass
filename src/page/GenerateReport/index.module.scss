@@ -12,6 +12,7 @@
     .timeContainer {
         display: flex;
         gap: 10px;
+        font-size: 14px;
     }
 }
 
@@ -34,7 +35,7 @@
 
         .title {
             color: $fontColor;
-            font-size: 15;
+            font-size: 14px;
             font-style: $fontStyle;
             font-weight: 600;
             line-height: normal;
@@ -57,7 +58,7 @@
         gap: 1rem;
         .title {
             color: $fontColor;
-            font-size: 1rem;
+            font-size: 14px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
@@ -82,7 +83,7 @@
     .date-group {
         font-weight: 600;
         color: var(--gray-0, $fontColor);
-        font-size: 0.8rem;
+        font-size: 12px;
 
         input {
             width: 144px;
@@ -109,13 +110,13 @@
             outline: none;
             background: $backgroundColor;
             border: none;
+            // width: 173px;
             border-radius: 5px;
             padding: 8px;
             color: $generalWhiteColor;
-            width: 173px;
             cursor: pointer;
-            font-family: $fontStyle;
-            font-size: 1rem;
+            font-family: 'inter';
+            font-size: 14px;
             font-style: normal;
             font-weight: 600;
         }
@@ -166,26 +167,28 @@
                 gap: 20px;
                 background: $backgroundColor;
                 color: $generalWhiteColor;
-                font-family: '$fontStyle';
-                font-size: 1rem;
+                font-family: 'inter';
+                // font-family: '$fontStyle';
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 600;
             }
         }
     }
-    .viewButton {
+
+    .actionButton {
         display: flex;
         justify-content: center;
+        align-items: center;
         border: none;
-        padding: 0.5rem;
-        width: 80px;
-        background-color: $backgroundColor;
-        color: $generalWhiteColor;
-        font-family: $fontStyle;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 24px;
+        background-color: $ShadowColor;
+        color: $backgroundColor;
+        font-size: 14px;
         border-radius: 8px;
+        font-family: $fontStyle;
+        padding: .5rem;
+        gap: .5rem;
+        font-weight: 600;
     }
+
 }

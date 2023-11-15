@@ -8,11 +8,10 @@ import { ReportHeader } from './ReportHeader';
 import { ContentSection } from './ContentSection';
 import { getCurrentDateAndTime } from './utils';
 
-interface GenerateReportProps {
-    date: string;
-}
+
 export const GenerateReport = () => {
     const [loading, setLoading] = useState<boolean>(false);
+    const [spinner, setSpinner] = useState<boolean>(false);
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
             <div className={styles['topNav']}>
@@ -22,8 +21,18 @@ export const GenerateReport = () => {
                     <div>{getCurrentDateAndTime()}</div>
                 </div>
             </div>
-            <ReportHeader loading={loading} setLoading={setLoading} />
-            <ContentSection loading={loading} setLoading={setLoading} />
+            <ReportHeader
+                spinner={spinner}
+                setSpinner={setSpinner}
+                loading={loading}
+                setLoading={setLoading}
+            />
+            <ContentSection
+                spinner={spinner}
+                setSpinner={setSpinner}
+                loading={loading}
+                setLoading={setLoading}
+            />
         </BaseLayout>
     );
 };

@@ -23,12 +23,17 @@ interface disabledProps {
     isQuarterDisabled: boolean;
 }
 
-export function ReportHeader({ loading, setLoading }: ReportPageProps) {
+export function ReportHeader({
+    loading,
+    setLoading,
+    spinner,
+    setSpinner,
+}: ReportPageProps) {
     const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
     const setReportGroup = useSetRecoilState(selectedGroupAtom);
     const [cbnDate, setCbnDate] = useState<string>('');
-    const { handleGenerateReport, postReportDate, postCbnDate,  } =
+    const { handleGenerateReport, postReportDate, postCbnDate } =
         useGenerateReportActions();
     const [selectedGroup, setSelectedGroup] = useState<string>('weekly');
     const [currentMonth, setCurrentMonth] = useState<number | undefined>();
@@ -49,6 +54,7 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
         setIsOpen(false);
     };
     const handleGroupChange = (group: string) => {
+        setSpinner(false);
         if (group === 'M') {
             setDisabledFields({
                 ...disableFields,
@@ -95,11 +101,8 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
     const minYear = 1960;
     const maxYear = currentYear;
 
-    //don't generate report if date is not selected
-    // loader for api.calls
-    //css
-    //find way around the report information/ask faith
     const generateReport = async () => {
+        setSpinner(true);
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
         if (selectedGroup === 'M') {
             if (!selectedYear || currentMonth === 0) {
@@ -112,14 +115,24 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
             const dateResponse = await postReportDate(
                 monthlyDateFormatter(selectedYear, currentMonth)
             );
+            if(dateResponse?.responseCode === 0){
+                console.log('date successful')
+            }
+            else{
+                setSnackbarMessage('An error occured while sending date, please try again later');
+            }
             //only send cbn date if it's selected
             if (cbnDate) {
                 const cbnDateResponse = await postCbnDate(cbnDate);
             }
-
             const response = await handleGenerateReport(selectedGroup);
-            setLoading(false);
-            return; // use response for report table
+            if (response?.responseCode === 0) {
+                setSpinner(false);
+            } else {
+                setSpinner(false);
+                setSnackbarMessage('An error occured, please try again later');
+            }
+            return;
         } else if (selectedGroup === 'Q') {
             if (!selectedYear || !selectedQuarter) {
                 setIsOpen(true);
@@ -139,7 +152,12 @@ export function ReportHeader({ loading, setLoading }: ReportPageProps) {
                 const cbnDateResponse = await postCbnDate(cbnDate);
             }
             const response = await handleGenerateReport(selectedGroup);
-            setLoading(false);
+            if (response?.responseCode === 0) {
+                setSpinner(false);
+            } else {
+                setSpinner(false);
+                setSnackbarMessage('An error occured, please try again later');
+            }
             return;
         }
         setSnackbarMessage('Please select a valid date');

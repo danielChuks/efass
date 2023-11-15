@@ -3,7 +3,8 @@
 .topItems {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 21px;
+    margin-bottom: 10px;
+
 
     .arrowContainer {
         display: flex;
@@ -14,7 +15,7 @@
         font-family: $fontStyle;
         font-size: 16px;
         font-style: normal;
-        font-weight: 700;
+        font-weight: 600;
         line-height: normal;
 
         .back {
@@ -38,7 +39,7 @@
             .currentDateValue {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 18px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -47,13 +48,17 @@
     }
 }
 
+
+
 .reportHeader {
     display: flex;
     justify-content: space-around;
     width: 100%;
     background-color: $generalWhiteColor;
     color: $fontColor;
-    margin-bottom: 40px;
+    // margin-bottom: 30px;
+    // position: fixed;
+
     // border: 1px solid red;
 
     .leftSection {
@@ -70,7 +75,7 @@
             .displayTitle {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 18px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -79,7 +84,7 @@
             .displayText {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 16px;
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -101,7 +106,7 @@
             .displayTitle {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 18px;
+                font-size: 16px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -110,7 +115,7 @@
             .displayText {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 16px;
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -124,6 +129,7 @@
     padding: 36px;
     width: 100%; /* Set the width of the container */
     overflow-x: scroll;
+    margin-top: 2rem;
     // width: 100%;
     // border: 1px solid red;
 
@@ -167,7 +173,7 @@
                 color: $generalWhiteColor;
                 font-family: $fontStyle;
                 cursor: pointer;
-                font-size: 16px;
+                font-size: 14px;
                 gap: 8px;
                 font-style: normal;
                 font-weight: 800;
