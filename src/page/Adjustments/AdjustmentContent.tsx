@@ -11,7 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { memoAdjustmentAtom } from '../../state/adjustment';
 
 export function AdjustmentContent() {
-    const getMemoData = useAdjustmentAction();
+    const { getMemoData } = useAdjustmentAction();
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
     const handleAddNewData = () => {};
