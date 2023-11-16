@@ -6,7 +6,7 @@ import {
     generateReportInformationAtom,
 } from '../../state/generateReport';
 import { BASEAPI_EXTENSION } from '../../enums';
-import { ReportData } from '../../interfaces';
+// import { ReportData } from '../../interfaces';
 import {
     removeFirstFiveCharacters,
     replaceDot,
@@ -25,7 +25,6 @@ export const useGenerateReportActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}tableList/${reportType}`
             );
             if (response.responseCode === 0) {
-                console.log(response.data);
                 setReportData(response.data);
                 sessionStorage.setItem(
                     'listOfReports',
@@ -37,26 +36,23 @@ export const useGenerateReportActions = () => {
                 return [];
             }
         } catch (error) {
-            console.log(error);
             return error;
         }
     }, []);
 
     //save selected date to db
     const postReportDate = useCallback(async (selectedDate: string) => {
-        // console.log(selectedDate);
         try {
             const response = await fetchWrapper.post(
                 `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}`
             );
-            console.log(response);
+
             if (response.responseCode === 0) {
                 return response;
             } else {
                 return response;
             }
         } catch (error) {
-            console.log(error);
             return error;
         }
     }, []);
@@ -67,15 +63,13 @@ export const useGenerateReportActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}cbnDate`,
                 selectedCbnDate
             );
-            console.log(response);
-            console.log(response);
+
             if (response.responseCode === 0) {
                 return response;
             } else {
                 return response;
             }
         } catch (error) {
-            console.log(error);
             return error;
         }
     }, []);
@@ -101,8 +95,6 @@ export const useGenerateReportActions = () => {
                 endpoint += ',';
             });
 
-        console.log(endpoint);
-
         if (reportGroup === 'Q') {
             endpoint += 'QDFIR400,QDFIR450';
         }
@@ -111,13 +103,10 @@ export const useGenerateReportActions = () => {
             endpoint += 'MDFIR400,MDFIR450';
         }
 
-        console.log(endpoint);
-
         try {
             const response = await fetch(endpoint);
-            console.log(response);
+
             const blob = await response.blob();
-            console.log(reportSelectedDate);
 
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
@@ -201,7 +190,6 @@ export const useGenerateReportActions = () => {
                         removeFirstFiveCharacters(sheetName);
                     // Check if modifiedSheetName is not null before using it
                     if (modifiedSheetName !== null) {
-                        console.log(modifiedSheetName);
                         const specialReportNumbers = [
                             '292.1',
                             '292.2',
@@ -247,19 +235,16 @@ export const useGenerateReportActions = () => {
                         }
 
                         if (sheetName === 'mcfpr1') {
-                            console.log(response['sheetMcfpr1']);
                             setReportInformation(response['sheetMcfpr1']);
                             return;
                         }
 
                         if (sheetName === 'mstdr1') {
-                            console.log(response['sheet001']);
                             setReportInformation(response['sheet001']);
                             return;
                         }
 
                         if (sheetName === 'mstdr2') {
-                            console.log(response['sheet001']);
                             setReportInformation(response['sheet002']);
                             return;
                         }
@@ -267,8 +252,7 @@ export const useGenerateReportActions = () => {
                         //reports with consistent format
                         // Dynamically construct the property name for response.sheet
                         const dynamicPropertyName = `sheet${modifiedSheetName}`;
-                        console.log(dynamicPropertyName);
-                        console.log(response);
+
                         // Access the dynamically named property
                         setReportInformation(response[dynamicPropertyName]);
                     } else {
@@ -280,7 +264,6 @@ export const useGenerateReportActions = () => {
                     setReportInformation([]);
                 }
             } catch (error) {
-                console.log(error);
                 setReportInformation([]);
             }
         },
