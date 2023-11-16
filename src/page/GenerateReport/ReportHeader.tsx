@@ -54,37 +54,6 @@ export function ReportHeader({
         setIsOpen(false);
     };
     const handleGroupChange = (group: string) => {
-<<<<<<< Updated upstream
-        setSpinner(false);
-        if (group === 'M') {
-            setDisabledFields({
-                ...disableFields,
-                isQuarterDisabled: true,
-                isMonthDisabled: false,
-                isYearDisabled: false,
-            });
-        } else if (group === 'Y') {
-            setDisabledFields({
-                ...disableFields,
-                isQuarterDisabled: true,
-                isMonthDisabled: true,
-                isYearDisabled: true,
-            });
-        } else if (group === 'Q') {
-            setDisabledFields({
-                ...disableFields,
-                isQuarterDisabled: false,
-                isMonthDisabled: true,
-                isYearDisabled: false,
-            });
-        } else if (group === 'W') {
-            setDisabledFields({
-                ...disableFields,
-                isQuarterDisabled: true,
-                isMonthDisabled: true,
-                isYearDisabled: true,
-            });
-=======
         let newDisabledFields: disabledProps;
 
         switch (group) {
@@ -118,7 +87,6 @@ export function ReportHeader({
                 break;
             default:
                 newDisabledFields = disableFields;
->>>>>>> Stashed changes
         }
 
         setDisabledFields({
@@ -141,41 +109,6 @@ export function ReportHeader({
     const maxYear = currentYear;
 
     const generateReport = async () => {
-<<<<<<< Updated upstream
-        setSpinner(true);
-        //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
-        if (selectedGroup === 'M') {
-            if (!selectedYear || currentMonth === 0) {
-                setIsOpen(true);
-                setSnackbarMessage('invalid date selected');
-                return;
-            }
-            setSelectedDate(monthlyDateFormatter(selectedYear, currentMonth));
-            //post date to server
-            const dateResponse = await postReportDate(
-                monthlyDateFormatter(selectedYear, currentMonth)
-            );
-            if(dateResponse?.responseCode === 0){
-                console.log('date successful')
-            }
-            else{
-                setSnackbarMessage('An error occured while sending date, please try again later');
-            }
-            //only send cbn date if it's selected
-            if (cbnDate) {
-                const cbnDateResponse = await postCbnDate(cbnDate);
-            }
-            const response = await handleGenerateReport(selectedGroup);
-            if (response?.responseCode === 0) {
-                setSpinner(false);
-            } else {
-                setSpinner(false);
-                setSnackbarMessage('An error occured, please try again later');
-            }
-            return;
-        } else if (selectedGroup === 'Q') {
-            if (!selectedYear || !selectedQuarter) {
-=======
         let formattedDate;
 
         switch (selectedGroup) {
@@ -205,33 +138,8 @@ export function ReportHeader({
 
             default:
                 setSnackbarMessage('Please select a valid date');
->>>>>>> Stashed changes
                 setIsOpen(true);
                 return;
-<<<<<<< Updated upstream
-            }
-            console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
-            setSelectedDate(
-                QuarterlyDateFormatter(selectedYear, selectedQuarter)
-            );
-            //post date to server
-            const dateResponse = await postReportDate(
-                QuarterlyDateFormatter(selectedYear, selectedQuarter)
-            );
-            //only send cbn date if it's selected
-            if (cbnDate) {
-                const cbnDateResponse = await postCbnDate(cbnDate);
-            }
-            const response = await handleGenerateReport(selectedGroup);
-            if (response?.responseCode === 0) {
-                setSpinner(false);
-            } else {
-                setSpinner(false);
-                setSnackbarMessage('An error occured, please try again later');
-            }
-            return;
-=======
->>>>>>> Stashed changes
         }
 
         setSelectedDate(formattedDate);
