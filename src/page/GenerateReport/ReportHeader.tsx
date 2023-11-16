@@ -54,6 +54,7 @@ export function ReportHeader({
         setIsOpen(false);
     };
     const handleGroupChange = (group: string) => {
+<<<<<<< Updated upstream
         setSpinner(false);
         if (group === 'M') {
             setDisabledFields({
@@ -83,16 +84,54 @@ export function ReportHeader({
                 isMonthDisabled: true,
                 isYearDisabled: true,
             });
+=======
+        let newDisabledFields: disabledProps;
+
+        switch (group) {
+            case 'M':
+                newDisabledFields = {
+                    isQuarterDisabled: true,
+                    isMonthDisabled: false,
+                    isYearDisabled: false,
+                };
+                break;
+            case 'Y':
+                newDisabledFields = {
+                    isQuarterDisabled: true,
+                    isMonthDisabled: true,
+                    isYearDisabled: true,
+                };
+                break;
+            case 'Q':
+                newDisabledFields = {
+                    isQuarterDisabled: false,
+                    isMonthDisabled: true,
+                    isYearDisabled: false,
+                };
+                break;
+            case 'W':
+                newDisabledFields = {
+                    isQuarterDisabled: true,
+                    isMonthDisabled: true,
+                    isYearDisabled: true,
+                };
+                break;
+            default:
+                newDisabledFields = disableFields;
+>>>>>>> Stashed changes
         }
+
+        setDisabledFields({
+            ...disableFields,
+            ...newDisabledFields,
+        });
         setSelectedGroup(group);
-        setReportGroup(group); //global state
-        //empty state
+        setReportGroup(group);
         setSelectedYear('');
         setSelectedQuarter('');
         setCurrentMonth(0);
         setReportData([]);
         setCbnDate('');
-        console.log(group);
     };
 
     //year picker component..................................
@@ -102,6 +141,7 @@ export function ReportHeader({
     const maxYear = currentYear;
 
     const generateReport = async () => {
+<<<<<<< Updated upstream
         setSpinner(true);
         //if group = monthly, format month, if group == QUATERLY, call quarterly formatter
         if (selectedGroup === 'M') {
@@ -135,9 +175,40 @@ export function ReportHeader({
             return;
         } else if (selectedGroup === 'Q') {
             if (!selectedYear || !selectedQuarter) {
+=======
+        let formattedDate;
+
+        switch (selectedGroup) {
+            case 'M':
+                if (!selectedYear || currentMonth === 0) {
+                    setIsOpen(true);
+                    setSnackbarMessage('invalid date selected');
+                    return;
+                }
+                formattedDate = monthlyDateFormatter(
+                    selectedYear,
+                    currentMonth
+                );
+                break;
+
+            case 'Q':
+                if (!selectedYear || !selectedQuarter) {
+                    setIsOpen(true);
+                    setSnackbarMessage('invalid date selected');
+                    return;
+                }
+                formattedDate = QuarterlyDateFormatter(
+                    selectedYear,
+                    selectedQuarter
+                );
+                break;
+
+            default:
+                setSnackbarMessage('Please select a valid date');
+>>>>>>> Stashed changes
                 setIsOpen(true);
-                setSnackbarMessage('invalid date selected');
                 return;
+<<<<<<< Updated upstream
             }
             console.log(QuarterlyDateFormatter(selectedYear, selectedQuarter));
             setSelectedDate(
@@ -159,9 +230,22 @@ export function ReportHeader({
                 setSnackbarMessage('An error occured, please try again later');
             }
             return;
+=======
+>>>>>>> Stashed changes
         }
-        setSnackbarMessage('Please select a valid date');
-        setIsOpen(true);
+
+        setSelectedDate(formattedDate);
+
+        // Post date to server
+        const dateResponse = await postReportDate(formattedDate);
+
+        // Only send CBN date if it's selected
+        if (cbnDate) {
+            const cbnDateResponse = await postCbnDate(cbnDate);
+        }
+
+        const response = await handleGenerateReport(selectedGroup);
+        setLoading(false);
     };
 
     const handleYearChange = (e: any) => {
