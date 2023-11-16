@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 
 interface InputGroupProps {
+    accept?: string;
     id?: string;
     name: string;
     value?: string;
@@ -15,6 +16,7 @@ interface InputGroupProps {
 }
 
 function InputGroup({
+    accept,
     label,
     id,
     type,
@@ -30,6 +32,7 @@ function InputGroup({
         <div className={styles['input_Group']}>
             <label>{label}</label>
             <input
+                accept={accept}
                 id={name}
                 type={type}
                 value={value}
