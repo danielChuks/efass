@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export default function CustomDataLayout({
+export default function AdjustmentsLayout({
     children,
 }: {
     children: ReactNode;

@@ -1,0 +1,40 @@
+@import '../../styles/index.scss';
+.content {
+    margin-top: 2rem;
+    background-color: $generalWhiteColor;
+    padding: 1rem;
+    width: 100%;
+
+    .content_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-grow: 2;
+        flex-shrink: 1;
+
+        .search {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        // flex-grow: ;
+    }
+
+    .viewButton {
+        background-color: $ShadowColor;
+        color: $fontColor;
+        padding: 0.5rem 0;
+        border-radius: 0.3125rem;
+        font-family: 'inter';
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: 0.5px solid $backgroundColor;
+        font-size: 14px;
+
+        &:hover {
+            background-color: $backgroundColor;
+            color: $generalWhiteColor;
+        }
+    }
+}

@@ -12,6 +12,7 @@ import { mockData } from '../../../components/PaginatedTable/mock';
 import { useGenerateReportActions } from '../../../actions/GenerateReport';
 import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
+import { FaDownload } from 'react-icons/fa';
 
 export default function ContentSection() {
     const { ['report-id']: reportId } = useParams();
@@ -33,6 +34,8 @@ export default function ContentSection() {
         }
     };
 
+    const downloadExcelReports = () => {};
+
     useEffect(() => {
         handleReportInformation();
     }, [reportId]);
@@ -46,6 +49,13 @@ export default function ContentSection() {
                 <Filter options={[]} />
                 <div className={styles['rightSide']}>
                     <div
+                        onClick={downloadExcelReports}
+                        className={styles['reportButton']}
+                    >
+                        Download Report
+                        <FaDownload />
+                    </div>
+                    <div
                         className={styles['reportButton']}
                         onClick={router.back}
                     >
@@ -56,8 +66,6 @@ export default function ContentSection() {
                         Go Back
                     </div>
                 </div>
-
-                
             </div>
 
             <div>
