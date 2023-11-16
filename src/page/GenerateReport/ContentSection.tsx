@@ -133,7 +133,12 @@ export const ContentSection = ({
                 <LoadingScreen />
             ) : (
                 <PaginatedTable<ReportData>
-                    headers={['Report Code', 'Report Description', 'Action', 'upload']}
+                    headers={[
+                        'Report Code',
+                        'Report Description',
+                        'Action',
+                        'upload',
+                    ]}
                     data={reportData}
                     loading={loading}
                     columns={[
@@ -179,7 +184,9 @@ export const ContentSection = ({
                                         <FaUpload size={18} />
                                         Upload
                                     </div>
-                                ) : null;
+                                ) : (
+                                    ''
+                                );
                             },
                             width: '10%',
                         },
