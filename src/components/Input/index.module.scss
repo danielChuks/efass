@@ -21,3 +21,10 @@
     height: 3rem;
     outline: none;
 }
+
+.input_Group > input[type='file'] {
+    color: transparent;
+    width: 0;
+    height: 0;
+    display: none;
+}
