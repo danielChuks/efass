@@ -1,17 +1,20 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PaginatedTable } from '@/components/PaginatedTable';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/FilterBy';
 import { AdjustmentData } from '@/interfaces';
 import styles from './index.module.scss';
-import { testData } from './testData';
 import { AdjustmentDataDialog } from './AdjustmentDataDialog';
+import { useAdjustmentAction } from '../../actions/adjustment';
+import { useRecoilValue } from 'recoil';
+import { memoAdjustmentAtom } from '../../state/adjustment';
 
 export function AdjustmentContent() {
-    const handleAddNewData = () => {
-        console.log('add new date');
-    };
+    const getMemoData = useAdjustmentAction();
+    const memoData = useRecoilValue(memoAdjustmentAtom);
+
+    const handleAddNewData = () => {};
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [loading, setLoading] = useState<boolean>(true);
@@ -23,46 +26,40 @@ export function AdjustmentContent() {
     const [data, setData] = useState<AdjustmentData>({
         gl_code: '',
         gl_description: '',
-        dr_cr_ind_type: '',
+        dr_cr_ind: '',
         amount: '',
         period: '',
         year: '',
         status: '',
     });
 
+    const fetchData = async () => {
+        try {
+            await getMemoData();
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    //listen for click on add button
-    // const openAddModal = () => {
-    //     setTypeOfModal('');
-    //     setModalHeader('Add New');
-    //     setOpenModal(true);
-    //     setData({
-    //         gl_code: '',
-    //         gl_description: '',
-    //         dr_cr_ind_type: '',
-    //         amount: '',
-    //         period: '',
-    //         year: '',
-    //         status: '',
-    //     });
-    //     setModalAction(() => handleAddNewData);
-    // };
-    const openEditModal = (data: AdjustmentData) => {
+    const openEditModal = (memoData: AdjustmentData) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
         setData({
-            gl_code: data.gl_code,
-            gl_description: data.gl_description,
-            dr_cr_ind_type: data.dr_cr_ind_type,
-            amount: data.amount,
-            period: data.period,
-            year: data.year,
-            status: data.status,
+            gl_code: memoData.gl_code,
+            gl_description: memoData.gl_description,
+            dr_cr_ind: memoData.dr_cr_ind,
+            amount: memoData.amount,
+            period: memoData.period,
+            year: memoData.year,
+            status: memoData.status,
         });
-        console.log(data);
+        console.log(memoData);
         setOpenModal(true);
         setModalAction(() => editGl);
     };
@@ -90,12 +87,6 @@ export function AdjustmentContent() {
                     <SearchBar />
                     <Filter options={[]} />
                 </div>
-
-                {/* <CustomButton
-                    text={'Edit'}
-                    icon={<BsPlusLg size={22} color={'#fff'} />}
-                    handleAction={openAddModal}
-                /> */}
             </div>
             <PaginatedTable<AdjustmentData>
                 headers={[
@@ -108,7 +99,7 @@ export function AdjustmentContent() {
                     'STATUS',
                     'EDIT',
                 ]}
-                data={testData}
+                data={memoData}
                 // loading={loading}
                 columns={[
                     {
@@ -124,7 +115,7 @@ export function AdjustmentContent() {
                     },
                     {
                         render: (data, index) => {
-                            return data.dr_cr_ind_type;
+                            return data.dr_cr_ind;
                         },
                         // width: '50%',
                     },

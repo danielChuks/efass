@@ -9,7 +9,7 @@ import { SelectGroup } from '../../../components/Select/Index';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 
-interface DialogProps {
+interface AdjustmentDataProps {
     typeOfModal?: string;
     openModal: boolean;
     header: string;
@@ -33,7 +33,7 @@ export const AdjustmentDataDialog = ({
     setOpenModal,
     handleAction,
     handleInputchange,
-}: DialogProps) => {
+}: AdjustmentDataProps) => {
     return (
         <div>
             <Dialog
@@ -85,31 +85,41 @@ export const AdjustmentDataDialog = ({
                             handleChange={handleInputchange}
                             required={true}
                         />
-                        <SelectGroup
-                            label="DR CR IND"
-                            options={['DR', 'CR', 'IND']}
-                            value={data?.dr_cr_ind}
-                            name=" dr_cr_ind_type"
-                            placeholder=""
-                            disabled={disabled}
-                            handleChange={handleInputchange}
-                            required={true}
-                        />
 
                         <InputGroup
-                            type={
-                                data?.dr_cr_ind_type === 'number'
-                                    ? 'number'
-                                    : 'text'
-                            }
-                            label="Reference Value"
-                            value={data?.dr_cr_ind_type}
+                            type="text"
+                            label="DR CR IND"
+                            value={data?.dr_cr_ind}
                             name="dr_cr_ind_type"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
                             required={true}
                         />
+
+                        <SelectGroup
+                            label="Status"
+                            options={['Posted', 'Not Posted']}
+                            value={data?.status}
+                            name="status"
+                            placeholder={''}
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        />
+                        {/* <InputGroup
+                            type={
+                                data?.status === 'N' ? 'Not posted' : 'Posted'
+                            }
+                            label="Status"
+                            value={data?.status}
+                            name="status"
+                            placeholder=""
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        /> */}
+
                         <InputGroup
                             type="text"
                             label="amount"
@@ -133,19 +143,8 @@ export const AdjustmentDataDialog = ({
                         <InputGroup
                             type="text"
                             label="year"
-                            value={data?.period}
+                            value={data?.year}
                             name="year"
-                            placeholder=""
-                            disabled={disabled}
-                            handleChange={handleInputchange}
-                            required={true}
-                        />
-
-                        <InputGroup
-                            type="text"
-                            label="statu"
-                            value={data?.period}
-                            name="status"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
