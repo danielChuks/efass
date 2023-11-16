@@ -44,7 +44,8 @@ export const ContentSection = ({
     const [openModal, setOpenModal] = useState(false);
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
-    const uploadableReports: string[] = [
+
+    const uploadableReports: string[] | null = [
         'MDFIR223',
         'MDFIR271',
         'MDFIR291',
@@ -132,7 +133,7 @@ export const ContentSection = ({
                 <LoadingScreen />
             ) : (
                 <PaginatedTable<ReportData>
-                    headers={['Report Code', 'Report Description', 'Action']}
+                    headers={['Report Code', 'Report Description', 'Action', 'upload']}
                     data={reportData}
                     loading={loading}
                     columns={[
