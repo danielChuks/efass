@@ -3,9 +3,9 @@ import styles from './index.module.scss';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { SettingsButton } from '../Button';
-import InputGroup from '../Input';
-import { SelectGroup } from '../Select/Index';
+import { SettingsButton } from '../../../components/Button';
+import InputGroup from '../../../components/Input';
+import { SelectGroup } from '../../../components/Select/Index';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 
@@ -22,7 +22,7 @@ interface DialogProps {
     setData: (value: any) => void;
     handleInputchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export const CustomDataDialog = ({
+export const AdjustmentDataDialog = ({
     typeOfModal,
     openModal,
     header,
@@ -66,9 +66,9 @@ export const CustomDataDialog = ({
                     <div className={styles['dialog_content']}>
                         <InputGroup
                             type="text"
-                            label="Reference code"
-                            value={data?.reference_code}
-                            name=" gl_code"
+                            label="GL Code"
+                            value={data?.gl_code}
+                            name="gl_code"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -77,19 +77,19 @@ export const CustomDataDialog = ({
 
                         <InputGroup
                             type="text"
-                            label="Reference Description"
-                            value={data?.reference_description}
-                            name="reference_description"
+                            label="GL Description"
+                            value={data?.gl_description}
+                            name="gl_description"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
                             required={true}
                         />
                         <SelectGroup
-                            label="Reference Type"
-                            options={['text', 'number']}
-                            value={data.reference_type}
-                            name="reference_type"
+                            label="DR CR IND"
+                            options={['DR', 'CR', 'IND']}
+                            value={data?.dr_cr_ind}
+                            name=" dr_cr_ind_type"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -98,13 +98,54 @@ export const CustomDataDialog = ({
 
                         <InputGroup
                             type={
-                                data?.reference_type === 'number'
+                                data?.dr_cr_ind_type === 'number'
                                     ? 'number'
                                     : 'text'
                             }
                             label="Reference Value"
-                            value={data?.reference_value}
-                            name="reference_value"
+                            value={data?.dr_cr_ind_type}
+                            name="dr_cr_ind_type"
+                            placeholder=""
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        />
+                        <InputGroup
+                            type="text"
+                            label="amount"
+                            value={data?.amount}
+                            name="amount"
+                            placeholder=""
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        />
+                        <InputGroup
+                            type="text"
+                            label="period"
+                            value={data?.period}
+                            name="period"
+                            placeholder=""
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        />
+                        <InputGroup
+                            type="text"
+                            label="year"
+                            value={data?.period}
+                            name="year"
+                            placeholder=""
+                            disabled={disabled}
+                            handleChange={handleInputchange}
+                            required={true}
+                        />
+
+                        <InputGroup
+                            type="text"
+                            label="statu"
+                            value={data?.period}
+                            name="status"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}

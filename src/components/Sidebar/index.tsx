@@ -11,6 +11,7 @@ import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';
 import { HamburgerIcon } from '@/assets/HamburgerIcon';
 import { useState } from 'react';
+import { BsWrenchAdjustableCircleFill } from 'react-icons/bs';
 
 interface SideNavProps {
     page?: DASHBOARD_PAGES;
@@ -62,12 +63,21 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 icon={<PiNotebookBold />}
                 title={'GL Mapping'}
                 active={page === DASHBOARD_PAGES.GL_MAPPING}
+                open={isOpen}
             />
             <SideNavItem
                 pageUrl={'/custom-data'}
                 icon={<MdOutlineDashboardCustomize />}
                 title={'Custom Data'}
                 active={page === DASHBOARD_PAGES.CUSTOM_DATA}
+                open={isOpen}
+            />
+            <SideNavItem
+                pageUrl={'/adjustments'}
+                icon={<BsWrenchAdjustableCircleFill />}
+                title={'Adjustments'}
+                active={page === DASHBOARD_PAGES.ADJUSTMENTS}
+                open={isOpen}
             />
             <div className={styles['sidebar_settings']}>
                 <SideNavItem

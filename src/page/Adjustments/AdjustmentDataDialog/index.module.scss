@@ -1,0 +1,51 @@
+@import '../../../styles/index.scss';
+.dialog_content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+.cursor {
+    cursor: pointer;
+}
+
+.buttonGroup {
+    .modifyButton {
+        background-color: $backgroundColor;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.3125rem;
+        padding: 0.5rem;
+        gap: 1rem;
+        border: none;
+        outline: none;
+        color: $generalWhiteColor;
+        font-family: $fontStyle;
+        font-size: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .removeButton {
+        font-size: 1rem;
+        font-family: $fontStyle;
+        gap: 0.5rem;
+        color: #006c33;
+        font-weight: 600;
+        background-color: $generalWhiteColor;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.3125rem;
+        padding: 0.5rem;
+        border: none;
+        outline: none;
+        border: 2px solid #006c33;
+        cursor: pointer;
+    }
+
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    align-items: center;
+}

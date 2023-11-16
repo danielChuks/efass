@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 export default function SettingsPage() {
     return (
-        <AuthWrapper>
-            <Settings />
-        </AuthWrapper>
+        // <AuthWrapper>
+        <Settings />
+        // </AuthWrapper>
     );
 }
