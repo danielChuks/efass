@@ -133,7 +133,7 @@ export const ContentSection = ({
                 <LoadingScreen />
             ) : (
                 <PaginatedTable<ReportData>
-                    headers={['Report Code', 'Report Description', 'Action', 'upload']}
+                    headers={['Report Code', 'Report Description', 'Action', '']}
                     data={reportData}
                     loading={loading}
                     columns={[
