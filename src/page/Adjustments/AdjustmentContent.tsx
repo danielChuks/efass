@@ -1,38 +1,38 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { PaginatedTable } from '@/components/PaginatedTable';
-import SearchBar from '@/components/SearchBar';
-import Filter from '@/components/FilterBy';
-import { AdjustmentData } from '@/interfaces';
-import styles from './index.module.scss';
-import { AdjustmentDataDialog } from './AdjustmentDataDialog';
-import { useAdjustmentAction } from '../../actions/adjustment';
-import { useRecoilValue } from 'recoil';
-import { memoAdjustmentAtom } from '../../state/adjustment';
+"use client";
+import React, { useEffect, useState } from "react";
+import { PaginatedTable } from "@/components/PaginatedTable";
+import SearchBar from "@/components/SearchBar";
+import Filter from "@/components/FilterBy";
+import styles from "./index.module.scss";
+import { AdjustmentDataDialog } from "./AdjustmentDataDialog";
+import { useAdjustmentAction } from "../../actions/adjustment";
+import { useRecoilValue } from "recoil";
+import { memoAdjustmentAtom } from "../../state/adjustment";
+import { AdjustmentData } from "@/interfaces";
 
-export function AdjustmentContent() {
-    const { getMemoData } = useAdjustmentAction();
+// Define the AdjustmentContent component
+function AdjustmentContent() {
+    // Destructure hooks from useAdjustmentAction
+    const { getMemoData, updateMemoData } = useAdjustmentAction();
+
+    // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
-    const handleAddNewData = () => {};
-    const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState('');
-    const [loading, setLoading] = useState<boolean>(true);
-    const [typeOfModal, setTypeOfModal] = useState<string>('');
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [modalHeader, setModalHeader] = useState('Add New');
-    const [modalAction, setModalAction] = useState(() => handleAddNewData);
-
+    // State for modal and form data
+    const [openModal, setOpenModal] = useState(false);
+    const [modalHeader, setModalHeader] = useState("Add New");
+    const [typeOfModal, setTypeOfModal] = useState<string>("");
     const [data, setData] = useState<AdjustmentData>({
-        gl_code: '',
-        gl_description: '',
-        dr_cr_ind: '',
-        amount: '',
-        period: '',
-        year: '',
-        status: '',
+        gl_code: "",
+        gl_description: "",
+        dr_cr_ind: "",
+        amount: "",
+        period: "",
+        year: "",
+        status: "",
     });
 
+    // Fetch memoData on component mount
     const fetchData = async () => {
         try {
             await getMemoData();
@@ -43,122 +43,82 @@ export function AdjustmentContent() {
         fetchData();
     }, []);
 
-    const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handle input changes in the form
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    // Open the edit modal and set the data when "Edit" is clicked
     const openEditModal = (memoData: AdjustmentData) => {
-        setTypeOfModal('editModal');
-        setModalHeader('Edit Details');
-        setData({
-            gl_code: memoData.gl_code,
-            gl_description: memoData.gl_description,
-            dr_cr_ind: memoData.dr_cr_ind,
-            amount: memoData.amount,
-            period: memoData.period,
-            year: memoData.year,
-            status: memoData.status,
-        });
-        console.log(memoData);
+        setTypeOfModal("editModal");
+        setModalHeader("Edit Details");
+        setData({ ...memoData }); // Spread to avoid mutating the original data
         setOpenModal(true);
-        setModalAction(() => editGl);
     };
-    const editGl = (data: AdjustmentData) => {
-        console.log('edit data', data);
+
+    // Edit the AdjustmentData
+    const editGl = async () => {
+        try {
+            await updateMemoData(data.id, data);
+            setOpenModal(false); // Close the modal after editing
+        } catch (error) {
+            // Handle errors appropriately
+            console.error("Error updating memo data:", error);
+        }
     };
+
+    // Render the component
     return (
-        <div className={styles['content']}>
+        <div className={styles["content"]}>
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}
                     setOpenModal={setOpenModal}
-                    handleAction={modalAction}
+                    handleAction={editGl}
                     header={modalHeader}
                     data={data}
                     setData={setData}
-                    handleInputchange={handleInputchange}
-                    error={error}
-                    errorText={errorText}
-                    typeOfModal={typeOfModal}
+                    handleInputchange={handleInputChange}
+                    error={false}
+                    errorText=''
                 />
             )}
-            <div className={styles['content_header']}>
-                <div className={styles['search']}>
+            <div className={styles["content_header"]}>
+                <div className={styles["search"]}>
                     <SearchBar />
                     <Filter options={[]} />
                 </div>
             </div>
             <PaginatedTable<AdjustmentData>
                 headers={[
-                    'GL-CODE',
-                    'GL DESCRIPTION',
-                    'DR-CR-IND',
-                    'AMOUNT',
-                    'PERIOD',
-                    'YEAR',
-                    'STATUS',
-                    'EDIT',
+                    "GL-CODE",
+                    "GL DESCRIPTION",
+                    "DR-CR-IND",
+                    "AMOUNT",
+                    "PERIOD",
+                    "YEAR",
+                    "STATUS",
+                    "EDIT",
                 ]}
                 data={memoData}
-                // loading={loading}
                 columns={[
+                    { render: (data) => data.gl_code },
+                    { render: (data) => data.gl_description, width: "20%" },
+                    { render: (data) => data.dr_cr_ind },
+                    { render: (data) => data.amount, width: "15%" },
+                    { render: (data) => data.period, width: "15%" },
+                    { render: (data) => data.year, width: "15%" },
+                    { render: (data) => data.status, width: "15%" },
                     {
-                        render: (data, index) => {
-                            return data.gl_code;
-                        },
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.gl_description;
-                        },
-                        width: '20%',
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.dr_cr_ind;
-                        },
-                        // width: '50%',
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.amount;
-                        },
-                        width: '15%',
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.period;
-                        },
-                        width: '15%',
-                    },
-                    {
-                        render: (data, index) => {
-                            return data.year;
-                        },
-                        width: '15%',
-                    },
-
-                    {
-                        render: (data, index) => {
-                            return data.status;
-                        },
-                        width: '15%',
-                    },
-
-                    {
-                        render: (data, index) => {
-                            return (
-                                <div
-                                    className={styles['viewButton']}
-                                    onClick={() => {
-                                        openEditModal(data);
-                                    }}
-                                >
-                                    Edit
-                                </div>
-                            );
-                        },
-                        width: '10%',
+                        render: (data) => (
+                            <div
+                                className={styles["viewButton"]}
+                                onClick={() => openEditModal(data)}
+                            >
+                                Edit
+                            </div>
+                        ),
+                        width: "10%",
                     },
                 ]}
             />
@@ -166,4 +126,4 @@ export function AdjustmentContent() {
     );
 }
 
-export default AdjustmentData;
+export default AdjustmentContent;
