@@ -45,6 +45,7 @@ export const ContentSection = ({
     const [openModal, setOpenModal] = useState(false);
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const [snackBarColor, setSnackbarColor] = useState<string>('')
 
     const uploadableReports: string[] | null = [
         'MDFIR223',
@@ -69,7 +70,7 @@ export const ContentSection = ({
         'MCFPR1',
     ];
 
-    const downloadXmlReports = () => {
+    const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
             setIsOpen(true);
             setSnackbarMessage(
@@ -77,12 +78,14 @@ export const ContentSection = ({
             );
             return;
         }
-        const response = handleDownloadReports(
+         setIsOpen(true);
+         setSnackbarColor('#006c33');
+         setSnackbarMessage('Download in progress, please wait');
+        const response = await handleDownloadReports(
             reportData,
             reportGroup,
             selectedDate
         );
-        console.log(response);
     };
     const handleClose = () => {
         setIsOpen(false);
@@ -118,6 +121,7 @@ export const ContentSection = ({
                 handleClose={handleClose}
                 isopen={isopen}
                 message={SnackbarMessage}
+                color={snackBarColor}
             />
 
             <div className={styles['contentTopSection']}>

@@ -83,7 +83,7 @@ export const useGenerateReportActions = () => {
         reportData.forEach((report: any) => {
             selectedReport.push(report.return_code);
         });
-
+        //change url
         let endpoint = `http://10.100.80.139:9006/api/v1/download/`;
         selectedReport
             .filter((item) => !item.startsWith('QDFIR400'))
@@ -105,9 +105,8 @@ export const useGenerateReportActions = () => {
 
         try {
             const response = await fetch(endpoint);
-
             const blob = await response.blob();
-
+            // console.log(blob);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;
