@@ -9,9 +9,11 @@ import { useAdjustmentAction } from "../../actions/adjustment";
 import { useRecoilValue } from "recoil";
 import { memoAdjustmentAtom } from "../../state/adjustment";
 import { AdjustmentData } from "@/interfaces";
+import { useParams } from "next/navigation";
 
 // Define the AdjustmentContent component
 function AdjustmentContent() {
+    // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
     const { getMemoData, updateMemoData } = useAdjustmentAction();
 
