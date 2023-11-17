@@ -86,7 +86,7 @@ export const UploadDialog = ({
 							required={true}
 						/>
 
-						<button>Upload</button>
+						<button onClick={handleAction}>Upload</button>
 					</div>
 				</DialogContent>
 			</Dialog>
