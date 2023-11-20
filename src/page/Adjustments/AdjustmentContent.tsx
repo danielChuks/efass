@@ -12,12 +12,14 @@ import { AdjustmentData } from '@/interfaces';
 import { useParams } from 'next/navigation';
 import { FaUpload } from 'react-icons/fa';
 import { UploadDialog } from '../../components/UploadDialog';
+import SnackbarComponent from '../../components/Snackbar';
 
 // Define the AdjustmentContent component
 function AdjustmentContent() {
     // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
-    const { getMemoData, updateMemoData } = useAdjustmentAction();
+    const { getMemoData, updateMemoData, uploadMemoData } =
+        useAdjustmentAction();
 
     // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
@@ -35,11 +37,16 @@ function AdjustmentContent() {
         year: '',
         status: '',
     });
-    const [UploadModal, setUploadModal] = useState(false)
+    const [UploadModal, setUploadModal] = useState(false);
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [fileName, setFileName] = useState<string>('');
+    const [file, setFile] = useState<any>();
 
+    //snackbar state
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [isopen, setIsOpen] = useState<boolean>(false);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     // Fetch memoData on component mount
     const fetchData = async () => {
         try {
@@ -75,23 +82,32 @@ function AdjustmentContent() {
         }
     };
 
-      const handleClose = () => {
-          setUploadModal(false);
-      };
+    const handleClose = () => {
+        setIsOpen(false);
+        setFile({});
+    };
 
-      const handleReportUpload = () => {
-          console.log('uploaxxxxxxxd');
-      };
-      const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const fileList = e.target.files;
-          if (fileList && fileList.length > 0) {
-              console.log(fileList[0]);
-              const fileName = fileList[0].name;
-              setFileName(fileName);
-              console.log('Selected file name:', fileName);
-          }
-      };
+    const handleReportUpload = async () => {
+        const response = await uploadMemoData(file);
+        setIsOpen(true);
+        setSnackbarMessage('Upload failed');
+    };
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fileList = e.target.files;
+        if (fileList && fileList.length > 0) {
+            console.log(fileList[0]);
+            setFile(fileList[0]);
+            const fileName = fileList[0].name;
+            setFileName(fileName);
+            console.log('Selected file name:', fileName);
+        }
+    };
 
+    const openUploadModal = () => {
+        setUploadModal(true);
+        setFileName('');
+        setFile({});
+    };
 
     // Render the component
     return (
@@ -107,6 +123,12 @@ function AdjustmentContent() {
                     fileName={fileName}
                 />
             )}
+            <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isopen}
+                message={SnackbarMessage}
+                color={snackBarColor}
+            />
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}
@@ -126,7 +148,7 @@ function AdjustmentContent() {
                     <Filter options={[]} />
                 </div>
                 <button
-                    onClick={() => setUploadModal(true)}
+                    onClick={() => openUploadModal()}
                     className={styles['upload_btn']}
                 >
                     Upload

@@ -38,7 +38,7 @@ export default function ContentSection() {
 
     useEffect(() => {
         handleReportInformation();
-    }, [reportId]);
+    }, []);
 
     // console.log(reportInformation);
 
