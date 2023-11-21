@@ -156,9 +156,8 @@ export const ContentSection = ({
                         Download Report
                         <FaDownload />
                     </div>
-                </div> 
-            
                 </div>
+        
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
@@ -217,13 +216,6 @@ export const ContentSection = ({
                 ]}
             />
                     </PageContent>
-                {/* <SearchBar />
-                <Filter
-                    options={options}
-                    defaultOption={''}
-                    onSelect={(selectedValue) => console.log(selectedValue)}
-                />
-               */}
             </div>
 
         </div>
