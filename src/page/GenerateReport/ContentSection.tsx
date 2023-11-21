@@ -105,15 +105,17 @@ export const ContentSection = ({
 
     const uploadReport = async () => {
         const response = await handleReportUpload(file, reportId);
-        if (response.Message) {
+        if (response.status === 200) {
             setIsOpen(true);
             setSnackbarColor('#006c33');
-            setSnackbarMessage(response.Message);
-        } else {
-            setIsOpen(true);
-            setSnackbarColor('');
-            setSnackbarMessage(response.message || 'An error occured');
+            setSnackbarMessage(response.Message || response.message);
         }
+        else{
+             setIsOpen(true);
+             setSnackbarColor('');
+             setSnackbarMessage(response.message || 'An error occured');
+        }
+
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
@@ -144,7 +146,7 @@ export const ContentSection = ({
                 color={snackBarColor}
             />
             <div >
-        
+
             <PageContent showFilter={false}>
             <div className={styles['rightSide']}>
                     <div
@@ -156,6 +158,7 @@ export const ContentSection = ({
                     </div>
                 </div> 
             
+                </div>
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
@@ -222,7 +225,7 @@ export const ContentSection = ({
                 />
                */}
             </div>
-  
+
         </div>
     );
 };

@@ -17,12 +17,10 @@ import SnackbarComponent from '../../components/Snackbar';
 import { LoadingScreen } from '../../components/LoadingScreen';
 
 export function AdjustmentContent() {
-    // const { id } = useParams();
-    // Destructure hooks from useAdjustmentAction
+
     const { getMemoData, updateMemoData, uploadMemoData } =
         useAdjustmentAction();
-
-    // Get memoData using Recoil state
+        
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
     const [openModal, setOpenModal] = useState(false);
@@ -88,13 +86,29 @@ export function AdjustmentContent() {
 
     const handleReportUpload = async () => {
         const response = await uploadMemoData(file);
-        setIsOpen(true);
-        setSnackbarMessage('Upload failed');
+        console.log(response);
+        try {
+            if (response.status === 200) {
+                setIsOpen(true);
+                setSnackbarColor('#006c33');
+                setSnackbarMessage(response?.message);
+                fetchData()
+            } else {
+                setIsOpen(true);
+                setSnackbarColor('');
+                setSnackbarMessage(
+                    'Unable to upload file, please try again later'
+                );
+            }
+        } catch (error) {
+            setIsOpen(true);
+            setSnackbarColor('');
+            setSnackbarMessage('An error occured');
+        }
     };
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
         if (fileList && fileList.length > 0) {
-            console.log(fileList[0]);
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
@@ -108,7 +122,6 @@ export function AdjustmentContent() {
         setFile({});
     };
 
-    // Render the component
     return (
         <div className={styles['content']}>
                 {UploadModal && (
