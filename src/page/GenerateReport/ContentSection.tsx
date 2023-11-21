@@ -98,22 +98,23 @@ export const ContentSection = ({
     const openUploadModal = (reportdId: string) => {
         setOpenModal(true);
         setReportId(reportdId);
-        setFileName('')
-        setFile({})
+        setFileName('');
+        setFile({});
     };
 
     const uploadReport = async () => {
-        const response = await handleReportUpload(file,reportId);
-        if(response.Message){
-             setIsOpen(true);
-             setSnackbarColor('#006c33');
-             setSnackbarMessage(response.Message);
+        const response = await handleReportUpload(file, reportId);
+        if (response.status === 200) {
+            setIsOpen(true);
+            setSnackbarColor('#006c33');
+            setSnackbarMessage(response.Message || response.message);
         }
         else{
-            setIsOpen(true);
-            setSnackbarColor('');
-            setSnackbarMessage(response.message || 'An error occured');
+             setIsOpen(true);
+             setSnackbarColor('');
+             setSnackbarMessage(response.message || 'An error occured');
         }
+
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
