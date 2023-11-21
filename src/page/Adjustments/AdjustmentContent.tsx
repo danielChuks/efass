@@ -9,18 +9,13 @@ import { useAdjustmentAction } from '../../actions/adjustment';
 import { useRecoilValue } from 'recoil';
 import { memoAdjustmentAtom } from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 // Define the AdjustmentContent component
 export function AdjustmentContent() {
-    // const { id } = useParams();
-    // Destructure hooks from useAdjustmentAction
     const { getMemoData, updateMemoData } = useAdjustmentAction();
-
-    // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
-    // State for modal and form data
     const [openModal, setOpenModal] = useState(false);
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
@@ -34,7 +29,6 @@ export function AdjustmentContent() {
         status: '',
     });
 
-    // Fetch memoData on component mount
     const fetchData = async () => {
         try {
             await getMemoData();
@@ -45,32 +39,27 @@ export function AdjustmentContent() {
         fetchData();
     }, []);
 
-    // Handle input changes in the form
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    // Open the edit modal and set the data when "Edit" is clicked
     const openEditModal = (memoData: AdjustmentData) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
-        setData({ ...memoData }); // Spread to avoid mutating the original data
+        setData({ ...memoData });
         setOpenModal(true);
     };
 
-    // Edit the AdjustmentData
     const submit = async () => {
         try {
             await updateMemoData(data.id, data);
-            console.log(data);
-            setOpenModal(false); // Close the modal after editing
+            setOpenModal(false);
+            window.location.reload();
         } catch (error) {
-            // Handle errors appropriately
-            console.error('Error updating memo data:', error);
+            return error;
         }
     };
 
-    // Render the component
     return (
         <div className={styles['content']}>
             {openModal && (

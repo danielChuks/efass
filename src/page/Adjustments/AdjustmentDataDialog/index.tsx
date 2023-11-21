@@ -99,7 +99,7 @@ export const AdjustmentDataDialog = ({
 
                         <SelectGroup
                             label="Status"
-                            options={['Posted', 'Not Posted']}
+                            options={['P', 'N']}
                             value={data?.status}
                             name="status"
                             placeholder={''}
@@ -107,18 +107,6 @@ export const AdjustmentDataDialog = ({
                             handleChange={handleInputchange}
                             required={true}
                         />
-                        {/* <InputGroup
-                            type={
-                                data?.status === 'N' ? 'Not posted' : 'Posted'
-                            }
-                            label="Status"
-                            value={data?.status}
-                            name="status"
-                            placeholder=""
-                            disabled={disabled}
-                            handleChange={handleInputchange}
-                            required={true}
-                        /> */}
 
                         <InputGroup
                             type="text"
@@ -162,7 +150,7 @@ export const AdjustmentDataDialog = ({
                             </div>
                         ) : (
                             <SettingsButton
-                                text={header}
+                                text={"Save Settings"}
                                 handleAction={handleAction}
                                 error={error}
                                 errorText={errorText}
