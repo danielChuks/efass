@@ -7,7 +7,7 @@
     border-radius: 0.5rem;
     width: 15.875rem;
     height: 7.25rem;
-    padding: 2rem;
+    padding: 1.5rem 1.5rem;
     font-weight: 600;
     font-size: 13px;
     gap: 10px;
@@ -15,11 +15,11 @@
     .image-title-container {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
-
+        align-items: center;
     }
     div {
         display: flex;
         justify-content: flex-end;
+        font-size: 13px;
     }
 }
