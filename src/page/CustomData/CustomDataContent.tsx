@@ -9,6 +9,7 @@ import { dummyData } from "./data";
 import styles from "./index.module.scss";
 import { BsPlusLg } from "react-icons/bs";
 import { CustomDataDialog } from "@/components/CustomDataDialog";
+import PageContent from "../../components/PageContent";
 
 function CustomDataContent() {
 	const handleAddNewData = () => {
@@ -62,7 +63,7 @@ function CustomDataContent() {
 		console.log("edit data", data);
 	};
 	return (
-		<div className={styles["content"]}>
+		<div >
 			{openModal && (
 				<CustomDataDialog
 					openModal={openModal}
@@ -77,19 +78,15 @@ function CustomDataContent() {
 					typeOfModal={typeOfModal}
 				/>
 			)}
-			<div className={styles["content_header"]}>
-				<div className={styles["search"]}>
-					<SearchBar />
-					<Filter options={[]} />
+			<div>
+				<PageContent>
+				<div className={styles["rightSide"]}>
+				<div onClick={openAddModal} className={styles["reportButton"]}>
+				Add New
+				<BsPlusLg />
 				</div>
-
-				<CustomButton
-					text={"Add New"}
-					icon={<BsPlusLg size={22} color={"#fff"} />}
-					handleAction={openAddModal}
-				/>
 			</div>
-			<PaginatedTable<CustomData>
+				<PaginatedTable<CustomData>
 				headers={[
 					"REFERENCE CODE",
 					"REFERENCE DESCRIPTION",
@@ -141,6 +138,10 @@ function CustomDataContent() {
 					},
 				]}
 			/>
+				</PageContent>
+
+			</div>
+		
 		</div>
 	);
 }

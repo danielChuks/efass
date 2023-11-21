@@ -25,6 +25,7 @@ import { BiShow } from 'react-icons/bi';
 import { FaUpload } from 'react-icons/fa';
 import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
+import PageContent from '../../components/PageContent';
 
 export const ContentSection = ({
     loading,
@@ -119,15 +120,10 @@ export const ContentSection = ({
                 isopen={isopen}
                 message={SnackbarMessage}
             />
-
-            <div className={styles['contentTopSection']}>
-                <SearchBar />
-                <Filter
-                    options={options}
-                    defaultOption={''}
-                    onSelect={(selectedValue) => console.log(selectedValue)}
-                />
-                <div className={styles['rightSide']}>
+            <div >
+        
+            <PageContent showFilter={false}>
+            <div className={styles['rightSide']}>
                     <div
                         onClick={downloadXmlReports}
                         className={styles['reportButton']}
@@ -135,8 +131,7 @@ export const ContentSection = ({
                         Download Report
                         <FaDownload />
                     </div>
-                </div>
-            </div>
+                </div> 
             {spinner ? (
                 <LoadingScreen />
             ) : (
@@ -216,6 +211,16 @@ export const ContentSection = ({
                         },
                     }))}
             /> */}
+                    </PageContent>
+                {/* <SearchBar />
+                <Filter
+                    options={options}
+                    defaultOption={''}
+                    onSelect={(selectedValue) => console.log(selectedValue)}
+                />
+               */}
+            </div>
+  
         </div>
     );
 };

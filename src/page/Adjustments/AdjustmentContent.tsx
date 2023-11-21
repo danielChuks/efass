@@ -10,6 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { memoAdjustmentAtom } from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
 import { useParams } from 'next/navigation';
+import PageContent from '../../components/PageContent';
 
 // Define the AdjustmentContent component
 export function AdjustmentContent() {
@@ -87,12 +88,8 @@ export function AdjustmentContent() {
                 />
             )}
             <div className={styles['content_header']}>
-                <div className={styles['search']}>
-                    <SearchBar />
-                    <Filter options={[]} />
-                </div>
-            </div>
-            <PaginatedTable<AdjustmentData>
+                <PageContent>
+                <PaginatedTable<AdjustmentData>
                 headers={[
                     'GL-CODE',
                     'GL DESCRIPTION',
@@ -125,6 +122,13 @@ export function AdjustmentContent() {
                     },
                 ]}
             />
+                </PageContent>
+                {/* <div className={styles['search']}>
+                    <SearchBar />
+                    <Filter options={[]} />
+                </div> */}
+            </div>
+          
         </div>
     );
 }

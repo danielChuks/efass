@@ -42,8 +42,10 @@
 .table_body {
     margin-top: 0.625rem;
     background-color: #fff;
-    width: 100%;
-    padding: 1rem 3rem 1rem 3rem;
+  width: 100%;
+  padding: 1.5rem 2rem 1rem 2rem;
+  max-height: 670px; /* Set a maximum height to allow responsiveness */
+  overflow: hidden;
 }
 
 .styledButton_active {

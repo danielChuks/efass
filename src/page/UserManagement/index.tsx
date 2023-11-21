@@ -25,6 +25,7 @@ import date from '../../../public/Images/case.png';
 import lastActivity from '../../../public/Images/calender.png';
 import userAdded from '../../../public/Images/person.png';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import PageContent from '../../components/PageContent';
 
 export const UserManagement = () => {
     const handleCreateUser = () => {
@@ -88,9 +89,7 @@ export const UserManagement = () => {
     // console.log(darkMode);
     return (
         <>
-            {loading ? (
-                <LoadingScreen />
-            ) : (
+
                 <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
                     {openModal && (
                         <Dialog
@@ -117,7 +116,7 @@ export const UserManagement = () => {
                                     src={users}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -129,7 +128,7 @@ export const UserManagement = () => {
                                     src={userAdded}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -142,16 +141,13 @@ export const UserManagement = () => {
                                     src={lastActivity}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
                     </div>
                     <div className={styles['contentContainer']}>
-                        <div className={styles['table_body']}>
-                            <div className={styles['contentTopSection']}>
-                                <SearchBar />
-                                <Filter options={options} />
+                                <PageContent>
                                 <div className={styles['righSide']}>
                                     <div className={styles['rightSide']}>
                                         <div
@@ -166,8 +162,7 @@ export const UserManagement = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <PaginatedTable<User>
+                                <PaginatedTable<User>
                                 headers={[
                                     'USERNAME',
                                     'ROLE',
@@ -245,10 +240,9 @@ export const UserManagement = () => {
                                     },
                                 ]}
                             />
-                        </div>
+                                </PageContent>
                     </div>
                 </BaseLayout>
-            )}
         </>
     );
 };
