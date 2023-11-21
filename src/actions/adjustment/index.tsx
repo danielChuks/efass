@@ -48,7 +48,6 @@ export const useAdjustmentAction = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}memo?id=${id}`,
                 data
             );
-            console.log(response);
             return response;
         } catch (error) {
             console.error('Error updating memo data:', error);
