@@ -11,6 +11,8 @@ import { useGenerateReportActions } from '../../../actions/GenerateReport';
 import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
 import { FaDownload } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 export default function ContentSection() {
     const { ['report-id']: reportId } = useParams();
@@ -20,6 +22,7 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
+    
 
     const handleReportInformation = async () => {
         console.log("checking", reportInformation);
@@ -34,7 +37,15 @@ export default function ContentSection() {
         }
     };
 
-    const downloadExcelReports = () => {};
+    const downloadExcelReports = () => {
+        const ws = XLSX.utils.json_to_sheet(reportInformation);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+        const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        // Converted the array to a blob
+        const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        saveAs(blobData, reportId.toString());
+      };
 
     useEffect(() => {
         handleReportInformation();
@@ -44,7 +55,7 @@ export default function ContentSection() {
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
-                <Filter options={[]} />
+                {/* <Filter options={[]} /> */}
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}
@@ -82,7 +93,7 @@ export default function ContentSection() {
                                 render: (data, index) => {
                                     return (data as any)[key];
                                 },
-                                width: '10%',
+                                width: '20%',
                             }))}
                     />
                 ) : null}

@@ -155,9 +155,7 @@ export const ContentSection = ({
                         <FaDownload />
                     </div>
                 </div> 
-            {spinner ? (
-                <LoadingScreen />
-            ) : (
+            
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
@@ -215,7 +213,6 @@ export const ContentSection = ({
                     },
                 ]}
             />
-            )}
                     </PageContent>
                 {/* <SearchBar />
                 <Filter
