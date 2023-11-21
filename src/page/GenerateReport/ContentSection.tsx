@@ -216,13 +216,6 @@ export const ContentSection = ({
                 ]}
             />
                     </PageContent>
-                {/* <SearchBar />
-                <Filter
-                    options={options}
-                    defaultOption={''}
-                    onSelect={(selectedValue) => console.log(selectedValue)}
-                />
-               */}
             </div>
 
         </div>
