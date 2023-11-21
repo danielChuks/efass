@@ -157,9 +157,7 @@ export const ContentSection = ({
                         <FaDownload />
                     </div>
                 </div>
-            {spinner ? (
-                <LoadingScreen />
-            ) : (
+        
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
@@ -217,15 +215,7 @@ export const ContentSection = ({
                     },
                 ]}
             />
-            )}
                     </PageContent>
-                {/* <SearchBar />
-                <Filter
-                    options={options}
-                    defaultOption={''}
-                    onSelect={(selectedValue) => console.log(selectedValue)}
-                />
-               */}
             </div>
 
         </div>
