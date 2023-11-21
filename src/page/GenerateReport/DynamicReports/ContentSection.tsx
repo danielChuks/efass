@@ -82,7 +82,7 @@ export default function ContentSection() {
                                 render: (data, index) => {
                                     return (data as any)[key];
                                 },
-                                width: '10%',
+                                width: '20%',
                             }))}
                     />
                 ) : null}

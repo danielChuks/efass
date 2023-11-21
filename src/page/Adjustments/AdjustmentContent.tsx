@@ -17,12 +17,10 @@ import SnackbarComponent from '../../components/Snackbar';
 import { LoadingScreen } from '../../components/LoadingScreen';
 
 export function AdjustmentContent() {
-    // const { id } = useParams();
-    // Destructure hooks from useAdjustmentAction
+
     const { getMemoData, updateMemoData, uploadMemoData } =
         useAdjustmentAction();
-
-    // Get memoData using Recoil state
+        
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
     const [openModal, setOpenModal] = useState(false);
@@ -111,7 +109,6 @@ export function AdjustmentContent() {
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
         if (fileList && fileList.length > 0) {
-            console.log(fileList[0]);
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
@@ -125,7 +122,6 @@ export function AdjustmentContent() {
         setFile({});
     };
 
-    // Render the component
     return (
         <div className={styles['content']}>
             {openModal && (
