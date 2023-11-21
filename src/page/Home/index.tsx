@@ -59,7 +59,9 @@ export const HomePage = () => {
 
     return (
         <>
-    
+                {loading ? (
+                <LoadingScreen />
+            ) : (
                 <BaseLayout page={DASHBOARD_PAGES.HOME}>
                     <div className={styles.header}>DASHBOARD (Overview)</div>
                     <div className={styles['card-body']}>
@@ -160,6 +162,7 @@ export const HomePage = () => {
                         </PageContent>
                     </div>
                 </BaseLayout>
+                           )}
         </>
     );
 };

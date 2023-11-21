@@ -89,7 +89,9 @@ export const UserManagement = () => {
     // console.log(darkMode);
     return (
         <>
-
+                    {loading ? (
+                <LoadingScreen />
+            ) : (
                 <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
                     {openModal && (
                         <Dialog
@@ -243,6 +245,7 @@ export const UserManagement = () => {
                                 </PageContent>
                     </div>
                 </BaseLayout>
+                           )}
         </>
     );
 };
