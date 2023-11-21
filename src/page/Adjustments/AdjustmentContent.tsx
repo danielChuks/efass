@@ -88,8 +88,25 @@ export function AdjustmentContent() {
 
     const handleReportUpload = async () => {
         const response = await uploadMemoData(file);
-        setIsOpen(true);
-        setSnackbarMessage('Upload failed');
+        console.log(response);
+        try {
+            if (response.status === 200) {
+                setIsOpen(true);
+                setSnackbarColor('#006c33');
+                setSnackbarMessage(response?.message);
+                fetchData()
+            } else {
+                setIsOpen(true);
+                setSnackbarColor('');
+                setSnackbarMessage(
+                    'Unable to upload file, please try again later'
+                );
+            }
+        } catch (error) {
+            setIsOpen(true);
+            setSnackbarColor('');
+            setSnackbarMessage('An error occured');
+        }
     };
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;

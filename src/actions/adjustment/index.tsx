@@ -29,11 +29,12 @@ export const useAdjustmentAction = () => {
                 body: formData,
             });
             const data = await response.json();
-            console.log(data);
-            return data;
+            // console.log(response.status)
+            // console.log(data);
+            return {...data, status:response?.status};
         } catch (error) {
             console.error('Error during file upload:', error);
-            return { error: error };
+            return { error: error,};
         }
     }, []);
 

@@ -11,6 +11,7 @@ import {
     removeFirstFiveCharacters,
     replaceDot,
 } from '../../page/GenerateReport/utils';
+import { specialReportSheets } from '../../page/GenerateReport/utils';
 
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
@@ -42,54 +43,17 @@ export const useGenerateReportActions = () => {
 
     const handleReportUpload = useCallback(
         async (dateFile: any, reportId: string) => {
-            const specialReportSheets = [
-                'MDFIR292.1',
-                'MDFIR292.2',
-                'MDFIR292.3',
-                'MDFIR371.1',
-                'MDFIR371.2',
-                'MDFIR371.3',
-                'MDFIR400.1',
-                'MDFIR400.2',
-                'MDFIR400.3',
-                'MDFIR400.4',
-                'MDFIR400.5',
-                'MDFIR400.6',
-                'MDFIR400.8',
-                'MDFIR400.10',
-                'MDFIR400.11',
-                'MDFIR400.12',
-                'MDFIR400.13',
-                'MDFIR400.14',
-                'MDFIR400.15',
-                'MDFIR450.1',
-                'MDFIR450.2',
-                'MDFIR450.3',
-                'MDFIR450.4',
-                'MDFIR450.5',
-                'MDFIR450.6',
-                'MDFIR450.8',
-                'MDFIR450.9',
-                'MDFIR450.10',
-                'MDFIR450.11',
-                'MDFIR450.12',
-                'MDFIR450.13',
-                'MDFIR450.14',
-                'MDFIR450.15',
-            ];
-
-            let url : string = '';
+            let url: string = '';
             const formData = new FormData();
             formData.append('file', dateFile);
             if (specialReportSheets.includes(reportId)) {
-                    const reportWithUnderScore = replaceDot(reportId);
+                const reportWithUnderScore = replaceDot(reportId);
                 url = `
                  ${
                      process.env.apiUrl
                  }/api/v1/uploadExcel/${reportWithUnderScore?.toLowerCase()}/${reportId}`;
-            }
-            else{
-                 url = `
+            } else {
+                url = `
                  ${
                      process.env.apiUrl
                  }/api/v1/uploadExcel/${reportId?.toLowerCase()}/${reportId}`;
@@ -101,8 +65,9 @@ export const useGenerateReportActions = () => {
                     body: formData,
                 });
                 const data = await response.json();
+                console.log(response.status);
                 console.log(data);
-                return data;
+                return { ...data, status: response.status };
             } catch (error) {
                 console.error('Error during file upload:', error);
                 return { error: error };
@@ -230,6 +195,7 @@ export const useGenerateReportActions = () => {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
                 );
+                console.log(response)
                 // Temporary until the response is given a generic name like "data"
                 if (response.responseCode === 0) {
                     const modifiedSheetName =
@@ -244,28 +210,32 @@ export const useGenerateReportActions = () => {
                             setReportInformation(response[dynamicPropertyName]);
                             return;
                         }
-
-                        if (sheetName === 'mcfpr1') {
-                            setReportInformation(response['sheetMcfpr1']);
-                            return;
+                        switch (sheetName) {
+                            case 'mcfpr1':
+                                console.log(response['sheetMcfpr1']);
+                                setReportInformation(response['sheetMcfpr1']);
+                                return;
+                            case 'qcfpr1':
+                                setReportInformation(response['Qcfpr1']);
+                                return;
+                            case 'qstdr1':
+                                setReportInformation(response['Qstdr001']);
+                                return;
+                            case 'mstdr1':
+                                setReportInformation(response['sheet001']);
+                                return;
+                            case 'mstdr2':
+                                setReportInformation(response['sheet002']);
+                                return;
+                            default:
+                                //reports with consistent format
+                                // Dynamically construct the property name for response.sheet
+                                const dynamicPropertyName = `sheet${modifiedSheetName}`;
+                                // Access the dynamically named property
+                                setReportInformation(
+                                    response[dynamicPropertyName]
+                                );
                         }
-
-                        if (sheetName === 'mstdr1') {
-                            setReportInformation(response['sheet001']);
-                            return;
-                        }
-
-                        if (sheetName === 'mstdr2') {
-                            setReportInformation(response['sheet002']);
-                            return;
-                        }
-
-                        //reports with consistent format
-                        // Dynamically construct the property name for response.sheet
-                        const dynamicPropertyName = `sheet${modifiedSheetName}`;
-
-                        // Access the dynamically named property
-                        setReportInformation(response[dynamicPropertyName]);
                     } else {
                         // Handle the case where modifiedSheetName is null
                         console.error('modifiedSheetName is null');
