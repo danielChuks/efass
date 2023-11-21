@@ -1,18 +1,18 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { PaginatedTable } from "@/components/PaginatedTable";
-import SearchBar from "@/components/SearchBar";
-import Filter from "@/components/FilterBy";
-import styles from "./index.module.scss";
-import { AdjustmentDataDialog } from "./AdjustmentDataDialog";
-import { useAdjustmentAction } from "../../actions/adjustment";
-import { useRecoilValue } from "recoil";
-import { memoAdjustmentAtom } from "../../state/adjustment";
-import { AdjustmentData } from "@/interfaces";
-import { useParams } from "next/navigation";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { PaginatedTable } from '@/components/PaginatedTable';
+import SearchBar from '@/components/SearchBar';
+import Filter from '@/components/FilterBy';
+import styles from './index.module.scss';
+import { AdjustmentDataDialog } from './AdjustmentDataDialog';
+import { useAdjustmentAction } from '../../actions/adjustment';
+import { useRecoilValue } from 'recoil';
+import { memoAdjustmentAtom } from '../../state/adjustment';
+import { AdjustmentData } from '@/interfaces';
+import { useParams } from 'next/navigation';
 
 // Define the AdjustmentContent component
-function AdjustmentContent() {
+export function AdjustmentContent() {
     // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
     const { getMemoData, updateMemoData } = useAdjustmentAction();
@@ -22,16 +22,16 @@ function AdjustmentContent() {
 
     // State for modal and form data
     const [openModal, setOpenModal] = useState(false);
-    const [modalHeader, setModalHeader] = useState("Add New");
-    const [typeOfModal, setTypeOfModal] = useState<string>("");
+    const [modalHeader, setModalHeader] = useState('Add New');
+    const [typeOfModal, setTypeOfModal] = useState<string>('');
     const [data, setData] = useState<AdjustmentData>({
-        gl_code: "",
-        gl_description: "",
-        dr_cr_ind: "",
-        amount: "",
-        period: "",
-        year: "",
-        status: "",
+        gl_code: '',
+        gl_description: '',
+        dr_cr_ind: '',
+        amount: '',
+        period: '',
+        year: '',
+        status: '',
     });
 
     // Fetch memoData on component mount
@@ -52,80 +52,79 @@ function AdjustmentContent() {
 
     // Open the edit modal and set the data when "Edit" is clicked
     const openEditModal = (memoData: AdjustmentData) => {
-        setTypeOfModal("editModal");
-        setModalHeader("Edit Details");
+        setTypeOfModal('editModal');
+        setModalHeader('Edit Details');
         setData({ ...memoData }); // Spread to avoid mutating the original data
         setOpenModal(true);
     };
 
     // Edit the AdjustmentData
-    const editGl = async () => {
+    const submit = async () => {
         try {
             await updateMemoData(data.id, data);
+            console.log(data);
             setOpenModal(false); // Close the modal after editing
         } catch (error) {
             // Handle errors appropriately
-            console.error("Error updating memo data:", error);
+            console.error('Error updating memo data:', error);
         }
     };
 
     // Render the component
     return (
-        <div className={styles["content"]}>
+        <div className={styles['content']}>
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}
                     setOpenModal={setOpenModal}
-                    handleAction={editGl}
+                    handleAction={submit}
                     header={modalHeader}
                     data={data}
                     setData={setData}
                     handleInputchange={handleInputChange}
                     error={false}
-                    errorText=''
+                    errorText=""
                 />
             )}
-            <div className={styles["content_header"]}>
-                <div className={styles["search"]}>
+            <div className={styles['content_header']}>
+                <div className={styles['search']}>
                     <SearchBar />
                     <Filter options={[]} />
                 </div>
             </div>
             <PaginatedTable<AdjustmentData>
                 headers={[
-                    "GL-CODE",
-                    "GL DESCRIPTION",
-                    "DR-CR-IND",
-                    "AMOUNT",
-                    "PERIOD",
-                    "YEAR",
-                    "STATUS",
-                    "EDIT",
+                    'GL-CODE',
+                    'GL DESCRIPTION',
+                    'DR-CR-IND',
+                    'AMOUNT',
+                    'PERIOD',
+                    'YEAR',
+                    'STATUS',
+                    'EDIT',
                 ]}
                 data={memoData}
                 columns={[
                     { render: (data) => data.gl_code },
-                    { render: (data) => data.gl_description, width: "20%" },
+                    { render: (data) => data.gl_description, width: '20%' },
                     { render: (data) => data.dr_cr_ind },
-                    { render: (data) => data.amount, width: "15%" },
-                    { render: (data) => data.period, width: "15%" },
-                    { render: (data) => data.year, width: "15%" },
-                    { render: (data) => data.status, width: "15%" },
+                    { render: (data) => data.amount, width: '15%' },
+                    { render: (data) => data.period, width: '15%' },
+                    { render: (data) => data.year, width: '15%' },
+                    { render: (data) => data.status, width: '15%' },
                     {
                         render: (data) => (
                             <div
-                                className={styles["viewButton"]}
+                                className={styles['viewButton']}
                                 onClick={() => openEditModal(data)}
                             >
                                 Edit
                             </div>
                         ),
-                        width: "10%",
+                        width: '10%',
                     },
                 ]}
             />
         </div>
     );
 }
-
-export default AdjustmentContent;
