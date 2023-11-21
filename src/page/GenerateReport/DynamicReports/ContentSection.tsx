@@ -7,8 +7,6 @@ import Filter from '../../../components/FilterBy';
 import { useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { PaginatedTable } from '../../../components/PaginatedTable';
-import { ReportData } from '../../../interfaces';
-import { mockData } from '../../../components/PaginatedTable/mock';
 import { useGenerateReportActions } from '../../../actions/GenerateReport';
 import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
@@ -39,8 +37,6 @@ export default function ContentSection() {
     useEffect(() => {
         handleReportInformation();
     }, []);
-
-    // console.log(reportInformation);
 
     return (
         <div className={styles['contentContainer']}>

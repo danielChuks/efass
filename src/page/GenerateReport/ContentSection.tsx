@@ -98,18 +98,17 @@ export const ContentSection = ({
     const openUploadModal = (reportdId: string) => {
         setOpenModal(true);
         setReportId(reportdId);
-        setFileName('')
-        setFile({})
+        setFileName('');
+        setFile({});
     };
 
     const uploadReport = async () => {
-        const response = await handleReportUpload(file,reportId);
-        if(response.Message){
-             setIsOpen(true);
-             setSnackbarColor('#006c33');
-             setSnackbarMessage(response.Message);
-        }
-        else{
+        const response = await handleReportUpload(file, reportId);
+        if (response.Message) {
+            setIsOpen(true);
+            setSnackbarColor('#006c33');
+            setSnackbarMessage(response.Message);
+        } else {
             setIsOpen(true);
             setSnackbarColor('');
             setSnackbarMessage(response.message || 'An error occured');
@@ -121,7 +120,6 @@ export const ContentSection = ({
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            // console.log(fileName);
         }
     };
 
@@ -162,72 +160,64 @@ export const ContentSection = ({
                     </div>
                 </div>
             </div>
-            {spinner ? (
-                <LoadingScreen />
-            ) : (
-                <PaginatedTable<ReportData>
-                    headers={[
-                        'Report Code',
-                        'Report Description',
-                        'Action',
-                        '',
-                    ]}
-                    data={reportData}
-                    loading={loading}
-                    columns={[
-                        {
-                            render: (data, index) => {
-                                return data.return_code;
-                            },
-                        },
-                        {
-                            render: (data, index) => {
-                                return data.bank_name;
-                            },
-                            width: '50%',
-                        },
-                        {
-                            render: (data, index) => {
-                                return (
-                                    <div
-                                        className={styles['actionButton']}
-                                        onClick={() =>
-                                            push(
-                                                `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
-                                            )
-                                        }
-                                    >
-                                        <BiShow size={20} />
-                                        View
-                                    </div>
-                                );
-                            },
-                            width: '10%',
-                        },
 
-                        {
-                            render: (data, index) => {
-                                return uploadableReports.includes(
-                                    data.sheet_number
-                                ) ? (
-                                    <div
-                                        className={styles['actionButton']}
-                                        onClick={() =>
-                                            openUploadModal(data.sheet_number)
-                                        }
-                                    >
-                                        <FaUpload size={18} />
-                                        Upload
-                                    </div>
-                                ) : (
-                                    ''
-                                );
-                            },
-                            width: '10%',
+            <PaginatedTable<ReportData>
+                headers={['Report Code', 'Report Description', 'Action', '']}
+                data={reportData}
+                loading={spinner}
+                columns={[
+                    {
+                        render: (data, index) => {
+                            return data.return_code;
                         },
-                    ]}
-                />
-            )}
+                    },
+                    {
+                        render: (data, index) => {
+                            return data.bank_name;
+                        },
+                        width: '50%',
+                    },
+                    {
+                        render: (data, index) => {
+                            return (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        push(
+                                            `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
+                                        )
+                                    }
+                                >
+                                    <BiShow size={20} />
+                                    View
+                                </div>
+                            );
+                        },
+                        width: '10%',
+                    },
+
+                    {
+                        render: (data, index) => {
+                            return uploadableReports.includes(
+                                data.sheet_number
+                            ) ? (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        openUploadModal(data.sheet_number)
+                                    }
+                                >
+                                    <FaUpload size={18} />
+                                    Upload
+                                </div>
+                            ) : (
+                                ''
+                            );
+                        },
+                        width: '10%',
+                    },
+                ]}
+            />
 
             {/* <PaginatedTable<ReportData>
                 headers={Object.keys(mockData[0]).filter(
