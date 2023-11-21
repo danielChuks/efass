@@ -110,6 +110,7 @@ export function ReportHeader({
 
     const generateReport = async () => {
         let formattedDate;
+        setSpinner(true);
 
         switch (selectedGroup) {
             case 'M':
@@ -141,9 +142,7 @@ export function ReportHeader({
                 setIsOpen(true);
                 return;
         }
-
         setSelectedDate(formattedDate);
-
         // Post date to server
         const dateResponse = await postReportDate(formattedDate);
 
@@ -151,9 +150,27 @@ export function ReportHeader({
         if (cbnDate) {
             const cbnDateResponse = await postCbnDate(cbnDate);
         }
+        try {
+            const response = await handleGenerateReport(selectedGroup);
+            if (response && response.responseCode === 0) {
+                setSpinner(false);
+            } else {
+                setSnackbarMessage(
+                    response?.responseMessage || 'An error occured'
+                );
+                setIsOpen(true);
+                setSpinner(false);
+            }
+        } catch (error: any) {
+            console.log(error);
+            setSnackbarMessage(
+                error?.error || 'An error occured, please try again later'
+            );
+            setIsOpen(true);
+            setSpinner(false);
+        }
 
-        const response = await handleGenerateReport(selectedGroup);
-        setLoading(false);
+        // setLoading(false);
     };
 
     const handleYearChange = (e: any) => {

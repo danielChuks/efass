@@ -32,7 +32,8 @@ export const ContentSection = ({
     spinner,
     setSpinner,
 }: ReportPageProps) => {
-    const { handleDownloadReports } = useGenerateReportActions();
+    const { handleDownloadReports, handleReportUpload } =
+        useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
@@ -40,11 +41,14 @@ export const ContentSection = ({
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [isopen, setIsOpen] = useState(false);
     const [fileName, setFileName] = useState<string>('');
+    const [file, setFile] = useState<any>();
+    const [reportId, setReportId] = useState<string>('');
 
     //DIALOG PROPS
     const [openModal, setOpenModal] = useState(false);
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
 
     const uploadableReports: string[] | null = [
         'MDFIR223',
@@ -69,7 +73,7 @@ export const ContentSection = ({
         'MCFPR1',
     ];
 
-    const downloadXmlReports = () => {
+    const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
             setIsOpen(true);
             setSnackbarMessage(
@@ -77,27 +81,47 @@ export const ContentSection = ({
             );
             return;
         }
-        const response = handleDownloadReports(
+        setIsOpen(true);
+        setSnackbarColor('#006c33');
+        setSnackbarMessage('Download in progress, please wait');
+        const response = await handleDownloadReports(
             reportData,
             reportGroup,
             selectedDate
         );
-        console.log(response);
     };
     const handleClose = () => {
         setIsOpen(false);
+        setFile({});
     };
 
-    const handleReportUpload = () => {
-        console.log('uploadddddd');
+    const openUploadModal = (reportdId: string) => {
+        setOpenModal(true);
+        setReportId(reportdId);
+        setFileName('')
+        setFile({})
     };
-    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    const uploadReport = async () => {
+        const response = await handleReportUpload(file,reportId);
+        if(response.Message){
+             setIsOpen(true);
+             setSnackbarColor('#006c33');
+             setSnackbarMessage(response.Message);
+        }
+        else{
+            setIsOpen(true);
+            setSnackbarColor('');
+            setSnackbarMessage(response.message || 'An error occured');
+        }
+    };
+    const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
         if (fileList && fileList.length > 0) {
-            console.log(fileList[0]);
+            setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            console.log('Selected file name:', fileName);
+            // console.log(fileName);
         }
     };
 
@@ -107,8 +131,8 @@ export const ContentSection = ({
                 <UploadDialog
                     openModal={openModal}
                     setOpenModal={setOpenModal}
-                    handleAction={handleReportUpload}
-                    handleInputchange={handleFileUpload}
+                    handleAction={uploadReport}
+                    handleInputchange={getFileFromMachine}
                     error={error}
                     errorText={errorText}
                     fileName={fileName}
@@ -118,6 +142,7 @@ export const ContentSection = ({
                 handleClose={handleClose}
                 isopen={isopen}
                 message={SnackbarMessage}
+                color={snackBarColor}
             />
 
             <div className={styles['contentTopSection']}>
@@ -187,7 +212,9 @@ export const ContentSection = ({
                                 ) ? (
                                     <div
                                         className={styles['actionButton']}
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={() =>
+                                            openUploadModal(data.sheet_number)
+                                        }
                                     >
                                         <FaUpload size={18} />
                                         Upload
