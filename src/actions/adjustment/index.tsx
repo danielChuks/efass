@@ -44,10 +44,12 @@ export const useAdjustmentAction = () => {
         }
 
         try {
-            await fetchWrapper.put(
-                `${BASEAPI_EXTENSION.BASEAPI}memo/${id}`,
+            const response = await fetchWrapper.put(
+                `${BASEAPI_EXTENSION.BASEAPI}memo?id=${id}`,
                 data
             );
+            console.log(response);
+            return response;
         } catch (error) {
             console.error('Error updating memo data:', error);
             throw error;

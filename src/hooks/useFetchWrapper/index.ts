@@ -41,8 +41,6 @@ export const useFetchWrapper = () => {
                 if (!response.ok) {
                     return { code: response.message };
                 }
-
-                // console.log(data);
                 return data;
             });
         },

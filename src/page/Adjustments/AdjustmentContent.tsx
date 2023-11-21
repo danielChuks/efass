@@ -15,7 +15,7 @@ import { UploadDialog } from '../../components/UploadDialog';
 import SnackbarComponent from '../../components/Snackbar';
 
 // Define the AdjustmentContent component
-function AdjustmentContent() {
+export function AdjustmentContent() {
     // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
     const { getMemoData, updateMemoData, uploadMemoData } =
@@ -72,9 +72,10 @@ function AdjustmentContent() {
     };
 
     // Edit the AdjustmentData
-    const editGl = async () => {
+    const submit = async () => {
         try {
             await updateMemoData(data.id, data);
+            console.log(data);
             setOpenModal(false); // Close the modal after editing
         } catch (error) {
             // Handle errors appropriately
@@ -133,7 +134,7 @@ function AdjustmentContent() {
                 <AdjustmentDataDialog
                     openModal={openModal}
                     setOpenModal={setOpenModal}
-                    handleAction={editGl}
+                    handleAction={submit}
                     header={modalHeader}
                     data={data}
                     setData={setData}
@@ -191,5 +192,3 @@ function AdjustmentContent() {
         </div>
     );
 }
-
-export default AdjustmentContent;
