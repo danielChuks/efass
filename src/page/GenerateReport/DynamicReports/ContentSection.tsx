@@ -20,7 +20,9 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
+
     const handleReportInformation = async () => {
+        console.log("checking", reportInformation);
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
                 reportId.toLowerCase(),
