@@ -25,6 +25,7 @@ import { BiShow } from 'react-icons/bi';
 import { FaUpload } from 'react-icons/fa';
 import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
+import PageContent from '../../components/PageContent';
 
 export const ContentSection = ({
     loading,
@@ -122,7 +123,6 @@ export const ContentSection = ({
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            // console.log(fileName);
         }
     };
 
@@ -145,15 +145,10 @@ export const ContentSection = ({
                 message={SnackbarMessage}
                 color={snackBarColor}
             />
+            <div >
 
-            <div className={styles['contentTopSection']}>
-                <SearchBar />
-                <Filter
-                    options={options}
-                    defaultOption={''}
-                    onSelect={(selectedValue) => console.log(selectedValue)}
-                />
-                <div className={styles['rightSide']}>
+            <PageContent showFilter={false}>
+            <div className={styles['rightSide']}>
                     <div
                         onClick={downloadXmlReports}
                         className={styles['reportButton']}
@@ -162,7 +157,6 @@ export const ContentSection = ({
                         <FaDownload />
                     </div>
                 </div>
-            </div>
             {spinner ? (
                 <LoadingScreen />
             ) : (
@@ -205,45 +199,18 @@ export const ContentSection = ({
                             },
                             width: '10%',
                         },
-
-                        {
-                            render: (data, index) => {
-                                return uploadableReports.includes(
-                                    data.sheet_number
-                                ) ? (
-                                    <div
-                                        className={styles['actionButton']}
-                                        onClick={() =>
-                                            openUploadModal(data.sheet_number)
-                                        }
-                                    >
-                                        <FaUpload size={18} />
-                                        Upload
-                                    </div>
-                                ) : (
-                                    ''
-                                );
-                            },
-                            width: '10%',
-                        },
-                    ]}
+                ]}
+            />)}
+                    </PageContent>
+                {/* <SearchBar />
+                <Filter
+                    options={options}
+                    defaultOption={''}
+                    onSelect={(selectedValue) => console.log(selectedValue)}
                 />
-            )}
+               */}
+            </div>
 
-            {/* <PaginatedTable<ReportData>
-                headers={Object.keys(mockData[0]).filter(
-                    (val) => val !== 'serial_number'
-                ).map((val) => val.split('_').join(' '))}
-                data={mockData}
-                loading={false}
-                columns={Object.keys(mockData[0])
-                    .filter((val) => val !== 'serial_number')
-                    .map((key) => ({
-                        render: (data, index) => {
-                            return (data as any)[key];
-                        },
-                    }))}
-            /> */}
         </div>
     );
 };

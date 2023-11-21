@@ -11,7 +11,8 @@ function Card({ title, content, image }: cardProps) {
     return (
         <div className={styles['card-container']}>
             <div className={styles['image-title-container']}>
-                {image} <div>{title}</div>
+                {image} 
+                <div>{title}</div>
             </div>
             <div>{content}</div>
         </div>

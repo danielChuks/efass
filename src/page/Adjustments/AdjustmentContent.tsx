@@ -10,11 +10,12 @@ import { useRecoilValue } from 'recoil';
 import { memoAdjustmentAtom } from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
 import { useParams } from 'next/navigation';
+import PageContent from '../../components/PageContent';
 import { FaUpload } from 'react-icons/fa';
 import { UploadDialog } from '../../components/UploadDialog';
 import SnackbarComponent from '../../components/Snackbar';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
-// Define the AdjustmentContent component
 export function AdjustmentContent() {
     // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
@@ -24,7 +25,6 @@ export function AdjustmentContent() {
     // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
-    // State for modal and form data
     const [openModal, setOpenModal] = useState(false);
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
@@ -42,6 +42,7 @@ export function AdjustmentContent() {
     const [errorText, setErrorText] = useState('');
     const [fileName, setFileName] = useState<string>('');
     const [file, setFile] = useState<any>();
+    const [loading, setLoading] = useState(false);
 
     //snackbar state
     const [snackBarColor, setSnackbarColor] = useState<string>('');
@@ -58,28 +59,25 @@ export function AdjustmentContent() {
         fetchData();
     }, []);
 
-    // Handle input changes in the form
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    // Open the edit modal and set the data when "Edit" is clicked
     const openEditModal = (memoData: AdjustmentData) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
-        setData({ ...memoData }); // Spread to avoid mutating the original data
+        setData({ ...memoData });
         setOpenModal(true);
     };
 
-    // Edit the AdjustmentData
     const submit = async () => {
         try {
             await updateMemoData(data.id, data);
-            console.log(data);
-            setOpenModal(false); // Close the modal after editing
+            setOpenModal(false);
+            window.location.reload();
+            setLoading(true);
         } catch (error) {
-            // Handle errors appropriately
-            console.error('Error updating memo data:', error);
+            return error;
         }
     };
 
@@ -130,23 +128,6 @@ export function AdjustmentContent() {
     // Render the component
     return (
         <div className={styles['content']}>
-            {UploadModal && (
-                <UploadDialog
-                    openModal={UploadModal}
-                    setOpenModal={setUploadModal}
-                    handleAction={handleReportUpload}
-                    handleInputchange={handleFileUpload}
-                    error={error}
-                    errorText={errorText}
-                    fileName={fileName}
-                />
-            )}
-            <SnackbarComponent
-                handleClose={handleClose}
-                isopen={isopen}
-                message={SnackbarMessage}
-                color={snackBarColor}
-            />
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}
@@ -161,19 +142,14 @@ export function AdjustmentContent() {
                 />
             )}
             <div className={styles['content_header']}>
-                <div className={styles['search']}>
-                    <SearchBar />
-                    <Filter options={[]} />
-                </div>
-                <button
-                    onClick={() => openUploadModal()}
-                    className={styles['upload_btn']}
-                >
-                    Upload
-                    <FaUpload size={16} />
-                </button>
-            </div>
-            <PaginatedTable<AdjustmentData>
+                <PageContent>
+                        <div className={styles["rightSide"]}>
+				<div onClick={openUploadModal} className={styles["reportButton"]}>
+				Upload
+				<FaUpload />
+				</div>
+			</div>
+                <PaginatedTable<AdjustmentData>
                 headers={[
                     'GL-CODE',
                     'GL DESCRIPTION',
@@ -182,7 +158,7 @@ export function AdjustmentContent() {
                     'PERIOD',
                     'YEAR',
                     'STATUS',
-                    'ACTION',
+                    'EDIT',
                 ]}
                 data={memoData}
                 columns={[
@@ -206,6 +182,13 @@ export function AdjustmentContent() {
                     },
                 ]}
             />
+                </PageContent>
+                {/* <div className={styles['search']}>
+                    <SearchBar />
+                    <Filter options={[]} />
+                </div> */}
+            </div>
+          
         </div>
     );
 }

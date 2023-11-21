@@ -1,4 +1,5 @@
 @import '../../styles/index.scss';
+@import '../../page/GenerateReport/index.module.scss';
 
 .card-body {
     display: flex;
@@ -59,34 +60,3 @@
     }
 }
 
-.contentContainer {
-    background-color: $generalWhiteColor;
-    padding: 25px;
-}
-.contentTopSection {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-}
-.rightSide {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    align-items: center;
-
-    .reportButton {
-        display: flex;
-        border-radius: 5px;
-        padding: 8px;
-        align-content: center;
-        justify-content: center;
-        gap: 20px;
-        background: $backgroundColor;
-        color: $generalWhiteColor;
-        font-family: $fontStyle;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 600;
-        cursor: pointer;
-    }
-}

@@ -18,6 +18,7 @@ import userAdded from '../../../public/Images/person.png';
 import Image from 'next/image';
 import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import PageContent from '../../components/PageContent';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -26,7 +27,7 @@ export const HomePage = () => {
     const [loading, setLoading] = useState(true);
 
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
-        weekday: 'long',
+        weekday: 'short',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -58,7 +59,7 @@ export const HomePage = () => {
 
     return (
         <>
-            {loading ? (
+                {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.HOME}>
@@ -72,7 +73,7 @@ export const HomePage = () => {
                                     src={userAdded}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -84,7 +85,7 @@ export const HomePage = () => {
                                     src={date}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -96,7 +97,7 @@ export const HomePage = () => {
                                     src={lastActivity}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -108,7 +109,7 @@ export const HomePage = () => {
                                     src={userAdded}
                                     alt=""
                                     width={30}
-                                    height={30}
+                                    height={25}
                                 />
                             }
                         />
@@ -117,13 +118,8 @@ export const HomePage = () => {
                         <div className="table_header">
                             <h4 className="title">Recent Activity</h4>
                         </div>
-                        <div className={styles['table_body']}>
-                            <div className={styles['contentTopSection']}>
-                                <SearchBar />
-                                <Filter options={options} />
-                            </div>
-
-                            <PaginatedTable<ReportHistory>
+                        <PageContent>
+                        <PaginatedTable<ReportHistory>
                                 headers={[
                                     'REPORT DETAILS',
                                     'DATE GENERATED',
@@ -163,10 +159,10 @@ export const HomePage = () => {
                                     },
                                 ]}
                             />
-                        </div>
+                        </PageContent>
                     </div>
                 </BaseLayout>
-            )}
+                           )}
         </>
     );
 };

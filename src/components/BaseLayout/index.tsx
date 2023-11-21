@@ -4,16 +4,15 @@ import Sidebar from '../Sidebar';
 import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 
-
 interface Props {
-    children?: ReactNode
+    children?: ReactNode;
     page?: DASHBOARD_PAGES;
 }
 
 export default function BaseLayout({ children, page }: Props) {
     return (
         <div className="layout">
-            <Sidebar page={page}/>
+            <Sidebar page={page} />
             <div className="content">
                 <div className={styles['navbar']}>
                     Electronic Financial Analysis and Surveillance System

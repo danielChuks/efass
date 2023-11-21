@@ -7,7 +7,7 @@ const Search = styled("div")(({ theme }) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "#F3F3F4",
     marginLeft: 0,
-    width: "540px",
+    width: "400px",
     height: 44,
     border: "0.1px solid #ccc",
 }));

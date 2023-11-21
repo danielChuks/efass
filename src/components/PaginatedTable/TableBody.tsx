@@ -23,8 +23,6 @@ export function TableBody<T = any>({
         numOfItemsPerPage,
     } = pagination;
 
-    // console.log(loading);
-
     return (
         <div className={styles["body"]}>
             {!loading &&

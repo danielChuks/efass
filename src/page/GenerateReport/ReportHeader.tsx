@@ -210,7 +210,7 @@ export function ReportHeader({
                 <div className={styles['title']}>{'Select Date'}</div>
                 <div className={styles['selectDateContainer']}>
                     <div className={styles['date-group']}>
-                        <div>YEAR</div>
+                        <div className={styles['date-header']}>YEAR</div>
                         <YearPicker
                             selectedYear={selectedYear}
                             onYearChange={handleYearChange}
@@ -221,7 +221,7 @@ export function ReportHeader({
                     </div>
 
                     <div className={styles['date-group']}>
-                        <div>MONTH</div>
+                        <div className={styles['date-header']}>MONTH</div>
                         <MonthPicker
                             selectedMonth={currentMonth}
                             onMonthChange={handleMonthChange}
@@ -230,7 +230,7 @@ export function ReportHeader({
                     </div>
 
                     <div className={styles['date-group']}>
-                        <div>QUARTER</div>
+                        <div className={styles['date-header']}>QUARTER</div>
                         <QuarterlyPicker
                             selectedQuarter={selectedQuarter}
                             onQuarterChange={handleQuaterlyChange}
@@ -243,7 +243,7 @@ export function ReportHeader({
             <div className={styles['selectDate']}>
                 <p className={styles['title']}>CBN DATE</p>
                 <div className={styles['date-group']}>
-                    <div>Date(only for Report 100)</div>
+                    <div className={styles['date-header']}>Date(only for Report 100)</div>
                     <input
                         name="cbnDate"
                         type="date"
