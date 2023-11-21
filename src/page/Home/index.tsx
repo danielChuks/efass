@@ -17,6 +17,7 @@ import lastActivity from '../../../public/Images/calender.png';
 import userAdded from '../../../public/Images/person.png';
 import Image from 'next/image';
 import { options } from '../../components/FilterBy/dommy';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -56,87 +57,116 @@ export const HomePage = () => {
     };
 
     return (
-        <BaseLayout page={DASHBOARD_PAGES.HOME}>
-            <div className={styles.header}>DASHBOARD (Overview)</div>
-            <div className={styles['card-body']}>
-                <Card
-                    title={'USER'}
-                    content={'0'}
-                    image={
-                        <Image src={userAdded} alt="" width={30} height={30} />
-                    }
-                />
-                <Card
-                    title={'LAST ACTIVITY DATE'}
-                    content={'0'}
-                    image={<Image src={date} alt="" width={30} height={30} />}
-                />
-                <Card
-                    title={'CURRENT DATE'}
-                    content={formattedCurrentDate}
-                    image={
-                        <Image
-                            src={lastActivity}
-                            alt=""
-                            width={30}
-                            height={30}
+        <>
+            {loading ? (
+                <LoadingScreen />
+            ) : (
+                <BaseLayout page={DASHBOARD_PAGES.HOME}>
+                    <div className={styles.header}>DASHBOARD (Overview)</div>
+                    <div className={styles['card-body']}>
+                        <Card
+                            title={'USER'}
+                            content={'0'}
+                            image={
+                                <Image
+                                    src={userAdded}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            }
                         />
-                    }
-                />
-                <Card
-                    title={'USER CREATED'}
-                    content={'0'}
-                    image={
-                        <Image src={userAdded} alt="" width={30} height={30} />
-                    }
-                />
-            </div>
-            <div className={styles['table_container']}>
-                <div className="table_header">
-                    <h4 className="title">Recent Activity</h4>
-                </div>
-                <div className={styles['table_body']}>
-                    <div className={styles['contentTopSection']}>
-                        <SearchBar />
-                        <Filter options={options} />
+                        <Card
+                            title={'LAST ACTIVITY DATE'}
+                            content={'0'}
+                            image={
+                                <Image
+                                    src={date}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            }
+                        />
+                        <Card
+                            title={'CURRENT DATE'}
+                            content={formattedCurrentDate}
+                            image={
+                                <Image
+                                    src={lastActivity}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            }
+                        />
+                        <Card
+                            title={'USER CREATED'}
+                            content={'0'}
+                            image={
+                                <Image
+                                    src={userAdded}
+                                    alt=""
+                                    width={30}
+                                    height={30}
+                                />
+                            }
+                        />
                     </div>
+                    <div className={styles['table_container']}>
+                        <div className="table_header">
+                            <h4 className="title">Recent Activity</h4>
+                        </div>
+                        <div className={styles['table_body']}>
+                            <div className={styles['contentTopSection']}>
+                                <SearchBar />
+                                <Filter options={options} />
+                            </div>
 
-                    <PaginatedTable<ReportHistory>
-                        headers={['REPORT DETAILS', 'DATE GENERATED', 'ACTION']}
-                        data={reportHistory}
-                        loading={loading}
-                        columns={[
-                            {
-                                render: (data, index) => {
-                                    return data.reportDescription;
-                                },
-                                width: '50%',
-                            },
-                            {
-                                render: (data, index) => {
-                                    return data.dateDescription;
-                                },
-                                width: '50%',
-                            },
-                            {
-                                render: (data, index) => {
-                                    return (
-                                        <div
-                                            className={styles['viewButton']}
-                                            onClick={() => {
-                                                openDeleteModal(data);
-                                            }}
-                                        >
-                                            ...
-                                        </div>
-                                    );
-                                },
-                                width: '10%',
-                            },
-                        ]}
-                    />
-                </div>
-            </div>
-        </BaseLayout>
+                            <PaginatedTable<ReportHistory>
+                                headers={[
+                                    'REPORT DETAILS',
+                                    'DATE GENERATED',
+                                    'ACTION',
+                                ]}
+                                data={reportHistory}
+                                loading={loading}
+                                columns={[
+                                    {
+                                        render: (data, index) => {
+                                            return data.reportDescription;
+                                        },
+                                        width: '50%',
+                                    },
+                                    {
+                                        render: (data, index) => {
+                                            return data.dateDescription;
+                                        },
+                                        width: '50%',
+                                    },
+                                    {
+                                        render: (data, index) => {
+                                            return (
+                                                <div
+                                                    className={
+                                                        styles['viewButton']
+                                                    }
+                                                    onClick={() => {
+                                                        openDeleteModal(data);
+                                                    }}
+                                                >
+                                                    ...
+                                                </div>
+                                            );
+                                        },
+                                        width: '10%',
+                                    },
+                                ]}
+                            />
+                        </div>
+                    </div>
+                </BaseLayout>
+            )}
+        </>
     );
 };
