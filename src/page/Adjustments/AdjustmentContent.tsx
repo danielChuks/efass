@@ -17,10 +17,9 @@ import SnackbarComponent from '../../components/Snackbar';
 import { LoadingScreen } from '../../components/LoadingScreen';
 
 export function AdjustmentContent() {
-
     const { getMemoData, updateMemoData, uploadMemoData } =
         useAdjustmentAction();
-        
+
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
     const [openModal, setOpenModal] = useState(false);
@@ -92,7 +91,7 @@ export function AdjustmentContent() {
                 setIsOpen(true);
                 setSnackbarColor('#006c33');
                 setSnackbarMessage(response?.message);
-                fetchData()
+                fetchData();
             } else {
                 setIsOpen(true);
                 setSnackbarColor('');
@@ -156,52 +155,57 @@ export function AdjustmentContent() {
             )}
             <div className={styles['content_header']}>
                 <PageContent>
-                        <div className={styles["rightSide"]}>
-				<div onClick={openUploadModal} className={styles["reportButton"]}>
-				Upload
-				<FaUpload />
-				</div>
-			</div>
-                <PaginatedTable<AdjustmentData>
-                headers={[
-                    'GL-CODE',
-                    'GL DESCRIPTION',
-                    'DR-CR-IND',
-                    'AMOUNT',
-                    'PERIOD',
-                    'YEAR',
-                    'STATUS',
-                    'EDIT',
-                ]}
-                data={memoData}
-                columns={[
-                    { render: (data) => data.gl_code },
-                    { render: (data) => data.gl_description, width: '20%' },
-                    { render: (data) => data.dr_cr_ind },
-                    { render: (data) => data.amount, width: '15%' },
-                    { render: (data) => data.period, width: '15%' },
-                    { render: (data) => data.year, width: '15%' },
-                    { render: (data) => data.status, width: '15%' },
-                    {
-                        render: (data) => (
-                            <div
-                                className={styles['viewButton']}
-                                onClick={() => openEditModal(data)}
-                            >
-                                Edit
-                            </div>
-                        ),
-                        width: '10%',
-                    },
-                ]}
-            />
+                    <div className={styles['rightSide']}>
+                        <div
+                            onClick={openUploadModal}
+                            className={styles['reportButton']}
+                        >
+                            Upload
+                            <FaUpload />
+                        </div>
+                    </div>
+                    <PaginatedTable<AdjustmentData>
+                        headers={[
+                            'GL-CODE',
+                            'GL DESCRIPTION',
+                            'DR-CR-IND',
+                            'AMOUNT',
+                            'PERIOD',
+                            'YEAR',
+                            'STATUS',
+                            'EDIT',
+                        ]}
+                        data={memoData}
+                        columns={[
+                            { render: (data) => data.gl_code },
+                            {
+                                render: (data) => data.gl_description,
+                                width: '20%',
+                            },
+                            { render: (data) => data.dr_cr_ind },
+                            { render: (data) => data.amount, width: '15%' },
+                            { render: (data) => data.period, width: '15%' },
+                            { render: (data) => data.year, width: '15%' },
+                            { render: (data) => data.status, width: '15%' },
+                            {
+                                render: (data) => (
+                                    <div
+                                        className={styles['viewButton']}
+                                        onClick={() => openEditModal(data)}
+                                    >
+                                        Edit
+                                    </div>
+                                ),
+                                width: '10%',
+                            },
+                        ]}
+                    />
                 </PageContent>
                 {/* <div className={styles['search']}>
                     <SearchBar />
                     <Filter options={[]} />
                 </div> */}
             </div>
-          
         </div>
     );
 }
