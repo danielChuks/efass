@@ -9,8 +9,8 @@ import { useRouter } from 'next/navigation';
 
 export const useFetchWrapper = () => {
     const router = useRouter();
-    const [auth, setAuth] = useRecoilState(authAtom);
-
+    const authObject = localStorage.getItem('auth') || ''
+    const auth = JSON.parse(authObject || '{}');
     const { apiUrl } = useContext(ConfigContext);
 
     const generateAuthHeader = useCallback((auth: Token | null) => {
@@ -27,14 +27,14 @@ export const useFetchWrapper = () => {
         async (
             response: any,
             auth: Token | null,
-            setAuth: SetterOrUpdater<Token | null>,
+            // setAuth?: SetterOrUpdater<Token | null>,
             router: any
         ) => {
             return response.text().then(async (text: string) => {
                 const data = text && JSON.parse(text);
                 if (response.status === 401) {
                     sessionStorage.removeItem('token');
-                    setAuth(null);
+                    // setAuth(null);
                     router.push('/login');
                 }
 
@@ -48,15 +48,12 @@ export const useFetchWrapper = () => {
         []
     );
 
-
-
-
     const request = useCallback((method: RequestMethod) => {
         return (url: string, body?: any, token?: Token) => {
             let accessToken = auth;
 
             if (token?.token) {
-                setAuth(token);
+                // setAuth(token);
                 accessToken = token;
             }
 
@@ -72,7 +69,8 @@ export const useFetchWrapper = () => {
 
             return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
                 .then((response) => {
-                    return handleResponse(response, auth, setAuth, router);
+                    // return handleResponse(response, auth, setAuth, router);
+                    return handleResponse(response, auth, router);
                 })
 
                 .catch((err) => {

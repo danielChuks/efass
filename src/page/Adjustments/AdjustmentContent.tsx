@@ -9,11 +9,18 @@ import { useAdjustmentAction } from '../../actions/adjustment';
 import { useRecoilValue } from 'recoil';
 import { memoAdjustmentAtom } from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
-import { useRouter } from 'next/navigation';
 
-// Define the AdjustmentContent component
+import { FaUpload } from 'react-icons/fa';
+import { UploadDialog } from '../../components/UploadDialog';
+import SnackbarComponent from '../../components/Snackbar';
+
 export function AdjustmentContent() {
-    const { getMemoData, updateMemoData } = useAdjustmentAction();
+    // const { id } = useParams();
+    // Destructure hooks from useAdjustmentAction
+    const { getMemoData, updateMemoData, uploadMemoData } =
+        useAdjustmentAction();
+
+    // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
     const [openModal, setOpenModal] = useState(false);
@@ -28,7 +35,17 @@ export function AdjustmentContent() {
         year: '',
         status: '',
     });
+    const [UploadModal, setUploadModal] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorText, setErrorText] = useState('');
+    const [fileName, setFileName] = useState<string>('');
+    const [file, setFile] = useState<any>();
 
+    //snackbar state
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [isopen, setIsOpen] = useState<boolean>(false);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    // Fetch memoData on component mount
     const fetchData = async () => {
         try {
             await getMemoData();
@@ -60,8 +77,53 @@ export function AdjustmentContent() {
         }
     };
 
+    const handleClose = () => {
+        setIsOpen(false);
+        setFile({});
+    };
+
+    const handleReportUpload = async () => {
+        const response = await uploadMemoData(file);
+        setIsOpen(true);
+        setSnackbarMessage('Upload failed');
+    };
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fileList = e.target.files;
+        if (fileList && fileList.length > 0) {
+            console.log(fileList[0]);
+            setFile(fileList[0]);
+            const fileName = fileList[0].name;
+            setFileName(fileName);
+            console.log('Selected file name:', fileName);
+        }
+    };
+
+    const openUploadModal = () => {
+        setUploadModal(true);
+        setFileName('');
+        setFile({});
+    };
+
+    // Render the component
     return (
         <div className={styles['content']}>
+            {UploadModal && (
+                <UploadDialog
+                    openModal={UploadModal}
+                    setOpenModal={setUploadModal}
+                    handleAction={handleReportUpload}
+                    handleInputchange={handleFileUpload}
+                    error={error}
+                    errorText={errorText}
+                    fileName={fileName}
+                />
+            )}
+            <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isopen}
+                message={SnackbarMessage}
+                color={snackBarColor}
+            />
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}
@@ -80,6 +142,13 @@ export function AdjustmentContent() {
                     <SearchBar />
                     <Filter options={[]} />
                 </div>
+                <button
+                    onClick={() => openUploadModal()}
+                    className={styles['upload_btn']}
+                >
+                    Upload
+                    <FaUpload size={16} />
+                </button>
             </div>
             <PaginatedTable<AdjustmentData>
                 headers={[
@@ -90,7 +159,7 @@ export function AdjustmentContent() {
                     'PERIOD',
                     'YEAR',
                     'STATUS',
-                    'EDIT',
+                    'ACTION',
                 ]}
                 data={memoData}
                 columns={[

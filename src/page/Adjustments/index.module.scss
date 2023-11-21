@@ -17,6 +17,19 @@
             align-items: center;
             gap: 1.5rem;
         }
+
+        .upload_btn{
+            padding: .8rem;
+            background-color: $backgroundColor;
+            border: none;
+            color: $generalWhiteColor;
+            outline: none;
+            border-radius: .5rem;
+            cursor: pointer;
+            display: flex;
+            gap: .5rem;
+            font-family: $fontStyle;
+        }
         // flex-grow: ;
     }
 
