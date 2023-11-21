@@ -7,8 +7,6 @@ import Filter from '../../../components/FilterBy';
 import { useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { PaginatedTable } from '../../../components/PaginatedTable';
-import { ReportData } from '../../../interfaces';
-import { mockData } from '../../../components/PaginatedTable/mock';
 import { useGenerateReportActions } from '../../../actions/GenerateReport';
 import { generateReportInformationAtom } from '../../../state/generateReport';
 import { useRecoilValue } from 'recoil';
@@ -22,7 +20,9 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
+
     const handleReportInformation = async () => {
+        console.log("checking", reportInformation);
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
                 reportId.toLowerCase(),
@@ -38,9 +38,7 @@ export default function ContentSection() {
 
     useEffect(() => {
         handleReportInformation();
-    }, [reportId]);
-
-    // console.log(reportInformation);
+    }, []);
 
     return (
         <div className={styles['contentContainer']}>

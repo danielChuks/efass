@@ -20,6 +20,23 @@ export const useAdjustmentAction = () => {
         }
     }, []);
 
+    const uploadMemoData = useCallback(async (file: any) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const response = await fetch(`${process.env.apiUrl}/api/v1/memo`, {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            console.log(data);
+            return data;
+        } catch (error) {
+            console.error('Error during file upload:', error);
+            return { error: error };
+        }
+    }, []);
+
     const updateMemoData = useCallback(async (id: any, data: any) => {
         if (!id || !data) {
             console.error('Invalid parameters for updateMemoData');
@@ -31,7 +48,6 @@ export const useAdjustmentAction = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}memo?id=${id}`,
                 data
             );
-            console.log(response);
             return response;
         } catch (error) {
             console.error('Error updating memo data:', error);
@@ -39,5 +55,5 @@ export const useAdjustmentAction = () => {
         }
     }, []);
 
-    return { getMemoData, updateMemoData };
+    return { getMemoData, updateMemoData, uploadMemoData };
 };

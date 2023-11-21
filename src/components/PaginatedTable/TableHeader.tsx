@@ -10,7 +10,7 @@ interface TableHeaderProps {
 export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
     return (
         <thead className={styles['header-row']}>
-            <th 
+            <th
                 className={styles['header-column']}
                 style={{
                     flex: 'unset',
@@ -21,13 +21,15 @@ export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
             </th>
             {headers.map((item, index) => (
                 <th
-                    className={styles['header-column']} 
+                    className={styles['header-column']}
                     key={index}
                     style={
-                        columns[index]?.width ? {
-                            width: columns[index].width,
-                            flex: 'unset',
-                        } : {}
+                        columns[index]?.width
+                            ? {
+                                  width: columns[index].width,
+                                  flex: 'unset',
+                              }
+                            : {}
                     }
                     title={capitaliseText(item)}
                 >

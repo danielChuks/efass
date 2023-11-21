@@ -4,6 +4,7 @@ import Snackbar, { SnackbarOrigin } from '@mui/material/Snackbar';
 
 interface SnackbarProps {
     isopen: boolean;
+    color?: string;
     // position: any;
     handleClose: () => void;
     // handleOpen:()=> void;
@@ -15,13 +16,14 @@ const SnackbarComponent = ({
     // position,
     handleClose,
     message,
+    color,
 }: SnackbarProps) => {
     return (
         <>
             <Snackbar
                 ContentProps={{
                     sx: {
-                        background: '#d32f2f',
+                        background: color ? color : '#d32f2f',
                         fontFamily: 'inter',
                     },
                 }}

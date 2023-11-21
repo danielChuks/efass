@@ -11,17 +11,20 @@ import { memoAdjustmentAtom } from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
 import { useParams } from 'next/navigation';
 import PageContent from '../../components/PageContent';
+import { FaUpload } from 'react-icons/fa';
+import { UploadDialog } from '../../components/UploadDialog';
+import SnackbarComponent from '../../components/Snackbar';
+import { LoadingScreen } from '../../components/LoadingScreen';
 
-// Define the AdjustmentContent component
 export function AdjustmentContent() {
     // const { id } = useParams();
     // Destructure hooks from useAdjustmentAction
-    const { getMemoData, updateMemoData } = useAdjustmentAction();
+    const { getMemoData, updateMemoData, uploadMemoData } =
+        useAdjustmentAction();
 
     // Get memoData using Recoil state
     const memoData = useRecoilValue(memoAdjustmentAtom);
 
-    // State for modal and form data
     const [openModal, setOpenModal] = useState(false);
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
@@ -34,7 +37,17 @@ export function AdjustmentContent() {
         year: '',
         status: '',
     });
+    const [UploadModal, setUploadModal] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorText, setErrorText] = useState('');
+    const [fileName, setFileName] = useState<string>('');
+    const [file, setFile] = useState<any>();
+    const [loading, setLoading] = useState(false);
 
+    //snackbar state
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [isopen, setIsOpen] = useState<boolean>(false);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     // Fetch memoData on component mount
     const fetchData = async () => {
         try {
@@ -46,29 +59,53 @@ export function AdjustmentContent() {
         fetchData();
     }, []);
 
-    // Handle input changes in the form
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
-    // Open the edit modal and set the data when "Edit" is clicked
     const openEditModal = (memoData: AdjustmentData) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
-        setData({ ...memoData }); // Spread to avoid mutating the original data
+        setData({ ...memoData });
         setOpenModal(true);
     };
 
-    // Edit the AdjustmentData
     const submit = async () => {
         try {
             await updateMemoData(data.id, data);
-            console.log(data);
-            setOpenModal(false); // Close the modal after editing
+            setOpenModal(false);
+            window.location.reload();
+            setLoading(true);
         } catch (error) {
-            // Handle errors appropriately
-            console.error('Error updating memo data:', error);
+            return error;
         }
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
+        setFile({});
+    };
+
+    const handleReportUpload = async () => {
+        const response = await uploadMemoData(file);
+        setIsOpen(true);
+        setSnackbarMessage('Upload failed');
+    };
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const fileList = e.target.files;
+        if (fileList && fileList.length > 0) {
+            console.log(fileList[0]);
+            setFile(fileList[0]);
+            const fileName = fileList[0].name;
+            setFileName(fileName);
+            console.log('Selected file name:', fileName);
+        }
+    };
+
+    const openUploadModal = () => {
+        setUploadModal(true);
+        setFileName('');
+        setFile({});
     };
 
     // Render the component
@@ -89,6 +126,12 @@ export function AdjustmentContent() {
             )}
             <div className={styles['content_header']}>
                 <PageContent>
+                        <div className={styles["rightSide"]}>
+				<div onClick={openUploadModal} className={styles["reportButton"]}>
+				Upload
+				<FaUpload />
+				</div>
+			</div>
                 <PaginatedTable<AdjustmentData>
                 headers={[
                     'GL-CODE',
