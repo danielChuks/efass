@@ -160,47 +160,64 @@ export const ContentSection = ({
             {spinner ? (
                 <LoadingScreen />
             ) : (
-                <PaginatedTable<ReportData>
-                    headers={[
-                        'Report Code',
-                        'Report Description',
-                        'Action',
-                        '',
-                    ]}
-                    data={reportData}
-                    loading={loading}
-                    columns={[
-                        {
-                            render: (data, index) => {
-                                return data.return_code;
-                            },
+            <PaginatedTable<ReportData>
+                headers={['Report Code', 'Report Description', 'Action', '']}
+                data={reportData}
+                loading={spinner}
+                columns={[
+                    {
+                        render: (data, index) => {
+                            return data.return_code;
                         },
-                        {
-                            render: (data, index) => {
-                                return data.bank_name;
-                            },
-                            width: '50%',
+                    },
+                    {
+                        render: (data, index) => {
+                            return data.bank_name;
                         },
-                        {
-                            render: (data, index) => {
-                                return (
-                                    <div
-                                        className={styles['actionButton']}
-                                        onClick={() =>
-                                            push(
-                                                `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
-                                            )
-                                        }
-                                    >
-                                        <BiShow size={20} />
-                                        View
-                                    </div>
-                                );
-                            },
-                            width: '10%',
+                        width: '50%',
+                    },
+                    {
+                        render: (data, index) => {
+                            return (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        push(
+                                            `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
+                                        )
+                                    }
+                                >
+                                    <BiShow size={20} />
+                                    View
+                                </div>
+                            );
                         },
+                        width: '10%',
+                    },
+
+                    {
+                        render: (data, index) => {
+                            return uploadableReports.includes(
+                                data.sheet_number
+                            ) ? (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        openUploadModal(data.sheet_number)
+                                    }
+                                >
+                                    <FaUpload size={18} />
+                                    Upload
+                                </div>
+                            ) : (
+                                ''
+                            );
+                        },
+                        width: '10%',
+                    },
                 ]}
-            />)}
+            />
+            )}
                     </PageContent>
                 {/* <SearchBar />
                 <Filter
