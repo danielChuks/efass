@@ -11,7 +11,6 @@ export const useFetchWrapper = () => {
 
     const generateAuthHeader = useCallback((auth: Token | null) => {
         const token = auth && auth.token;
-        console.log(auth);
         if (token) {
             return { Authorization: `Bearer ${token}` };
         } else {
