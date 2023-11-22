@@ -72,6 +72,7 @@ export const ContentSection = ({
         'MDFIR920',
         'MDFIR921',
         'MCFPR1',
+        'MDFIR100'
     ];
 
     const downloadXmlReports = async () => {
@@ -157,7 +158,7 @@ export const ContentSection = ({
                         <FaDownload />
                     </div>
                 </div>
-        
+
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}

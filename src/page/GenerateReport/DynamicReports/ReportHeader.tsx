@@ -7,7 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { ReportData } from '../../../interfaces';
 
 export default function ReportHeader() {
-    const { ['report-id']: reportId } = useParams();
+    const { ['reportId']: reportId } = useParams();
     const [reportTitle, setReportTitle] = useState<ReportData>();
 
     //get list of reports and use find to get the data for the report header

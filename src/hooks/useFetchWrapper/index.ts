@@ -1,6 +1,4 @@
 import { useCallback, useContext } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
-import { authAtom } from '../../state/auth';
 import { Token } from '../../interfaces/token.interface';
 import { RequestMethod } from '../../enums/requestMethod.enum';
 import { ConfigContext } from '../../providers/config/ConfigContext';
@@ -9,13 +7,10 @@ import { useRouter } from 'next/navigation';
 
 export const useFetchWrapper = () => {
     const router = useRouter();
-    const authObject = localStorage.getItem('auth') || ''
-    const auth = JSON.parse(authObject || '{}');
     const { apiUrl } = useContext(ConfigContext);
 
     const generateAuthHeader = useCallback((auth: Token | null) => {
         const token = auth && auth.token;
-
         if (token) {
             return { Authorization: `Bearer ${token}` };
         } else {
@@ -24,17 +19,11 @@ export const useFetchWrapper = () => {
     }, []);
 
     const handleResponse = useCallback(
-        async (
-            response: any,
-            auth: Token | null,
-            // setAuth?: SetterOrUpdater<Token | null>,
-            router: any
-        ) => {
+        async (response: any, router: any) => {
             return response.text().then(async (text: string) => {
                 const data = text && JSON.parse(text);
                 if (response.status === 401) {
                     sessionStorage.removeItem('token');
-                    // setAuth(null);
                     router.push('/login');
                 }
 
@@ -50,10 +39,9 @@ export const useFetchWrapper = () => {
 
     const request = useCallback((method: RequestMethod) => {
         return (url: string, body?: any, token?: Token) => {
-            let accessToken = auth;
+            let accessToken = JSON.parse(localStorage.getItem('auth') || '{}');
 
             if (token?.token) {
-                // setAuth(token);
                 accessToken = token;
             }
 
@@ -69,8 +57,7 @@ export const useFetchWrapper = () => {
 
             return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
                 .then((response) => {
-                    // return handleResponse(response, auth, setAuth, router);
-                    return handleResponse(response, auth, router);
+                    return handleResponse(response, router);
                 })
 
                 .catch((err) => {
