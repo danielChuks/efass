@@ -1,6 +1,4 @@
 import { useCallback, useContext } from 'react';
-import { SetterOrUpdater, useRecoilState } from 'recoil';
-import { authAtom } from '../../state/auth';
 import { Token } from '../../interfaces/token.interface';
 import { RequestMethod } from '../../enums/requestMethod.enum';
 import { ConfigContext } from '../../providers/config/ConfigContext';
@@ -13,7 +11,6 @@ export const useFetchWrapper = () => {
 
     const generateAuthHeader = useCallback((auth: Token | null) => {
         const token = auth && auth.token;
-
         if (token) {
             return { Authorization: `Bearer ${token}` };
         } else {
@@ -22,17 +19,11 @@ export const useFetchWrapper = () => {
     }, []);
 
     const handleResponse = useCallback(
-        async (
-            response: any,
-            auth: Token | null,
-            // setAuth?: SetterOrUpdater<Token | null>,
-            router: any
-        ) => {
+        async (response: any, router: any) => {
             return response.text().then(async (text: string) => {
                 const data = text && JSON.parse(text);
                 if (response.status === 401) {
                     sessionStorage.removeItem('token');
-                    // setAuth(null);
                     router.push('/login');
                 }
 
@@ -48,34 +39,30 @@ export const useFetchWrapper = () => {
 
     const request = useCallback((method: RequestMethod) => {
         return (url: string, body?: any, token?: Token) => {
-          let accessToken: Token | null = null;
-    
-          if (typeof window !== 'undefined') {
-            const authObject = localStorage.getItem('auth') || '';
-            accessToken = JSON.parse(authObject || '{}');
-          }
-    
-          if (token?.token) {
-            accessToken = token;
-          }
-    
-          const requestOptions: RequestOptions = {
-            method,
-            headers: generateAuthHeader(accessToken),
-          };
-    
-          if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
-            requestOptions.body = JSON.stringify(body);
-          }
-    
-          return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
-            .then((response) => {
-              return handleResponse(response, accessToken, router);
-            })
-            .catch((err) => {
-              return { error: err };
-            });
+            let accessToken = JSON.parse(localStorage.getItem('auth') || '{}');
+
+            if (token?.token) {
+                accessToken = token;
+            }
+
+            const requestOptions: RequestOptions = {
+                method,
+                headers: generateAuthHeader(accessToken),
+            };
+
+            if (body) {
+                requestOptions.headers['Content-Type'] = 'application/json';
+                requestOptions.body = JSON.stringify(body);
+            }
+
+            return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
+                .then((response) => {
+                    return handleResponse(response, router);
+                })
+
+                .catch((err) => {
+                    return { error: err };
+                });
         };
       }, []);
 

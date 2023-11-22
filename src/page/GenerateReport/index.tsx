@@ -8,36 +8,53 @@ import { ReportHeader } from './ReportHeader';
 import { ContentSection } from './ContentSection';
 import { getCurrentDateAndTime } from './utils';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import { useParams, useSearchParams } from 'next/navigation';
+import { DynamicReports } from './DynamicReports';
 
 export const GenerateReport = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [spinner, setSpinner] = useState<boolean>(false);
+    // const { reportId } = useParams();
+    // const [id, setId] = useState(reportId);
+    // const { reportId } = useParams();
+    const searchParams = useSearchParams();
+    const date = searchParams.get('selectedDate');
+    const reportId = searchParams.get('reportId');
+
+    // console.log(id, date)
+
     return (
         <>
-            {loading ? (
-                <LoadingScreen />
+            {reportId && date ? (
+                <DynamicReports />
             ) : (
-                <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
-                    <div className={styles['topNav']}>
-                        <div>Generate Report</div>
-                        <div className={styles['timeContainer']}>
-                            {/* <div>Current Date:</div> */}
-                            <div>{getCurrentDateAndTime()}</div>
-                        </div>
-                    </div>
-                    <ReportHeader
-                        spinner={spinner}
-                        setSpinner={setSpinner}
-                        loading={loading}
-                        setLoading={setLoading}
-                    />
-                    <ContentSection
-                        spinner={spinner}
-                        setSpinner={setSpinner}
-                        loading={loading}
-                        setLoading={setLoading}
-                    />
-                </BaseLayout>
+                <>
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
+                            <div className={styles['topNav']}>
+                                <div>Generate Report</div>
+                                <div className={styles['timeContainer']}>
+                                    {/* <div>Current Date:</div> */}
+                                    <div>{getCurrentDateAndTime()}</div>
+                                </div>
+                            </div>
+                            <ReportHeader
+                                spinner={spinner}
+                                setSpinner={setSpinner}
+                                loading={loading}
+                                setLoading={setLoading}
+                            />
+                            <ContentSection
+                                spinner={spinner}
+                                setSpinner={setSpinner}
+                                loading={loading}
+                                setLoading={setLoading}
+                            />
+                        </BaseLayout>
+                    )}
+                </>
             )}
         </>
     );

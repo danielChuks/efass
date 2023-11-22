@@ -3,6 +3,7 @@ const nextConfig = {
     reactStrictMode: true,
     distDir: 'dist',
     swcMinify: true,
+    output: 'export',
     env: {
         apiUrl: process.env.BASE_URL,
     },
@@ -16,6 +17,7 @@ const nextConfig = {
     // images: {
     //     domains: ['res.cloudinary.com'],
     // },
+    images: { unoptimized: true }, 
 };
 
 module.exports = nextConfig;

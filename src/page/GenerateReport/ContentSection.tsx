@@ -72,6 +72,7 @@ export const ContentSection = ({
         'MDFIR920',
         'MDFIR921',
         'MCFPR1',
+        'MDFIR100'
     ];
 
     const downloadXmlReports = async () => {
@@ -157,7 +158,7 @@ export const ContentSection = ({
                         <FaDownload />
                     </div>
                 </div>
-        
+
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
@@ -177,11 +178,12 @@ export const ContentSection = ({
                     {
                         render: (data, index) => {
                             return (
+
                                 <div
                                     className={styles['actionButton']}
                                     onClick={() =>
                                         push(
-                                            `/generate-report/${data.return_code}?selectedDate=${selectedDate}`
+                                            `/generate-report?reportId=${data.return_code}&selectedDate=${selectedDate}`
                                         )
                                     }
                                 >
