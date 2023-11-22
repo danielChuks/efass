@@ -1,5 +1,5 @@
 'use client';
-import { useParams, useSearchParams } from 'next/navigation';
+import {  useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { generateReportAtom } from '../../../state/generateReport';
@@ -7,7 +7,8 @@ import { useRecoilValue } from 'recoil';
 import { ReportData } from '../../../interfaces';
 
 export default function ReportHeader() {
-    const { ['report-id']: reportId } = useParams();
+    const searchParams = useSearchParams();
+    const reportId = searchParams.get('reportId');
     const [reportTitle, setReportTitle] = useState<ReportData>();
 
     //get list of reports and use find to get the data for the report header

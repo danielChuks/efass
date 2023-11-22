@@ -13,19 +13,19 @@ import { useRecoilValue } from 'recoil';
 import { FaDownload } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-
+import { ReportData } from '../../../interfaces';
 export default function ContentSection() {
-    const { ['report-id']: reportId } = useParams();
+    // const { reportId } = useParams();
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
+    const reportId = searchParams.get('reportId');
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-    
 
     const handleReportInformation = async () => {
-        console.log("checking", reportInformation);
+        console.log('checking', reportInformation);
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
                 reportId.toLowerCase(),
@@ -43,9 +43,11 @@ export default function ContentSection() {
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
         const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
         // Converted the array to a blob
-        const blobData = new Blob([blob], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        saveAs(blobData, reportId.toString());
-      };
+        const blobData = new Blob([blob], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        saveAs(blobData, reportId?.toString());
+    };
 
     useEffect(() => {
         handleReportInformation();
@@ -101,3 +103,5 @@ export default function ContentSection() {
         </div>
     );
 }
+
+
