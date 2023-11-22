@@ -15,9 +15,10 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
 export default function ContentSection() {
-    const { ['reportId']: reportId } = useParams();
+    // const { reportId } = useParams();
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
+    const reportId = searchParams.get('reportId');
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
@@ -45,7 +46,7 @@ export default function ContentSection() {
         const blobData = new Blob([blob], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
-        saveAs(blobData, reportId.toString());
+        saveAs(blobData, reportId?.toString());
     };
 
     useEffect(() => {

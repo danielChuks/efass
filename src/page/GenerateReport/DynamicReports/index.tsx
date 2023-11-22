@@ -11,9 +11,6 @@ import { getCurrentDateAndTime } from '../utils';
 import { ReportData } from '../../../interfaces';
 
 
-
-
-
 export function DynamicReports() {
 
     const router = useRouter();
