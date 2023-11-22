@@ -2,14 +2,17 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
-    trailingSlash: true,
-    // output: 'export',
+    output: 'export',
     env: {
         apiUrl: process.env.BASE_URL,
     },
     typescript: {
         ignoreBuildErrors: false,
     },
+    // images: {
+    //     domains: ['res.cloudinary.com'],
+    // },
+    images: { unoptimized: true }, 
 };
 
 module.exports = nextConfig;

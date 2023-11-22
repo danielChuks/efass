@@ -8,8 +8,11 @@ import { DASHBOARD_PAGES } from '../../../enums';
 import { useRouter} from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { getCurrentDateAndTime } from '../utils';
+import { ReportData } from '../../../interfaces';
+
 
 export function DynamicReports() {
+
     const router = useRouter();
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
@@ -38,3 +41,4 @@ export function DynamicReports() {
         </BaseLayout>
     );
 }
+
