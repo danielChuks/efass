@@ -9,8 +9,6 @@ import { useRouter } from 'next/navigation';
 
 export const useFetchWrapper = () => {
     const router = useRouter();
-    const authObject = localStorage.getItem('auth') || ''
-    const auth = JSON.parse(authObject || '{}');
     const { apiUrl } = useContext(ConfigContext);
 
     const generateAuthHeader = useCallback((auth: Token | null) => {
@@ -50,34 +48,36 @@ export const useFetchWrapper = () => {
 
     const request = useCallback((method: RequestMethod) => {
         return (url: string, body?: any, token?: Token) => {
-            let accessToken = auth;
-
-            if (token?.token) {
-                // setAuth(token);
-                accessToken = token;
-            }
-
-            const requestOptions: RequestOptions = {
-                method,
-                headers: generateAuthHeader(accessToken),
-            };
-
-            if (body) {
-                requestOptions.headers['Content-Type'] = 'application/json';
-                requestOptions.body = JSON.stringify(body);
-            }
-
-            return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
-                .then((response) => {
-                    // return handleResponse(response, auth, setAuth, router);
-                    return handleResponse(response, auth, router);
-                })
-
-                .catch((err) => {
-                    return { error: err };
-                });
+          let accessToken: Token | null = null;
+    
+          if (typeof window !== 'undefined') {
+            const authObject = localStorage.getItem('auth') || '';
+            accessToken = JSON.parse(authObject || '{}');
+          }
+    
+          if (token?.token) {
+            accessToken = token;
+          }
+    
+          const requestOptions: RequestOptions = {
+            method,
+            headers: generateAuthHeader(accessToken),
+          };
+    
+          if (body) {
+            requestOptions.headers['Content-Type'] = 'application/json';
+            requestOptions.body = JSON.stringify(body);
+          }
+    
+          return fetch(`${apiUrl}/${url}`, requestOptions as RequestInit)
+            .then((response) => {
+              return handleResponse(response, accessToken, router);
+            })
+            .catch((err) => {
+              return { error: err };
+            });
         };
-    }, []);
+      }, []);
 
     return {
         get: request(RequestMethod.GET),
