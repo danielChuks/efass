@@ -15,13 +15,13 @@ import SnackbarComponent from '../../components/Snackbar';
 
 function GlMappingContent() {
     const handleAddNewGl = async () => {
-         const addData = {
-             itemCode: data?.itemCode,
-             itemDesc: data?.itemDescription,
-             ledgerNo: data?.ledgerNumber,
-             statementCode: data?.statementCode,
-             statementDesc: data?.statementDescription,
-         };
+        const addData = {
+            itemCode: data?.itemCode,
+            itemDesc: data?.itemDescription,
+            ledgerNo: data?.ledgerNumber,
+            statementCode: data?.statementCode,
+            statementDesc: data?.statementDescription,
+        };
         const response = await postGlData(addData);
         try {
             if (response?.data) {
@@ -29,21 +29,20 @@ function GlMappingContent() {
                 setSnackbarMessage('Added succesfully');
                 setSnackbarColor('#006c33');
                 fetchAllGlData();
-                setOpenModal(false)
+                setOpenModal(false);
                 setTimeout(() => {
                     setIsSnackbarOpen(false);
                 }, 10000);
-
             } else {
                 setSnackbarMessage('An error occured, please try again later');
                 setSnackbarColor('');
-                 setOpenModal(false);
+                setOpenModal(false);
                 setTimeout(() => {
                     setIsSnackbarOpen(false);
                 }, 7000);
             }
         } catch (error) {
-             setOpenModal(false);
+            setOpenModal(false);
             setSnackbarMessage('An error occured, please try again later');
             setSnackbarColor('');
             setTimeout(() => {
@@ -168,7 +167,9 @@ function GlMappingContent() {
                 setAllGlData(response?.data);
             } else {
                 setAllGlData([]);
-                setSnackbarMessage('Unable to fetch data, please try again later');
+                setSnackbarMessage(
+                    'Unable to fetch data, please try again later'
+                );
                 setSnackbarColor('');
                 setTimeout(() => {
                     setIsSnackbarOpen(false);

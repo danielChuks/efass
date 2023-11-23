@@ -14,14 +14,9 @@ import { DynamicReports } from './DynamicReports';
 export const GenerateReport = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [spinner, setSpinner] = useState<boolean>(false);
-    // const { reportId } = useParams();
-    // const [id, setId] = useState(reportId);
-    // const { reportId } = useParams();
     const searchParams = useSearchParams();
     const date = searchParams.get('selectedDate');
     const reportId = searchParams.get('reportId');
-
-    // console.log(id, date)
 
     return (
         <>
@@ -36,7 +31,6 @@ export const GenerateReport = () => {
                             <div className={styles['topNav']}>
                                 <div>Generate Report</div>
                                 <div className={styles['timeContainer']}>
-                                    {/* <div>Current Date:</div> */}
                                     <div>{getCurrentDateAndTime()}</div>
                                 </div>
                             </div>

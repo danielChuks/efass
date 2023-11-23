@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { SettingsButton } from '../Button';
 import InputGroup from '../Input';
-import { SelectGroup } from '../Select/Index';
+import { SelectGroup } from '../Select';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { useGlMapppingActions } from '../../actions/glmapping';

@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { SettingsButton } from '../../components/Button';
 import { useAuthActions } from '../../actions/auth';
 import { LoadingScreen } from '../../components/LoadingScreen';
+import useEnterKey from '../../hooks/useKeyDown';
 
 interface LoginProps {
     username: string;
@@ -37,6 +38,7 @@ export const Login = () => {
     const validateInput = () => {
         if (!data.username && !data.password) {
             setError(true);
+            setLoading(false);
             setErrorText('Please enter both username and password.');
             return false;
         }
@@ -44,6 +46,13 @@ export const Login = () => {
         setErrorText('');
         return true;
     };
+
+    //enter when the user click the enter keyboard
+    const handleEnterKey = () => {
+        onSubmit();
+    };
+
+    useEnterKey(handleEnterKey);
 
     const onSubmit = async () => {
         setLoading(true);

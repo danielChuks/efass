@@ -19,12 +19,14 @@ import Image from 'next/image';
 import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
+import { userAtom } from '../../state/userList';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const { handlereportHistory } = useReportHistoryActions();
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
+    const userData = useRecoilValue(userAtom);
 
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -43,9 +45,7 @@ export const HomePage = () => {
         fetchData();
     }, []);
 
-    const openDeleteModal = (data: ReportHistory) => {
-        console.log(data);
-    };
+    const openDeleteModal = (data: ReportHistory) => {};
 
     const fetchData = async () => {
         try {
@@ -59,7 +59,7 @@ export const HomePage = () => {
 
     return (
         <>
-                {loading ? (
+            {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.HOME}>
@@ -67,7 +67,7 @@ export const HomePage = () => {
                     <div className={styles['card-body']}>
                         <Card
                             title={'USER'}
-                            content={'0'}
+                            content={userData?.length.toString()}
                             image={
                                 <Image
                                     src={userAdded}
@@ -103,7 +103,7 @@ export const HomePage = () => {
                         />
                         <Card
                             title={'USER CREATED'}
-                            content={'0'}
+                            content={userData?.length.toString()}
                             image={
                                 <Image
                                     src={userAdded}
@@ -116,10 +116,10 @@ export const HomePage = () => {
                     </div>
                     <div className={styles['table_container']}>
                         <div className="table_header">
-                            <h4 className="title">Recent Activity</h4>
+                            <div className={styles['title']}>Recent Activity</div>
                         </div>
                         <PageContent>
-                        <PaginatedTable<ReportHistory>
+                            <PaginatedTable<ReportHistory>
                                 headers={[
                                     'REPORT DETAILS',
                                     'DATE GENERATED',
@@ -162,7 +162,7 @@ export const HomePage = () => {
                         </PageContent>
                     </div>
                 </BaseLayout>
-                           )}
+            )}
         </>
     );
 };

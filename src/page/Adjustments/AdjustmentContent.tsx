@@ -85,7 +85,6 @@ export function AdjustmentContent() {
 
     const handleReportUpload = async () => {
         const response = await uploadMemoData(file);
-        console.log(response);
         try {
             if (response.status === 200) {
                 setIsOpen(true);
@@ -111,7 +110,7 @@ export function AdjustmentContent() {
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            console.log('Selected file name:', fileName);
+            
         }
     };
 
@@ -123,23 +122,23 @@ export function AdjustmentContent() {
 
     return (
         <div className={styles['content']}>
-                {UploadModal && (
-                        <UploadDialog
-                            openModal={UploadModal}
-                            setOpenModal={setUploadModal}
-                            handleAction={handleReportUpload}
-                            handleInputchange={handleFileUpload}
-                            error={error}
-                            errorText={errorText}
-                            fileName={fileName}
-                        />
-                    )}
-                    <SnackbarComponent
-                        handleClose={handleClose}
-                        isopen={isopen}
-                        message={SnackbarMessage}
-                        color={snackBarColor}
-                    />
+            {UploadModal && (
+                <UploadDialog
+                    openModal={UploadModal}
+                    setOpenModal={setUploadModal}
+                    handleAction={handleReportUpload}
+                    handleInputchange={handleFileUpload}
+                    error={error}
+                    errorText={errorText}
+                    fileName={fileName}
+                />
+            )}
+            <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isopen}
+                message={SnackbarMessage}
+                color={snackBarColor}
+            />
             {openModal && (
                 <AdjustmentDataDialog
                     openModal={openModal}

@@ -162,15 +162,12 @@ export function ReportHeader({
                 setSpinner(false);
             }
         } catch (error: any) {
-            console.log(error);
             setSnackbarMessage(
                 error?.error || 'An error occured, please try again later'
             );
             setIsOpen(true);
             setSpinner(false);
         }
-
-        // setLoading(false);
     };
 
     const handleYearChange = (e: any) => {
@@ -178,7 +175,6 @@ export function ReportHeader({
     };
 
     const handleCbnDate = (e: any) => {
-        // console.log(e.target.value)
         setCbnDate(e.target.value);
     };
 
@@ -243,7 +239,9 @@ export function ReportHeader({
             <div className={styles['selectDate']}>
                 <p className={styles['title']}>CBN DATE</p>
                 <div className={styles['date-group']}>
-                    <div className={styles['date-header']}>Date(only for Report 100)</div>
+                    <div className={styles['date-header']}>
+                        Date(only for Report 100)
+                    </div>
                     <input
                         name="cbnDate"
                         type="date"

@@ -71,34 +71,24 @@ function index({
                         />
 
                         <InputGroup
-                            type="text"
-                            label="Role"
-                            value={data?.role}
-                            name="role"
-                            placeholder=""
-                            handleChange={handleInputchange}
-                            required={true}
-                        />
-
-                        <InputGroup
                             type="password"
                             label="Password"
-                            value={data.password}
+                            value={data?.password}
                             name="password"
                             placeholder=""
                             handleChange={handleInputchange}
                             required={true}
                         />
-
+{/* 
                         <InputGroup
                             type="password"
                             label="Confirm Password"
-                            value={data.password}
+                            value={data?.nopassword}
                             name="password"
                             placeholder=""
                             handleChange={handleInputchange}
                             required={true}
-                        />
+                        /> */}
 
                         <SettingsButton
                             text={header}
