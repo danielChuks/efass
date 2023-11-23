@@ -24,7 +24,20 @@ import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
 
 export const UserManagement = () => {
+
+    const validateInput = () => {
+        if (!data.username && !data.password) {
+            setError(true);
+            setLoading(false);
+            setErrorText('Please enter both username and password.');
+            return false;
+        }
+        setError(false);
+        setErrorText('');
+        return true;
+    };
     const handleCreateUser = () => {
+        
         console.log(data);
     };
     const { getSettings } = useSettingsActions();
@@ -36,9 +49,7 @@ export const UserManagement = () => {
     //form data
     const [data, setData] = useState({
         username: '',
-        role: '',
         password: '',
-        confirmPassword: '',
     });
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -47,7 +58,7 @@ export const UserManagement = () => {
     const addUser = () => {
         setModalHeader('Create User');
         setOpenModal(true);
-        setData({ username: '', role: '', password: '', confirmPassword: '' });
+        setData({ username: '', password: ''});
         setModalAction(() => handleCreateUser);
     };
 
@@ -70,9 +81,7 @@ export const UserManagement = () => {
         setModalHeader('Edit User');
         setData({
             username: data.username,
-            role: data.role,
             password: data.password,
-            confirmPassword: data.password,
         });
         console.log(data);
         setOpenModal(true);
