@@ -127,14 +127,14 @@
     width: 100%; /* Set the width of the container */
     overflow-x: scroll;
     margin-top: 2rem;
-    // width: 100%;
-    // border: 1px solid red;
+        // width: 100%;
+        // border: 1px solid red;
 
     .contentTopSection {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         width: 100%;
-        justify-content: space-between;
+        justify-content: space-evenly;
 
         .selectContainer {
             display: flex;

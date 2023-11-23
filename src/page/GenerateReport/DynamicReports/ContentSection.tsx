@@ -57,7 +57,6 @@ export default function ContentSection() {
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
                 <SearchBar />
-                {/* <Filter options={[]} /> */}
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}
