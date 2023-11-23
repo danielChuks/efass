@@ -54,6 +54,7 @@ export const Login = () => {
                 setSuccess(true);
             } else if (response.responseCode !== 0) {
                 setError(true);
+                setLoading(false);
                 router.push('/login');
                 setErrorText('Invalid username or password. Please try again.');
             } else {
@@ -73,8 +74,8 @@ export const Login = () => {
                         <Image
                             src={EfassLogo}
                             alt="efass logo"
-                            width={245}
-                            height={136}
+                            width={225}
+                            height={126}
                         />
                     </div>
 

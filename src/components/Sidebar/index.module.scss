@@ -13,6 +13,7 @@
     top: 1.8125rem;
     left: 1.5625rem;
     cursor: pointer;
+    font-size: small;
 }
 
 .sidebar_settings {
@@ -58,7 +59,7 @@
         font-family: $fontStyle;
         font-size: 18px;
         font-weight: 700;
-        line-height: 1.8125rem;
+        line-height: 18px;
         letter-spacing: 0em;
         text-align: left;
     }

@@ -16,3 +16,23 @@
     padding: 1rem;
     background: var(--f3f3f4, #F3F3F4);
   }
+
+  @media (min-width: 480px) {
+   
+  }
+  
+  @media (min-width: 768px) {
+    
+  }
+  
+  @media (min-width: 1024px) {
+    .main {
+      // flex: 1;
+      overflow-y: auto; /* Add scrolling if content exceeds height */
+      // padding: 1.3rem 2rem 0 2.0625rem;
+      padding: .7rem 1.4rem;
+      background: var(--f3f3f4, #F3F3F4);
+    }
+    
+  }
+  

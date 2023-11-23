@@ -64,7 +64,7 @@ export const useFetchWrapper = () => {
                     return { error: err };
                 });
         };
-    }, []);
+      }, []);
 
     return {
         get: request(RequestMethod.GET),
