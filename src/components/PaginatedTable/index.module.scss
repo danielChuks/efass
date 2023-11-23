@@ -6,7 +6,7 @@
     .table-container {
         width: 100%;
         max-width: 100%;
-        overflow-x: auto;
+        overflow-y: scroll;
 
         table.header-and-body {
             overflow-x: scroll;

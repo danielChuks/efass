@@ -11,20 +11,17 @@ import { DASHBOARD_PAGES } from '../../enums';
 import { useUserListActions } from '../../actions/userManagement';
 import { userAtom } from '../../state/userList';
 import { PaginatedTable } from '@/components/PaginatedTable';
-// import { userData } from "./data";
 import { User } from '@/interfaces';
 import styles from './index.module.scss';
-import { options } from '../../components/FilterBy/dommy';
 import Image from 'next/image';
 import users from '../../../public/Images/users.png';
-import date from '../../../public/Images/case.png';
 import lastActivity from '../../../public/Images/calender.png';
 import userAdded from '../../../public/Images/person.png';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
 
 export const UserManagement = () => {
-
+    const handleCreateUser = () => {};
     const validateInput = () => {
         if (!data.username && !data.password) {
             setError(true);
@@ -37,7 +34,6 @@ export const UserManagement = () => {
         return true;
     };
     const handleCreateUser = () => {
-        
         console.log(data);
     };
     const { getSettings } = useSettingsActions();
@@ -55,6 +51,7 @@ export const UserManagement = () => {
     const [errorText, setErrorText] = useState('');
     const { handleuserList } = useUserListActions();
     const userData = useRecoilValue(userAtom);
+
     const addUser = () => {
         setModalHeader('Create User');
         setOpenModal(true);
@@ -83,18 +80,15 @@ export const UserManagement = () => {
             username: data.username,
             password: data.password,
         });
-        console.log(data);
+
         setOpenModal(true);
         setModalAction(() => handleEditUser);
     };
-    const handleEditUser = () => {
-        console.log('edittt');
-    };
+    const handleEditUser = () => {};
 
-    // console.log(darkMode);
     return (
         <>
-                    {loading ? (
+            {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
@@ -154,22 +148,19 @@ export const UserManagement = () => {
                         />
                     </div>
                     <div className={styles['contentContainer']}>
-                                <PageContent>
-                                <div className={styles['righSide']}>
-                                    <div className={styles['rightSide']}>
-                                        <div
-                                            className={styles['reportButton']}
-                                            onClick={addUser}
-                                        >
-                                            Create User
-                                            <BsPlusLg
-                                                size={22}
-                                                color={'#fff'}
-                                            />
-                                        </div>
+                        <PageContent>
+                            <div className={styles['righSide']}>
+                                <div className={styles['rightSide']}>
+                                    <div
+                                        className={styles['reportButton']}
+                                        onClick={addUser}
+                                    >
+                                        Create User
+                                        <BsPlusLg size={22} color={'#fff'} />
                                     </div>
                                 </div>
-                                <PaginatedTable<User>
+                            </div>
+                            <PaginatedTable<User>
                                 headers={[
                                     'USERNAME',
                                     'ROLE',
@@ -198,36 +189,7 @@ export const UserManagement = () => {
                                         },
                                         width: '50%',
                                     },
-                                    // {
-                                    //     render: (data, index) => {
-                                    //         if (data.status === "Active") {
-                                    //             return (
-                                    //                 <button
-                                    //                     className={
-                                    //                         styles[
-                                    //                             "styledButton_active"
-                                    //                         ]
-                                    //                     }
-                                    //                 >
-                                    //                     {data.status}
-                                    //                 </button>
-                                    //             );
-                                    //         } else {
-                                    //             return (
-                                    //                 <button
-                                    //                     className={
-                                    //                         styles[
-                                    //                             "styledButton_inactive"
-                                    //                         ]
-                                    //                     }
-                                    //                 >
-                                    //                     {data.status}
-                                    //                 </button>
-                                    //             );
-                                    //         }
-                                    //     },
-                                    //     width: "50%",
-                                    // },
+
                                     {
                                         render: (data, index) => {
                                             return (
@@ -247,10 +209,10 @@ export const UserManagement = () => {
                                     },
                                 ]}
                             />
-                                </PageContent>
+                        </PageContent>
                     </div>
                 </BaseLayout>
-                           )}
+            )}
         </>
     );
 };

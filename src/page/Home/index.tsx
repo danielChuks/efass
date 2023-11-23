@@ -43,9 +43,7 @@ export const HomePage = () => {
         fetchData();
     }, []);
 
-    const openDeleteModal = (data: ReportHistory) => {
-        console.log(data);
-    };
+    const openDeleteModal = (data: ReportHistory) => {};
 
     const fetchData = async () => {
         try {
@@ -59,7 +57,7 @@ export const HomePage = () => {
 
     return (
         <>
-                {loading ? (
+            {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.HOME}>
@@ -119,7 +117,7 @@ export const HomePage = () => {
                             <div className={styles['title']}>Recent Activity</div>
                         </div>
                         <PageContent>
-                        <PaginatedTable<ReportHistory>
+                            <PaginatedTable<ReportHistory>
                                 headers={[
                                     'REPORT DETAILS',
                                     'DATE GENERATED',
@@ -162,7 +160,7 @@ export const HomePage = () => {
                         </PageContent>
                     </div>
                 </BaseLayout>
-                           )}
+            )}
         </>
     );
 };
