@@ -10,7 +10,7 @@ export const useAuthActions = () => {
     const fetchWrapper = useFetchWrapper();
     const [, setAuth] = useRecoilState<Token | null>(authAtom);
     const router = useRouter();
-    const IDLE_TIMEOUT = 120000; // 1 minute
+    const IDLE_TIMEOUT = 240000; // 4 minutes
     const isIdle = useIdle(IDLE_TIMEOUT);
 
     const login = useCallback(
