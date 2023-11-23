@@ -15,7 +15,6 @@ interface ChangePasswordProps {
 function ChangePassword({ value, index }: ChangePasswordProps) {
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab');
-    // console.log(tab);
     const router = useRouter();
     const [data, setData] = useState({ email: '', password: '' });
     const [error, setError] = useState(false);

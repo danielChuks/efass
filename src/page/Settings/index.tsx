@@ -28,7 +28,6 @@ export const Settings = () => {
     }
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
-        // console.log(newValue);
     };
     return (
         <BaseLayout page={DASHBOARD_PAGES.SETTINGS}>

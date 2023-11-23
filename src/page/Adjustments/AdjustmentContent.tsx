@@ -85,7 +85,6 @@ export function AdjustmentContent() {
 
     const handleReportUpload = async () => {
         const response = await uploadMemoData(file);
-        console.log(response);
         try {
             if (response.status === 200) {
                 setIsOpen(true);
@@ -111,7 +110,7 @@ export function AdjustmentContent() {
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            console.log('Selected file name:', fileName);
+            
         }
     };
 

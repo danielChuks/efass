@@ -65,8 +65,6 @@ export const useGenerateReportActions = () => {
                     body: formData,
                 });
                 const data = await response.json();
-                console.log(response.status);
-                console.log(data);
                 return { ...data, status: response.status };
             } catch (error) {
                 console.error('Error during file upload:', error);
@@ -142,7 +140,7 @@ export const useGenerateReportActions = () => {
         try {
             const response = await fetch(endpoint);
             const blob = await response.blob();
-            // console.log(blob);
+
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;
@@ -195,12 +193,11 @@ export const useGenerateReportActions = () => {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
                 );
-                console.log(response)
+
                 // Temporary until the response is given a generic name like "data"
                 if (response.responseCode === 0) {
                     const modifiedSheetName =
                         removeFirstFiveCharacters(sheetName);
-                    // console.log(modifiedSheetName);
                     // Check if modifiedSheetName is not null before using it
                     if (modifiedSheetName !== null) {
                         if (specialReportNumbers.includes(modifiedSheetName)) {
@@ -212,7 +209,6 @@ export const useGenerateReportActions = () => {
                         }
                         switch (sheetName) {
                             case 'mcfpr1':
-                                console.log(response['sheetMcfpr1']);
                                 setReportInformation(response['sheetMcfpr1']);
                                 return;
                             case 'qcfpr1':

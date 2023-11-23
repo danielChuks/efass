@@ -14,15 +14,13 @@ export const useUserListActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}users`
             );
             if (response.responseCode === 0) {
-                console.log(response?.allUsers);
                 setUserData(response?.allUsers);
             } else {
-                console.log(response.responseMessage);
                 setUserData([]);
             }
         } catch (error) {
             setUserData([]);
-            console.log(error);
+
             return error;
         }
     }, []);
