@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/FilterBy';
 import { CustomButton } from '@/components/Button';
-import { GL, CustomGL } from '@/interfaces';
+import {  CustomGL } from '@/interfaces';
 import { BsPlusLg } from 'react-icons/bs';
 // import { dummyData } from './data';
 import { GlDialog } from '@/components/GlDialog';
@@ -22,6 +22,7 @@ function GlMappingContent() {
             statementCode: data?.statementCode,
             statementDesc: data?.statementDescription,
         };
+        console.log(addData, data);
         const response = await postGlData(addData);
         try {
             if (response?.data) {
@@ -85,6 +86,7 @@ function GlMappingContent() {
             return;
         }
         setData({ ...data, [e.target.name]: e.target.value });
+        console.log(data)
     };
 
     const fetchItemDescription = async (itemCode: string) => {

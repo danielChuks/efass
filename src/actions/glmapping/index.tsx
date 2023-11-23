@@ -12,8 +12,6 @@ export const useGlMapppingActions = () => {
             const response = await fetchWrapper.get(
                 `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/fetchItemCodes`
             );
-            // console.log(response.status);
-            // console.log(response);
             return response;
         } catch (error) {
             return error;
@@ -67,12 +65,6 @@ export const useGlMapppingActions = () => {
             );
             console.log(response);
             return response;
-
-            // if (response.responseCode === 0) {
-            //     return response;
-            // } else {
-            //     return response;
-            // }
         } catch (error) {
             return error;
         }
