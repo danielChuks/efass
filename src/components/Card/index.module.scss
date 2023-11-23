@@ -7,7 +7,6 @@
     border-radius: 0.5rem;
     width: 15.875rem;
     height: 7.25rem;
-    padding: 1.5rem 1.5rem;
     font-weight: 600;
     font-size: 13px;
     gap: 10px;
@@ -21,5 +20,54 @@
         display: flex;
         justify-content: flex-end;
         font-size: 13px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .card-container {
+        .image-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+        div {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 12px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .card-container {
+        padding: 1.5rem 1rem;
+
+        .image-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+        div {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 12px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        background: $ShadowColor;
+        border-radius: 0.5rem;
+        width: 15.875rem;
+        height: 7.25rem;
+        padding: 1.5rem 1.5rem;
+        font-weight: 600;
+        font-size: 13px;
+        gap: 10px;
     }
 }

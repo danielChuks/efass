@@ -14,7 +14,7 @@ function Card({ title, content, image }: cardProps) {
                 {image} 
                 <div>{title}</div>
             </div>
-            <div>{content}</div>
+            <div className='card-content'>{content}</div>
         </div>
     );
 }

@@ -5,13 +5,9 @@ import { useSettingsActions } from '../../actions/settings';
 import { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout';
 import Card from '../../components/Card/index';
-import { CustomButton } from '@/components/Button';
 import { BsPlusLg } from 'react-icons/bs';
 import Dialog from '../../components/Dialog';
 import { DASHBOARD_PAGES } from '../../enums';
-import { MaterialTable } from '../../components/MaterialTable';
-import SearchBar from '../../components/SearchBar';
-import Filter from '../../components/FilterBy';
 import { useUserListActions } from '../../actions/userManagement';
 import { userAtom } from '../../state/userList';
 import { PaginatedTable } from '@/components/PaginatedTable';
@@ -111,7 +107,7 @@ export const UserManagement = () => {
                     </div>
                     <div className={styles['card-body']}>
                         <Card
-                            title={'Users Created'}
+                            title={'USERS CREATED'}
                             content={userData?.length.toString()}
                             image={
                                 <Image
@@ -123,7 +119,7 @@ export const UserManagement = () => {
                             }
                         />
                         <Card
-                            title={'Active Users'}
+                            title={'ACTIVE USERS'}
                             content={userData?.length.toString()}
                             image={
                                 <Image
@@ -136,7 +132,7 @@ export const UserManagement = () => {
                         />
 
                         <Card
-                            title={'Inactive Users'}
+                            title={'INACTIVE USERS'}
                             content={'0'}
                             image={
                                 <Image
