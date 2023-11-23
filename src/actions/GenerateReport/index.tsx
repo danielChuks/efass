@@ -120,7 +120,7 @@ export const useGenerateReportActions = () => {
             selectedReport.push(report.return_code);
         });
         //change url
-        let endpoint = `${process.env.apiUrl}/api/v1/download/`;
+        let endpoint = `${process.env.apiUrl}/download/`;
         selectedReport
             .filter((item) => !item.startsWith('QDFIR400'))
             .filter((item) => !item.startsWith('QDFIR450'))
@@ -142,6 +142,8 @@ export const useGenerateReportActions = () => {
         try {
             const response = await fetch(endpoint);
             const blob = await response.blob();
+            // console.log(response.status);
+            // return {status : response.status}
             // console.log(blob);
             const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
@@ -149,6 +151,8 @@ export const useGenerateReportActions = () => {
             a.download = 'Reports downloaded for' + reportSelectedDate + '.zip';
             a.click();
             URL.revokeObjectURL(objectUrl);
+            // / console.log(response.status);
+            return {status : response.status}
         } catch (error) {
             console.error('Error downloading reports:', error);
         }
