@@ -100,7 +100,7 @@ export const UserManagement = () => {
                     </div>
                     <div className={styles['card-body']}>
                         <Card
-                            title={'Users Created'}
+                            title={'USERS CREATED'}
                             content={userData?.length.toString()}
                             image={
                                 <Image
@@ -112,7 +112,7 @@ export const UserManagement = () => {
                             }
                         />
                         <Card
-                            title={'Active Users'}
+                            title={'ACTIVE USERS'}
                             content={userData?.length.toString()}
                             image={
                                 <Image
@@ -125,7 +125,7 @@ export const UserManagement = () => {
                         />
 
                         <Card
-                            title={'Inactive Users'}
+                            title={'INACTIVE USERS'}
                             content={'0'}
                             image={
                                 <Image
