@@ -116,7 +116,7 @@ export const HomePage = () => {
                     </div>
                     <div className={styles['table_container']}>
                         <div className="table_header">
-                            <h4 className="title">Recent Activity</h4>
+                            <div className={styles['title']}>Recent Activity</div>
                         </div>
                         <PageContent>
                         <PaginatedTable<ReportHistory>

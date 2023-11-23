@@ -30,6 +30,10 @@
 
 .table_container {
     margin-top: 1.5rem;
+    .title {
+        font-size: 16px;
+        font-weight: 600;
+    }
 }
 .empty_state {
     display: flex;
@@ -83,4 +87,60 @@
 
 .super-app-theme--header {
     background-color: #0d1740;
+}
+
+@media only screen and (min-width: 600px) {
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 30px 45px 30px 45px;
+        margin-top: 1rem;
+        display: flex;
+        gap: 50px;
+        // border: 1px solid #f91313;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .header {
+        color: #0d1740;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 30px 45px 30px 45px;
+        margin-top: 1rem;
+        display: flex;
+        gap: 30px;
+        // border: 1px solid green;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .header {
+        color: #0d1740;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 600;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #fff;
+        padding: 30px 45px 30px 45px;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; 
+        // border: 1px solid blue;
+ 
+    }
 }

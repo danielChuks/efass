@@ -97,11 +97,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 215px 0;
+            padding: 11%;
             flex-direction: column;
             gap: 1rem;
             font-weight: 600;
             width: 100%;
+        }
+
+        .no-data > img {
+            width: 100px;
+        }
+        .no-data > p {
+            font-size: 14px;
         }
     }
 

@@ -37,6 +37,7 @@ export const Login = () => {
     const validateInput = () => {
         if (!data.username && !data.password) {
             setError(true);
+            setLoading(false);
             setErrorText('Please enter both username and password.');
             return false;
         }
