@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { SettingsButton } from '../../../components/Button';
 import InputGroup from '../../../components/Input';
-import { SelectGroup } from '../../../components/Select/Index';
+import { SelectGroup } from '../../../components/Select';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 
@@ -150,7 +150,7 @@ export const AdjustmentDataDialog = ({
                             </div>
                         ) : (
                             <SettingsButton
-                                text={"Save Settings"}
+                                text={'Save Settings'}
                                 handleAction={handleAction}
                                 error={error}
                                 errorText={errorText}

@@ -26,7 +26,6 @@ export const useAuthActions = () => {
 
                 setAuth(response);
                 localStorage.setItem('auth', JSON.stringify(response));
-                console.log(response);
                 return response;
             } catch (error) {
                 return { error };

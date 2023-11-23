@@ -1,5 +1,5 @@
 'use client';
-import {  useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { generateReportAtom } from '../../../state/generateReport';
@@ -22,7 +22,6 @@ export default function ReportHeader() {
                     (rp) => rp.sheet_number === reportId.toUpperCase()
                 );
 
-                console.log(result);
                 setReportTitle(result);
             }
         }

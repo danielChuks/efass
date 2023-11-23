@@ -20,7 +20,6 @@ export const useReportHistoryActions = () => {
             }
         } catch (error) {
             setReportHistory([]);
-            console.log(error);
             return error;
         }
     }, []);
