@@ -33,9 +33,7 @@ export const UserManagement = () => {
         setErrorText('');
         return true;
     };
-    const handleCreateUser = () => {
-        console.log(data);
-    };
+
     const { getSettings } = useSettingsActions();
     const [loading, setLoading] = useState(true);
     const darkMode = useRecoilValue(settingsAtom);
@@ -55,7 +53,7 @@ export const UserManagement = () => {
     const addUser = () => {
         setModalHeader('Create User');
         setOpenModal(true);
-        setData({ username: '', password: ''});
+        setData({ username: '', password: '' });
         setModalAction(() => handleCreateUser);
     };
 
