@@ -13,7 +13,7 @@ function PageContent({ children, showFilter = true }: PageContentProps) {
     return (
         <div className={styles['table_body']}>
             <div className={styles['contentTopSection']}>
-                <SearchBar />
+                {/* <SearchBar /> */}
                 {/* {showFilter && <Filter options={options} />} */}
             </div>
             {children}

@@ -19,12 +19,14 @@ import Image from 'next/image';
 import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
+import { userAtom } from '../../state/userList';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const { handlereportHistory } = useReportHistoryActions();
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
+    const userData = useRecoilValue(userAtom);
 
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -65,7 +67,7 @@ export const HomePage = () => {
                     <div className={styles['card-body']}>
                         <Card
                             title={'USER'}
-                            content={'0'}
+                            content={userData?.length.toString()}
                             image={
                                 <Image
                                     src={userAdded}
@@ -101,7 +103,7 @@ export const HomePage = () => {
                         />
                         <Card
                             title={'USER CREATED'}
-                            content={'0'}
+                            content={userData?.length.toString()}
                             image={
                                 <Image
                                     src={userAdded}
