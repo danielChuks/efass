@@ -79,7 +79,7 @@ function index({
                             handleChange={handleInputchange}
                             required={true}
                         />
-
+{/* 
                         <InputGroup
                             type="password"
                             label="Confirm Password"
@@ -88,7 +88,7 @@ function index({
                             placeholder=""
                             handleChange={handleInputchange}
                             required={true}
-                        />
+                        /> */}
 
                         <SettingsButton
                             text={header}
