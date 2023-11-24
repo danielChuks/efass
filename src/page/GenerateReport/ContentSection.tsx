@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from '../../components/SearchBar';
 import styles from './index.module.scss';
-// import MonthPicker from "../../components/MonthPicker";
 import Filter from '../../components/FilterBy';
 import { ReportData } from '../../interfaces';
 import { FaDownload } from 'react-icons/fa';
@@ -14,11 +13,8 @@ import {
     selectedGroupAtom,
 } from '../../state/generateReport';
 import { PaginatedTable } from '@/components/PaginatedTable';
-// import { mockData } from '../../components/PaginatedTable/mock';
-// import { SettingsButton } from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import { ReportPageProps } from '@/interfaces';
-// import { mockData } from '@/components/PaginatedTable/mock';
 import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import { BiShow } from 'react-icons/bi';

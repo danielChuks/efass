@@ -29,6 +29,7 @@ export function PaginatedTable<T>({
     } = useTable<T>({ data });
 
     return (
+        
         <div className={styles['table-wrapper']}>
             <div className={styles['table-container']}>
                 <table className={styles['header-and-body']}>

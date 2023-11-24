@@ -6,7 +6,6 @@ import { reportHistoryAtom } from '../../state/reportHistory';
 export const useReportHistoryActions = () => {
     const fetchWrapper = useFetchWrapper();
     const setReportHistory = useSetRecoilState(reportHistoryAtom);
-
     const handlereportHistory = useCallback(async () => {
         try {
             const response = await fetchWrapper.get(
@@ -24,5 +23,17 @@ export const useReportHistoryActions = () => {
         }
     }, []);
 
-    return { handlereportHistory };
+    const handleReportDelete = useCallback(async (id: any) => {
+        try {
+            const response = await fetchWrapper.delete(
+                `${BASEAPI_EXTENSION.BASEAPI}activity/${id}`
+            );
+            return response;
+        } catch (error) {
+            console.error('Error deleting this report :', error);
+            throw error;
+        }
+    }, []);
+
+    return { handlereportHistory, handleReportDelete };
 };

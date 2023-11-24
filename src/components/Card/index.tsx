@@ -1,4 +1,3 @@
-import React, { ReactNode } from 'react';
 import styles from './index.module.scss';
 
 interface cardProps {
@@ -11,10 +10,10 @@ function Card({ title, content, image }: cardProps) {
     return (
         <div className={styles['card-container']}>
             <div className={styles['image-title-container']}>
-                {image} 
                 <div>{title}</div>
+                {image}
             </div>
-            <div className='card-content'>{content}</div>
+            <div className={styles['card-content']}>{content}</div>
         </div>
     );
 }

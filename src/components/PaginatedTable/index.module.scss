@@ -27,10 +27,9 @@
 
                 .header-column {
                     flex: 1;
-                    color: var(--grey-1, $fontColor);
+                    color: var($fontColor);
                     font-family: $fontStyle;
-                    font-style: normal;
-                    font-weight: 700;
+                    font-weight: 1000;
                     line-height: normal;
                     letter-spacing: 0.036px;
                     text-transform: uppercase;

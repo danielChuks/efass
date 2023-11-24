@@ -5,18 +5,18 @@ import { useSetRecoilState } from 'recoil';
 import { settingsAtom } from '../../state/settings';
 
 export const useSettingsActions = () => {
-  const setSettingsData = useSetRecoilState(settingsAtom);
+    const setSettingsData = useSetRecoilState(settingsAtom);
 
-  const getSettings = useCallback(async () => {
-    const response = setSettingsData({
-      darkMode: true,
-      notificationSounds: false
-    });
+    const getSettings = useCallback(async () => {
+        const response = setSettingsData({
+            darkMode: true,
+            notificationSounds: false,
+        });
 
-    return response;
-  }, [setSettingsData]);
+        return response;
+    }, [setSettingsData]);
 
-  return {
-    getSettings,
-  };
+    return {
+        getSettings,
+    };
 };

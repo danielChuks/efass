@@ -2,9 +2,7 @@
 import * as React from 'react';
 import BaseLayout from '../../components/BaseLayout';
 import styles from './index.module.scss';
-import SearchBar from '../../components/SearchBar';
 import { DASHBOARD_PAGES } from '../../enums';
-import Filter from '../../components/FilterBy';
 import { useEffect, useState } from 'react';
 import { useReportHistoryActions } from '../../actions/history';
 import { useRecoilValue } from 'recoil';
@@ -16,17 +14,22 @@ import date from '../../../public/Images/case.png';
 import lastActivity from '../../../public/Images/calender.png';
 import userAdded from '../../../public/Images/person.png';
 import Image from 'next/image';
-import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
 import { userAtom } from '../../state/userList';
-
+import { MdDelete } from 'react-icons/md';
+import SnackbarComponent from '../../components/Snackbar';
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const { handlereportHistory } = useReportHistoryActions();
+    const { handlereportHistory, handleReportDelete } =
+        useReportHistoryActions();
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
     const userData = useRecoilValue(userAtom);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [isopen, setIsOpen] = useState(false);
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+
 
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -45,7 +48,20 @@ export const HomePage = () => {
         fetchData();
     }, []);
 
-    const openDeleteModal = (data: ReportHistory) => {};
+    const openDeleteModal = async (data: ReportHistory) => {
+        try {
+            const response = await handleReportDelete(data.id);
+
+            setIsOpen(true);
+            setSnackbarMessage('Deleted Successfully');
+            setSnackbarColor('#006c33');
+            snackBarColor;
+        } catch (error) {
+            setIsOpen(true);
+            setSnackbarColor('#006c33');
+            setSnackbarMessage('Failed to delete');
+        }
+    };
 
     const fetchData = async () => {
         try {
@@ -57,17 +73,28 @@ export const HomePage = () => {
         }
     };
 
+    const handleClose = () => {
+        setIsOpen(false);
+        window.location.reload();
+    };
+
     return (
         <>
             {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.HOME}>
+                    <SnackbarComponent
+                        handleClose={handleClose}
+                        isopen={isopen}
+                        message={SnackbarMessage}
+                        color={snackBarColor}
+                    />
                     <div className={styles.header}>DASHBOARD (Overview)</div>
                     <div className={styles['card-body']}>
                         <Card
                             title={'USER'}
-                            content={userData?.length.toString()}
+                            content={''}
                             image={
                                 <Image
                                     src={userAdded}
@@ -79,7 +106,7 @@ export const HomePage = () => {
                         />
                         <Card
                             title={'LAST ACTIVITY DATE'}
-                            content={'0'}
+                            content={'N/A'}
                             image={
                                 <Image
                                     src={date}
@@ -116,7 +143,9 @@ export const HomePage = () => {
                     </div>
                     <div className={styles['table_container']}>
                         <div className="table_header">
-                            <div className={styles['title']}>Recent Activity</div>
+                            <div className={styles['title']}>
+                                Recent Activity
+                            </div>
                         </div>
                         <PageContent>
                             <PaginatedTable<ReportHistory>
@@ -151,7 +180,10 @@ export const HomePage = () => {
                                                         openDeleteModal(data);
                                                     }}
                                                 >
-                                                    ...
+                                                    <MdDelete
+                                                        color={'#AA4A44'}
+                                                        size={20}
+                                                    />
                                                 </div>
                                             );
                                         },
