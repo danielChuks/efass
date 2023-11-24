@@ -29,10 +29,10 @@ export const useAdjustmentAction = () => {
                 body: formData,
             });
             const data = await response.json();
-            return {...data, status:response?.status};
+            return { ...data, status: response?.status };
         } catch (error) {
             console.error('Error during file upload:', error);
-            return { error: error,};
+            return { error: error };
         }
     }, []);
 

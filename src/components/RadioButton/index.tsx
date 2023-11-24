@@ -9,7 +9,6 @@ interface RadioButtonProps {
 
 
 export default function RadioButton({selectedGroup, onGroupChange}: RadioButtonProps) {
-
     const handleGroupChange = (e: any) => {
         onGroupChange(e.target.value)
     }

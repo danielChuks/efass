@@ -1,16 +1,29 @@
 @import '../../styles/index.scss';
 @import '../../page/GenerateReport/index.module.scss';
 
-.card-body {
+.design-body {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    align-content: center;
     background-color: #fff;
-    padding: 1rem 0 2rem 1rem;
+    padding: 20px;
+    padding-left: 40px;
     margin-top: 1rem;
     display: flex;
     border-radius: 8px;
     margin-bottom: 30px;
+    gap: 40px;
+    
+
+    .design-pattern{
+        display: flex;
+        gap: 20px;
+        background: $ShadowColor;
+        border-radius: 0.5rem;
+        padding: 20px;
+        font-weight: 700;
+        font-size: 13px;
+    }
 }
 
 .table_body {

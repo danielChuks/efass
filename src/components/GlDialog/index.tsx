@@ -9,15 +9,7 @@ import { SelectGroup } from '../Select';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { useGlMapppingActions } from '../../actions/glmapping';
-import SnackbarComponent from '../Snackbar';
-import { CustomGL } from '@/interfaces';
 interface DialogProps {
-    SnackbarMessage: string;
-    snackBarColor: string;
-    isSnackbarOpen: boolean;
-    setSnackbarMessage: (value: any) => void;
-    setSnackbarColor: (value: any) => void;
-    setIsSnackbarOpen: (value: boolean) => void;
     typeOfModal?: string;
     openModal: boolean;
     header: string;
@@ -30,6 +22,9 @@ interface DialogProps {
     handleAction: (value: any) => void;
     setData: (value: any) => void;
     handleInputchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    fetchAllData?: any;
+    updateData?: any;
+    deleteData?:any;
 }
 export const GlDialog = ({
     typeOfModal,
@@ -43,14 +38,10 @@ export const GlDialog = ({
     setOpenModal,
     handleAction,
     handleInputchange,
-    SnackbarMessage,
-    snackBarColor,
-    isSnackbarOpen,
-    setSnackbarMessage,
-    setSnackbarColor,
-    setIsSnackbarOpen,
+    updateData,
+    deleteData,
 }: DialogProps) => {
-    const { getItemCodes, getStatementCodes, deleteGlData, updateGlData } =
+    const { getItemCodes, getStatementCodes} =
         useGlMapppingActions();
     const [itemCodes, setItemCodes] = useState([]);
     const [statementCodes, setStatementCodes] = useState([]);
@@ -83,47 +74,7 @@ export const GlDialog = ({
             setStatementCodes([]);
         }
     };
-    const deleteData = async (itemCode: string) => {
-        const response = await deleteGlData(itemCode);
-        try {
-            if (response?.responseMessage) {
-                console.log(response);
-                setSnackbarColor('#006c33');
-                setIsSnackbarOpen(true);
-                setSnackbarMessage(response?.responseMessage);
-            } else {
-                setIsSnackbarOpen(true);
-                setSnackbarColor('');
-                setSnackbarMessage(response?.message || 'An error occured');
-            }
-        } catch (error) {
-            setIsSnackbarOpen(true);
-            setSnackbarColor('');
-            setSnackbarMessage(response?.message || 'An error occured');
-        }
-    };
 
-    const updateData = async (data: CustomGL) => {
-        const response = await updateGlData(data);
-        try {
-            if (response?.data) {
-                setSnackbarColor('#006c33');
-                setIsSnackbarOpen(true);
-                setSnackbarMessage('Data updated successfully');
-            } else {
-                setIsSnackbarOpen(true);
-                setSnackbarColor('');
-                setSnackbarMessage(response?.message || 'An error occured');
-            }
-        } catch (error) {
-            setIsSnackbarOpen(true);
-            setSnackbarColor('');
-            setSnackbarMessage(response?.message || 'An error occured');
-        }
-    };
-    const handleClose = () => {
-        setIsSnackbarOpen(false);
-    };
     return (
         <div>
             <Dialog
@@ -132,12 +83,6 @@ export const GlDialog = ({
                 onClose={() => setOpenModal(false)}
                 aria-labelledby="alert-dialog-title"
             >
-                <SnackbarComponent
-                    handleClose={handleClose}
-                    isopen={isSnackbarOpen}
-                    message={SnackbarMessage}
-                    color={snackBarColor}
-                />
                 <DialogTitle
                     id="alert-dialog-title"
                     sx={{
@@ -179,7 +124,7 @@ export const GlDialog = ({
                             value={data?.statementDesc}
                             name="statementDesc"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -201,7 +146,7 @@ export const GlDialog = ({
                             value={data?.itemDesc}
                             name="itemDesc"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -225,7 +170,9 @@ export const GlDialog = ({
                                     <BiEdit size={24} /> Modify
                                 </button>
                                 <button
-                                    onClick={() => deleteData(data.statementCode)}
+                                    onClick={() =>
+                                        deleteData(data.statementCode)
+                                    }
                                     className={styles['removeButton']}
                                 >
                                     <AiOutlineDelete size={24} /> Remove

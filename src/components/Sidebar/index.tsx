@@ -18,7 +18,7 @@ interface SideNavProps {
 }
 
 export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => {
         setIsOpen(!isOpen);
