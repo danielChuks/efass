@@ -19,6 +19,8 @@ import PageContent from '../../components/PageContent';
 import { userAtom } from '../../state/userList';
 import { MdDelete } from 'react-icons/md';
 import SnackbarComponent from '../../components/Snackbar';
+import { useUserListActions } from '../../actions/userManagement';
+
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const { handlereportHistory, handleReportDelete } =
@@ -30,7 +32,7 @@ export const HomePage = () => {
     const [isopen, setIsOpen] = useState(false);
     const [snackBarColor, setSnackbarColor] = useState<string>('');
 
-
+    const { handleuserList } = useUserListActions();
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
         year: 'numeric',
@@ -46,6 +48,7 @@ export const HomePage = () => {
 
         fetchCurrentDate();
         fetchData();
+        fetchUserList();
     }, []);
 
     const openDeleteModal = async (data: ReportHistory) => {
@@ -76,6 +79,14 @@ export const HomePage = () => {
     const handleClose = () => {
         setIsOpen(false);
         window.location.reload();
+    };
+    const fetchUserList = async () => {
+        try {
+            await handleuserList();
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
     };
 
     return (

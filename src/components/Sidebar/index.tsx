@@ -65,13 +65,13 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 active={page === DASHBOARD_PAGES.GL_MAPPING}
                 open={isOpen}
             />
-            <SideNavItem
+            {/* <SideNavItem
                 pageUrl={'/custom-data'}
                 icon={<MdOutlineDashboardCustomize />}
                 title={'Custom Data'}
                 active={page === DASHBOARD_PAGES.CUSTOM_DATA}
                 open={isOpen}
-            />
+            /> */}
             <SideNavItem
                 pageUrl={'/adjustments'}
                 icon={<BsWrenchAdjustableCircleFill />}

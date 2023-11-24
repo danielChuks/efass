@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './index.module.scss';
 
 interface InputGroupProps {
+    isError?: boolean;
+    errorText?: string;
     accept?: string;
     id?: string;
     name: string;
@@ -27,6 +29,8 @@ function InputGroup({
     maxLength,
     required,
     handleChange,
+    errorText,
+    isError,
 }: InputGroupProps) {
     return (
         <div className={styles['input_Group']}>
@@ -43,6 +47,7 @@ function InputGroup({
                 required={required}
                 onChange={handleChange}
             />
+            {isError && <p className="error_text">{errorText}</p>}
         </div>
     );
 }

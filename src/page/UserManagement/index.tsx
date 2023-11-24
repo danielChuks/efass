@@ -6,55 +6,84 @@ import { useEffect, useState } from 'react';
 import BaseLayout from '../../components/BaseLayout';
 import Card from '../../components/Card/index';
 import { BsPlusLg } from 'react-icons/bs';
-import Dialog from '../../components/Dialog';
 import { DASHBOARD_PAGES } from '../../enums';
 import { useUserListActions } from '../../actions/userManagement';
 import { userAtom } from '../../state/userList';
 import { PaginatedTable } from '@/components/PaginatedTable';
+// import { userData } from "./data";
 import { User } from '@/interfaces';
 import styles from './index.module.scss';
+import { options } from '../../components/FilterBy/dommy';
 import Image from 'next/image';
 import users from '../../../public/Images/users.png';
+import date from '../../../public/Images/case.png';
 import lastActivity from '../../../public/Images/calender.png';
 import userAdded from '../../../public/Images/person.png';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
+import { UserDialog } from '../../components/Dialog';
+import SnackbarComponent from '../../components/Snackbar';
 
 export const UserManagement = () => {
-    const handleCreateUser = () => {};
-    const validateInput = () => {
-        if (!data.username && !data.password) {
-            setError(true);
-            setLoading(false);
-            setErrorText('Please enter both username and password.');
-            return false;
-        }
-        setError(false);
-        setErrorText('');
-        return true;
-    };
-
+    
+    
+    const { create } = useUserListActions();
     const { getSettings } = useSettingsActions();
     const [loading, setLoading] = useState(true);
-    const darkMode = useRecoilValue(settingsAtom);
-    const [openModal, setOpenModal] = useState(false);
+    const [openModalDialog, setModalDialog] = useState(false);
     const [modalHeader, setModalHeader] = useState('Create User');
-    const [modalAction, setModalAction] = useState(() => handleCreateUser);
+    //use to determine if current function is add or edit
+    const [status, setStatus] = useState(true)
+    // const [modalAction, setModalAction] = useState(() => handleCreateUser);
     //form data
     const [data, setData] = useState({
         username: '',
         password: '',
     });
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const { handleuserList } = useUserListActions();
     const userData = useRecoilValue(userAtom);
 
-    const addUser = () => {
+
+    const CreateUser = async() => {
+        const response = await create(data);
+        console.log(response)
+        try {
+            if (response && response.responseCode === 0) {
+                setIsSnackbarOpen(true);
+                // console.log('added successfully');
+                setSnackbarMessage(response.responseMessage);
+                setSnackbarColor('#006c33');
+                setModalDialog(false);
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 10000);
+            } else {
+                setSnackbarMessage('An error occurred, please try again later');
+                setSnackbarColor('');
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 7000);
+            }
+        } catch (error) {
+            setSnackbarMessage('An error occurred, please try again later');
+            setSnackbarColor('');
+            setTimeout(() => {
+                setIsSnackbarOpen(false);
+            }, 7000);
+        }
+    };
+
+    const openAddModal = () => {
+        setStatus(true)
         setModalHeader('Create User');
-        setOpenModal(true);
-        setData({ username: '', password: '' });
-        setModalAction(() => handleCreateUser);
+        setModalDialog(true);
+        setData({ username: '', password: ''});
     };
 
     useEffect(() => {
@@ -72,37 +101,77 @@ export const UserManagement = () => {
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
-    const editUser = (data: User) => {
+    const openEditModal = (data: User) => {
+        setStatus(false)
         setModalHeader('Edit User');
         setData({
             username: data.username,
             password: data.password,
         });
-
-        setOpenModal(true);
-        setModalAction(() => handleEditUser);
+        console.log(data);
+        setModalDialog(true);
     };
-    const handleEditUser = () => {};
+    const handleEditUser = async () => {
+        // const response = await create(data);
+        // console.log(response)
+        // try {
+        //     if (response && response.responseCode === 0) {
+        //         setIsSnackbarOpen(true);
+        //         // console.log('added successfully');
+        //         setSnackbarMessage(response.responseMessage);
+        //         setSnackbarColor('#006c33');
+        //         setModalDialog(false);
+        //         setTimeout(() => {
+        //             setIsSnackbarOpen(false);
+        //         }, 10000);
+        //     } else {
+        //         setSnackbarMessage('An error occurred, please try again later');
+        //         setSnackbarColor('');
+        //         setTimeout(() => {
+        //             setIsSnackbarOpen(false);
+        //         }, 7000);
+        //     }
+        // } catch (error) {
+        //     setSnackbarMessage('An error occurred, please try again later');
+        //     setSnackbarColor('');
+        //     setTimeout(() => {
+        //         setIsSnackbarOpen(false);
+        //     }, 7000);
+        // }
+    };
 
+    const handleClose = () => {
+        setIsSnackbarOpen(false);
+    };
+
+
+    // console.log(darkMode);
     return (
         <>
-            {loading ? (
+                    {loading ? (
                 <LoadingScreen />
             ) : (
                 <BaseLayout page={DASHBOARD_PAGES.USER_MANAGEMENT}>
-                    {openModal && (
-                        <Dialog
-                            openModal={openModal}
-                            setOpenModal={setOpenModal}
-                            handleAction={modalAction}
+                    {openModalDialog && (
+                        <UserDialog
+                            openModal={openModalDialog}
+                            setOpenModal={setModalDialog}
+                            handleAction={status ? CreateUser : handleEditUser}
                             header={modalHeader}
                             data={data}
                             setData={setData}
                             handleInputchange={handleInputchange}
                             error={error}
                             errorText={errorText}
+                            handleCreateUser={CreateUser}
                         />
                     )}
+                    <SnackbarComponent
+                handleClose={handleClose}
+                isopen={isSnackbarOpen}
+                message={SnackbarMessage}
+                color={snackBarColor}
+            />
                     <div className={styles['container']}>
                         <h4>USER MANAGEMENT</h4>
                     </div>
@@ -122,22 +191,24 @@ export const UserManagement = () => {
                         </div>
                     </div>
                     <div className={styles['contentContainer']}>
-                        <PageContent>
-                            <div className={styles['righSide']}>
-                                <div className={styles['rightSide']}>
-                                    <div
-                                        className={styles['reportButton']}
-                                        onClick={addUser}
-                                    >
-                                        Create User
-                                        <BsPlusLg size={22} color={'#fff'} />
+                                <PageContent>
+                                <div className={styles['righSide']}>
+                                    <div className={styles['rightSide']}>
+                                        <div
+                                            className={styles['reportButton']}
+                                            onClick={openAddModal}
+                                        >
+                                            Create User
+                                            <BsPlusLg
+                                                size={22}
+                                                color={'#fff'}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <PaginatedTable<User>
+                                <PaginatedTable<User>
                                 headers={[
                                     'USERNAME',
-                                    'ROLE',
                                     'PASSWORD',
                                     'ACTION',
                                 ]}
@@ -152,18 +223,10 @@ export const UserManagement = () => {
                                     },
                                     {
                                         render: (data, index) => {
-                                            return data.role;
-                                        },
-                                        width: '50%',
-                                    },
-
-                                    {
-                                        render: (data, index) => {
                                             return <p>********</p>;
                                         },
                                         width: '50%',
                                     },
-
                                     {
                                         render: (data, index) => {
                                             return (
@@ -172,7 +235,7 @@ export const UserManagement = () => {
                                                         styles['viewButton']
                                                     }
                                                     onClick={() => {
-                                                        editUser(data);
+                                                        openEditModal(data);
                                                     }}
                                                 >
                                                     ...
@@ -183,10 +246,10 @@ export const UserManagement = () => {
                                     },
                                 ]}
                             />
-                        </PageContent>
+                                </PageContent>
                     </div>
                 </BaseLayout>
-            )}
+                           )}
         </>
     );
 };

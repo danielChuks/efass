@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,19 +8,23 @@ import InputGroup from '../Input';
 import { SelectGroup } from '../Select';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
-
+import { useGlMapppingActions } from '../../actions/glmapping';
 interface DialogProps {
     typeOfModal?: string;
     openModal: boolean;
     header: string;
     data: any;
     error: boolean;
-    errorText: string;
+    isError?: boolean;
+    errorText?: string;
     disabled?: boolean;
     setOpenModal: (value: boolean) => void;
     handleAction: (value: any) => void;
     setData: (value: any) => void;
     handleInputchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    fetchAllData?: any;
+    updateData?: any;
+    deleteData?:any;
 }
 export const GlDialog = ({
     typeOfModal,
@@ -28,12 +32,49 @@ export const GlDialog = ({
     header,
     data,
     error,
+    isError,
     errorText,
     disabled,
     setOpenModal,
     handleAction,
     handleInputchange,
+    updateData,
+    deleteData,
 }: DialogProps) => {
+    const { getItemCodes, getStatementCodes} =
+        useGlMapppingActions();
+    const [itemCodes, setItemCodes] = useState([]);
+    const [statementCodes, setStatementCodes] = useState([]);
+    useEffect(() => {
+        fetchItemCodes();
+        fetchStatementCodes();
+    }, []);
+    const fetchItemCodes = async () => {
+        const response = await getItemCodes();
+        try {
+            if (response?.data) {
+                setItemCodes(response?.data);
+            } else {
+                setItemCodes([]);
+            }
+        } catch (error) {
+            setItemCodes([]);
+        }
+    };
+
+    const fetchStatementCodes = async () => {
+        const response = await getStatementCodes();
+        try {
+            if (response?.data) {
+                setStatementCodes(response?.data);
+            } else {
+                setStatementCodes([]);
+            }
+        } catch (error) {
+            setStatementCodes([]);
+        }
+    };
+
     return (
         <div>
             <Dialog
@@ -66,31 +107,33 @@ export const GlDialog = ({
                     <div className={styles['dialog_content']}>
                         <SelectGroup
                             label="Statement Code"
-                            value={data?.statement_code}
-                            name="statement_code"
+                            value={data?.statementCode}
+                            name="statementCode"
                             placeholder=""
-                            options={['001', '002', '003']}
+                            options={statementCodes}
                             disabled={disabled}
                             handleChange={handleInputchange}
                             required={true}
+                            isError={isError}
+                            errorText={errorText}
                         />
 
                         <InputGroup
                             type="text"
                             label="Statement Description"
-                            value={data?.statement_description}
-                            name="statement_description"
+                            value={data?.statementDesc}
+                            name="statementDesc"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
 
                         <SelectGroup
                             label="Item Code"
-                            options={['001', '002', '003']}
-                            value={data.item_code}
-                            name="item_code"
+                            options={itemCodes}
+                            value={data.itemCode}
+                            name="itemCode"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -100,10 +143,10 @@ export const GlDialog = ({
                         <InputGroup
                             type="text"
                             label="Item Description"
-                            value={data?.item_description}
-                            name="item_description"
+                            value={data?.itemDesc}
+                            name="itemDesc"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -111,8 +154,8 @@ export const GlDialog = ({
                         <InputGroup
                             type="text"
                             label="Ledger Number"
-                            value={data.ledger_number}
-                            name="ledger_number"
+                            value={data.ledgerNo}
+                            name="ledgerNo"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -120,10 +163,18 @@ export const GlDialog = ({
                         />
                         {typeOfModal === 'editModal' ? (
                             <div className={styles['buttonGroup']}>
-                                <button className={styles['modifyButton']}>
+                                <button
+                                    onClick={() => updateData(data)}
+                                    className={styles['modifyButton']}
+                                >
                                     <BiEdit size={24} /> Modify
                                 </button>
-                                <button className={styles['removeButton']}>
+                                <button
+                                    onClick={() =>
+                                        deleteData(data.statementCode)
+                                    }
+                                    className={styles['removeButton']}
+                                >
                                     <AiOutlineDelete size={24} /> Remove
                                 </button>
                             </div>
