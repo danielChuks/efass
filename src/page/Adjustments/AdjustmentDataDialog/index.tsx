@@ -99,7 +99,7 @@ export const AdjustmentDataDialog = ({
 
                         <SelectGroup
                             label="Status"
-                            options={['P', 'N']}
+                            options={['Posted', 'Not Posted']}
                             value={data?.status}
                             name="status"
                             placeholder={''}
