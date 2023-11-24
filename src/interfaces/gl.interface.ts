@@ -8,8 +8,8 @@
 
 export interface CustomGL {
     statementCode: string;
-    statementDescription: string;
+    statementDesc: string;
     itemCode: string;
-    itemDescription: string;
-    ledgerNumber: string;
+    itemDesc: string;
+    ledgerNo: string;
 }

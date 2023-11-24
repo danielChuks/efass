@@ -22,18 +22,6 @@ import PageContent from '../../components/PageContent';
 
 export const UserManagement = () => {
     const handleCreateUser = () => {};
-    const validateInput = () => {
-        if (!data.username && !data.password) {
-            setError(true);
-            setLoading(false);
-            setErrorText('Please enter both username and password.');
-            return false;
-        }
-        setError(false);
-        setErrorText('');
-        return true;
-    };
-
     const { getSettings } = useSettingsActions();
     const [loading, setLoading] = useState(true);
     const darkMode = useRecoilValue(settingsAtom);

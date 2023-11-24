@@ -10,7 +10,7 @@ import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { useGlMapppingActions } from '../../actions/glmapping';
 import SnackbarComponent from '../Snackbar';
-import { GL, CustomGL } from '@/interfaces';
+import { CustomGL } from '@/interfaces';
 interface DialogProps {
     SnackbarMessage: string;
     snackBarColor: string;
@@ -54,9 +54,6 @@ export const GlDialog = ({
         useGlMapppingActions();
     const [itemCodes, setItemCodes] = useState([]);
     const [statementCodes, setStatementCodes] = useState([]);
-    // const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
-    // const [snackBarColor, setSnackbarColor] = useState<string>('');
-    // const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     useEffect(() => {
         fetchItemCodes();
         fetchStatementCodes();
@@ -89,11 +86,11 @@ export const GlDialog = ({
     const deleteData = async (itemCode: string) => {
         const response = await deleteGlData(itemCode);
         try {
-            if (response?.data) {
+            if (response?.responseMessage) {
                 console.log(response);
                 setSnackbarColor('#006c33');
                 setIsSnackbarOpen(true);
-                setSnackbarMessage('Data deleted successfully');
+                setSnackbarMessage(response?.responseMessage);
             } else {
                 setIsSnackbarOpen(true);
                 setSnackbarColor('');
@@ -107,14 +104,7 @@ export const GlDialog = ({
     };
 
     const updateData = async (data: CustomGL) => {
-        const editData = {
-            itemCode: data?.itemCode,
-            itemDesc: data?.itemDescription,
-            ledgerNo: data?.ledgerNumber,
-            statementCode: data?.statementCode,
-            statementDesc: data?.statementDescription,
-        };
-        const response = await updateGlData(editData);
+        const response = await updateGlData(data);
         try {
             if (response?.data) {
                 setSnackbarColor('#006c33');
@@ -186,8 +176,8 @@ export const GlDialog = ({
                         <InputGroup
                             type="text"
                             label="Statement Description"
-                            value={data?.statementDescription}
-                            name="statementDescription"
+                            value={data?.statementDesc}
+                            name="statementDesc"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -208,8 +198,8 @@ export const GlDialog = ({
                         <InputGroup
                             type="text"
                             label="Item Description"
-                            value={data?.itemDescription}
-                            name="itemDescription"
+                            value={data?.itemDesc}
+                            name="itemDesc"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -219,8 +209,8 @@ export const GlDialog = ({
                         <InputGroup
                             type="text"
                             label="Ledger Number"
-                            value={data.ledgerNumber}
-                            name="ledgerNumber"
+                            value={data.ledgerNo}
+                            name="ledgerNo"
                             placeholder=""
                             disabled={disabled}
                             handleChange={handleInputchange}
@@ -235,7 +225,7 @@ export const GlDialog = ({
                                     <BiEdit size={24} /> Modify
                                 </button>
                                 <button
-                                    onClick={() => deleteData(data.itemCode)}
+                                    onClick={() => deleteData(data.statementCode)}
                                     className={styles['removeButton']}
                                 >
                                     <AiOutlineDelete size={24} /> Remove

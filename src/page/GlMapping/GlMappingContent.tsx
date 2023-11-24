@@ -14,16 +14,35 @@ import { useGlMapppingActions } from '../../actions/glmapping';
 import SnackbarComponent from '../../components/Snackbar';
 
 function GlMappingContent() {
+    const {
+        getStatementDescription,
+        getItemDescription,
+        postGlData,
+        getAllGlData,
+    } = useGlMapppingActions();
+    const [error, setError] = useState(false);
+    const [errorText, setErrorText] = useState('');
+    const [loading, setLoading] = useState<boolean>(true);
+    const [typeOfModal, setTypeOfModal] = useState<string>('');
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [modalHeader, setModalHeader] = useState('Add New');
+    // const [modalAction, setModalAction] = useState(() => handleAddNewGl);
+    const [status, setStatus] = useState(false);
+    const [data, setData] = useState<CustomGL>({
+        statementCode: '',
+        statementDesc: '',
+        itemCode: '',
+        itemDesc: '',
+        ledgerNo: '',
+    });
+    const [allGlData, setAllGlData] = useState([]);
+    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+
     const handleAddNewGl = async () => {
-        const addData = {
-            itemCode: data?.itemCode,
-            itemDesc: data?.itemDescription,
-            ledgerNo: data?.ledgerNumber,
-            statementCode: data?.statementCode,
-            statementDesc: data?.statementDescription,
-        };
-        console.log(addData, data);
-        const response = await postGlData(addData);
+        console.log(data)
+        const response = await postGlData(data);
         try {
             if (response?.data) {
                 console.log('added succesfully');
@@ -51,31 +70,8 @@ function GlMappingContent() {
             }, 7000);
         }
     };
-    const {
-        getStatementDescription,
-        getItemDescription,
-        postGlData,
-        getAllGlData,
-    } = useGlMapppingActions();
-    const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState('');
-    const [loading, setLoading] = useState<boolean>(true);
-    const [typeOfModal, setTypeOfModal] = useState<string>('');
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const [modalHeader, setModalHeader] = useState('Add New');
-    const [modalAction, setModalAction] = useState(() => handleAddNewGl);
-    const [data, setData] = useState<CustomGL>({
-        statementCode: '',
-        statementDescription: '',
-        itemCode: '',
-        itemDescription: '',
-        ledgerNumber: '',
-    });
-    const [allGlData, setAllGlData] = useState([]);
-    const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
-    const [snackBarColor, setSnackbarColor] = useState<string>('');
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
 
+   
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'itemCode') {
             fetchItemDescription(e.target.value);
@@ -96,7 +92,7 @@ function GlMappingContent() {
             if (response?.data) {
                 setData({
                     ...data,
-                    itemDescription: response?.data,
+                    itemDesc: response?.data,
                     itemCode: itemCode,
                 });
             } else {
@@ -117,7 +113,7 @@ function GlMappingContent() {
             if (response?.data) {
                 setData({
                     ...data,
-                    statementDescription: response?.data,
+                    statementDesc: response?.data,
                     statementCode: statementCode,
                 });
             } else {
@@ -137,26 +133,26 @@ function GlMappingContent() {
         setOpenModal(true);
         setData({
             statementCode: '',
-            statementDescription: '',
+            statementDesc: '',
             itemCode: '',
-            itemDescription: '',
-            ledgerNumber: '',
+            itemDesc: '',
+            ledgerNo: '',
         });
-        setModalAction(() => handleAddNewGl);
+        setStatus(true)
     };
     const openEditModal = (data: CustomGL) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
         setData({
             statementCode: data.statementCode,
-            statementDescription: data.statementDescription,
+            statementDesc: data.statementDesc,
             itemCode: data.itemCode,
-            itemDescription: data.itemDescription,
-            ledgerNumber: data.ledgerNumber,
+            itemDesc: data.itemDesc,
+            ledgerNo: data.ledgerNo,
         });
         console.log(data);
         setOpenModal(true);
-        setModalAction(() => editGl(data));
+        setStatus(false)
     };
     const editGl = async (data: CustomGL) => {
         const response = await postGlData(data);
@@ -201,7 +197,7 @@ function GlMappingContent() {
                 <GlDialog
                     openModal={openModal}
                     setOpenModal={setOpenModal}
-                    handleAction={modalAction}
+                    handleAction={status ? handleAddNewGl : editGl}
                     header={modalHeader}
                     data={data}
                     setData={setData}
@@ -255,7 +251,7 @@ function GlMappingContent() {
                             },
                             {
                                 render: (data, index) => {
-                                    return data.statementDescription;
+                                    return data.statementDesc;
                                 },
                                 width: '20%',
                             },
@@ -267,13 +263,13 @@ function GlMappingContent() {
                             },
                             {
                                 render: (data, index) => {
-                                    return data.itemDescription;
+                                    return data.itemDesc;
                                 },
                                 width: '15%',
                             },
                             {
                                 render: (data, index) => {
-                                    return data.ledgerNumber;
+                                    return data.ledgerNo;
                                 },
                                 // width: '50%',
                             },
