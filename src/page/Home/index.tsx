@@ -20,6 +20,7 @@ import { options } from '../../components/FilterBy/dommy';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import PageContent from '../../components/PageContent';
 import { userAtom } from '../../state/userList';
+import { useUserListActions } from '../../actions/userManagement';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -27,7 +28,7 @@ export const HomePage = () => {
     const reportHistory = useRecoilValue(reportHistoryAtom);
     const [loading, setLoading] = useState(true);
     const userData = useRecoilValue(userAtom);
-
+    const { handleuserList } = useUserListActions();
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
         year: 'numeric',
@@ -43,6 +44,7 @@ export const HomePage = () => {
 
         fetchCurrentDate();
         fetchData();
+        fetchUserList();
     }, []);
 
     const openDeleteModal = (data: ReportHistory) => {};
@@ -56,6 +58,15 @@ export const HomePage = () => {
             setLoading(false);
         }
     };
+
+    const fetchUserList = async () => {
+        try {
+            await handleuserList();
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+        }
+    }
 
     return (
         <>
