@@ -9,65 +9,66 @@
     height: 7.25rem;
     font-weight: 600;
     font-size: 13px;
-    gap: 10px;
+    gap: 30px;
+    padding: 20px;
 
     .image-title-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-    div {
-        display: flex;
-        justify-content: flex-end;
-        font-size: 13px;
+        font-size: 12px;
     }
 }
-
-@media only screen and (min-width: 600px) {
-    .card-container {
-        .image-title-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
-        div {
-            display: flex;
-            justify-content: flex-end;
-            font-size: 12px;
-        }
-    }
+.card-content {
+    font-size: 16px;
+    font-weight: 700;
 }
 
-@media only screen and (min-width: 768px) {
-    .card-container {
-        padding: 1.5rem 1rem;
+// @media only screen and (min-width: 600px) {
+//     .card-container {
+//         .image-title-container {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             gap: 30px;
+//         }
+//         div {
+//             display: flex;
+//             justify-content: flex-end;
+//             font-size: 12px;
+//         }
+//     }
+// }
 
-        .image-title-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-        }
-        div {
-            display: flex;
-            justify-content: flex-end;
-            font-size: 12px;
-        }
-    }
-}
+// @media only screen and (min-width: 768px) {
+//     .card-container {
+//         padding: 1.5rem 1rem;
 
-@media only screen and (min-width: 1200px) {
-    .card-container {
-        display: flex;
-        flex-direction: column;
-        background: $ShadowColor;
-        border-radius: 0.5rem;
-        width: 15.875rem;
-        height: 7.25rem;
-        padding: 1.5rem 1.5rem;
-        font-weight: 600;
-        font-size: 13px;
-        gap: 10px;
-    }
-}
+//         .image-title-container {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             gap: 30px;
+//         }
+//         div {
+//             display: flex;
+//             justify-content: flex-end;
+//             font-size: 12px;
+//         }
+//     }
+// }
+
+// @media only screen and (min-width: 1200px) {
+//     .card-container {
+//         display: flex;
+//         flex-direction: column;
+//         background: $ShadowColor;
+//         border-radius: 0.5rem;
+//         width: 15.875rem;
+//         height: 7.25rem;
+//         padding: 1.5rem 1.5rem;
+//         font-weight: 600;
+//         font-size: 13px;
+//         gap: 10px;
+//     }
+// }

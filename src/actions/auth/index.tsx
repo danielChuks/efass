@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { authAtom } from '../../state/auth';
 import { Token } from '../../interfaces/token.interface';
-import { useIdle } from "@uidotdev/usehooks";
+import { useIdle } from '@uidotdev/usehooks';
 
 export const useAuthActions = () => {
     const fetchWrapper = useFetchWrapper();
@@ -31,7 +31,7 @@ export const useAuthActions = () => {
                 return { error };
             }
         },
-        [fetchWrapper, setAuth] 
+        [fetchWrapper, setAuth]
     );
 
     const logout = useCallback(async () => {
@@ -42,7 +42,7 @@ export const useAuthActions = () => {
     useEffect(() => {
         if (isIdle) {
             localStorage.removeItem('auth');
-            setAuth(null); 
+            setAuth(null);
             router.push('/login');
         }
     }, [isIdle, setAuth, router]);

@@ -172,7 +172,7 @@ export function AdjustmentContent() {
                             'PERIOD',
                             'YEAR',
                             'STATUS',
-                            'EDIT',
+                            'ACTION',
                         ]}
                         data={memoData}
                         columns={[

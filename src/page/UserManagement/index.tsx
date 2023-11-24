@@ -175,44 +175,20 @@ export const UserManagement = () => {
                     <div className={styles['container']}>
                         <h4>USER MANAGEMENT</h4>
                     </div>
-                    <div className={styles['card-body']}>
-                        <Card
-                            title={'USERS CREATED'}
-                            content={userData?.length.toString()}
-                            image={
-                                <Image
-                                    src={users}
-                                    alt=""
-                                    width={30}
-                                    height={25}
-                                />
-                            }
-                        />
-                        <Card
-                            title={'ACTIVE USERS'}
-                            content={userData?.length.toString()}
-                            image={
-                                <Image
-                                    src={userAdded}
-                                    alt=""
-                                    width={30}
-                                    height={25}
-                                />
-                            }
-                        />
+                    <div className={styles['design-body']}>
+                        <div className={styles['design-pattern']}>
+                            <div>USERS CREATED</div>
+                            <div>{userData?.length.toString()}</div>
+                        </div>
+                        <div className={styles['design-pattern']}>
+                            <div> ACTIVE USERS</div>
+                            <div> {userData?.length.toString()}</div>
+                        </div>
 
-                        <Card
-                            title={'INACTIVE USERS'}
-                            content={'0'}
-                            image={
-                                <Image
-                                    src={lastActivity}
-                                    alt=""
-                                    width={30}
-                                    height={25}
-                                />
-                            }
-                        />
+                        <div className={styles['design-pattern']}>
+                            <div> {'INACTIVE USERS'}</div>
+                            <div> {'0'}</div>
+                        </div>
                     </div>
                     <div className={styles['contentContainer']}>
                                 <PageContent>
