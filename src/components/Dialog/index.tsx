@@ -7,6 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import { SettingsButton } from '../Button';
 import InputGroup from '../Input';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useUserListActions } from '../../actions/userManagement';
+import { User } from '../../interfaces';
 
 interface DialogProps {
     openModal: boolean;
@@ -18,9 +20,10 @@ interface DialogProps {
     handleAction: (value: any) => void;
     setData: (value: any) => void;
     handleInputchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleCreateUser: any;
 }
 
-function index({
+export const UserDialog = ({
     openModal,
     header,
     data,
@@ -29,7 +32,9 @@ function index({
     setOpenModal,
     handleAction,
     handleInputchange,
-}: DialogProps) {
+    handleCreateUser
+}: DialogProps) => {
+  
     return (
         <div>
             <Dialog
@@ -92,7 +97,7 @@ function index({
 
                         <SettingsButton
                             text={header}
-                            handleAction={handleAction}
+                            handleAction={handleCreateUser}
                             error={error}
                             errorText={errorText}
                         />
@@ -102,5 +107,3 @@ function index({
         </div>
     );
 }
-
-export default index;
