@@ -4,10 +4,8 @@ import { PaginatedTable } from '@/components/PaginatedTable';
 import styles from './index.module.scss';
 import SearchBar from '@/components/SearchBar';
 import Filter from '@/components/FilterBy';
-import { CustomButton } from '@/components/Button';
-import {  CustomGL } from '@/interfaces';
+import { CustomGL } from '@/interfaces';
 import { BsPlusLg } from 'react-icons/bs';
-// import { dummyData } from './data';
 import { GlDialog } from '@/components/GlDialog';
 import PageContent from '../../components/PageContent';
 import { useGlMapppingActions } from '../../actions/glmapping';
@@ -19,15 +17,15 @@ function GlMappingContent() {
         getItemDescription,
         postGlData,
         getAllGlData,
+        deleteGlData,
+        updateGlData,
     } = useGlMapppingActions();
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [loading, setLoading] = useState<boolean>(true);
     const [typeOfModal, setTypeOfModal] = useState<string>('');
-    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openDialogModal, setOpenDialogModal] = useState<boolean>(false);
     const [modalHeader, setModalHeader] = useState('Add New');
-    // const [modalAction, setModalAction] = useState(() => handleAddNewGl);
-    const [status, setStatus] = useState(false);
     const [data, setData] = useState<CustomGL>({
         statementCode: '',
         statementDesc: '',
@@ -35,34 +33,53 @@ function GlMappingContent() {
         itemDesc: '',
         ledgerNo: '',
     });
-    const [allGlData, setAllGlData] = useState([]);
+    const [allGlData, setAllGlData] = useState<CustomGL[]>([]);
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [snackBarColor, setSnackbarColor] = useState<string>('');
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+    useEffect(() => {
+        fetchAllGlData();
+    }, []);
 
     const handleAddNewGl = async () => {
-        console.log(data)
+        if (
+            !data.statementCode ||
+            !data.statementDesc ||
+            !data.itemCode ||
+            !data.itemDesc ||
+            !data.ledgerNo
+        ) {
+            setSnackbarMessage('Please fill in all fields');
+            setSnackbarColor('');
+            setIsSnackbarOpen(true);
+            return; // Exit the function if validation fails
+        }
         const response = await postGlData(data);
+        console.log(response);
         try {
             if (response?.data) {
+                setIsSnackbarOpen(true);
                 console.log('added succesfully');
                 setSnackbarMessage('Added succesfully');
                 setSnackbarColor('#006c33');
-                fetchAllGlData();
-                setOpenModal(false);
+                setOpenDialogModal(false);
                 setTimeout(() => {
                     setIsSnackbarOpen(false);
                 }, 10000);
+                fetchAllGlData();
             } else {
-                setSnackbarMessage('An error occured, please try again later');
+                setIsSnackbarOpen(true);
+                setSnackbarMessage(
+                    response?.responseMessage ||
+                        'An error occured, please try again later'
+                );
                 setSnackbarColor('');
-                setOpenModal(false);
                 setTimeout(() => {
                     setIsSnackbarOpen(false);
                 }, 7000);
             }
         } catch (error) {
-            setOpenModal(false);
+            setIsSnackbarOpen(true);
             setSnackbarMessage('An error occured, please try again later');
             setSnackbarColor('');
             setTimeout(() => {
@@ -71,7 +88,6 @@ function GlMappingContent() {
         }
     };
 
-   
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'itemCode') {
             fetchItemDescription(e.target.value);
@@ -82,7 +98,7 @@ function GlMappingContent() {
             return;
         }
         setData({ ...data, [e.target.name]: e.target.value });
-        console.log(data)
+        // console.log(data)
     };
 
     const fetchItemDescription = async (itemCode: string) => {
@@ -126,11 +142,11 @@ function GlMappingContent() {
         }
     };
 
-    //listen for click on add button
+    //open modal to add new data
     const openAddModal = () => {
         setTypeOfModal('');
         setModalHeader('Add New');
-        setOpenModal(true);
+        setOpenDialogModal(true);
         setData({
             statementCode: '',
             statementDesc: '',
@@ -138,8 +154,9 @@ function GlMappingContent() {
             itemDesc: '',
             ledgerNo: '',
         });
-        setStatus(true)
     };
+
+    //trigger modal with edit and delete
     const openEditModal = (data: CustomGL) => {
         setTypeOfModal('editModal');
         setModalHeader('Edit Details');
@@ -151,14 +168,12 @@ function GlMappingContent() {
             ledgerNo: data.ledgerNo,
         });
         console.log(data);
-        setOpenModal(true);
-        setStatus(false)
-    };
-    const editGl = async (data: CustomGL) => {
-        const response = await postGlData(data);
+        setOpenDialogModal(true);
     };
 
+    //fetch all gl data
     const fetchAllGlData = async () => {
+        console.log('ran');
         const response = await getAllGlData();
         try {
             if (response?.data) {
@@ -183,21 +198,93 @@ function GlMappingContent() {
         }
     };
 
+    //delete data from dialog
+    const deleteData = async (itemCode: string) => {
+        const response = await deleteGlData(itemCode);
+        try {
+            if (response?.responseMessage) {
+                console.log(response);
+                setOpenDialogModal(false);
+                setSnackbarColor('#006c33');
+                setIsSnackbarOpen(true);
+                setSnackbarMessage(response?.responseMessage);
+                fetchAllGlData();
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 10000);
+            } else {
+                setIsSnackbarOpen(true);
+                setSnackbarColor('');
+                setSnackbarMessage(response?.message || 'An error occured');
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 7000);
+            }
+        } catch (error) {
+            setIsSnackbarOpen(true);
+            setSnackbarColor('');
+            setSnackbarMessage(response?.message || 'An error occured');
+            setTimeout(() => {
+                setIsSnackbarOpen(false);
+            }, 7000);
+        }
+    };
+
+    //update data on dialog
+    const updateData = async (data: CustomGL) => {
+        if (
+            !data.statementCode ||
+            !data.statementDesc ||
+            !data.itemCode ||
+            !data.itemDesc ||
+            !data.ledgerNo
+        ) {
+            setSnackbarMessage('Please fill in all fields');
+            setSnackbarColor('');
+            setIsSnackbarOpen(true);
+            return; // Exit the function if validation fails
+        }
+        const response = await updateGlData(data);
+        console.log(response);
+        try {
+            if (response?.data) {
+                setOpenDialogModal(false);
+                setSnackbarColor('#006c33');
+                setIsSnackbarOpen(true);
+                setSnackbarMessage('Data updated successfully');
+                fetchAllGlData();
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 7000);
+            } else {
+                setIsSnackbarOpen(true);
+                setSnackbarColor('');
+                setSnackbarMessage(response?.message || 'An error occured');
+                setTimeout(() => {
+                    setIsSnackbarOpen(false);
+                }, 7000);
+            }
+        } catch (error) {
+            setIsSnackbarOpen(true);
+            setSnackbarColor('');
+            setSnackbarMessage(response?.message || 'An error occured');
+            setTimeout(() => {
+                setIsSnackbarOpen(false);
+            }, 7000);
+        }
+    };
+
     const handleClose = () => {
         setIsSnackbarOpen(false);
     };
-
-    useEffect(() => {
-        fetchAllGlData();
-    }, []);
-
+    //  console.log(allGlData);
     return (
         <div className={styles['content']}>
-            {openModal && (
+            {openDialogModal && (
                 <GlDialog
-                    openModal={openModal}
-                    setOpenModal={setOpenModal}
-                    handleAction={status ? handleAddNewGl : editGl}
+                    openModal={openDialogModal}
+                    setOpenModal={setOpenDialogModal}
+                    handleAction={handleAddNewGl}
                     header={modalHeader}
                     data={data}
                     setData={setData}
@@ -205,12 +292,8 @@ function GlMappingContent() {
                     error={error}
                     errorText={errorText}
                     typeOfModal={typeOfModal}
-                    SnackbarMessage={SnackbarMessage}
-                    snackBarColor={snackBarColor}
-                    isSnackbarOpen={isSnackbarOpen}
-                    setSnackbarMessage={setSnackbarMessage}
-                    setSnackbarColor={setSnackbarColor}
-                    setIsSnackbarOpen={setIsSnackbarOpen}
+                    deleteData={deleteData}
+                    updateData={updateData}
                 />
             )}
             <SnackbarComponent
@@ -233,6 +316,7 @@ function GlMappingContent() {
                     </div>
 
                     <PaginatedTable<CustomGL>
+                        key={isSnackbarOpen ? 'A' : 'B'}
                         headers={[
                             'STATEMENT CODE',
                             'STATEMENT DESCRIPTION',

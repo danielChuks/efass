@@ -70,7 +70,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.gl_code}
                             name="gl_code"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -81,7 +81,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.gl_description}
                             name="gl_description"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -92,7 +92,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.dr_cr_ind}
                             name="dr_cr_ind_type"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -114,7 +114,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.amount}
                             name="amount"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -124,7 +124,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.period}
                             name="period"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
@@ -134,7 +134,7 @@ export const AdjustmentDataDialog = ({
                             value={data?.year}
                             name="year"
                             placeholder=""
-                            disabled={disabled}
+                            disabled={true}
                             handleChange={handleInputchange}
                             required={true}
                         />
