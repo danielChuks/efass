@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { useFetchWrapper } from '../../hooks/useFetchWrapper';
-import { useSetRecoilState } from 'recoil';
 import { BASEAPI_EXTENSION } from '../../enums';
-import { CustomGL } from '@/interfaces';
+
 
 export const useGlMapppingActions = () => {
     const fetchWrapper = useFetchWrapper();
@@ -35,7 +34,7 @@ export const useGlMapppingActions = () => {
             const response = await fetchWrapper.get(
                 `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/fetchStatementCodes`
             );
-            console.log(response);
+            // console.log(response);
             return response;
         } catch (error) {
             return error;
@@ -70,6 +69,8 @@ export const useGlMapppingActions = () => {
         }
     }, []);
 
+    
+
     const updateGlData = useCallback(async (data: any) => {
         try {
             const response = await fetchWrapper.post(
@@ -97,6 +98,7 @@ export const useGlMapppingActions = () => {
     }, []);
 
     const deleteGlData = useCallback(async (statementCode: string) => {
+        console.log(statementCode);
         try {
             const response = await fetchWrapper.delete(
                 `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/deleteByStatementCode?statementCode=${statementCode}`
