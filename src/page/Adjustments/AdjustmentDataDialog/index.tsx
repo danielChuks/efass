@@ -5,9 +5,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { SettingsButton } from '../../../components/Button';
 import InputGroup from '../../../components/Input';
-import { SelectGroup } from '../../../components/Select';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
+import { SelectGroup } from '../../../components/Select';
 
 interface AdjustmentDataProps {
     typeOfModal?: string;

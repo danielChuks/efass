@@ -91,6 +91,28 @@ export const ContentSection = ({
             reportGroup,
             selectedDate
         );
+        try {
+            if(response?.status === 200){
+                 setSnackbarMessage('Download completed');
+                 setSnackbarColor('#006c33');
+                 setTimeout(() => {
+                     setIsOpen(false);
+                 }, 10000);
+            }
+            else{
+                setSnackbarMessage('An error occured, please try again later');
+                setSnackbarColor('');
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 10000);
+            }
+        } catch (error) {
+             setSnackbarMessage('An error occured, please try again later');
+             setSnackbarColor('');
+             setTimeout(() => {
+                 setIsOpen(false);
+             }, 10000);
+        }
     };
     const handleClose = () => {
         setIsOpen(false);
