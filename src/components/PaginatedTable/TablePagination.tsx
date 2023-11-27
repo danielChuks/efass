@@ -1,8 +1,8 @@
-import { Pagination } from "@/interfaces";
-import styles from "./index.module.scss";
-import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
-import classNames from "classnames";
-import { ReactNode } from "react";
+import { Pagination } from '@/interfaces';
+import styles from './index.module.scss';
+import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+import classNames from 'classnames';
+import { ReactNode } from 'react';
 
 interface Props {
     pagination: Pagination;
@@ -76,7 +76,7 @@ export function TablePagination({
                 <PageDiv
                     ispage={false}
                     key={3}
-                    value={"..."}
+                    value={'...'}
                     onSelect={() => goToPage(page + 3)}
                     loading={loading}
                 />
@@ -99,12 +99,16 @@ export function TablePagination({
     };
 
     return (
-        <div className={styles["pagination-wrapper"]}>
-            <div className={styles["showing"]}>
-                Showing {numOfItemsPerPage * page} of {itemCount}
+        <div className={styles['pagination-wrapper']}>
+            <div className={styles['showing']}>
+                Showing{' '}
+                {numOfItemsPerPage * page > itemCount
+                    ? itemCount
+                    : numOfItemsPerPage * page}{' '}
+                of {itemCount}
             </div>
             <div className={styles.pagination}>
-                <button 
+                <button
                     disabled={!hasPreviousPage}
                     onClick={() => {
                         goToPage(page - 1);
@@ -113,10 +117,10 @@ export function TablePagination({
                     <MdOutlineArrowBackIosNew />
                     Prev
                 </button>
-                <div className={styles["page-numbers"]}>
+                <div className={styles['page-numbers']}>
                     {renderPageNumbers()}
                 </div>
-                <button 
+                <button
                     disabled={!hasNextPage}
                     onClick={() => {
                         goToPage(page + 1);
@@ -126,12 +130,12 @@ export function TablePagination({
                     <MdArrowForwardIos />
                 </button>
             </div>
-            <div className={styles["items-per-page"]}>
+            <div className={styles['items-per-page']}>
                 <div className={styles.text}>Items per page</div>
-                <select 
+                <select
                     value={numOfItemsPerPage}
                     onChange={(event) => {
-                        changeItemsPerPage(Number(event.target.value))
+                        changeItemsPerPage(Number(event.target.value));
                     }}
                 >
                     {Array.from({ length: 10 }).map((_, idx) => (
@@ -156,9 +160,9 @@ const PageDiv = ({ ispage, onSelect, value, loading }: PageDivProps) => {
     return (
         <div
             className={classNames(
-                styles["number"],
-                ispage ? styles.selected : "",
-                loading ? styles.loading : ""
+                styles['number'],
+                ispage ? styles.selected : '',
+                loading ? styles.loading : ''
             )}
             onClick={() => {
                 if (!ispage && !loading) {
