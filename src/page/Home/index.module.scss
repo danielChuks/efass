@@ -47,8 +47,8 @@
     margin-top: 0.625rem;
     background-color: #fff;
   width: 100%;
-  padding: 1.5rem 2rem 1rem 2rem;
-  max-height: 670px; /* Set a maximum height to allow responsiveness */
+  padding: 1rem 2rem 1rem 2rem;
+  max-height: 67%; /* Set a maximum height to allow responsiveness */
   overflow-x: scroll;
 }
 
@@ -94,7 +94,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        background-color: #fff;
         padding: 30px 45px 30px 45px;
         margin-top: 1rem;
         display: flex;
@@ -114,7 +113,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        background-color: #fff;
         padding: 30px 45px 30px 45px;
         margin-top: 1rem;
         display: flex;
@@ -134,7 +132,6 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        background-color: #fff;
         padding: 30px 45px 30px 45px;
         margin-top: 1rem;
         display: flex;
