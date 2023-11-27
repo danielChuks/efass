@@ -24,6 +24,8 @@ export default function ContentSection() {
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
 
+    // console.log(reportInformation)
+
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
@@ -55,9 +57,6 @@ export default function ContentSection() {
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
-                <SearchBar handleSearchChange={function (value: string): void {
-                    throw new Error('Function not implemented.');
-                } } searchValue={''}/>
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}

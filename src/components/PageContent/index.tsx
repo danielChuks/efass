@@ -13,7 +13,9 @@ function PageContent({ children, showFilter = true }: PageContentProps) {
     return (
         <div className={styles['table_body']}>
             <div className={styles['contentTopSection']}>
-                {/* <SearchBar /> */}
+                {/* <SearchBar handleSearchChange={function (value: string): void {
+                    throw new Error('Function not implemented.');
+                } } searchValue={''} /> */}
                 {/* {showFilter && <Filter options={options} />} */}
             </div>
             {children}

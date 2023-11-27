@@ -334,31 +334,31 @@ function GlMappingContent() {
                                 },
                             },
                             {
-                                render: (data, index) => {
+                                render: (data ) => {
                                     return data.statementDesc;
                                 },
                                 width: '20%',
                             },
                             {
-                                render: (data, index) => {
+                                render: (data) => {
                                     return data.itemCode;
                                 },
                                 // width: '50%',
                             },
                             {
-                                render: (data, index) => {
+                                render: (data) => {
                                     return data.itemDesc;
                                 },
                                 width: '15%',
                             },
                             {
-                                render: (data, index) => {
+                                render: (data) => {
                                     return data.ledgerNo;
                                 },
                                 // width: '50%',
                             },
                             {
-                                render: (data, index) => {
+                                render: (data) => {
                                     return (
                                         <div
                                             className={styles['viewButton']}

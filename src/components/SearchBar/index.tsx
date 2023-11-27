@@ -37,28 +37,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         width: '40%',
         color: '#343A40',
         [theme.breakpoints.up('sm')]: {
-            width: '62ch',
+            width: '52ch',
             '&:focus': {
-                width: '50ch',
+                width: '40ch',
             },
         },
     },
 }));
 
 interface SearchProps {
-    handleSearchChange?: (value: string) => void;
-    searchValue?: string;
+    handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    searchValue: string;
+    placeHolder: string;
 }
+
 
 export default function SearchBar({
     handleSearchChange,
     searchValue,
+    placeHolder,
 }: SearchProps) {
-    // const onSearchChange = (e: any) => {
-    //     handleSearchChange(e.target.value);
-    //     console.log(e.target.value);
-    // };
-
     return (
         <div>
             <Search>
@@ -66,10 +64,10 @@ export default function SearchBar({
                     <BiSearch />
                 </SearchIconWrapper>
                 <StyledInputBase
-                    placeholder="Search…"
+                    placeholder={placeHolder ? placeHolder : 'Search...'}
                     inputProps={{ 'aria-label': 'search' }}
-                    // value={searchValue}
-                    // onChange={onSearchChange}
+                    value={searchValue}
+                    onChange={handleSearchChange}
                 />
             </Search>
         </div>

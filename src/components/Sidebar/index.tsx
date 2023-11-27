@@ -80,13 +80,13 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 open={isOpen}
             />
             <div className={styles['sidebar_settings']}>
-                <SideNavItem
+                {/* <SideNavItem
                     pageUrl={'/settings'}
                     icon={<FiSettings />}
                     title={'Settings'}
                     active={page === DASHBOARD_PAGES.SETTINGS}
                     open={isOpen}
-                />
+                /> */}
                 <SideNavItem
                     pageUrl={'/login'}
                     icon={<BiLogIn />}
