@@ -23,6 +23,7 @@ import { useUserListActions } from '../../actions/userManagement';
 
 export const HomePage = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
+  const reportData = useRecoilValue(reportHistoryAtom);
     const { handlereportHistory, handleReportDelete } =
         useReportHistoryActions();
     const reportHistory = useRecoilValue(reportHistoryAtom);
@@ -31,7 +32,7 @@ export const HomePage = () => {
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [isopen, setIsOpen] = useState(false);
     const [snackBarColor, setSnackbarColor] = useState<string>('');
-
+    const [username, setUsername] = useState('');
     const { handleuserList } = useUserListActions();
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -40,16 +41,38 @@ export const HomePage = () => {
         day: 'numeric',
     });
 
+
     useEffect(() => {
         const fetchCurrentDate = () => {
             const now = new Date();
             setCurrentDate(now);
         };
+        const fetchUsername = async () => {
+            try {
+              const authResponse = JSON.parse(localStorage.getItem('auth') || '{}');
+              const user = authResponse.user || {};
+              const userUsername = user.username || '';
+              setUsername(userUsername);
+            } catch (error) {
+            //   console.error('Error fetching username', error);
+            }
+          };
+      
+          fetchUsername();
 
         fetchCurrentDate();
         fetchData();
         fetchUserList();
     }, []);
+    
+        const fetchData = async () => {
+        try {
+          await handlereportHistory();
+          console.log(reportData)
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     const openDeleteModal = async (data: ReportHistory) => {
         try {
@@ -66,20 +89,23 @@ export const HomePage = () => {
         }
     };
 
-    const fetchData = async () => {
-        try {
-            await handlereportHistory();
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-            setLoading(false);
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         await handlereportHistory();
+    //         setLoading(false);
+    //     } catch (error) {
+    //         console.error(error);
+    //         setLoading(false);
+    //     }
+    // };
 
     const handleClose = () => {
         setIsOpen(false);
         window.location.reload();
     };
+    // const username = () => {
+    //     localStorage.getItem('auth');
+    // };
     const fetchUserList = async () => {
         try {
             await handleuserList();
@@ -105,7 +131,7 @@ export const HomePage = () => {
                     <div className={styles['card-body']}>
                         <Card
                             title={'USER'}
-                            content={''}
+                            content={username}
                             image={
                                 <Image
                                     src={userAdded}
