@@ -144,7 +144,7 @@ export function ReportHeader({
         }
         setSelectedDate(formattedDate);
         // Post date to server
-        const dateResponse = await postReportDate(formattedDate);
+        const dateResponse = await postReportDate(formattedDate, selectedGroup);
 
         // Only send CBN date if it's selected
         if (cbnDate) {

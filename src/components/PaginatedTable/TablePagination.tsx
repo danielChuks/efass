@@ -104,7 +104,7 @@ export function TablePagination({
                 Showing {numOfItemsPerPage * page} of {itemCount}
             </div>
             <div className={styles.pagination}>
-                <button 
+                <button
                     disabled={!hasPreviousPage}
                     onClick={() => {
                         goToPage(page - 1);
@@ -116,7 +116,7 @@ export function TablePagination({
                 <div className={styles["page-numbers"]}>
                     {renderPageNumbers()}
                 </div>
-                <button 
+                <button
                     disabled={!hasNextPage}
                     onClick={() => {
                         goToPage(page + 1);
@@ -128,7 +128,7 @@ export function TablePagination({
             </div>
             <div className={styles["items-per-page"]}>
                 <div className={styles.text}>Items per page</div>
-                <select 
+                <select
                     value={numOfItemsPerPage}
                     onChange={(event) => {
                         changeItemsPerPage(Number(event.target.value))
