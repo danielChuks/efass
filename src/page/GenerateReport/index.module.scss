@@ -130,12 +130,11 @@
     }
 }
 
-.contentContainer {
+.content-Container {
     background-color: $generalWhiteColor;
-    padding: 36px;
+    padding: 1rem 2rem;
     width: 100%; /* Set the width of the container */
     overflow-x: scroll;
-    margin-top: 2rem;
     .contentTopSection{
         display: flex;
         align-items: center;

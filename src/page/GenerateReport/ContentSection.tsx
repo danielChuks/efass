@@ -171,7 +171,7 @@ export const ContentSection = ({
 
     // console.log(reportData);
     return (
-        <div className={styles['contentContainer']}>
+        <div className={styles['content-Container']}>
             {openModal && (
                 <UploadDialog
                     openModal={openModal}

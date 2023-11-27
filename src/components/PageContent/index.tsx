@@ -16,7 +16,7 @@ function PageContent({ children, showFilter = true }: PageContentProps) {
                 {/* <SearchBar handleSearchChange={function (value: string): void {
                     throw new Error('Function not implemented.');
                 } } searchValue={''} /> */}
-                {showFilter && <Filter options={options} />}
+                {/* {showFilter && <Filter options={options} />} */}
             </div>
             {children}
         </div>
