@@ -25,8 +25,8 @@ import { UserDialog } from '../../components/Dialog';
 import SnackbarComponent from '../../components/Snackbar';
 
 export const UserManagement = () => {
-    
-    
+
+
     const { create } = useUserListActions();
     const { getSettings } = useSettingsActions();
     const [loading, setLoading] = useState(true);

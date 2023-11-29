@@ -2,8 +2,8 @@
 import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { generateReportAtom } from '../../../state/generateReport';
-import { useRecoilValue } from 'recoil';
+// import { generateReportAtom } from '../../../state/generateReport';
+// import { useRecoilValue } from 'recoil';
 import { ReportData } from '../../../interfaces';
 
 export default function ReportHeader() {
