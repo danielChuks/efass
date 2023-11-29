@@ -114,7 +114,7 @@ export default function ContentSection() {
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data, index) => {
-                                    console.log(key)
+                                    // console.log(key)
                                     return (data as any)[key];
                                 },
                                 width: '20%',
