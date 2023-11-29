@@ -86,7 +86,9 @@
                 }
 
                 .loader-row {
-                    padding: 20px 43px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     border: 1px solid #e6e6e6;
                 }
             }

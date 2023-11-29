@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-import { PaginatedTableColumn, Pagination } from "@/interfaces";
-import styles from "./index.module.scss";
-import Skeleton from "react-loading-skeleton";
+import { PaginatedTableColumn, Pagination } from '@/interfaces';
+import styles from './index.module.scss';
+import Skeleton from 'react-loading-skeleton';
+import { BeatLoader } from 'react-spinners';
 
 interface Props<T = any> {
     columns: PaginatedTableColumn<T>[];
@@ -18,28 +19,25 @@ export function TableBody<T = any>({
     rowClickHandler = () => null,
     pagination,
 }: Props<T>) {
-    const {
-        page,
-        numOfItemsPerPage,
-    } = pagination;
+    const { page, numOfItemsPerPage } = pagination;
 
     return (
-        <div className={styles["body"]}>
+        <div className={styles['body']}>
             {!loading &&
                 data.map((row, index) => (
-                    <tr className={styles["body-row"]} key={index}>
+                    <tr className={styles['body-row']} key={index}>
                         <td
-                            className={styles["body-column"]}
+                            className={styles['body-column']}
                             style={{
                                 flex: 'unset',
                                 width: 80,
                             }}
                         >
-                            {((page - 1) * numOfItemsPerPage) + 1 + index}
+                            {(page - 1) * numOfItemsPerPage + 1 + index}
                         </td>
                         {columns.map((column, idx) => (
                             <td
-                                className={styles["body-column"]}
+                                className={styles['body-column']}
                                 key={idx}
                                 onClick={() => {
                                     column?.disableClick
@@ -48,8 +46,8 @@ export function TableBody<T = any>({
                                 }}
                                 style={{
                                     cursor: column?.disableClick
-                                        ? "default"
-                                        : "pointer",
+                                        ? 'default'
+                                        : 'pointer',
                                     width: column?.width,
                                     flex: column?.width ? 'unset' : undefined,
                                 }}
@@ -60,12 +58,16 @@ export function TableBody<T = any>({
                     </tr>
                 ))}
 
-            {loading &&
+            <div className={styles['loader-row']}>
+                {loading && <BeatLoader color="#006c33" />}
+            </div>
+
+            {/* {loading &&
                 Array.from({ length: 5 }).map((_, index) => (
                     <div key={index} className={styles["loader-row"]}>
                         <Skeleton height={25} />
                     </div>
-                ))}
+                ))} */}
         </div>
     );
 }

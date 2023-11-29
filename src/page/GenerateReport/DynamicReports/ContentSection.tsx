@@ -14,6 +14,8 @@ import { FaDownload } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
+import { formatValueIfNumber } from '../../../utils';
+
 export default function ContentSection() {
     // const { reportId } = useParams();
     const searchParams = useSearchParams();
@@ -57,6 +59,13 @@ export default function ContentSection() {
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
+                <SearchBar
+                    handleSearchChange={function (value: string): void {
+                        throw new Error('Function not implemented.');
+                    }}
+                    searchValue={''}
+                />
+
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}
@@ -92,7 +101,12 @@ export default function ContentSection() {
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data, index) => {
-                                    return (data as any)[key];
+                                    const value = (data as any)[key];
+                                    const formattedValue =
+                                        key.toLowerCase() === 'code'
+                                            ? value
+                                            : formatValueIfNumber(value);
+                                    return formattedValue;
                                 },
                                 width: '20%',
                             }))}
