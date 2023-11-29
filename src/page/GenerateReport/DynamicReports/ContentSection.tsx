@@ -26,6 +26,8 @@ export default function ContentSection() {
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
 
+    // console.log(reportInformation)
+
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
@@ -63,6 +65,7 @@ export default function ContentSection() {
                     }}
                     searchValue={''}
                 />
+
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}

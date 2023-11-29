@@ -6,11 +6,12 @@ import Filter from '../../components/FilterBy';
 import { ReportData } from '../../interfaces';
 import { FaDownload } from 'react-icons/fa';
 import { useGenerateReportActions } from '../../actions/GenerateReport';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
     generateReportAtom,
     selectedDateAtom,
     selectedGroupAtom,
+    defaultReportDataAtom,
 } from '../../state/generateReport';
 import { PaginatedTable } from '@/components/PaginatedTable';
 import { useRouter } from 'next/navigation';
@@ -29,13 +30,16 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
     const selectedDate = useRecoilValue(selectedDateAtom);
     const { push } = useRouter();
     const reportData = useRecoilValue(generateReportAtom);
+    const setReportData = useSetRecoilState(generateReportAtom);
+    const defaultData = useRecoilValue(defaultReportDataAtom);
+    // const setDefaultData = useSetRecoilState(defaultReportDataAtom);
     const reportGroup = useRecoilValue(selectedGroupAtom);
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [isopen, setIsOpen] = useState(false);
     const [fileName, setFileName] = useState<string>('');
     const [file, setFile] = useState<any>();
     const [reportId, setReportId] = useState<string>('');
-
+    const [searchValue, setSearchValue] = useState<string>('');
     //DIALOG PROPS
     const [openModal, setOpenModal] = useState(false);
     const [error, setError] = useState(false);
@@ -65,6 +69,12 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
         'MCFPR1',
         'MDFIR100',
     ];
+
+    useEffect(() => {
+        setReportData([]);
+    }, []);
+
+    // console.log(reportData);
 
     const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
@@ -137,8 +147,26 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
         }
     };
 
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+        setSearchValue(e.target.value);
+        if (e.target.value) {
+            // Filter reportData based on the lowercase search value in the return_code field
+            const filteredData = reportData.filter((item) =>
+                item.return_code
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase())
+            );
+            setReportData(filteredData);
+        } else {
+            //set state to default data if search input is not valid
+            setReportData(defaultData);
+        }
+    };
+
+    // console.log(reportData);
     return (
-        <div className={styles['contentContainer']}>
+        <div className={styles['content-Container']}>
             {openModal && (
                 <UploadDialog
                     openModal={openModal}
@@ -156,17 +184,21 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
                 message={SnackbarMessage}
                 color={snackBarColor}
             />
-            <div>
-                <PageContent showFilter={false}>
-                    <div className={styles['rightSide']}>
-                        <div
-                            onClick={downloadXmlReports}
-                            className={styles['reportButton']}
-                        >
-                            Download Report
-                            <FaDownload />
-                        </div>
+            <div className={styles['contentTopSection']}>
+                <SearchBar
+                    handleSearchChange={handleSearchChange}
+                    searchValue={searchValue}
+                    placeHolder={'Enter report code'}
+                />
+                <div className={styles['rightSide']}>
+                    <div
+                        onClick={downloadXmlReports}
+                        className={styles['reportButton']}
+                    >
+                        Download Report
+                        <FaDownload />
                     </div>
+
 
                     {loading ? (
                         <LoadingScreen />
@@ -241,7 +273,66 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
                         />
                     )}
                 </PageContent>
+                </div>
+
             </div>
+            <PaginatedTable<ReportData>
+                headers={['Report Code', 'Report Description', 'Action', '']}
+                data={reportData}
+                loading={spinner}
+                columns={[
+                    {
+                        render: (data, index) => {
+                            return data.return_code;
+                        },
+                    },
+                    {
+                        render: (data, index) => {
+                            return data.return_name;
+                        },
+                        width: '50%',
+                    },
+                    {
+                        render: (data, index) => {
+                            return (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        push(
+                                            `/generate-report?reportId=${data.return_code}&selectedDate=${selectedDate}`
+                                        )
+                                    }
+                                >
+                                    <BiShow size={20} />
+                                    View
+                                </div>
+                            );
+                        },
+                        width: '10%',
+                    },
+
+                    {
+                        render: (data, index) => {
+                            return uploadableReports.includes(
+                                data.sheet_number
+                            ) ? (
+                                <div
+                                    className={styles['actionButton']}
+                                    onClick={() =>
+                                        openUploadModal(data.sheet_number)
+                                    }
+                                >
+                                    <FaUpload size={18} />
+                                    Upload
+                                </div>
+                            ) : (
+                                ''
+                            );
+                        },
+                        width: '10%',
+                    },
+                ]}
+            />
         </div>
     );
 };

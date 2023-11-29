@@ -72,7 +72,7 @@
             .displayTitle {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 16px;
+                font-size: 14px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -103,7 +103,7 @@
             .displayTitle {
                 color: $fontColor;
                 font-family: $fontStyle;
-                font-size: 16px;
+               font-size: 14px;
                 font-style: normal;
                 font-weight: 600;
                 line-height: normal;
@@ -127,15 +127,10 @@
     width: 100%; /* Set the width of the container */
     overflow-x: scroll;
     margin-top: 2rem;
-        // width: 100%;
-        // border: 1px solid red;
 
     .contentTopSection {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
         width: 100%;
-        justify-content: space-evenly;
-
         .selectContainer {
             display: flex;
             padding: 10px;

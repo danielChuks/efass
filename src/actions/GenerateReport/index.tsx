@@ -4,6 +4,7 @@ import { useSetRecoilState } from 'recoil';
 import {
     generateReportAtom,
     generateReportInformationAtom,
+    defaultReportDataAtom,
 } from '../../state/generateReport';
 import { BASEAPI_EXTENSION } from '../../enums';
 // import { ReportData } from '../../interfaces';
@@ -16,6 +17,8 @@ import { specialReportSheets } from '../../page/GenerateReport/utils';
 export const useGenerateReportActions = () => {
     const fetchWrapper = useFetchWrapper();
     const setReportData = useSetRecoilState(generateReportAtom);
+    const setDefaultReportData = useSetRecoilState(defaultReportDataAtom);
+
     const setReportInformation = useSetRecoilState(
         generateReportInformationAtom
     );
@@ -27,13 +30,16 @@ export const useGenerateReportActions = () => {
             );
             if (response.responseCode === 0) {
                 setReportData(response.data);
+                setDefaultReportData(response.data);
                 sessionStorage.setItem(
                     'listOfReports',
                     JSON.stringify(response.data)
                 );
+                console.log(response);
                 return response;
             } else {
                 setReportData([]);
+                setDefaultReportData([])
                 return [];
             }
         } catch (error) {
@@ -75,10 +81,10 @@ export const useGenerateReportActions = () => {
     );
 
     //save selected date to db
-    const postReportDate = useCallback(async (selectedDate: string) => {
+    const postReportDate = useCallback(async (selectedDate: string, selectedGroup:string) => {
         try {
             const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}`
+                `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}&rg=${selectedGroup}`
             );
 
             if (response.responseCode === 0) {
@@ -140,7 +146,7 @@ export const useGenerateReportActions = () => {
         try {
             const response = await fetch(endpoint);
             const blob = await response.blob();
-          const a = document.createElement('a');
+            const a = document.createElement('a');
             const objectUrl = URL.createObjectURL(blob);
             a.href = objectUrl;
             a.download = 'Reports downloaded for' + reportSelectedDate + '.zip';
