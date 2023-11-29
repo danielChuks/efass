@@ -60,7 +60,7 @@ export const useGlMapppingActions = () => {
     const postGlData = useCallback(async (glData: any) => {
         try {
             const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping`,
+                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/createGlMappingData`,
                 glData
             );
             console.log(response);

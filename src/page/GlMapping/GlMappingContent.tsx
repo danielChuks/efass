@@ -83,7 +83,10 @@ function GlMappingContent() {
             }
         } catch (error) {
             setIsSnackbarOpen(true);
-            setSnackbarMessage('An error occured, please try again later');
+            setSnackbarMessage(
+                response?.responseMessage ||
+                    'An error occured, please try again later'
+            );
             setSnackbarColor('');
             setTimeout(() => {
                 setIsSnackbarOpen(false);
@@ -112,7 +115,8 @@ function GlMappingContent() {
             return;
         }
         if (e.target.name === 'statementCode') {
-            fetchStatementDescription(e.target.value);
+            console.log(e.target.value.toString());
+            fetchStatementDescription(e.target.value.toString());
             fetchItemCodes(e.target.value.toString()); //fetch item code when statement code is selected
             return;
         }
