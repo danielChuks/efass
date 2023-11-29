@@ -15,6 +15,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
 import { commaSeparatedColumns } from '../utils';
+import { formatValueIfNumber } from '../../../utils';
 export default function ContentSection() {
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
@@ -106,14 +107,15 @@ export default function ContentSection() {
                         )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
-                                render: (data, index) => {
-                                    // console.log(key)
-                                    return (data as any)[key];
+                                render: (data) => {
+                                    const value = (data as any)[key];
+                                    const formattedValue =
+                                        key.toLowerCase() === 'code'
+                                            ? value
+                                            : formatValueIfNumber(value);
+                                    return formattedValue;
                                 },
                                 width: '20%',
-                                // Check if the current column should be formatted differently
-                                isCommaSeparated:
-                                    commaSeparatedColumns.includes(key),
                             }))}
                     />
                 ) : null}
