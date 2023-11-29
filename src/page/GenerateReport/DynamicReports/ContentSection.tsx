@@ -35,6 +35,7 @@ export default function ContentSection() {
         } else {
         }
     };
+    console.log(reportInformation);
 
     const downloadExcelReports = () => {
         const ws = XLSX.utils.json_to_sheet(reportInformation);
@@ -76,25 +77,6 @@ export default function ContentSection() {
             </div>
 
             <div>
-                {/* {reportInformation.length > 0 ? (
-                    <PaginatedTable<any>
-                        headers={Object.keys(
-                            reportInformation[1] || reportInformation[0]
-                        ).filter((val) => val !== 'id')}
-                        data={reportInformation}
-                        loading={loading}
-                        columns={Object.keys(
-                            reportInformation[1] || reportInformation[0]
-                        )
-                            .filter((val) => val !== 'id')
-                            .map((key) => ({
-                                render: (data, index) => {
-                                    return (data as any)[key];
-                                },
-                                width: '20%',
-                            }))}
-                    />
-                ) : null} */}
                 {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(

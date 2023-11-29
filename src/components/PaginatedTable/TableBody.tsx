@@ -27,7 +27,6 @@ export function TableBody<T = any>({
             : value;
     };
 
-
     return (
         <div className={styles['body']}>
             {!loading &&
