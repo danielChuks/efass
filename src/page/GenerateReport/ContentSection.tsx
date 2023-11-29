@@ -189,6 +189,7 @@ export const ContentSection = ({
                 message={SnackbarMessage}
                 color={snackBarColor}
             />
+
             <div className={styles['contentTopSection']}>
                 <SearchBar
                     handleSearchChange={handleSearchChange}
@@ -205,10 +206,11 @@ export const ContentSection = ({
                     </div>
                 </div>
             </div>
+
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
-                loading={spinner}
+                loading={loading}
                 columns={[
                     {
                         render: (data, index) => {
