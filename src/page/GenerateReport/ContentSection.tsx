@@ -24,7 +24,12 @@ import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
 import PageContent from '../../components/PageContent';
 
-export const ContentSection = ({ loading }: ReportPageProps) => {
+export const ContentSection = ({
+    loading,
+    setLoading,
+    spinner,
+    setSpinner,
+}: ReportPageProps) => {
     const { handleDownloadReports, handleReportUpload } =
         useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -71,7 +76,7 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
     ];
 
     useEffect(() => {
-        setReportData([]);
+        setReportData(defaultData);
     }, []);
 
     // console.log(reportData);
@@ -198,83 +203,7 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
                         Download Report
                         <FaDownload />
                     </div>
-
-
-                    {loading ? (
-                        <LoadingScreen />
-                    ) : (
-                        <PaginatedTable<ReportData>
-                            headers={[
-                                'Report Code',
-                                'Report Description',
-                                'Action',
-                                '',
-                            ]}
-                            data={reportData}
-                            loading={loading}
-                            columns={[
-                                {
-                                    render: (data, index) => {
-                                        return data.return_code;
-                                    },
-                                },
-                                {
-                                    render: (data, index) => {
-                                        return data.bank_name;
-                                    },
-                                    width: '50%',
-                                },
-                                {
-                                    render: (data, index) => {
-                                        return (
-                                            <div
-                                                className={
-                                                    styles['actionButton']
-                                                }
-                                                onClick={() =>
-                                                    push(
-                                                        `/generate-report?reportId=${data.return_code}&selectedDate=${selectedDate}`
-                                                    )
-                                                }
-                                            >
-                                                <BiShow size={20} />
-                                                View
-                                            </div>
-                                        );
-                                    },
-                                    width: '10%',
-                                },
-
-                                {
-                                    render: (data, index) => {
-                                        return uploadableReports.includes(
-                                            data.sheet_number
-                                        ) ? (
-                                            <div
-                                                className={
-                                                    styles['actionButton']
-                                                }
-                                                onClick={() =>
-                                                    openUploadModal(
-                                                        data.sheet_number
-                                                    )
-                                                }
-                                            >
-                                                <FaUpload size={18} />
-                                                Upload
-                                            </div>
-                                        ) : (
-                                            ''
-                                        );
-                                    },
-                                    width: '10%',
-                                },
-                            ]}
-                        />
-                    )}
-                </PageContent>
                 </div>
-
             </div>
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}

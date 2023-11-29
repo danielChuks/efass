@@ -21,6 +21,13 @@ export function TableBody<T = any>({
 }: Props<T>) {
     const { page, numOfItemsPerPage } = pagination;
 
+    const formatAmount = (value: any, isCommaSeparated: any) => {
+        return isCommaSeparated
+            ? value?.toLocaleString('en-US')
+            : value;
+    };
+
+
     return (
         <div className={styles['body']}>
             {!loading &&
@@ -52,7 +59,11 @@ export function TableBody<T = any>({
                                     flex: column?.width ? 'unset' : undefined,
                                 }}
                             >
-                                {column.render(row, idx)}
+                                {/* {column.render(row, idx)} */}
+                                {formatAmount(
+                                    column.render(row, idx),
+                                    column.isCommaSeparated
+                                )}
                             </td>
                         ))}
                     </tr>
@@ -64,7 +75,7 @@ export function TableBody<T = any>({
 
             {/* {loading &&
                 Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className={styles["loader-row"]}>
+                    <div key={index} className={styles['loader-row']}>
                         <Skeleton height={25} />
                     </div>
                 ))} */}

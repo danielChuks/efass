@@ -29,24 +29,24 @@ export function PaginatedTable<T>({
     } = useTable<T>({ data });
 
     return (
-        
+
         <div className={styles['table-wrapper']}>
             <div className={styles['table-container']}>
                 <table className={styles['header-and-body']}>
-                    {data.length === 0 || loading ? 
+                    {data.length === 0 || loading ?
                         null : (
-                            <TableHeader 
+                            <TableHeader
                                 headers={headers}
                                 columns={columns}
                             />
                         )
                     }
-                    <TableBody 
+                    <TableBody
                         columns={columns}
                         data={tableData}
                         loading={loading}
                         rowClickHandler={rowClickHandler}
-                        pagination={pagination} 
+                        pagination={pagination}
                     />
                 </table>
 
@@ -57,11 +57,11 @@ export function PaginatedTable<T>({
                     </div>
                 )}
             </div>
-            {data.length === 0 || loading ? 
+            {data.length === 0 || loading ?
                 null : (
-                    <TablePagination 
-                        pagination={pagination}   
-                        goToPage={goToPage}   
+                    <TablePagination
+                        pagination={pagination}
+                        goToPage={goToPage}
                         changeItemsPerPage={changeItemsPerPage}
                     />
                 )

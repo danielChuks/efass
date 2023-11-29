@@ -14,8 +14,7 @@ import { FaDownload } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
-import { formatValueIfNumber } from '../../../utils';
-
+import { commaSeparatedColumns } from '../utils';
 export default function ContentSection() {
     // const { reportId } = useParams();
     const searchParams = useSearchParams();
@@ -56,16 +55,11 @@ export default function ContentSection() {
         handleReportInformation();
     }, []);
 
+
+
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
-                <SearchBar
-                    handleSearchChange={function (value: string): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                    searchValue={''}
-                />
-
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}
@@ -88,6 +82,25 @@ export default function ContentSection() {
             </div>
 
             <div>
+                {/* {reportInformation.length > 0 ? (
+                    <PaginatedTable<any>
+                        headers={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        ).filter((val) => val !== 'id')}
+                        data={reportInformation}
+                        loading={loading}
+                        columns={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        )
+                            .filter((val) => val !== 'id')
+                            .map((key) => ({
+                                render: (data, index) => {
+                                    return (data as any)[key];
+                                },
+                                width: '20%',
+                            }))}
+                    />
+                ) : null} */}
                 {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(
@@ -101,14 +114,13 @@ export default function ContentSection() {
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data, index) => {
-                                    const value = (data as any)[key];
-                                    const formattedValue =
-                                        key.toLowerCase() === 'code'
-                                            ? value
-                                            : formatValueIfNumber(value);
-                                    return formattedValue;
+                                    // console.log(key)
+                                    return (data as any)[key];
                                 },
                                 width: '20%',
+                                // Check if the current column should be formatted differently
+                                isCommaSeparated:
+                                    commaSeparatedColumns.includes(key),
                             }))}
                     />
                 ) : null}
