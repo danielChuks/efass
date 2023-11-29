@@ -17,7 +17,6 @@ import { ReportData } from '../../../interfaces';
 import { formatValueIfNumber } from '../../../utils';
 
 export default function ContentSection() {
-    // const { reportId } = useParams();
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
     const reportId = searchParams.get('reportId');
@@ -25,8 +24,6 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-
-    // console.log(reportInformation)
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
@@ -36,7 +33,6 @@ export default function ContentSection() {
             );
             setLoading(false);
         } else {
-            // Handle the case where reportId is not a string
         }
     };
 
@@ -45,7 +41,6 @@ export default function ContentSection() {
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
         const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        // Converted the array to a blob
         const blobData = new Blob([blob], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
@@ -59,13 +54,6 @@ export default function ContentSection() {
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
-                <SearchBar
-                    handleSearchChange={function (value: string): void {
-                        throw new Error('Function not implemented.');
-                    }}
-                    searchValue={''}
-                />
-
                 <div className={styles['rightSide']}>
                     <div
                         onClick={downloadExcelReports}
@@ -94,7 +82,7 @@ export default function ContentSection() {
                             reportInformation[1] || reportInformation[0]
                         ).filter((val) => val !== 'id')}
                         data={reportInformation}
-                        loading={!loading}
+                        loading={loading}
                         columns={Object.keys(
                             reportInformation[1] || reportInformation[0]
                         )
