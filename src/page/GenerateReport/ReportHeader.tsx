@@ -23,12 +23,7 @@ interface disabledProps {
     isQuarterDisabled: boolean;
 }
 
-export function ReportHeader({
-    loading,
-    setLoading,
-    spinner,
-    setSpinner,
-}: ReportPageProps) {
+export function ReportHeader({ setSpinner }: ReportPageProps) {
     const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
     const setReportGroup = useSetRecoilState(selectedGroupAtom);

@@ -5,14 +5,13 @@ import ReportHeader from './ReportHeader';
 import ContentSection from './ContentSection';
 import BaseLayout from '../../../components/BaseLayout';
 import { DASHBOARD_PAGES } from '../../../enums';
-import { useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { getCurrentDateAndTime } from '../utils';
 import { ReportData } from '../../../interfaces';
 
 
 export function DynamicReports() {
-
     const router = useRouter();
     return (
         <BaseLayout page={DASHBOARD_PAGES.GENERATE_REPORT}>
@@ -27,9 +26,6 @@ export function DynamicReports() {
                         Report Details
                     </div>
                     <div className={styles['date']}>
-                        {/* <div className={styles['currentDate']}>
-                            Current Date:
-                        </div> */}
                         <div className={styles['currentDateValue']}>
                             {getCurrentDateAndTime()}
                         </div>
@@ -41,4 +37,3 @@ export function DynamicReports() {
         </BaseLayout>
     );
 }
-

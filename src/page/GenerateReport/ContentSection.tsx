@@ -23,12 +23,7 @@ import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
 import PageContent from '../../components/PageContent';
 
-export const ContentSection = ({
-    loading,
-    setLoading,
-    spinner,
-    setSpinner,
-}: ReportPageProps) => {
+export const ContentSection = ({ loading }: ReportPageProps) => {
     const { handleDownloadReports, handleReportUpload } =
         useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -88,14 +83,13 @@ export const ContentSection = ({
             selectedDate
         );
         try {
-            if(response?.status === 200){
-                 setSnackbarMessage('Download completed');
-                 setSnackbarColor('#006c33');
-                 setTimeout(() => {
-                     setIsOpen(false);
-                 }, 10000);
-            }
-            else{
+            if (response?.status === 200) {
+                setSnackbarMessage('Download completed');
+                setSnackbarColor('#006c33');
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 10000);
+            } else {
                 setSnackbarMessage('An error occured, please try again later');
                 setSnackbarColor('');
                 setTimeout(() => {
@@ -103,11 +97,11 @@ export const ContentSection = ({
                 }, 10000);
             }
         } catch (error) {
-             setSnackbarMessage('An error occured, please try again later');
-             setSnackbarColor('');
-             setTimeout(() => {
-                 setIsOpen(false);
-             }, 10000);
+            setSnackbarMessage('An error occured, please try again later');
+            setSnackbarColor('');
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 10000);
         }
     };
     const handleClose = () => {
@@ -174,70 +168,78 @@ export const ContentSection = ({
                         </div>
                     </div>
 
-                    <PaginatedTable<ReportData>
-                        headers={[
-                            'Report Code',
-                            'Report Description',
-                            'Action',
-                            '',
-                        ]}
-                        data={reportData}
-                        loading={spinner}
-                        columns={[
-                            {
-                                render: (data, index) => {
-                                    return data.return_code;
+                    {loading ? (
+                        <LoadingScreen />
+                    ) : (
+                        <PaginatedTable<ReportData>
+                            headers={[
+                                'Report Code',
+                                'Report Description',
+                                'Action',
+                                '',
+                            ]}
+                            data={reportData}
+                            loading={loading}
+                            columns={[
+                                {
+                                    render: (data, index) => {
+                                        return data.return_code;
+                                    },
                                 },
-                            },
-                            {
-                                render: (data, index) => {
-                                    return data.bank_name;
+                                {
+                                    render: (data, index) => {
+                                        return data.bank_name;
+                                    },
+                                    width: '50%',
                                 },
-                                width: '50%',
-                            },
-                            {
-                                render: (data, index) => {
-                                    return (
-                                        <div
-                                            className={styles['actionButton']}
-                                            onClick={() =>
-                                                push(
-                                                    `/generate-report?reportId=${data.return_code}&selectedDate=${selectedDate}`
-                                                )
-                                            }
-                                        >
-                                            <BiShow size={20} />
-                                            View
-                                        </div>
-                                    );
+                                {
+                                    render: (data, index) => {
+                                        return (
+                                            <div
+                                                className={
+                                                    styles['actionButton']
+                                                }
+                                                onClick={() =>
+                                                    push(
+                                                        `/generate-report?reportId=${data.return_code}&selectedDate=${selectedDate}`
+                                                    )
+                                                }
+                                            >
+                                                <BiShow size={20} />
+                                                View
+                                            </div>
+                                        );
+                                    },
+                                    width: '10%',
                                 },
-                                width: '10%',
-                            },
 
-                            {
-                                render: (data, index) => {
-                                    return uploadableReports.includes(
-                                        data.sheet_number
-                                    ) ? (
-                                        <div
-                                            className={styles['actionButton']}
-                                            onClick={() =>
-                                                openUploadModal(
-                                                    data.sheet_number
-                                                )
-                                            }
-                                        >
-                                            <FaUpload size={18} />
-                                            Upload
-                                        </div>
-                                    ) : (
-                                        ''
-                                    );
+                                {
+                                    render: (data, index) => {
+                                        return uploadableReports.includes(
+                                            data.sheet_number
+                                        ) ? (
+                                            <div
+                                                className={
+                                                    styles['actionButton']
+                                                }
+                                                onClick={() =>
+                                                    openUploadModal(
+                                                        data.sheet_number
+                                                    )
+                                                }
+                                            >
+                                                <FaUpload size={18} />
+                                                Upload
+                                            </div>
+                                        ) : (
+                                            ''
+                                        );
+                                    },
+                                    width: '10%',
                                 },
-                                width: '10%',
-                            },
-                        ]}
-                    />
+                            ]}
+                        />
+                    )}
                 </PageContent>
             </div>
         </div>
