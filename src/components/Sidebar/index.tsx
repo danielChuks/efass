@@ -85,6 +85,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                     icon={<BiLogIn />}
                     title={'Log out'}
                     open={isOpen}
+                    signout={true}
                 />
             </div>
         </div>

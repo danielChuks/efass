@@ -33,6 +33,7 @@ export const HomePage = () => {
     const [isopen, setIsOpen] = useState(false);
     const [snackBarColor, setSnackbarColor] = useState<string>('');
     const [username, setUsername] = useState('');
+    const [lastLoginTime, setlastLoginTime] = useState('');
     const { handleuserList } = useUserListActions();
     const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
         weekday: 'short',
@@ -40,8 +41,6 @@ export const HomePage = () => {
         month: 'long',
         day: 'numeric',
     });
-
-
     useEffect(() => {
         const fetchCurrentDate = () => {
             const now = new Date();
@@ -49,22 +48,28 @@ export const HomePage = () => {
         };
         const fetchUsername = async () => {
             try {
-              const authResponse = JSON.parse(localStorage.getItem('auth') || '{}');
-              const user = authResponse.user || {};
-              const userUsername = user.username || '';
-              setUsername(userUsername);
+                const authResponse = JSON.parse(
+                    localStorage.getItem('auth') || '{}'
+                );
+                const user = authResponse.user || {};
+                const userUsername = user.username || '';
+                setUsername(userUsername);
             } catch (error) {
-            //   console.error('Error fetching username', error);
+                //   console.error('Error fetching username', error);
             }
-          };
-      
-          fetchUsername();
+        };
 
-        fetchCurrentDate();
-        fetchData();
-        fetchUserList();
-    }, []);
-    
+    fetchUsername();
+    const storedLastLoginTime = localStorage.getItem('oldDate');
+    if (storedLastLoginTime) {
+        setlastLoginTime(storedLastLoginTime);
+    }
+    fetchUsername();
+    fetchCurrentDate();
+    fetchData();
+    fetchUserList();
+}, []);
+
         const fetchData = async () => {
         try {
           await handlereportHistory();
@@ -143,7 +148,7 @@ export const HomePage = () => {
                         />
                         <Card
                             title={'LAST ACTIVITY DATE'}
-                            content={'N/A'}
+                            content={lastLoginTime}
                             image={
                                 <Image
                                     src={date}

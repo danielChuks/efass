@@ -38,20 +38,58 @@ export const useAuthActions = () => {
         [fetchWrapper, setAuth]
     );
 
-    const logout = useCallback(async () => {
-        await localStorage.removeItem('auth');
-        router.push('/login');
-         setReportData([]);
-         setDefaultData([])
-    }, [router]);
+        const logout = useCallback(async () => {
+            await localStorage.removeItem('auth');
+            const currentDate = new Date();
+            const formattedCurrentDate = currentDate.toLocaleDateString(
+                'en-US',
+                {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                }
+            );
 
-    useEffect(() => {
-        if (isIdle) {
-            localStorage.removeItem('auth');
-            setAuth(null);
+            const formattedTime = currentDate.toLocaleTimeString('en', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            });
+
+            const formattedDateTime = `${formattedCurrentDate} ${formattedTime}`;
+
+            localStorage.setItem('oldDate', formattedDateTime);
             router.push('/login');
-        }
-    }, [isIdle, setAuth, router]);
+             setReportData([]);
+             setDefaultData([]);
+        }, [router]);
+
+        useEffect(() => {
+            if (isIdle) {
+                localStorage.removeItem('auth');
+                const currentDate = new Date();
+                const formattedDate = currentDate.toLocaleDateString('en', {
+                    weekday: 'short',
+                    month: 'short',
+                    year: 'numeric',
+                });
+
+                const formattedTime = currentDate.toLocaleTimeString('en', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                });
+
+                const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+                localStorage.setItem('oldDate', formattedDateTime);
+
+                setAuth(null);
+                router.push('/login');
+            }
+        }, [isIdle, setAuth, router]);
+
 
     return {
         login,
