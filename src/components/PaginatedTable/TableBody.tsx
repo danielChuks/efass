@@ -23,23 +23,30 @@ export function TableBody<T = any>({
         numOfItemsPerPage,
     } = pagination;
 
+    const formatAmount = (value: any, isCommaSeparated: any) => {
+        return isCommaSeparated
+            ? value?.toLocaleString('en-US')
+            : value;
+    };
+
+
     return (
-        <div className={styles["body"]}>
+        <div className={styles['body']}>
             {!loading &&
                 data.map((row, index) => (
-                    <tr className={styles["body-row"]} key={index}>
+                    <tr className={styles['body-row']} key={index}>
                         <td
-                            className={styles["body-column"]}
+                            className={styles['body-column']}
                             style={{
                                 flex: 'unset',
                                 width: 80,
                             }}
                         >
-                            {((page - 1) * numOfItemsPerPage) + 1 + index}
+                            {(page - 1) * numOfItemsPerPage + 1 + index}
                         </td>
                         {columns.map((column, idx) => (
                             <td
-                                className={styles["body-column"]}
+                                className={styles['body-column']}
                                 key={idx}
                                 onClick={() => {
                                     column?.disableClick
@@ -48,13 +55,17 @@ export function TableBody<T = any>({
                                 }}
                                 style={{
                                     cursor: column?.disableClick
-                                        ? "default"
-                                        : "pointer",
+                                        ? 'default'
+                                        : 'pointer',
                                     width: column?.width,
                                     flex: column?.width ? 'unset' : undefined,
                                 }}
                             >
-                                {column.render(row, idx)}
+                                {/* {column.render(row, idx)} */}
+                                {formatAmount(
+                                    column.render(row, idx),
+                                    column.isCommaSeparated
+                                )}
                             </td>
                         ))}
                     </tr>
@@ -62,7 +73,7 @@ export function TableBody<T = any>({
 
             {loading &&
                 Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className={styles["loader-row"]}>
+                    <div key={index} className={styles['loader-row']}>
                         <Skeleton height={25} />
                     </div>
                 ))}

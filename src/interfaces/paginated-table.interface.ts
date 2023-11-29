@@ -1,13 +1,11 @@
 import { CSSProperties } from 'react';
 
 export interface PaginatedTableColumn<T = any> {
-    render: (
-        data: T,
-        index: number,
-    ) => JSX.Element | string | number;
+    render: (data: T, index: number) => JSX.Element | string | number;
     style?: CSSProperties;
     disableClick?: boolean;
     width?: string | number;
+    isCommaSeparated?: boolean;
 }
 
 export interface PaginatedTableHeaderColumn {

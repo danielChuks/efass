@@ -76,7 +76,7 @@ export const ContentSection = ({
     ];
 
     useEffect(() => {
-        setReportData([]);
+        setReportData(defaultData);
     }, []);
 
     // console.log(reportData);

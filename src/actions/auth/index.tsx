@@ -5,8 +5,12 @@ import { useRecoilState } from 'recoil';
 import { authAtom } from '../../state/auth';
 import { Token } from '../../interfaces/token.interface';
 import { useIdle } from '@uidotdev/usehooks';
+import { generateReportAtom, defaultReportDataAtom } from '../../state/generateReport';
+import { useSetRecoilState } from 'recoil';
 
 export const useAuthActions = () => {
+       const setReportData = useSetRecoilState(generateReportAtom);
+       const setDefaultData = useSetRecoilState(defaultReportDataAtom);
     const fetchWrapper = useFetchWrapper();
     const [, setAuth] = useRecoilState<Token | null>(authAtom);
     const router = useRouter();
@@ -37,6 +41,8 @@ export const useAuthActions = () => {
     const logout = useCallback(async () => {
         await localStorage.removeItem('auth');
         router.push('/login');
+         setReportData([]);
+         setDefaultData([])
     }, [router]);
 
     useEffect(() => {

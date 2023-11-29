@@ -14,6 +14,7 @@ import { FaDownload } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
+import { commaSeparatedColumns } from '../utils';
 export default function ContentSection() {
     // const { reportId } = useParams();
     const searchParams = useSearchParams();
@@ -54,6 +55,8 @@ export default function ContentSection() {
         handleReportInformation();
     }, []);
 
+
+
     return (
         <div className={styles['contentContainer']}>
             <div className={styles['contentTopSection']}>
@@ -79,7 +82,7 @@ export default function ContentSection() {
             </div>
 
             <div>
-                {reportInformation.length > 0 ? (
+                {/* {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(
                             reportInformation[1] || reportInformation[0]
@@ -95,6 +98,29 @@ export default function ContentSection() {
                                     return (data as any)[key];
                                 },
                                 width: '20%',
+                            }))}
+                    />
+                ) : null} */}
+                {reportInformation.length > 0 ? (
+                    <PaginatedTable<any>
+                        headers={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        ).filter((val) => val !== 'id')}
+                        data={reportInformation}
+                        loading={loading}
+                        columns={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        )
+                            .filter((val) => val !== 'id')
+                            .map((key) => ({
+                                render: (data, index) => {
+                                    console.log(key)
+                                    return (data as any)[key];
+                                },
+                                width: '20%',
+                                // Check if the current column should be formatted differently
+                                isCommaSeparated:
+                                    commaSeparatedColumns.includes(key),
                             }))}
                     />
                 ) : null}

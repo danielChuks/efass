@@ -24,7 +24,8 @@ interface DialogProps {
     handleInputchange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     fetchAllData?: any;
     updateData?: any;
-    deleteData?:any;
+    deleteData?: any;
+    itemCodes?:any;
 }
 export const GlDialog = ({
     typeOfModal,
@@ -40,27 +41,14 @@ export const GlDialog = ({
     handleInputchange,
     updateData,
     deleteData,
+    itemCodes,
 }: DialogProps) => {
-    const { getItemCodes, getStatementCodes} =
-        useGlMapppingActions();
-    const [itemCodes, setItemCodes] = useState([]);
+    const { getStatementCodes } = useGlMapppingActions();
     const [statementCodes, setStatementCodes] = useState([]);
     useEffect(() => {
-        fetchItemCodes();
         fetchStatementCodes();
     }, []);
-    const fetchItemCodes = async () => {
-        const response = await getItemCodes();
-        try {
-            if (response?.data) {
-                setItemCodes(response?.data);
-            } else {
-                setItemCodes([]);
-            }
-        } catch (error) {
-            setItemCodes([]);
-        }
-    };
+    ;
 
     const fetchStatementCodes = async () => {
         const response = await getStatementCodes();
