@@ -52,13 +52,6 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 open={isOpen}
             />
             <SideNavItem
-                pageUrl={'/user-management'}
-                icon={<FaUserCog />}
-                title={'User Management'}
-                active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
-                open={isOpen}
-            />
-            <SideNavItem
                 pageUrl={'/gl-mapping'}
                 icon={<PiNotebookBold />}
                 title={'GL Mapping'}
@@ -80,13 +73,13 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 open={isOpen}
             />
             <div className={styles['sidebar_settings']}>
-                {/* <SideNavItem
-                    pageUrl={'/settings'}
-                    icon={<FiSettings />}
-                    title={'Settings'}
-                    active={page === DASHBOARD_PAGES.SETTINGS}
+                <SideNavItem
+                    pageUrl={'/user-management'}
+                    icon={<FaUserCog />}
+                    title={'User Management'}
+                    active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
                     open={isOpen}
-                /> */}
+                />
                 <SideNavItem
                     pageUrl={'/login'}
                     icon={<BiLogIn />}

@@ -24,7 +24,12 @@ import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
 import PageContent from '../../components/PageContent';
 
-export const ContentSection = ({ loading }: ReportPageProps) => {
+export const ContentSection = ({
+    loading,
+    setLoading,
+    spinner,
+    setSpinner,
+}: ReportPageProps) => {
     const { handleDownloadReports, handleReportUpload } =
         useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -71,7 +76,7 @@ export const ContentSection = ({ loading }: ReportPageProps) => {
     ];
 
     useEffect(() => {
-        setReportData([]);
+        setReportData(defaultData);
     }, []);
 
     // console.log(reportData);

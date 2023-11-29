@@ -19,6 +19,7 @@ function GlMappingContent() {
         getAllGlData,
         deleteGlData,
         updateGlData,
+        getItemCodes,
     } = useGlMapppingActions();
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -33,6 +34,7 @@ function GlMappingContent() {
         itemDesc: '',
         ledgerNo: '',
     });
+    const [itemCodes, setItemCodes] = useState([]);
     const [allGlData, setAllGlData] = useState<CustomGL[]>([]);
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [snackBarColor, setSnackbarColor] = useState<string>('');
@@ -54,6 +56,7 @@ function GlMappingContent() {
             setIsSnackbarOpen(true);
             return; // Exit the function if validation fails
         }
+        console.log(data)
         const response = await postGlData(data);
         console.log(response);
         try {
@@ -88,22 +91,38 @@ function GlMappingContent() {
         }
     };
 
+      const fetchItemCodes = async (statementCode : string) => {
+          const response = await getItemCodes(statementCode);
+          console.log(response,  )
+          try {
+              if (response?.data) {
+                  setItemCodes(response?.data);
+              } else {
+                  setItemCodes([]);
+              }
+          } catch (error) {
+              setItemCodes([]);
+          }
+      };
+
+
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'itemCode') {
-            fetchItemDescription(e.target.value);
+            fetchItemDescription(data?.statementCode, e.target.value);
             return;
         }
         if (e.target.name === 'statementCode') {
             fetchStatementDescription(e.target.value);
+            fetchItemCodes(e.target.value.toString()); //fetch item code when statement code is selected
             return;
         }
         setData({ ...data, [e.target.name]: e.target.value });
         // console.log(data)
     };
 
-    const fetchItemDescription = async (itemCode: string) => {
-        const response = await getItemDescription(itemCode);
-        console.log(response);
+    const fetchItemDescription = async (statementCode: string, itemCode:string) => {
+        const response = await getItemDescription(statementCode, itemCode);
+        // console.log(response);
         try {
             if (response?.data) {
                 setData({
@@ -294,6 +313,7 @@ function GlMappingContent() {
                     typeOfModal={typeOfModal}
                     deleteData={deleteData}
                     updateData={updateData}
+                    itemCodes={itemCodes}
                 />
             )}
             <SnackbarComponent
@@ -334,7 +354,7 @@ function GlMappingContent() {
                                 },
                             },
                             {
-                                render: (data ) => {
+                                render: (data) => {
                                     return data.statementDesc;
                                 },
                                 width: '20%',

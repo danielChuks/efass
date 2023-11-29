@@ -14,8 +14,7 @@ import { FaDownload } from 'react-icons/fa';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
-import { formatValueIfNumber } from '../../../utils';
-
+import { commaSeparatedColumns } from '../utils';
 export default function ContentSection() {
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
@@ -76,6 +75,25 @@ export default function ContentSection() {
             </div>
 
             <div>
+                {/* {reportInformation.length > 0 ? (
+                    <PaginatedTable<any>
+                        headers={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        ).filter((val) => val !== 'id')}
+                        data={reportInformation}
+                        loading={loading}
+                        columns={Object.keys(
+                            reportInformation[1] || reportInformation[0]
+                        )
+                            .filter((val) => val !== 'id')
+                            .map((key) => ({
+                                render: (data, index) => {
+                                    return (data as any)[key];
+                                },
+                                width: '20%',
+                            }))}
+                    />
+                ) : null} */}
                 {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(
@@ -88,15 +106,14 @@ export default function ContentSection() {
                         )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
-                                render: (data) => {
-                                    const value = (data as any)[key];
-                                    const formattedValue =
-                                        key.toLowerCase() === 'code'
-                                            ? value
-                                            : formatValueIfNumber(value);
-                                    return formattedValue;
+                                render: (data, index) => {
+                                    // console.log(key)
+                                    return (data as any)[key];
                                 },
                                 width: '20%',
+                                // Check if the current column should be formatted differently
+                                isCommaSeparated:
+                                    commaSeparatedColumns.includes(key),
                             }))}
                     />
                 ) : null}

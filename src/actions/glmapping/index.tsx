@@ -6,10 +6,11 @@ import { BASEAPI_EXTENSION } from '../../enums';
 export const useGlMapppingActions = () => {
     const fetchWrapper = useFetchWrapper();
 
-    const getItemCodes = useCallback(async () => {
+    const getItemCodes = useCallback(async (statementCode: string) => {
+        console.log(statementCode);
         try {
             const response = await fetchWrapper.get(
-                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/fetchItemCodes`
+                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/fetchItemCodes?statementCode=${statementCode}`
             );
             return response;
         } catch (error) {
@@ -17,10 +18,10 @@ export const useGlMapppingActions = () => {
         }
     }, []);
 
-    const getItemDescription = useCallback(async (itemCode: string) => {
+    const getItemDescription = useCallback(async (statementCode: string, itemCode:string) => {
         try {
             const response = await fetchWrapper.get(
-                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/getItemDesc?itemCode=${itemCode}`
+                `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/getItemDesc?statementCode=${statementCode}&itemCode=${itemCode}`
             );
             console.log(response);
             return response;
@@ -69,7 +70,7 @@ export const useGlMapppingActions = () => {
         }
     }, []);
 
-    
+
 
     const updateGlData = useCallback(async (data: any) => {
         try {
