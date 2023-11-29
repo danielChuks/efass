@@ -91,13 +91,13 @@ export default function ContentSection() {
                             reportInformation[1] || reportInformation[0]
                         ).filter((val) => val !== 'id')}
                         data={reportInformation}
-                        loading={loading}
+                        loading={!loading}
                         columns={Object.keys(
                             reportInformation[1] || reportInformation[0]
                         )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
-                                render: (data, index) => {
+                                render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
                                         key.toLowerCase() === 'code'
