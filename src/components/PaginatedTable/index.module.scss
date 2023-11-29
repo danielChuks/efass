@@ -34,7 +34,6 @@
                     letter-spacing: 0.036px;
                     text-transform: uppercase;
                     min-width: 95px;
-                    text-align: center;
                     user-select: none;
                     text-overflow: ellipsis;
                     -webkit-line-clamp: 1;
@@ -42,6 +41,7 @@
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     font-size: 12px;
+                    text-align: left;
                 }
             }
 
@@ -70,7 +70,7 @@
                     font-weight: 600;
                     line-height: normal;
                     min-width: 95px;
-                    text-align: center;
+                    text-align: left;
                 }
 
                 .no-data {

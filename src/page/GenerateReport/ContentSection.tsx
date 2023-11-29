@@ -24,12 +24,7 @@ import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
 import PageContent from '../../components/PageContent';
 
-export const ContentSection = ({
-    loading,
-    setLoading,
-    spinner,
-    setSpinner,
-}: ReportPageProps) => {
+export const ContentSection = ({ spinner }: ReportPageProps) => {
     const { handleDownloadReports, handleReportUpload } =
         useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -164,12 +159,10 @@ export const ContentSection = ({
             );
             setReportData(filteredData);
         } else {
-            //set state to default data if search input is not valid
             setReportData(defaultData);
         }
     };
 
-    // console.log(reportData);
     return (
         <div className={styles['content-Container']}>
             {openModal && (
@@ -210,7 +203,7 @@ export const ContentSection = ({
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}
-                loading={loading}
+                loading={spinner}
                 columns={[
                     {
                         render: (data, index) => {
