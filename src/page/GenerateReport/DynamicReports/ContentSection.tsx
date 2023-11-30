@@ -25,6 +25,8 @@ export default function ContentSection() {
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
 
+    console.log(reportInformation)
+
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
             const response = await getReportInformation(
@@ -35,7 +37,6 @@ export default function ContentSection() {
         } else {
         }
     };
-    console.log(reportInformation);
 
     const downloadExcelReports = () => {
         const ws = XLSX.utils.json_to_sheet(reportInformation);
@@ -77,7 +78,7 @@ export default function ContentSection() {
             </div>
 
             <div>
-                {reportInformation.length > 0 ? (
+                {/* {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(
                             reportInformation[2] || reportInformation[1]
@@ -89,10 +90,27 @@ export default function ContentSection() {
                         )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
+                                render: (data, index) => {
+                                    return (data as any)[key];
+                                },
+                                width: '20%',
+                            }))}
+                    />
+                ) : null} */}
+                {reportInformation && reportInformation.length > 0 && (
+                    <PaginatedTable<any>
+                        headers={Object.keys(reportInformation[0]).filter(
+                            (val) => val !== 'id'
+                        )}
+                        data={reportInformation}
+                        loading={loading}
+                        columns={Object.keys(reportInformation[0])
+                            .filter((val) => val !== 'id')
+                            .map((key) => ({
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
-                                        key.toLowerCase() === 'code'
+                                        key.toLowerCase().includes('date') || key.toLowerCase() === 'code'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;
@@ -100,7 +118,7 @@ export default function ContentSection() {
                                 width: '20%',
                             }))}
                     />
-                ) : null}
+                )}
             </div>
         </div>
     );

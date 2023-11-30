@@ -73,7 +73,6 @@ export const HomePage = () => {
         const fetchData = async () => {
         try {
           await handlereportHistory();
-          console.log(reportData)
         } catch (error) {
           console.error(error);
         }
