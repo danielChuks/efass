@@ -24,12 +24,7 @@ import SnackbarComponent from '../../components/Snackbar';
 import { UploadDialog } from '../../components/UploadDialog';
 import PageContent from '../../components/PageContent';
 
-export const ContentSection = ({
-    loading,
-    setLoading,
-    spinner,
-    setSpinner,
-}: ReportPageProps) => {
+export const ContentSection = ({ spinner }: ReportPageProps) => {
     const { handleDownloadReports, handleReportUpload } =
         useGenerateReportActions();
     const selectedDate = useRecoilValue(selectedDateAtom);
@@ -79,7 +74,6 @@ export const ContentSection = ({
         setReportData(defaultData);
     }, []);
 
-    // console.log(reportData);
 
     const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
@@ -160,7 +154,6 @@ export const ContentSection = ({
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
         setSearchValue(e.target.value);
         if (e.target.value) {
             // Filter reportData based on the lowercase search value in the return_code field
@@ -171,12 +164,10 @@ export const ContentSection = ({
             );
             setReportData(filteredData);
         } else {
-            //set state to default data if search input is not valid
             setReportData(defaultData);
         }
     };
 
-    // console.log(reportData);
     return (
         <div className={styles['content-Container']}>
             {openModal && (
@@ -196,6 +187,7 @@ export const ContentSection = ({
                 message={SnackbarMessage}
                 color={snackBarColor}
             />
+
             <div className={styles['contentTopSection']}>
                 <SearchBar
                     handleSearchChange={handleSearchChange}
@@ -212,6 +204,7 @@ export const ContentSection = ({
                     </div>
                 </div>
             </div>
+
             <PaginatedTable<ReportData>
                 headers={['Report Code', 'Report Description', 'Action', '']}
                 data={reportData}

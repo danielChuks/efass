@@ -33,7 +33,6 @@ export const useUserListActions = () => {
         async (data : User) => {
             try {
                 const response = await fetchWrapper.post(`${BASEAPI_EXTENSION.BASEAPI}createUser`, data);
-                console.log(response);
                 if (response?.error) {
                     throw new Error(response.error);
                 }

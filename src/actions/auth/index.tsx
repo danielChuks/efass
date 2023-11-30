@@ -69,19 +69,22 @@ export const useAuthActions = () => {
             if (isIdle) {
                 localStorage.removeItem('auth');
                 const currentDate = new Date();
-                const formattedDate = currentDate.toLocaleDateString('en', {
+            const formattedCurrentDate = currentDate.toLocaleDateString(
+                'en-US',
+                {
                     weekday: 'short',
-                    month: 'short',
                     year: 'numeric',
-                });
-
+                    month: 'short',
+                    day: 'numeric',
+                }
+            );
                 const formattedTime = currentDate.toLocaleTimeString('en', {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit',
                 });
 
-                const formattedDateTime = `${formattedDate} ${formattedTime}`;
+                const formattedDateTime = `${formattedCurrentDate} ${formattedTime}`;
 
                 localStorage.setItem('oldDate', formattedDateTime);
 

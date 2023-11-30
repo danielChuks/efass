@@ -17,7 +17,6 @@ import { ReportData } from '../../../interfaces';
 import { commaSeparatedColumns } from '../utils';
 import { formatValueIfNumber } from '../../../utils';
 export default function ContentSection() {
-    // const { reportId } = useParams();
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
     const reportId = searchParams.get('reportId');
@@ -36,7 +35,6 @@ export default function ContentSection() {
             );
             setLoading(false);
         } else {
-            // Handle the case where reportId is not a string
         }
     };
 
@@ -45,7 +43,6 @@ export default function ContentSection() {
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
         const blob = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-        // Converted the array to a blob
         const blobData = new Blob([blob], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
@@ -113,7 +110,7 @@ export default function ContentSection() {
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
-                                        key.toLowerCase() === 'code'
+                                        key.toLowerCase().includes('date') || key.toLowerCase() === 'code'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;
