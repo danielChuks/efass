@@ -27,57 +27,53 @@ export function TableBody<T = any>({
             : value;
     };
 
+
     return (
         <div className={styles['body']}>
-            {!loading &&
-                data.map((row, index) => (
-                    <tr className={styles['body-row']} key={index}>
-                        <td
+        {!loading &&
+            data.map((row, index) => (
+                <div className={styles['body-row']} key={index}>
+                    <div
+                        className={styles['body-column']}
+                        style={{
+                            flex: 'unset',
+                            width: 80,
+                        }}
+                    >
+                        {(page - 1) * numOfItemsPerPage + 1 + index}
+                    </div>
+                    {columns.map((column, idx) => (
+                        <div
                             className={styles['body-column']}
+                            key={idx}
+                            onClick={() => {
+                                column?.disableClick
+                                    ? null
+                                    : rowClickHandler(row);
+                            }}
                             style={{
-                                flex: 'unset',
-                                width: 80,
+                                cursor: column?.disableClick
+                                    ? 'default'
+                                    : 'pointer',
+                                width: column?.width,
+                                flex: column?.width ? 'unset' : undefined,
+                                textAlign: column.isCommaSeparated
+                                    ? 'right'
+                                    : undefined,
                             }}
                         >
-                            {(page - 1) * numOfItemsPerPage + 1 + index}
-                        </td>
-                        {columns.map((column, idx) => (
-                            <td
-                                className={styles['body-column']}
-                                key={idx}
-                                onClick={() => {
-                                    column?.disableClick
-                                        ? null
-                                        : rowClickHandler(row);
-                                }}
-                                style={{
-                                    cursor: column?.disableClick
-                                        ? 'default'
-                                        : 'pointer',
-                                    width: column?.width,
-                                    flex: column?.width ? 'unset' : undefined,
-                                }}
-                            >
-                                {/* {column.render(row, idx)} */}
-                                {formatAmount(
-                                    column.render(row, idx),
-                                    column.isCommaSeparated
-                                )}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
+                            {formatAmount(
+                                column.render(row, idx),
+                                column.isCommaSeparated
+                            )}
+                        </div>
+                    ))}
+                </div>
+            ))}
 
-            <div className={styles['loader-row']}>
-                {loading && <BeatLoader color="#006c33" />}
-            </div>
-
-            {/* {loading &&
-                Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className={styles['loader-row']}>
-                        <Skeleton height={25} />
-                    </div>
-                ))} */}
+        <div className={styles['loader-row']}>
+            {loading && <BeatLoader color="#006c33" />}
         </div>
+    </div>
     );
 }

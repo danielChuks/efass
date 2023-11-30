@@ -80,12 +80,12 @@ export default function ContentSection() {
                 {reportInformation.length > 0 ? (
                     <PaginatedTable<any>
                         headers={Object.keys(
-                            reportInformation[1] || reportInformation[0]
+                            reportInformation[2] || reportInformation[1]
                         ).filter((val) => val !== 'id')}
                         data={reportInformation}
                         loading={loading}
                         columns={Object.keys(
-                            reportInformation[1] || reportInformation[0]
+                            reportInformation[2] || reportInformation[1]
                         )
                             .filter((val) => val !== 'id')
                             .map((key) => ({
