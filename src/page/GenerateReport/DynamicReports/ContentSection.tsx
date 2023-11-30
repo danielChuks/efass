@@ -26,7 +26,7 @@ export default function ContentSection() {
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
 
-    // console.log(reportInformation)
+    console.log(reportInformation)
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
@@ -100,16 +100,14 @@ export default function ContentSection() {
                             }))}
                     />
                 ) : null} */}
-                {reportInformation.length > 0 ? (
+                {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
-                        headers={Object.keys(
-                            reportInformation[1] || reportInformation[0]
-                        ).filter((val) => val !== 'id')}
+                        headers={Object.keys(reportInformation[0]).filter(
+                            (val) => val !== 'id'
+                        )}
                         data={reportInformation}
                         loading={loading}
-                        columns={Object.keys(
-                            reportInformation[1] || reportInformation[0]
-                        )
+                        columns={Object.keys(reportInformation[0])
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data) => {
@@ -123,7 +121,7 @@ export default function ContentSection() {
                                 width: '20%',
                             }))}
                     />
-                ) : null}
+                )}
             </div>
         </div>
     );
