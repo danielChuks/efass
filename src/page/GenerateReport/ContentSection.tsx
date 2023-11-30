@@ -74,7 +74,6 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
         setReportData(defaultData);
     }, []);
 
-    // console.log(reportData);
 
     const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
@@ -148,7 +147,6 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
         setSearchValue(e.target.value);
         if (e.target.value) {
             // Filter reportData based on the lowercase search value in the return_code field

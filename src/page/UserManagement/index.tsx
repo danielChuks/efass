@@ -52,11 +52,9 @@ export const UserManagement = () => {
 
     const CreateUser = async() => {
         const response = await create(data);
-        console.log(response)
         try {
             if (response && response.responseCode === 0) {
                 setIsSnackbarOpen(true);
-                // console.log('added successfully');
                 setSnackbarMessage(response.responseMessage);
                 setSnackbarColor('#006c33');
                 setModalDialog(false);
@@ -108,16 +106,13 @@ export const UserManagement = () => {
             username: data.username,
             password: data.password,
         });
-        console.log(data);
         setModalDialog(true);
     };
     const handleEditUser = async () => {
         // const response = await create(data);
-        // console.log(response)
         // try {
         //     if (response && response.responseCode === 0) {
         //         setIsSnackbarOpen(true);
-        //         // console.log('added successfully');
         //         setSnackbarMessage(response.responseMessage);
         //         setSnackbarColor('#006c33');
         //         setModalDialog(false);
@@ -144,8 +139,6 @@ export const UserManagement = () => {
         setIsSnackbarOpen(false);
     };
 
-
-    // console.log(darkMode);
     return (
         <>
                     {loading ? (
