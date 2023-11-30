@@ -90,6 +90,8 @@ export function AdjustmentContent() {
                 setIsOpen(true);
                 setSnackbarColor('#006c33');
                 setSnackbarMessage(response?.message);
+                  setUploadModal(false);
+                  setTimeout(() => {
                       setIsOpen(false);
                   }, 3000);
                 fetchData();
