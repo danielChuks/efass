@@ -2,8 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { PaginatedTable } from '@/components/PaginatedTable';
 import styles from './index.module.scss';
-import SearchBar from '@/components/SearchBar';
-import Filter from '@/components/FilterBy';
 import { CustomGL } from '@/interfaces';
 import { BsPlusLg } from 'react-icons/bs';
 import { GlDialog } from '@/components/GlDialog';
@@ -54,15 +52,13 @@ function GlMappingContent() {
             setSnackbarMessage('Please fill in all fields');
             setSnackbarColor('');
             setIsSnackbarOpen(true);
-            return; // Exit the function if validation fails
+            return;
         }
-        console.log(data)
         const response = await postGlData(data);
-        console.log(response);
+
         try {
             if (response?.data) {
                 setIsSnackbarOpen(true);
-                console.log('added succesfully');
                 setSnackbarMessage('Added succesfully');
                 setSnackbarColor('#006c33');
                 setOpenDialogModal(false);
@@ -94,20 +90,18 @@ function GlMappingContent() {
         }
     };
 
-      const fetchItemCodes = async (statementCode : string) => {
-          const response = await getItemCodes(statementCode);
-          console.log(response,  )
-          try {
-              if (response?.data) {
-                  setItemCodes(response?.data);
-              } else {
-                  setItemCodes([]);
-              }
-          } catch (error) {
-              setItemCodes([]);
-          }
-      };
-
+    const fetchItemCodes = async (statementCode: string) => {
+        const response = await getItemCodes(statementCode);
+        try {
+            if (response?.data) {
+                setItemCodes(response?.data);
+            } else {
+                setItemCodes([]);
+            }
+        } catch (error) {
+            setItemCodes([]);
+        }
+    };
 
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === 'itemCode') {
@@ -115,18 +109,18 @@ function GlMappingContent() {
             return;
         }
         if (e.target.name === 'statementCode') {
-            console.log(e.target.value.toString());
             fetchStatementDescription(e.target.value.toString());
-            fetchItemCodes(e.target.value.toString()); //fetch item code when statement code is selected
+            fetchItemCodes(e.target.value.toString());
             return;
         }
         setData({ ...data, [e.target.name]: e.target.value });
-        // console.log(data)
     };
 
-    const fetchItemDescription = async (statementCode: string, itemCode:string) => {
+    const fetchItemDescription = async (
+        statementCode: string,
+        itemCode: string
+    ) => {
         const response = await getItemDescription(statementCode, itemCode);
-        // console.log(response);
         try {
             if (response?.data) {
                 setData({
@@ -190,13 +184,11 @@ function GlMappingContent() {
             itemDesc: data.itemDesc,
             ledgerNo: data.ledgerNo,
         });
-        console.log(data);
         setOpenDialogModal(true);
     };
 
     //fetch all gl data
     const fetchAllGlData = async () => {
-        console.log('ran');
         const response = await getAllGlData();
         try {
             if (response?.data) {
@@ -226,7 +218,6 @@ function GlMappingContent() {
         const response = await deleteGlData(itemCode);
         try {
             if (response?.responseMessage) {
-                console.log(response);
                 setOpenDialogModal(false);
                 setSnackbarColor('#006c33');
                 setIsSnackbarOpen(true);
@@ -268,7 +259,6 @@ function GlMappingContent() {
             return; // Exit the function if validation fails
         }
         const response = await updateGlData(data);
-        console.log(response);
         try {
             if (response?.data) {
                 setOpenDialogModal(false);
@@ -300,7 +290,6 @@ function GlMappingContent() {
     const handleClose = () => {
         setIsSnackbarOpen(false);
     };
-    //  console.log(allGlData);
     return (
         <div className={styles['content']}>
             {openDialogModal && (
@@ -353,7 +342,7 @@ function GlMappingContent() {
                         // loading={loading}
                         columns={[
                             {
-                                render: (data, index) => {
+                                render: (data) => {
                                     return data.statementCode;
                                 },
                             },

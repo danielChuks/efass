@@ -35,7 +35,6 @@ export default function ContentSection() {
         } else {
         }
     };
-    console.log(reportInformation);
 
     const downloadExcelReports = () => {
         const ws = XLSX.utils.json_to_sheet(reportInformation);
@@ -92,7 +91,7 @@ export default function ContentSection() {
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
-                                        key.toLowerCase() === 'code'
+                                        key.toLowerCase().includes('date') || key.toLowerCase() === 'code' 
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;

@@ -35,11 +35,11 @@ export const useGenerateReportActions = () => {
                     'listOfReports',
                     JSON.stringify(response.data)
                 );
-                console.log(response);
+
                 return response;
             } else {
                 setReportData([]);
-                setDefaultReportData([])
+                setDefaultReportData([]);
                 return [];
             }
         } catch (error) {
@@ -81,21 +81,24 @@ export const useGenerateReportActions = () => {
     );
 
     //save selected date to db
-    const postReportDate = useCallback(async (selectedDate: string, selectedGroup:string) => {
-        try {
-            const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}&rg=${selectedGroup}`
-            );
+    const postReportDate = useCallback(
+        async (selectedDate: string, selectedGroup: string) => {
+            try {
+                const response = await fetchWrapper.post(
+                    `${BASEAPI_EXTENSION.BASEAPI}date?date=${selectedDate}&rg=${selectedGroup}`
+                );
 
-            if (response.responseCode === 0) {
-                return response;
-            } else {
-                return response;
+                if (response.responseCode === 0) {
+                    return response;
+                } else {
+                    return response;
+                }
+            } catch (error) {
+                return error;
             }
-        } catch (error) {
-            return error;
-        }
-    }, []);
+        },
+        []
+    );
 
     const postCbnDate = useCallback(async (selectedCbnDate: string) => {
         try {
@@ -152,7 +155,6 @@ export const useGenerateReportActions = () => {
             a.download = 'Reports downloaded for' + reportSelectedDate + '.zip';
             a.click();
             URL.revokeObjectURL(objectUrl);
-            // / console.log(response.status);
             return { status: response.status };
         } catch (error) {
             console.error('Error downloading reports:', error);

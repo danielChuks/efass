@@ -5,7 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import { SettingsButton } from '../Button';
 import InputGroup from '../Input';
-import { SelectGroup } from '../Select';
+import { SelectGroup } from '../SelectGroup';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
 import { useGlMapppingActions } from '../../actions/glmapping';
@@ -25,7 +25,7 @@ interface DialogProps {
     fetchAllData?: any;
     updateData?: any;
     deleteData?: any;
-    itemCodes?:any;
+    itemCodes?: any;
 }
 export const GlDialog = ({
     typeOfModal,
@@ -48,8 +48,6 @@ export const GlDialog = ({
     useEffect(() => {
         fetchStatementCodes();
     }, []);
-    ;
-
     const fetchStatementCodes = async () => {
         const response = await getStatementCodes();
         try {
