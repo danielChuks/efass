@@ -1,12 +1,16 @@
 import { useCallback } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useFetchWrapper } from '../../hooks/useFetchWrapper';
-import { memoAdjustmentAtom } from '../../state/adjustment';
+import {
+    memoAdjustmentAtom,
+    defaultAdjustmentAtom,
+} from '../../state/adjustment';
 import { BASEAPI_EXTENSION } from '../../enums';
 
 export const useAdjustmentAction = () => {
     const fetchWrapper = useFetchWrapper();
     const setMemoData = useSetRecoilState(memoAdjustmentAtom);
+    const setDefaultMemoData = useSetRecoilState(defaultAdjustmentAtom);
 
     const getMemoData = useCallback(async () => {
         try {
@@ -14,6 +18,7 @@ export const useAdjustmentAction = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}memo/all`
             );
             setMemoData(response);
+            setDefaultMemoData(response)
         } catch (error) {
             console.error('Error fetching memo data:', error);
             throw error;

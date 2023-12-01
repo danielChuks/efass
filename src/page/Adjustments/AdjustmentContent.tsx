@@ -6,8 +6,11 @@ import Filter from '@/components/FilterBy';
 import styles from './index.module.scss';
 import { AdjustmentDataDialog } from './AdjustmentDataDialog';
 import { useAdjustmentAction } from '../../actions/adjustment';
-import { useRecoilValue } from 'recoil';
-import { memoAdjustmentAtom } from '../../state/adjustment';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+    memoAdjustmentAtom,
+    defaultAdjustmentAtom,
+} from '../../state/adjustment';
 import { AdjustmentData } from '@/interfaces';
 import { useParams } from 'next/navigation';
 import PageContent from '../../components/PageContent';
@@ -19,9 +22,9 @@ import { LoadingScreen } from '../../components/LoadingScreen';
 export function AdjustmentContent() {
     const { getMemoData, updateMemoData, uploadMemoData } =
         useAdjustmentAction();
-
     const memoData = useRecoilValue(memoAdjustmentAtom);
-
+    const defaultAdjustmentData = useRecoilValue(defaultAdjustmentAtom);
+    const setMemoData = useSetRecoilState(memoAdjustmentAtom);
     const [openModal, setOpenModal] = useState(false);
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
@@ -35,11 +38,12 @@ export function AdjustmentContent() {
         status: '',
     });
     const [UploadModal, setUploadModal] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorText, setErrorText] = useState('');
+    const [error, setError] = useState<boolean>(false);
+    const [errorText, setErrorText] = useState<string>('');
     const [fileName, setFileName] = useState<string>('');
     const [file, setFile] = useState<any>();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [filter, setFilter] = useState<string>('all');
 
     //snackbar state
     const [snackBarColor, setSnackbarColor] = useState<string>('');
@@ -90,10 +94,10 @@ export function AdjustmentContent() {
                 setIsOpen(true);
                 setSnackbarColor('#006c33');
                 setSnackbarMessage(response?.message);
-                  setUploadModal(false);
-                  setTimeout(() => {
-                      setIsOpen(false);
-                  }, 3000);
+                setUploadModal(false);
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 3000);
                 fetchData();
             } else {
                 setIsOpen(true);
@@ -101,10 +105,10 @@ export function AdjustmentContent() {
                 setSnackbarMessage(
                     'Unable to upload file, please try again later'
                 );
-                  setUploadModal(false);
-                  setTimeout(() => {
-                      setIsOpen(false);
-                  }, 3000);
+                setUploadModal(false);
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 3000);
             }
         } catch (error) {
             setIsOpen(true);
@@ -118,7 +122,6 @@ export function AdjustmentContent() {
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-
         }
     };
 
@@ -126,6 +129,23 @@ export function AdjustmentContent() {
         setUploadModal(true);
         setFileName('');
         setFile({});
+    };
+
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setFilter(event.target.value);
+        if (event.target.value === 'all') {
+            setMemoData(defaultAdjustmentData);
+        } else if (event.target.value === 'posted') {
+            const postedData = defaultAdjustmentData.filter(
+                (item) => item.status.toUpperCase() === 'P'
+            );
+            setMemoData(postedData);
+        } else if (event.target.value === 'not_posted') {
+            const notPostedData = defaultAdjustmentData.filter(
+                (item) => item.status.toUpperCase() === 'N'
+            );
+            setMemoData(notPostedData);
+        }
     };
 
     return (
@@ -163,6 +183,20 @@ export function AdjustmentContent() {
             <div className={styles['content_header']}>
                 <PageContent>
                     <div className={styles['rightSide']}>
+                        <div className={styles['selectContainer']}>
+                            <select
+                                className={styles['select']}
+                                name={'filter'}
+                                onChange={handleChange}
+                                value={filter}
+                            >
+                                <option value="">--- Filter by ---</option>
+                                <option value="all">All</option>
+                                <option value="posted">Posted</option>
+                                <option value="not_posted">Not posted</option>
+                            </select>
+                        </div>
+
                         <div
                             onClick={openUploadModal}
                             className={styles['reportButton']}

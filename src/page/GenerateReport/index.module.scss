@@ -46,7 +46,6 @@
             display: flex;
             gap: 41px;
             padding-right: 50px;
-
         }
     }
 
@@ -135,7 +134,7 @@
     padding: 1rem 2rem;
     width: 100%; /* Set the width of the container */
     overflow-x: scroll;
-    .contentTopSection{
+    .contentTopSection {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -161,6 +160,20 @@
     justify-content: flex-end;
     width: 100%;
     align-items: center;
+    gap: 3rem;
+
+    .selectContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #9a9a9a;
+            font-family: 'inter';
+        }
+    }
     .reportButton {
         cursor: pointer;
         border-radius: 5px;

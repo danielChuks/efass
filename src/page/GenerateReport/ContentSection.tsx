@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import SearchBar from '../../components/SearchBar';
 import styles from './index.module.scss';
 import Filter from '../../components/FilterBy';
@@ -75,6 +75,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     }, []);
 
 
+
     const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
             setIsOpen(true);
@@ -132,16 +133,16 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
             setSnackbarColor('#006c33');
             setSnackbarMessage(response.Message || response.message);
             setOpenModal(false);
-              setTimeout(() => {
-                  setIsOpen(false);
-              }, 2000);
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 2000);
         } else {
             setIsOpen(true);
             setSnackbarColor('');
             setSnackbarMessage(response.message || 'An error occured');
-              setTimeout(() => {
-                  setIsOpen(false);
-              }, 2000);
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 2000);
         }
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,6 +153,8 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
             setFileName(fileName);
         }
     };
+
+
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setReportData(defaultData);
@@ -164,6 +167,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
                     .includes(e.target.value.toLowerCase())
             );
             setReportData(filteredData);
+
         } else {
             setReportData(defaultData);
         }
