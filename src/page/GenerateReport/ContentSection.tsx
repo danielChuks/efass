@@ -131,10 +131,17 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
             setIsOpen(true);
             setSnackbarColor('#006c33');
             setSnackbarMessage(response.Message || response.message);
+            setOpenModal(false);
+              setTimeout(() => {
+                  setIsOpen(false);
+              }, 2000);
         } else {
             setIsOpen(true);
             setSnackbarColor('');
             setSnackbarMessage(response.message || 'An error occured');
+              setTimeout(() => {
+                  setIsOpen(false);
+              }, 2000);
         }
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,6 +154,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setReportData(defaultData);
         setSearchValue(e.target.value);
         if (e.target.value) {
             // Filter reportData based on the lowercase search value in the return_code field

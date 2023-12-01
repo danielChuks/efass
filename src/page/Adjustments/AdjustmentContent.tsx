@@ -90,6 +90,10 @@ export function AdjustmentContent() {
                 setIsOpen(true);
                 setSnackbarColor('#006c33');
                 setSnackbarMessage(response?.message);
+                  setUploadModal(false);
+                  setTimeout(() => {
+                      setIsOpen(false);
+                  }, 3000);
                 fetchData();
             } else {
                 setIsOpen(true);
@@ -97,6 +101,10 @@ export function AdjustmentContent() {
                 setSnackbarMessage(
                     'Unable to upload file, please try again later'
                 );
+                  setUploadModal(false);
+                  setTimeout(() => {
+                      setIsOpen(false);
+                  }, 3000);
             }
         } catch (error) {
             setIsOpen(true);
@@ -110,7 +118,7 @@ export function AdjustmentContent() {
             setFile(fileList[0]);
             const fileName = fileList[0].name;
             setFileName(fileName);
-            
+
         }
     };
 
