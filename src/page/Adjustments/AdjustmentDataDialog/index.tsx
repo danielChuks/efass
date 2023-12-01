@@ -7,7 +7,9 @@ import { SettingsButton } from '../../../components/Button';
 import InputGroup from '../../../components/Input';
 import { AiOutlineClose, AiOutlineDelete } from 'react-icons/ai';
 import { BiEdit } from 'react-icons/bi';
-import { SelectGroup } from '../../../components/Select';
+import { SelectGroup } from '../../../components/SelectGroup';
+
+
 
 interface AdjustmentDataProps {
     typeOfModal?: string;
@@ -99,7 +101,7 @@ export const AdjustmentDataDialog = ({
 
                         <SelectGroup
                             label="Status"
-                            options={['Posted', 'Not Posted']}
+                            options={['P', 'N']}
                             value={data?.status}
                             name="status"
                             placeholder={''}

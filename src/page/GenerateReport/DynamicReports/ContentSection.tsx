@@ -2,8 +2,6 @@
 import { useParams, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import SearchBar from '../../../components/SearchBar';
-import Filter from '../../../components/FilterBy';
 import { useRouter } from 'next/navigation';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { PaginatedTable } from '../../../components/PaginatedTable';
@@ -16,6 +14,7 @@ import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
 import { commaSeparatedColumns } from '../utils';
 import { formatValueIfNumber } from '../../../utils';
+
 export default function ContentSection() {
     const searchParams = useSearchParams();
     const selectedDate = searchParams.get('selectedDate');
@@ -24,8 +23,7 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-
-    console.log(reportInformation)
+    console.log(reportInformation);
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
@@ -49,9 +47,25 @@ export default function ContentSection() {
         saveAs(blobData, reportId?.toString());
     };
 
+    const maxPropsIndex = reportInformation.reduce(
+        (maxIndex: any, currentObj: any, currentIndex: any, arr: any) => {
+            if (
+                Object.keys(currentObj).length >
+                Object.keys(arr[maxIndex]).length
+            ) {
+                return currentIndex;
+            } else {
+                return maxIndex;
+            }
+        },
+        0
+    );
+
+    // console.log(maxPropsIndex);
+
     useEffect(() => {
         handleReportInformation();
-    }, []);
+    }, [reportId]);
 
     return (
         <div className={styles['contentContainer']}>
@@ -78,30 +92,11 @@ export default function ContentSection() {
             </div>
 
             <div>
-                {/* {reportInformation.length > 0 ? (
-                    <PaginatedTable<any>
-                        headers={Object.keys(
-                            reportInformation[2] || reportInformation[1]
-                        ).filter((val) => val !== 'id')}
-                        data={reportInformation}
-                        loading={loading}
-                        columns={Object.keys(
-                            reportInformation[2] || reportInformation[1]
-                        )
-                            .filter((val) => val !== 'id')
-                            .map((key) => ({
-                                render: (data, index) => {
-                                    return (data as any)[key];
-                                },
-                                width: '20%',
-                            }))}
-                    />
-                ) : null} */}
                 {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
-                        headers={Object.keys(reportInformation[0]).filter(
-                            (val) => val !== 'id'
-                        )}
+                        headers={Object.keys(reportInformation[maxPropsIndex])
+                            .filter((val) => val !== 'id')
+                            .map((key) => key.replace(/_/g, ' '))}
                         data={reportInformation}
                         loading={loading}
                         columns={Object.keys(reportInformation[0])
@@ -110,7 +105,9 @@ export default function ContentSection() {
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
-                                        key.toLowerCase().includes('date') || key.toLowerCase() === 'code'
+                                        key.toLowerCase().includes('date') ||
+                                        key.toLowerCase() === 'code'
+                                        || key.toLowerCase() === 'customer_code' || key.toLowerCase() === 'account_number'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;

@@ -154,6 +154,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     };
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setReportData(defaultData);
         setSearchValue(e.target.value);
         if (e.target.value) {
             // Filter reportData based on the lowercase search value in the return_code field
