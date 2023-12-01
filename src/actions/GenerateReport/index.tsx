@@ -35,7 +35,7 @@ export const useGenerateReportActions = () => {
                     'listOfReports',
                     JSON.stringify(response.data)
                 );
-               
+
                 return response;
             } else {
                 setReportData([]);
