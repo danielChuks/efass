@@ -45,6 +45,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const [snackBarColor, setSnackbarColor] = useState<string>('');
+    const [loader, setLoader] = useState<boolean>(false);
 
     const uploadableReports: string[] | null = [
         'MDFIR223',
@@ -73,8 +74,6 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     useEffect(() => {
         setReportData(defaultData);
     }, []);
-
-
 
     const downloadXmlReports = async () => {
         if (reportData.length <= 0) {
@@ -120,6 +119,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     };
 
     const openUploadModal = (reportdId: string) => {
+        setLoader(false);
         setOpenModal(true);
         setReportId(reportdId);
         setFileName('');
@@ -127,19 +127,35 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     };
 
     const uploadReport = async () => {
+        setLoader(true);
         const response = await handleReportUpload(file, reportId);
-        if (response.status === 200) {
-            setIsOpen(true);
-            setSnackbarColor('#006c33');
-            setSnackbarMessage(response.Message || response.message);
-            setOpenModal(false);
-            setTimeout(() => {
-                setIsOpen(false);
-            }, 2000);
-        } else {
+        try {
+            if (response.status === 200) {
+                setLoader(false);
+                setIsOpen(true);
+                setSnackbarColor('#006c33');
+                setSnackbarMessage(response?.Message || response.message);
+                setOpenModal(false);
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 2000);
+            } else {
+                setLoader(false);
+                setIsOpen(true);
+                setSnackbarColor('');
+                // setSnackbarMessage(response?.message || 'An error occured');
+                  setSnackbarMessage(
+                      'Unable to upload file, please try again later'
+                  );
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 2000);
+            }
+        } catch (error) {
+            setLoader(false);
             setIsOpen(true);
             setSnackbarColor('');
-            setSnackbarMessage(response.message || 'An error occured');
+            setSnackbarMessage('An error occured, please try again later');
             setTimeout(() => {
                 setIsOpen(false);
             }, 2000);
@@ -154,8 +170,6 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
         }
     };
 
-
-
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setReportData(defaultData);
         setSearchValue(e.target.value);
@@ -167,7 +181,6 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
                     .includes(e.target.value.toLowerCase())
             );
             setReportData(filteredData);
-
         } else {
             setReportData(defaultData);
         }
@@ -184,6 +197,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
                     error={error}
                     errorText={errorText}
                     fileName={fileName}
+                    loader={loader}
                 />
             )}
             <SnackbarComponent

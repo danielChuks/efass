@@ -12,6 +12,7 @@ import { SideNavItem } from './SideBarItems';
 import { HamburgerIcon } from '@/assets/HamburgerIcon';
 import { useState } from 'react';
 import { BsWrenchAdjustableCircleFill } from 'react-icons/bs';
+import { LuSheet } from 'react-icons/lu';
 
 interface SideNavProps {
     page?: DASHBOARD_PAGES;
@@ -56,6 +57,13 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 icon={<PiNotebookBold />}
                 title={'GL Mapping'}
                 active={page === DASHBOARD_PAGES.GL_MAPPING}
+                open={isOpen}
+            />
+            <SideNavItem
+                pageUrl={'/balance-sheet'}
+                icon={<LuSheet />}
+                title={'Note to Balance Sheet'}
+                active={page === DASHBOARD_PAGES.BALANCE_SHEET}
                 open={isOpen}
             />
             {/* <SideNavItem

@@ -44,6 +44,7 @@ export function AdjustmentContent() {
     const [file, setFile] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
     const [filter, setFilter] = useState<string>('all');
+    const [loader, setLoader] = useState<boolean>(false);
 
     //snackbar state
     const [snackBarColor, setSnackbarColor] = useState<string>('');
@@ -88,9 +89,11 @@ export function AdjustmentContent() {
     };
 
     const handleReportUpload = async () => {
+        setLoader(true);
         const response = await uploadMemoData(file);
         try {
             if (response.status === 200) {
+                setLoader(false);
                 setIsOpen(true);
                 setSnackbarColor('#006c33');
                 setSnackbarMessage(response?.message);
@@ -100,6 +103,7 @@ export function AdjustmentContent() {
                 }, 3000);
                 fetchData();
             } else {
+                setLoader(false);
                 setIsOpen(true);
                 setSnackbarColor('');
                 setSnackbarMessage(
@@ -111,6 +115,7 @@ export function AdjustmentContent() {
                 }, 3000);
             }
         } catch (error) {
+            setLoader(false);
             setIsOpen(true);
             setSnackbarColor('');
             setSnackbarMessage('An error occured');
@@ -159,6 +164,7 @@ export function AdjustmentContent() {
                     error={error}
                     errorText={errorText}
                     fileName={fileName}
+                    loader={loader}
                 />
             )}
             <SnackbarComponent
