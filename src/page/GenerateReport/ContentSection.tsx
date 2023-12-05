@@ -134,14 +134,14 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
             setOpenModal(false);
               setTimeout(() => {
                   setIsOpen(false);
-              }, 2000);
+              }, 3000);
         } else {
             setIsOpen(true);
             setSnackbarColor('');
             setSnackbarMessage(response.message || 'An error occured');
               setTimeout(() => {
                   setIsOpen(false);
-              }, 2000);
+              }, 3000);
         }
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
