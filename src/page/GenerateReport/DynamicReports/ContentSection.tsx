@@ -23,7 +23,7 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-    console.log(reportInformation);
+    // console.log(reportInformation);
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
@@ -94,20 +94,25 @@ export default function ContentSection() {
             <div>
                 {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
+                        key={reportId} //update table component if the key changes
                         headers={Object.keys(reportInformation[maxPropsIndex])
                             .filter((val) => val !== 'id')
                             .map((key) => key.replace(/_/g, ' '))}
                         data={reportInformation}
                         loading={loading}
-                        columns={Object.keys(reportInformation[0])
+                        columns={Object.keys(reportInformation[maxPropsIndex])
                             .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
                                         key.toLowerCase().includes('date') ||
-                                        key.toLowerCase() === 'code'
-                                        || key.toLowerCase() === 'customer_code' || key.toLowerCase() === 'account_number'
+                                        key.toLowerCase() === 'code' ||
+                                        key.toLowerCase() === 'customer_code' ||
+                                        key.toLowerCase() === 'account_number'
+                                        key.toLowerCase() ===
+                                            'account_number' ||
+                                        key.toLowerCase() === 'cbn_approval'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;

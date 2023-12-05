@@ -1,50 +1,81 @@
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 .dialog_content {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	margin-top: 0.5rem;
-	padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
 
-	button {
-		border: none;
-		background-color: $backgroundColor;
-		padding: 0.5rem 1.5rem;
-		outline: none;
-		cursor: pointer;
-		font-family: $fontStyle;
-		font-size: 14px;
-		color: $generalWhiteColor;
-		border-radius: 5px;
-		margin-top: 1rem;
-		font-weight: 800;
-		align-self: flex-end;
-	}
+    .button {
+        border: none;
+        background-color: $backgroundColor;
+        padding: 0.5rem 1.5rem;
+        outline: none;
+        cursor: pointer;
+        font-family: $fontStyle;
+        font-size: 14px;
+        color: $generalWhiteColor;
+        border-radius: 5px;
+        margin-top: 1rem;
+        font-weight: 800;
+        align-self: flex-end;
+        position: relative;
+    }
 
-	.file_label {
-		padding: 0.5rem;
-		border: 1px solid #9a9a9a;
-		background: #f0f0f3;
-		border-radius: 0.3125rem;
-		width: 100%;
-		height: 3rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 0.5rem;
+    .button--loading::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        border: 4px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: button-loading-spinner 1s ease infinite;
+    }
 
-		.icon {
-			color: #6d6d6d;
-		}
-	}
+    .button--loading .upload_text {
+        visibility: hidden;
+        opacity: 0;
+    }
 
-	.file_name {
-		color: #000000;
-		font-weight: 600;
+    .file_label {
+        padding: 0.5rem;
+        border: 1px solid #9a9a9a;
+        background: #f0f0f3;
+        border-radius: 0.3125rem;
+        width: 100%;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+
+        .icon {
+            color: #6d6d6d;
+        }
+    }
+
+    .file_name {
+        color: #000000;
+        font-weight: 600;
         display: flex;
         gap: 1rem;
-	}
+    }
 }
 .cursor {
-	cursor: pointer;
+    cursor: pointer;
+}
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
 }

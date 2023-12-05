@@ -15,7 +15,7 @@ export const addComma = (str: string) => {
         str = str.slice(1); // Remove the negative sign for processing
     }
 
-    let commaAdded = parseFloat(str).toLocaleString('en-US');
+    let commaAdded = parseInt(str).toLocaleString('en-US');
 
     const indexOfDotInOriginalString = str.indexOf('.');
 
