@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import BaseLayout from "@/components/BaseLayout";
 import { DASHBOARD_PAGES } from "@/enums";
