@@ -92,7 +92,6 @@ export default function ContentSection() {
             </div>
 
             <div>
-
                 {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
                         headers={Object.keys(reportInformation[maxPropsIndex])
@@ -101,14 +100,17 @@ export default function ContentSection() {
                         data={reportInformation}
                         loading={loading}
                         columns={Object.keys(reportInformation[0])
-                            .filter((val) => val !== 'id')
+                            .filter((val) => val !== 'id') 
                             .map((key) => ({
                                 render: (data) => {
                                     const value = (data as any)[key];
                                     const formattedValue =
                                         key.toLowerCase().includes('date') ||
-                                        key.toLowerCase() === 'code'
-                                        || key.toLowerCase() === 'customer_code' || key.toLowerCase() === 'account_number'
+                                        key.toLowerCase() === 'code' ||
+                                        key.toLowerCase() === 'customer_code' ||
+                                        key.toLowerCase() ===
+                                            'account_number' ||
+                                        key.toLowerCase() === 'cbn_approval'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;
