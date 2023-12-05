@@ -110,6 +110,9 @@ export default function ContentSection() {
                                         key.toLowerCase() === 'code' ||
                                         key.toLowerCase() === 'customer_code' ||
                                         key.toLowerCase() === 'account_number'
+                                        key.toLowerCase() ===
+                                            'account_number' ||
+                                        key.toLowerCase() === 'cbn_approval'
                                             ? value
                                             : formatValueIfNumber(value);
                                     return formattedValue;
