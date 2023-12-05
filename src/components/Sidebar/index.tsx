@@ -12,6 +12,7 @@ import { SideNavItem } from './SideBarItems';
 import { HamburgerIcon } from '@/assets/HamburgerIcon';
 import { useState } from 'react';
 import { BsWrenchAdjustableCircleFill } from 'react-icons/bs';
+import { PiNoteFill } from "react-icons/pi";
 
 interface SideNavProps {
     page?: DASHBOARD_PAGES;
@@ -72,6 +73,13 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 active={page === DASHBOARD_PAGES.ADJUSTMENTS}
                 open={isOpen}
             />
+            <SideNavItem
+               pageUrl={'/notetopl'}
+               icon={<PiNoteFill />}
+               title={'Note to P & L'}
+               active={page === DASHBOARD_PAGES.NOTETOPL}
+               open={isOpen}
+           />
             <div className={styles['sidebar_settings']}>
                 <SideNavItem
                     pageUrl={'/user-management'}

@@ -92,7 +92,6 @@ export default function ContentSection() {
             </div>
 
             <div>
-
                 {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
                         headers={Object.keys(reportInformation[maxPropsIndex])
