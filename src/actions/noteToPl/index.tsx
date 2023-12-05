@@ -5,15 +5,20 @@ import { BASEAPI_EXTENSION } from '../../enums';
 import { noteToPlAtom } from '../../state/noteToPl';
 
 export const useNoteToPLAction = () => {
-    const fetchWrapper = useFetchWrapper();
+    const   fetchWrapper = useFetchWrapper();
     const setMemoData = useSetRecoilState(noteToPlAtom);
 
     const getNoteToPLData = useCallback(async () => {
         try {
             const response = await fetchWrapper.get(
-                `${BASEAPI_EXTENSION.BASEAPI}memo/all`
+                `${process.env.apiUrl}/api/v1/pl/all`
             );
             setMemoData(response);
+            const data = await response.json();
+             console.log(data.length)
+            //  setBalanceSheetData(data);
+             return { data:data, status: response?.status };
+
         } catch (error) {
             console.error('Error fetching memo data:', error);
             throw error;

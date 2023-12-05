@@ -1,10 +1,7 @@
 export interface NoteToPlData {
     id?: string;
-    gl_code: string;
+    gl_account: string;
     gl_description: string;
-    dr_cr_ind: string;
-    amount: string;
-    period: string;
-    year: string;
-    status: string;
+    current_balance: string;
+    previous_balance: string;
 }

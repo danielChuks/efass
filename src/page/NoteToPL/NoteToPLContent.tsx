@@ -26,13 +26,10 @@ export function NoteToPLContent() {
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
     const [data, setData] = useState<NoteToPlData>({
-        gl_code: '',
+        gl_account: '',
         gl_description: '',
-        dr_cr_ind: '',
-        amount: '',
-        period: '',
-        year: '',
-        status: '',
+        current_balance: '',
+        previous_balance: ''
     });
     const [UploadModal, setUploadModal] = useState(false);
     const [error, setError] = useState(false);
@@ -158,13 +155,13 @@ export function NoteToPLContent() {
                         ]}
                         data={memoData}
                         columns={[
-                            { render: (data) => data.gl_code, width: '20%', },
+                            { render: (data) => data.gl_account, width: '20%', },
                             {
                                 render: (data) => data.gl_description,
                                 width: '20%',
                             },
-                            { render: (data) => data.year, width: '20%' },
-                            { render: (data) => data.status, width: '20%' },
+                            { render: (data) => data.current_balance, width: '20%' },
+                            { render: (data) => data.previous_balance, width: '20%'}
                         ]}
                     />
                 </PageContent>
