@@ -8,3 +8,4 @@ export * from './paginated-table.interface';
 export * from './gl.interface';
 export * from './custom-data.interface';
 export * from './adjustment.interface';
+export * from './balance-sheet.interface'
