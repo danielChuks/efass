@@ -25,12 +25,10 @@ export function NoteToPLContent() {
     const [openModal, setOpenModal] = useState(false);
     const [modalHeader, setModalHeader] = useState('Add New');
     const [typeOfModal, setTypeOfModal] = useState<string>('');
-    const [data, setData] = useState<NoteToPlData>({
-        gl_account: '',
-        gl_description: '',
-        current_balance: '',
-        previous_balance: ''
-    });
+    const [NoteToPLData, setNoteToPLData] = useState<
+    NoteToPlData[]
+    >([]);
+    const [data, setData] = useState<NoteToPlData[]>([]);
     const [UploadModal, setUploadModal] = useState(false);
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
@@ -44,9 +42,30 @@ export function NoteToPLContent() {
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     // Fetch memoData on component mount
     const fetchData = async () => {
+        const response = await getNoteToPLData();
         try {
-            await getNoteToPLData();
-        } catch (error) {}
+            if (response.status === 200) {
+                console.log(response?.data);
+                setNoteToPLData(response?.data);
+            } else {
+                setIsOpen(true);
+                setSnackbarColor('');
+                setSnackbarMessage(
+                    'An error occured while fetching, please try again later'
+                );
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 5000);
+                setNoteToPLData([]);
+            }
+        } catch (error) {
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 5000);
+            setSnackbarColor('');
+            setSnackbarMessage('An error occured');
+            setNoteToPLData([]);
+        }
     };
 
     useEffect(() => {
@@ -153,7 +172,7 @@ export function NoteToPLContent() {
                             'CURRENT BALANCE',
                             'PREVIOUS BALANCE',
                         ]}
-                        data={memoData}
+                        data={NoteToPLData}
                         columns={[
                             { render: (data) => data.gl_account, width: '20%', },
                             {

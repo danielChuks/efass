@@ -10,13 +10,11 @@ export const useNoteToPLAction = () => {
 
     const getNoteToPLData = useCallback(async () => {
         try {
-            const response = await fetchWrapper.get(
-                `${process.env.apiUrl}/api/v1/pl/all`
-            );
-            setMemoData(response);
+            const response = await fetch(
+                `${process.env.apiUrl}/api/v1/pl/all`, {
+                    method: 'GET',
+                });
             const data = await response.json();
-             console.log(data.length)
-            //  setBalanceSheetData(data);
              return { data:data, status: response?.status };
 
         } catch (error) {
