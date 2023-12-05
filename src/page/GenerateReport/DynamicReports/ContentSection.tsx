@@ -99,8 +99,8 @@ export default function ContentSection() {
                             .map((key) => key.replace(/_/g, ' '))}
                         data={reportInformation}
                         loading={loading}
-                        columns={Object.keys(reportInformation[0])
-                            .filter((val) => val !== 'id') 
+                        columns={Object.keys(reportInformation[maxPropsIndex])
+                            .filter((val) => val !== 'id')
                             .map((key) => ({
                                 render: (data) => {
                                     const value = (data as any)[key];
