@@ -41,6 +41,7 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
         isMonthDisabled: true,
         isQuarterDisabled: true,
     });
+     const [isButtonActive, setIsButtonActive] = useState<boolean>(true);
     //snackbar props
     const [isopen, setIsOpen] = useState(false);
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
@@ -112,6 +113,7 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
                 if (!selectedYear || currentMonth === 0) {
                     setIsOpen(true);
                     setSnackbarMessage('invalid date selected');
+                    setSpinner(false);
                     return;
                 }
                 formattedDate = monthlyDateFormatter(
@@ -124,6 +126,7 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
                 if (!selectedYear || !selectedQuarter) {
                     setIsOpen(true);
                     setSnackbarMessage('invalid date selected');
+                    setSpinner(false);
                     return;
                 }
                 formattedDate = QuarterlyDateFormatter(
@@ -135,16 +138,22 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
             default:
                 setSnackbarMessage('Please select a valid date');
                 setIsOpen(true);
+                setSpinner(false);
                 return;
         }
         setSelectedDate(formattedDate);
+        //check if cbn date has been selected
+         if (!cbnDate) {
+             setSpinner(false);
+             setIsOpen(true);
+             setSnackbarMessage(
+                 'Please select Cbn date before clicking on the generate report button '
+             );
+             return;
+         }
         // Post date to server
         const dateResponse = await postReportDate(formattedDate, selectedGroup);
 
-        // Only send CBN date if it's selected
-        if (cbnDate) {
-            const cbnDateResponse = await postCbnDate(cbnDate);
-        }
         try {
             const response = await handleGenerateReport(selectedGroup);
             if (response && response.responseCode === 0) {
@@ -169,10 +178,12 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
         setSelectedYear(e.target.value);
     };
 
-    const handleCbnDate = (e: any) => {
-        setCbnDate(e.target.value);
-    };
+    const handleCbnDate = async(e: any) => {
+        //send cbn date when the user selects cbn date
+         setCbnDate(e.target.value);
+        const cbnDateResponse = await postCbnDate(e.target.value);
 
+    };
     const handleMonthChange = (newMonth: number) => {
         setCurrentMonth(newMonth);
     };
@@ -248,7 +259,9 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
             </div>
 
             <div className={styles['reportButton']}>
-                <button onClick={generateReport}>Generate Report</button>
+                <button  onClick={generateReport}>
+                    Generate Report
+                </button>
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ export const useBalanceSheetAction = () => {
             //  setBalanceSheetData(data);
              return { data:data, status: response?.status };
          } catch (error) {
-             console.error('Error during file upload:', error);
+             console.error('an error occured', error);
              return { error: error };
          }
     }, []);
