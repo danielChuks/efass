@@ -8,6 +8,7 @@ import PageContent from '../../components/PageContent';
 import { FaUpload } from 'react-icons/fa';
 import { UploadDialog } from '../../components/UploadDialog';
 import SnackbarComponent from '../../components/Snackbar';
+import { formatValueIfNumber } from '../../utils';
 function BalanceSheetContent() {
     const { getBalanceSheetData, uploadBalanceSheet } = useBalanceSheetAction();
     const [balanceSheetData, setBalanceSheetData] = useState<
@@ -24,6 +25,7 @@ function BalanceSheetContent() {
         gl_acct_no: '',
         gl_description: '',
         gl_balance: '',
+        prv_gl_balance:''
     });
     const [loader, setLoader] = useState<boolean>(false);
     //snackbar state
@@ -39,13 +41,13 @@ function BalanceSheetContent() {
         const response = await getBalanceSheetData();
         try {
             if (response.status === 200) {
-                console.log(response?.data);
+                // console.log(response?.data);
                 setBalanceSheetData(response?.data);
             } else {
                 setIsOpen(true);
                 setSnackbarColor('');
                 setSnackbarMessage(
-                    'An error occured while fetching, please try again later'
+                    'An error occured while fetching data, please try again later'
                 );
                 setTimeout(() => {
                     setIsOpen(false);
@@ -79,14 +81,12 @@ function BalanceSheetContent() {
                 setTimeout(() => {
                     setIsOpen(false);
                 }, 3000);
-                //    fetchData();
+                fetchBalanceSheetData();
             } else {
                 setLoader(false);
                 setIsOpen(true);
                 setSnackbarColor('');
-                setSnackbarMessage(
-                    'Unable to upload file, please try again later'
-                );
+                setSnackbarMessage(response?.message);
                 setUploadModal(false);
                 setTimeout(() => {
                     setIsOpen(false);
@@ -96,7 +96,7 @@ function BalanceSheetContent() {
             setLoader(false);
             setIsOpen(true);
             setSnackbarColor('');
-            setSnackbarMessage('An error occured');
+            setSnackbarMessage('An error occured, please try again later');
         }
     };
 
@@ -152,7 +152,12 @@ function BalanceSheetContent() {
                         </div>
                     </div>
                     <PaginatedTable<BalanceSheetData>
-                        headers={['GL-ACCOUNT', 'GL DESCRIPTION', 'GL BALANCE']}
+                        headers={[
+                            'GL-ACCOUNT',
+                            'GL DESCRIPTION',
+                            'GL BALANCE',
+                            'PREVIOUS GL BALANCE',
+                        ]}
                         data={balanceSheetData}
                         columns={[
                             { render: (data) => data.gl_acct_no },
@@ -160,7 +165,14 @@ function BalanceSheetContent() {
                                 render: (data) => data.gl_description,
                             },
 
-                            { render: (data) => data.gl_balance },
+                            {
+                                render: (data) =>
+                                    formatValueIfNumber(data?.gl_balance),
+                            },
+                            {
+                                render: (data) =>
+                                    formatValueIfNumber(data?.prv_gl_balance),
+                            },
                         ]}
                     />
                 </PageContent>

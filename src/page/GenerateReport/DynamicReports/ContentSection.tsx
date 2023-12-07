@@ -23,7 +23,7 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-    console.log(reportInformation);
+    // console.log(reportInformation);
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {

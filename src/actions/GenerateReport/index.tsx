@@ -105,7 +105,7 @@ export const useGenerateReportActions = () => {
             const response = await fetchWrapper.put(
                 `${BASEAPI_EXTENSION.BASEAPI}cbnDate?date=${selectedCbnDate}`
             );
-            console.log(response)
+            // console.log(response)
 
             if (response.responseCode === 0) {
                 return response;

@@ -9,10 +9,11 @@ export const useBalanceSheetAction = () => {
 
     const getBalanceSheetData = useCallback(async () => {
          try {
-             const response = await fetch(`${process.env.apiUrl}/api/v1/bs/all`, {
+             const response = await fetch(`${process.env.apiUrl}/api/v1/noteToBalanceSheet/all`, {
                  method: 'GET',
              });
              const data = await response.json();
+            //  console.log(data)
             //  console.log(data.length)
             //  setBalanceSheetData(data);
              return { data:data, status: response?.status };
@@ -26,10 +27,13 @@ export const useBalanceSheetAction = () => {
         const formData = new FormData();
         formData.append('file', file);
         try {
-            const response = await fetch(`${process.env.apiUrl}/api/v1/bs`, {
-                method: 'POST',
-                body: formData,
-            });
+            const response = await fetch(
+                `${process.env.apiUrl}/api/v1/noteToBalanceSheet/uploadPLBalance`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
             const data = await response.json();
             return { ...data, status: response?.status };
         } catch (error) {
