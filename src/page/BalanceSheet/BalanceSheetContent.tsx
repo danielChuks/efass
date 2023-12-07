@@ -68,6 +68,7 @@ function BalanceSheetContent() {
         setData({ ...data, [e.target.name]: e.target.value });
     };
 
+    //sheet upload
     const handleReportUpload = async () => {
         setLoader(true);
         const response = await uploadBalanceSheet(file);
@@ -99,7 +100,7 @@ function BalanceSheetContent() {
             setSnackbarMessage('An error occured, please try again later');
         }
     };
-
+//get file from pc
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = e.target.files;
         if (fileList && fileList.length > 0) {
