@@ -23,7 +23,12 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-    console.log(reportInformation);
+    // console.log(reportInformation);
+
+//replace table camelcase undersores with space
+    function removeSpaceAndUnderScore(input:any) {
+        return input?.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2');
+    }
 
     const handleReportInformation = async () => {
         if (typeof reportId === 'string') {
@@ -36,6 +41,7 @@ export default function ContentSection() {
         }
     };
 
+    //download excel sheet
     const downloadExcelReports = () => {
         const ws = XLSX.utils.json_to_sheet(reportInformation);
         const wb = XLSX.utils.book_new();
@@ -47,6 +53,7 @@ export default function ContentSection() {
         saveAs(blobData, reportId?.toString());
     };
 
+    //get the index of the object with highest key value pairs
     const maxPropsIndex = reportInformation.reduce(
         (maxIndex: any, currentObj: any, currentIndex: any, arr: any) => {
             if (
@@ -96,7 +103,7 @@ export default function ContentSection() {
                     <PaginatedTable<any>
                         headers={Object.keys(reportInformation[maxPropsIndex])
                             .filter((val) => val !== 'id')
-                            .map((key) => key.replace(/_/g, ' '))}
+                            .map((key) => removeSpaceAndUnderScore(key))}
                         data={reportInformation}
                         loading={loading}
                         columns={Object.keys(reportInformation[maxPropsIndex])
@@ -107,9 +114,15 @@ export default function ContentSection() {
                                     const formattedValue =
                                         key.toLowerCase().includes('date') ||
                                         key.toLowerCase() === 'code' ||
+                                        key.toLowerCase() === 'details' ||
                                         key.toLowerCase() === 'customer_code' ||
                                         key.toLowerCase() ===
+                                            'institution_code' ||
+                                        key === 'institutionCode' ||
+                                        key.toLowerCase() === 'bank_name' ||
+                                        key.toLowerCase() ===
                                             'account_number' ||
+                                        key === 'accountNumber' ||
                                         key.toLowerCase() === 'cbn_approval'
                                             ? value
                                             : formatValueIfNumber(value);

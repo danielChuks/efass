@@ -102,10 +102,10 @@ export const useGenerateReportActions = () => {
 
     const postCbnDate = useCallback(async (selectedCbnDate: string) => {
         try {
-            const response = await fetchWrapper.post(
-                `${BASEAPI_EXTENSION.BASEAPI}cbnDate`,
-                selectedCbnDate
+            const response = await fetchWrapper.put(
+                `${BASEAPI_EXTENSION.BASEAPI}cbnDate?date=${selectedCbnDate}`
             );
+            // console.log(response)
 
             if (response.responseCode === 0) {
                 return response;

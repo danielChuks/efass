@@ -77,17 +77,17 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
             <SideNavItem
                 pageUrl={'/balance-sheet'}
                 icon={<LuSheet />}
-                title={'Note to Balance Sheet'}
+                title={'General Ledger Balances'}
                 active={page === DASHBOARD_PAGES.BALANCE_SHEET}
                 open={isOpen}
             />
-            <SideNavItem
+            {/* <SideNavItem
                 pageUrl={'/notetopl'}
                 icon={<PiNoteFill />}
                 title={'Note to P & L'}
                 active={page === DASHBOARD_PAGES.NOTETOPL}
                 open={isOpen}
-            />
+            /> */}
             <div className={styles['sidebar_settings']}>
                 <SideNavItem
                     pageUrl={'/user-management'}

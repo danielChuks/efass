@@ -156,7 +156,7 @@ export function NoteToPLContent() {
                             'CURRENT BALANCE',
                             'PREVIOUS BALANCE',
                         ]}
-                        data={memoData}
+                        data={[]}
                         columns={[
                             { render: (data) => data.gl_code, width: '20%', },
                             {
