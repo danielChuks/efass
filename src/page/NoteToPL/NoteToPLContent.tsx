@@ -172,7 +172,7 @@ export function NoteToPLContent() {
                             'CURRENT BALANCE',
                             'PREVIOUS BALANCE',
                         ]}
-                        data={NoteToPLData}
+                        data={[]}
                         columns={[
                             { render: (data) => data.gl_account, width: '20%', },
                             {

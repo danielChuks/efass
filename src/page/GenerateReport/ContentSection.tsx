@@ -48,15 +48,11 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
     const [loader, setLoader] = useState<boolean>(false);
 
     const uploadableReports: string[] | null = [
-        'MDFIR223',
         'MDFIR271',
         'MDFIR291',
-        'MDFIR311',
-        'MDFIR333',
         'MDFIR371.3',
         'MDFIR372',
         'MDFIR382',
-        'MDFIR533',
         'MDFIR101',
         'MDFIR250',
         'MDFIR600',
@@ -69,6 +65,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
         'MDFIR921',
         'MCFPR1',
         'MDFIR100',
+        'MDFIR363',
     ];
 
     useEffect(() => {
@@ -118,7 +115,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
         setFile({});
     };
 
-    const openUploadModal = (reportdId: string) => {
+    const   openUploadModal = (reportdId: string) => {
         setLoader(false);
         setOpenModal(true);
         setReportId(reportdId);
@@ -144,9 +141,9 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
                 setIsOpen(true);
                 setSnackbarColor('');
                 // setSnackbarMessage(response?.message || 'An error occured');
-                  setSnackbarMessage(
-                      'Unable to upload file, please try again later'
-                  );
+                setSnackbarMessage(
+                    'Unable to upload file, please try again later'
+                );
                 setTimeout(() => {
                     setIsOpen(false);
                 }, 2000);
