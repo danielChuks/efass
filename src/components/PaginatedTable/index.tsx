@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { PaginatedTableColumn } from "@/interfaces";
-import { TableBody } from "./TableBody";
-import { TableHeader } from "./TableHeader";
-import { TablePagination } from "./TablePagination";
-import styles from "./index.module.scss";
-import { useTable } from "@/hooks/useTable";
-import { useEffect } from "react";
+import { PaginatedTableColumn } from '@/interfaces';
+import { TableBody } from './TableBody';
+import { TableHeader } from './TableHeader';
+import { TablePagination } from './TablePagination';
+import styles from './index.module.scss';
+import { useTable } from '@/hooks/useTable';
+import { useEffect, useState } from 'react';
 
 interface Props<T> {
     headers: string[];
@@ -26,14 +26,11 @@ export function PaginatedTable<T>({
         { data }
     );
 
-    useEffect(() => {
-        changeItemsPerPage(pagination.numOfItemsPerPage);
-    }, [data]);
 
     return (
-        <div className={styles["table-wrapper"]}>
-            <div className={styles["table-container"]}>
-                <table className={styles["header-and-body"]}>
+        <div className={styles['table-wrapper']}>
+            <div className={styles['table-container']}>
+                <table className={styles['header-and-body']}>
                     {data.length === 0 || loading ? null : (
                         <TableHeader headers={headers} columns={columns} />
                     )}
@@ -47,8 +44,8 @@ export function PaginatedTable<T>({
                 </table>
 
                 {data.length === 0 && !loading && (
-                    <div className={styles["no-data"]}>
-                        <img alt='Empty data' src='/empty.png' />
+                    <div className={styles['no-data']}>
+                        <img alt="Empty data" src="/empty.png" />
                         <p>No data found</p>
                     </div>
                 )}

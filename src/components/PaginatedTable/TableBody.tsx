@@ -37,7 +37,7 @@ export function TableBody<T = any>({
                         className={styles['body-column']}
                         style={{
                             flex: 'unset',
-                            width: 80,
+                            width: 150,
                         }}
                     >
                         {(page - 1) * numOfItemsPerPage + 1 + index}

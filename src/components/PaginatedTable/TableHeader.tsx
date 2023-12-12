@@ -14,7 +14,7 @@ export function TableHeader({ headers = [], columns = [] }: TableHeaderProps) {
                 className={styles['header-column']}
                 style={{
                     flex: 'unset',
-                    width: 80,
+                    width: 150,
                 }}
             >
                 S/NO
