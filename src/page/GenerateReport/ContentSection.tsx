@@ -135,18 +135,16 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
                 setOpenModal(false);
                 setTimeout(() => {
                     setIsOpen(false);
-                }, 2000);
+                }, 3000);
             } else {
                 setLoader(false);
                 setIsOpen(true);
                 setSnackbarColor('');
-                // setSnackbarMessage(response?.message || 'An error occured');
-                setSnackbarMessage(
-                    'Unable to upload file, please try again later'
-                );
+                console.log(response)
+                setSnackbarMessage(response?.msg || response?.Message || response.message || 'An error occured');
                 setTimeout(() => {
                     setIsOpen(false);
-                }, 2000);
+                }, 10000);
             }
         } catch (error) {
             setLoader(false);
@@ -155,7 +153,7 @@ export const ContentSection = ({ spinner }: ReportPageProps) => {
             setSnackbarMessage('An error occured, please try again later');
             setTimeout(() => {
                 setIsOpen(false);
-            }, 2000);
+            }, 10000);
         }
     };
     const getFileFromMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
