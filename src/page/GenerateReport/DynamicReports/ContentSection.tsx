@@ -23,10 +23,10 @@ export default function ContentSection() {
     const [loading, setLoading] = useState(true);
     const { getReportInformation } = useGenerateReportActions();
     const reportInformation = useRecoilValue(generateReportInformationAtom);
-    // console.log(reportInformation);
+    console.log(reportInformation);
 
-//replace table camelcase undersores with space
-    function removeSpaceAndUnderScore(input:any) {
+    //replace table camelcase undersores with space
+    function removeSpaceAndUnderScore(input: any) {
         return input?.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2');
     }
 

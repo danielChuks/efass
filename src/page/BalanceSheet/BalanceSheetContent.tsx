@@ -81,7 +81,7 @@ function BalanceSheetContent() {
                 setUploadModal(false);
                 setTimeout(() => {
                     setIsOpen(false);
-                }, 3000);
+                }, 5000);
                 fetchBalanceSheetData();
             } else {
                 setLoader(false);
@@ -91,7 +91,7 @@ function BalanceSheetContent() {
                 setUploadModal(false);
                 setTimeout(() => {
                     setIsOpen(false);
-                }, 3000);
+                }, 10000);
             }
         } catch (error) {
             setLoader(false);

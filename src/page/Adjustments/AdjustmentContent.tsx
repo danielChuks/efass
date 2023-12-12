@@ -106,9 +106,10 @@ export function AdjustmentContent() {
                 setLoader(false);
                 setIsOpen(true);
                 setSnackbarColor('');
-                setSnackbarMessage(
-                    'Unable to upload file, please try again later'
-                );
+                setSnackbarMessage(response?.message);
+                // setSnackbarMessage(
+                //     'Unable to upload file, please try again later'
+                // );
                 setUploadModal(false);
                 setTimeout(() => {
                     setIsOpen(false);
@@ -118,7 +119,7 @@ export function AdjustmentContent() {
             setLoader(false);
             setIsOpen(true);
             setSnackbarColor('');
-            setSnackbarMessage('An error occured');
+            setSnackbarMessage('An error occured, please try again later');
         }
     };
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
