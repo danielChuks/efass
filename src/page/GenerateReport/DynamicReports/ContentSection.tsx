@@ -14,6 +14,7 @@ import { saveAs } from 'file-saver';
 import { ReportData } from '../../../interfaces';
 import { commaSeparatedColumns } from '../utils';
 import { formatValueIfNumber } from '../../../utils';
+import { PaginationTable } from '../../../components/PaginationTable';
 
 export default function ContentSection() {
     const searchParams = useSearchParams();
@@ -99,7 +100,7 @@ export default function ContentSection() {
             </div>
 
             <div>
-                {reportInformation && reportInformation.length > 0 && (
+                {/* {reportInformation && reportInformation.length > 0 && (
                     <PaginatedTable<any>
                         headers={Object.keys(reportInformation[maxPropsIndex])
                             .filter((val) => val !== 'id')
@@ -130,6 +131,45 @@ export default function ContentSection() {
                                 },
                                 width: '20%',
                             }))}
+                    />
+                )} */}
+
+                {reportInformation && reportInformation.length > 0 && (
+                    <PaginationTable
+                        columnHeader={Object.keys(
+                            reportInformation[maxPropsIndex]
+                        )
+                            .filter((val) => val !== 'id')
+                            .map((key) => {
+                                const formatFunction = (value: any) => {
+                                    if (key.toLowerCase().includes('date')) {
+                                        return formatValueIfNumber(value);
+                                    } else if (
+                                        key.toLowerCase() === 'code' ||
+                                        key.toLowerCase() === 'details' ||
+                                        key.toLowerCase() === 'customer_code' ||
+                                        key.toLowerCase() ===
+                                            'institution_code' ||
+                                        key === 'institutionCode' ||
+                                        key.toLowerCase() === 'bank_name' ||
+                                        key.toLowerCase() ===
+                                            'account_number' ||
+                                        key === 'accountNumber' ||
+                                        key.toLowerCase() === 'cbn_approval'
+                                    ) {
+                                        return formatValueIfNumber(value);
+                                    } else {
+                                        return value;
+                                    }
+                                };
+
+                                return {
+                                    id: key,
+                                    label: removeSpaceAndUnderScore(key),
+                                    format: formatFunction,
+                                };
+                            })}
+                        data={reportInformation}
                     />
                 )}
             </div>
