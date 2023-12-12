@@ -26,6 +26,9 @@ export function PaginatedTable<T>({
         { data }
     );
 
+    useEffect(() => {
+        changeItemsPerPage(pagination.numOfItemsPerPage);
+    }, [data]);
 
     return (
         <div className={styles['table-wrapper']}>
