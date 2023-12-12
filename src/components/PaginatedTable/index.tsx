@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import { PaginatedTableColumn } from '@/interfaces';
-import { TableBody } from './TableBody';
-import { TableHeader } from './TableHeader';
-import { TablePagination } from './TablePagination';
-import styles from './index.module.scss';
-import { useTable } from '@/hooks/useTable';
+import { PaginatedTableColumn } from "@/interfaces";
+import { TableBody } from "./TableBody";
+import { TableHeader } from "./TableHeader";
+import { TablePagination } from "./TablePagination";
+import styles from "./index.module.scss";
+import { useTable } from "@/hooks/useTable";
+import { useEffect } from "react";
 
 interface Props<T> {
     headers: string[];
@@ -21,26 +22,21 @@ export function PaginatedTable<T>({
     loading,
     rowClickHandler,
 }: Props<T>) {
-    const {
-        pagination,
-        goToPage,
-        tableData,
-        changeItemsPerPage,
-    } = useTable<T>({ data });
+    const { pagination, goToPage, tableData, changeItemsPerPage } = useTable<T>(
+        { data }
+    );
+
+    useEffect(() => {
+        changeItemsPerPage(pagination.numOfItemsPerPage);
+    }, [data]);
 
     return (
-
-        <div className={styles['table-wrapper']}>
-            <div className={styles['table-container']}>
-                <table className={styles['header-and-body']}>
-                    {data.length === 0 || loading ?
-                        null : (
-                            <TableHeader
-                                headers={headers}
-                                columns={columns}
-                            />
-                        )
-                    }
+        <div className={styles["table-wrapper"]}>
+            <div className={styles["table-container"]}>
+                <table className={styles["header-and-body"]}>
+                    {data.length === 0 || loading ? null : (
+                        <TableHeader headers={headers} columns={columns} />
+                    )}
                     <TableBody
                         columns={columns}
                         data={tableData}
@@ -57,15 +53,13 @@ export function PaginatedTable<T>({
                     </div>
                 )}
             </div>
-            {data.length === 0 || loading ?
-                null : (
-                    <TablePagination
-                        pagination={pagination}
-                        goToPage={goToPage}
-                        changeItemsPerPage={changeItemsPerPage}
-                    />
-                )
-            }
+            {data.length === 0 || loading ? null : (
+                <TablePagination
+                    pagination={pagination}
+                    goToPage={goToPage}
+                    changeItemsPerPage={changeItemsPerPage}
+                />
+            )}
         </div>
-    )
+    );
 }
