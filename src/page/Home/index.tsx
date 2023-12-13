@@ -83,12 +83,12 @@ export const HomePage = () => {
             const response = await handleReportDelete(data.id);
 
             setIsOpen(true);
-            setSnackbarMessage('Deleted Successfully');
             setSnackbarColor('#006c33');
-            snackBarColor;
+            setSnackbarMessage('Deleted Successfully');
+             fetchData();
         } catch (error) {
             setIsOpen(true);
-            setSnackbarColor('#006c33');
+            setSnackbarColor('');
             setSnackbarMessage('Failed to delete');
         }
     };
