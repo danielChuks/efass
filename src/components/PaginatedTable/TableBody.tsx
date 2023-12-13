@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { PaginatedTableColumn, Pagination } from '@/interfaces';
 import styles from './index.module.scss';
-import Skeleton from 'react-loading-skeleton';
 import { BeatLoader } from 'react-spinners';
 
 interface Props<T = any> {
@@ -26,6 +25,8 @@ export function TableBody<T = any>({
             ? value?.toLocaleString('en-US')
             : value;
     };
+
+    // console.log(data);
 
 
     return (
