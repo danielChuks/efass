@@ -15,16 +15,12 @@ interface Props<T> {
     rowClickHandler?: (data: T) => any;
 }
 
-export function PaginatedTable<T>({
-    headers,
-    columns,
-    data = [],
-    loading,
-    rowClickHandler,
-}: Props<T>) {
+export function PaginatedTable<T>({ headers, columns, data = [], loading, rowClickHandler,}: Props<T>) {
     const { pagination, goToPage, tableData, changeItemsPerPage } = useTable<T>(
         { data }
     );
+
+    // console.log(data);
 
     useEffect(() => {
         changeItemsPerPage(pagination.numOfItemsPerPage);
