@@ -26,7 +26,7 @@ interface MaterialTableProps {
     data: Data[];
 }
 
-export const MaterialTable = ({ columnHeader, data }: MaterialTableProps) => {
+export const PaginationTable = ({ columnHeader, data }: MaterialTableProps) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -49,12 +49,16 @@ export const MaterialTable = ({ columnHeader, data }: MaterialTableProps) => {
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
-                            <TableRow sx={{ fontFamily: 'inter' }}>
+                            <TableRow
+                                sx={{
+                                    fontFamily: 'inter',
+                                }}
+                            >
                                 {columnHeader.map((column) => (
                                     <TableCell
                                         key={column.id}
                                         align={column.align}
-                                        style={{ minWidth: column.minWidth }}
+                                        style={{ minWidth: '200px' }}
                                         className={styles.columns}
                                     >
                                         {column.label}
