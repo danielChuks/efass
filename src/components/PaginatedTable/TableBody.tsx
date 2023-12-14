@@ -61,6 +61,7 @@ export function TableBody<T = any>({
                                 textAlign: column.isCommaSeparated
                                     ? 'right'
                                     : undefined,
+                                wordWrap: 'break-word',
                             }}
                         >
                             {formatAmount(
