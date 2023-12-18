@@ -76,8 +76,15 @@ export function AdjustmentContent() {
         try {
             await updateMemoData(data.id, data);
             setOpenModal(false);
-            window.location.reload();
+            fetchData();
             setLoading(true);
+            setIsOpen(true);
+            setSnackbarColor('#006c33');
+            setSnackbarMessage('updated successfully');
+            setUploadModal(false);
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 3000);
         } catch (error) {
             return error;
         }
