@@ -61,6 +61,7 @@ export const UserManagement = () => {
                 setTimeout(() => {
                     setIsSnackbarOpen(false);
                 }, 10000);
+                 fetchData();
             } else {
                 setSnackbarMessage('An error occurred, please try again later');
                 setSnackbarColor('');
