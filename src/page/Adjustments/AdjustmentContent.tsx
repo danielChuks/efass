@@ -76,8 +76,15 @@ export function AdjustmentContent() {
         try {
             await updateMemoData(data.id, data);
             setOpenModal(false);
-            window.location.reload();
+            fetchData();
             setLoading(true);
+            setIsOpen(true);
+            setSnackbarColor('#006c33');
+            setSnackbarMessage('updated successfully');
+            setUploadModal(false);
+            setTimeout(() => {
+                setIsOpen(false);
+            }, 3000);
         } catch (error) {
             return error;
         }
@@ -143,12 +150,12 @@ export function AdjustmentContent() {
             setMemoData(defaultAdjustmentData);
         } else if (event.target.value === 'posted') {
             const postedData = defaultAdjustmentData.filter(
-                (item) => item.status.toUpperCase() === 'P'
+                (item) => item?.status?.toUpperCase() === 'P'
             );
             setMemoData(postedData);
         } else if (event.target.value === 'not_posted') {
             const notPostedData = defaultAdjustmentData.filter(
-                (item) => item.status.toUpperCase() === 'N'
+                (item) => item?.status?.toUpperCase() === 'N'
             );
             setMemoData(notPostedData);
         }
