@@ -16,16 +16,19 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
     const searchParams = useSearchParams();
     const tab = searchParams.get('tab');
     const router = useRouter();
-    const [data, setData] = useState({ email: '', password: '' });
+    const [data, setData] = useState({
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+    });
     const [error, setError] = useState(false);
     const [errorText, setErrorText] = useState('');
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
     };
-    const navigateOtp = () => {
+    const handleChangePassword = () => {
         setError(true);
-        setErrorText('Invalid email or password');
-        router.push('settings?tab=otp');
+        setErrorText('Cannot update password, please try again');
     };
 
     return (
@@ -39,30 +42,39 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
             {value === index && tab === null ? (
                 <>
                     <p className={styles['title']}>
-                        Verify it’s you by entering your email and current
+                        Verify it’s you by entering your old password and new
                         password
                     </p>
                     <div className={styles['content']}>
                         <InputGroup
-                            type="email"
-                            label="Email Address"
-                            placeholder="enter valid email"
-                            value={data.email}
-                            name="email"
+                            type="text"
+                            label="Old password"
+                            placeholder="enter old password"
+                            value={data.oldPassword}
+                            name="oldPassword"
                             handleChange={handleInputchange}
                         />
                         <InputGroup
-                            type="password"
-                            label="Current Password"
-                            value={data.password}
-                            name="password"
-                            placeholder=""
+                            type="text"
+                            label="New Password"
+                            value={data.newPassword}
+                            name="newPassword"
+                            placeholder="Enter new Password"
+                            handleChange={handleInputchange}
+                        />
+
+                        <InputGroup
+                            type="text"
+                            label="Confirm Password"
+                            value={data.confirmPassword}
+                            name="confirmPassword"
+                            placeholder="Confirm Password"
                             handleChange={handleInputchange}
                         />
 
                         <SettingsButton
                             text={'Continue'}
-                            handleAction={navigateOtp}
+                            handleAction={handleChangePassword}
                             error={error}
                             errorText={errorText}
                         />

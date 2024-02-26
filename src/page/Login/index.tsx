@@ -58,6 +58,7 @@ export const Login = () => {
         setLoading(true);
         if (validateInput()) {
             const response = await login(data.username, data.password);
+            console.log(response)
             if (response.responseCode === 0) {
                 router.push('/dashboard');
                 setSuccess(true);

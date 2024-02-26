@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import styles from './index.module.scss';
-import logo from '../../../public/AltLogo.png'
+import logo from '../../../public/AltLogo.png';
 import Image from 'next/image';
 
 interface AccountInfoProps {
@@ -27,8 +27,8 @@ function AccountInformation({ value, index }: AccountInfoProps) {
                             <p>Timi</p>
                         </div>
                         <div className={styles['content']}>
-                            <p className={styles['title']}>Email Address:</p>
-                            <p>timi@gmail.com</p>
+                            <p className={styles['title']}>Role:</p>
+                            <p>User</p>
                         </div>
                     </div>
                 </>

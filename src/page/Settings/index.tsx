@@ -37,8 +37,8 @@ export const Settings = () => {
                     width: '100%',
                     backgroundColor: '#fff',
                     borderRadius: '0.5rem',
-                    height: ' 32.5rem',
-                    marginTop: '.5rem',
+                    height: ' 35.5rem',
+                    // marginTop: '.5rem',
                 }}
             >
                 <Box
@@ -72,7 +72,7 @@ export const Settings = () => {
                                 color: '#6C757D',
                                 textTransform: 'Capitalize',
                             }}
-                            label="Change Password"
+                            label="Reset Password"
                             {...accessibilityProps(1)}
                         />
                     </Tabs>

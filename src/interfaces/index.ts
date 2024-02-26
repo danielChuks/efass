@@ -9,3 +9,4 @@ export * from './gl.interface';
 export * from './custom-data.interface';
 export * from './adjustment.interface';
 export * from './balance-sheet.interface'
+export * from './Password.interface'
