@@ -31,9 +31,15 @@
 }
 .error_msg {
     color: $error;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
-    margin-top: 8px;
+    // margin-top: 4px;
+}
+
+.success_text {
+    color: green;
+    font-size: 12px;
+    font-weight: 600;
 }
 
 .customButton {

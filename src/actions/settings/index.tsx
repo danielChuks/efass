@@ -18,22 +18,28 @@ export const useSettingsActions = () => {
         return response;
     }, [setSettingsData]);
 
-    const resetPassword = async (userCredentials: Password) => {
+    const changePassword = async (userCredentials: Password) => {
+        console.log(userCredentials);
+
         try {
-            const response = await fetchWrapper.put(
-                `${BASEAPI_EXTENSION.BASEAPI}user`,
-                userCredentials
-            );
-            if (response.responseCode === 0) {
-                return response;
-            } else return 'An error occured';
+            const url = `${process.env.apiUrl}/api/v1/user`;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userCredentials),
+            });
+            const res = await response.json();
+            return res;
         } catch (err) {
+            
             return err;
         }
     };
 
     return {
         getSettings,
-        resetPassword,
+        changePassword,
     };
 };
