@@ -58,7 +58,7 @@ export const Login = () => {
         setLoading(true);
         if (validateInput()) {
             const response = await login(data.username, data.password);
-            console.log(response);
+            // console.log(response);
             //check if user has logged in before(PasswordUpdated is true)
             if (response.responseCode === 0 && response.user?.passwordUpdated) {
                 router.push('/dashboard');
