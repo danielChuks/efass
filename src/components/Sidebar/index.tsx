@@ -1,4 +1,5 @@
 'use client';
+import React, { useEffect, useState } from 'react';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
@@ -10,7 +11,6 @@ import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';
 import { HamburgerIcon } from '@/assets/HamburgerIcon';
-import { useState } from 'react';
 import { BsWrenchAdjustableCircleFill } from 'react-icons/bs';
 import { LuSheet } from 'react-icons/lu';
 import { PiNoteFill } from 'react-icons/pi';
@@ -24,11 +24,19 @@ interface SideNavProps {
 
 export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [pageStatus, setPageStatus] = useState({ isPageActive: false });
     //if user logs in for the first time, the page becomes inactive till user updates password
     //page status is stored in session storage determine status of the application.
-    const pageStatus = JSON.parse(
-        sessionStorage.getItem('isPageActive') || '{}'
-    );
+
+    useEffect(() => {
+        // Use useEffect to fetch session storage data after component mounts
+        if (typeof window !== 'undefined') {
+            const storedData = JSON.parse(
+                sessionStorage?.getItem('isPageActive') || '{}'
+            );
+            setPageStatus(storedData);
+        }
+    }, []);
 
     const toggle = () => {
         setIsOpen(!isOpen);

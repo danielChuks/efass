@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { BalanceSheet } from '../../page/BalanceSheet';
+import { BalanceSheet } from '@/page/BalanceSheet';
 
 export const metadata: Metadata = {
     title: 'Balance sheet | EFASS',

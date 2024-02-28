@@ -19,7 +19,7 @@ export const useSettingsActions = () => {
     }, [setSettingsData]);
 
     const changePassword = async (userCredentials: Password) => {
-        console.log(userCredentials);
+        // console.log(userCredentials);
 
         try {
             const url = `${process.env.apiUrl}/api/v1/user`;
@@ -33,7 +33,7 @@ export const useSettingsActions = () => {
             const res = await response.json();
             return res;
         } catch (err) {
-            
+
             return err;
         }
     };

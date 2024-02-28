@@ -45,7 +45,7 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
                 const response = await changePassword(data);
                 // console.log(response);
                 if (response.responseCode === 0) {
-                    console.log(response);
+                    // console.log(response);
                     setSuccess(true);
                     setSuccessText('Password Updated Successfully');
                     sessionStorage.setItem(
@@ -54,10 +54,10 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
                     );
                     setTimeout(() => {
                         router.push('/dashboard');
-                    }, 3000);
+                    }, 1000);
                 }
                 if (response.responseCode !== 0) {
-                    console.log(response);
+                    // console.log(response);
                     setError(true);
                     setErrorText(response?.responseMessage);
                 }
