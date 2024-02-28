@@ -7,9 +7,11 @@ interface SettingsButtonProps {
     disabled?: boolean;
     error?: boolean;
     errorText?: string;
-    type?: string;
+    type?: 'button' | 'submit' | 'reset';
     handleAction?: (value: any) => void;
     loading?: boolean;
+    success?: boolean;
+    successText?: string;
 }
 
 interface CustomButtonProps {
@@ -26,24 +28,21 @@ export const SettingsButton = ({
     type,
     handleAction,
     loading,
+    success,
+    successText,
 }: SettingsButtonProps) => {
     return (
         <>
             <button
                 disabled={disabled}
                 onClick={handleAction}
-                className={styles["button"]}
-                type='submit'
+                className={styles['button']}
+                type={type}
             >
-                {loading ? (
-                    <div className={styles["spinner"]}>
-                        <ImSpinner8 size={30} />
-                    </div>
-                ) : (
-                    text
-                )}
+                {text}
             </button>
-            {error && <p className={styles["error_msg"]}>{errorText}</p>}
+            {error && <p className={styles['error_msg']}>{errorText}</p>}
+            {success && <p className={styles['success_text']}>{successText}</p>}
         </>
     );
 };

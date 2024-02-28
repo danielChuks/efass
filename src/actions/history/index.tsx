@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useFetchWrapper } from '../../hooks/useFetchWrapper';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { BASEAPI_EXTENSION } from '../../enums';
 import { reportHistoryAtom } from '../../state/reportHistory';
 

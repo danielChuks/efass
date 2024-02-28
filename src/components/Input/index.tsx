@@ -14,6 +14,8 @@ interface InputGroupProps {
     placeholder?: string;
     maxLength?: number;
     required?: boolean;
+    success?: boolean;
+    successText?: string;
     handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -31,6 +33,7 @@ function InputGroup({
     handleChange,
     errorText,
     isError,
+
 }: InputGroupProps) {
     return (
         <div className={styles['input_Group']}>
@@ -47,7 +50,8 @@ function InputGroup({
                 required={required}
                 onChange={handleChange}
             />
-            {isError && <p className="error_text">{errorText}</p>}
+            {isError && <p className={styles['error_text']}>{errorText}</p>}
+
         </div>
     );
 }

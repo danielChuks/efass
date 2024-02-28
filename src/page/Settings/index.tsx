@@ -37,7 +37,7 @@ export const Settings = () => {
                     width: '100%',
                     backgroundColor: '#fff',
                     borderRadius: '0.5rem',
-                    height: ' 32.5rem',
+                    height: ' 37rem',
                     marginTop: '.5rem',
                 }}
             >

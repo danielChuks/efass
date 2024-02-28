@@ -1,4 +1,5 @@
 'use client';
+import React, { useEffect, useState } from 'react';
 import { BiSolidDashboard } from 'react-icons/bi';
 import { FaClipboardList } from 'react-icons/fa';
 import { FaUserCog } from 'react-icons/fa';
@@ -10,10 +11,12 @@ import styles from './index.module.scss';
 import { DASHBOARD_PAGES } from '../../enums';
 import { SideNavItem } from './SideBarItems';
 import { HamburgerIcon } from '@/assets/HamburgerIcon';
-import { useState } from 'react';
 import { BsWrenchAdjustableCircleFill } from 'react-icons/bs';
 import { LuSheet } from 'react-icons/lu';
-import { PiNoteFill } from "react-icons/pi";
+import { PiNoteFill } from 'react-icons/pi';
+import { checkUser } from '../../utils';
+import { Router } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 interface SideNavProps {
     page?: DASHBOARD_PAGES;
@@ -21,6 +24,19 @@ interface SideNavProps {
 
 export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [pageStatus, setPageStatus] = useState({ isPageActive: false });
+    //if user logs in for the first time, the page becomes inactive till user updates password
+    //page status is stored in session storage determine status of the application.
+
+    useEffect(() => {
+        // Use useEffect to fetch session storage data after component mounts
+        if (typeof window !== 'undefined') {
+            const storedData = JSON.parse(
+                sessionStorage?.getItem('isPageActive') || '{}'
+            );
+            setPageStatus(storedData);
+        }
+    }, []);
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -44,6 +60,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'Dashboard'}
                 active={page === DASHBOARD_PAGES.HOME}
                 open={isOpen}
+                isPageActive={pageStatus.isPageActive}
             />
 
             <SideNavItem
@@ -52,6 +69,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'Generate Report'}
                 active={page === DASHBOARD_PAGES.GENERATE_REPORT}
                 open={isOpen}
+                isPageActive={pageStatus.isPageActive}
             />
             <SideNavItem
                 pageUrl={'/gl-mapping'}
@@ -59,6 +77,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'GL Mapping'}
                 active={page === DASHBOARD_PAGES.GL_MAPPING}
                 open={isOpen}
+                isPageActive={pageStatus.isPageActive}
             />
             {/* <SideNavItem
                 pageUrl={'/custom-data'}
@@ -73,6 +92,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'Adjustments'}
                 active={page === DASHBOARD_PAGES.ADJUSTMENTS}
                 open={isOpen}
+                isPageActive={pageStatus.isPageActive}
             />
             <SideNavItem
                 pageUrl={'/balance-sheet'}
@@ -80,6 +100,7 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 title={'General Ledger Balances'}
                 active={page === DASHBOARD_PAGES.BALANCE_SHEET}
                 open={isOpen}
+                isPageActive={pageStatus.isPageActive}
             />
             {/* <SideNavItem
                 pageUrl={'/notetopl'}
@@ -89,13 +110,26 @@ export default function Sidebar({ page = DASHBOARD_PAGES.HOME }: SideNavProps) {
                 open={isOpen}
             /> */}
             <div className={styles['sidebar_settings']}>
+                {checkUser().role === 'ROLE_ADMIN' ? (
+                    <SideNavItem
+                        pageUrl={'/user-management'}
+                        icon={<FaUserCog />}
+                        title={'User Management'}
+                        active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
+                        open={isOpen}
+                        isPageActive={pageStatus.isPageActive}
+                    />
+                ) : null}
+
                 <SideNavItem
-                    pageUrl={'/user-management'}
-                    icon={<FaUserCog />}
-                    title={'User Management'}
-                    active={page === DASHBOARD_PAGES.USER_MANAGEMENT}
+                    pageUrl={'/settings'}
+                    icon={<FiSettings />}
+                    title={'Settings'}
+                    active={page === DASHBOARD_PAGES.SETTINGS}
                     open={isOpen}
+                    isPageActive={pageStatus.isPageActive}
                 />
+
                 <SideNavItem
                     pageUrl={'/login'}
                     icon={<BiLogIn />}

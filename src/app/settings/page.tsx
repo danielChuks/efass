@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings } from '../../page/Settings';
+import { Settings } from '@/page/Settings';
 import { Metadata } from 'next';
 import { AuthWrapper } from '../../providers/AuthWrapper';
 

@@ -82,7 +82,7 @@ export default function ContentSection() {
                         onClick={downloadExcelReports}
                         className={styles['reportButton']}
                     >
-                        Download Report
+                        Download to excel
                         <FaDownload />
                     </div>
                     <div

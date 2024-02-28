@@ -63,6 +63,7 @@ export const useAuthActions = () => {
         router.push('/login');
         setReportData([]);
         setDefaultData([]);
+        sessionStorage.clear();
     }, [router]);
 
     useEffect(() => {
