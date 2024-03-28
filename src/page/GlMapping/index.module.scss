@@ -34,6 +34,9 @@
 }
 
 .content {
+    .glHeader {
+        display: flex;
+    }
     .content_header {
         display: flex;
         align-items: center;

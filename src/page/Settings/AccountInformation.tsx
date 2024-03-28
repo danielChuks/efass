@@ -29,7 +29,7 @@ function AccountInformation({ value, index }: AccountInfoProps) {
                         </div>
                         <div className={styles['content']}>
                             <p className={styles['title']}>Role:</p>
-                            <p>{checkUser()?.role?.slice(5)}</p>
+                            <p>{checkUser()?.role?.slice(5)?.toLowerCase()}</p>
                         </div>
                     </div>
                 </>

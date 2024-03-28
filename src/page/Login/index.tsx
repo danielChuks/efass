@@ -12,6 +12,40 @@ import { useAuthActions } from '../../actions/auth';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import useEnterKey from '../../hooks/useKeyDown';
 
+//  if (validateInput()) {
+//      const response = await login(data.username, data.password);
+//      // console.log(response);
+//      //check if user has logged in before(PasswordUpdated is true)
+//      if (response.responseCode === 0 && response.user?.passwordUpdated) {
+//          router.push('/dashboard');
+//          sessionStorage.setItem('user', JSON.stringify(response.user));
+//          sessionStorage.setItem(
+//              'isPageActive',
+//              JSON.stringify({ isPageActive: true })
+//          );
+//          setSuccess(true);
+//      }
+//      //check if user is entering the application for the first time(passwordUpdated is false)
+//      else if (response.responseCode === 0 && !response.user?.passwordUpdated) {
+//          sessionStorage.setItem(
+//              'isPageActive',
+//              JSON.stringify({ isPageActive: false })
+//          );
+//          router.push('/settings');
+//          sessionStorage.setItem('user', JSON.stringify(response.user));
+//          setSuccess(true);
+//      } else if (response.responseCode !== 0) {
+//          setError(true);
+//          setLoading(false);
+//          router.push('/login');
+//          setErrorText('Invalid username or password. Please try again.');
+//      } else {
+//          setError(true);
+//          router.push('/login');
+//          setErrorText('An error occurred. Please try again later.');
+//      }
+//  }
+
 interface LoginProps {
     username: string;
     password: string;
@@ -60,28 +94,29 @@ export const Login = () => {
             const response = await login(data.username, data.password);
             // console.log(response);
             //check if user has logged in before(PasswordUpdated is true)
-            if (response.responseCode === 0 && response.user?.passwordUpdated) {
+            if (response.responseCode === 0) {
                 router.push('/dashboard');
                 sessionStorage.setItem('user', JSON.stringify(response.user));
-                  sessionStorage.setItem(
-                      'isPageActive',
-                      JSON.stringify({ isPageActive: true })
-                  );
+                //   sessionStorage.setItem(
+                //       'isPageActive',
+                //       JSON.stringify({ isPageActive: true })
+                //   );
                 setSuccess(true);
             }
             //check if user is entering the application for the first time(passwordUpdated is false)
-            else if (
-                response.responseCode === 0 &&
-                !response.user?.passwordUpdated
-            ) {
-                sessionStorage.setItem(
-                    'isPageActive',
-                    JSON.stringify({ isPageActive: false })
-                );
-                router.push('/settings');
-                sessionStorage.setItem('user', JSON.stringify(response.user));
-                setSuccess(true);
-            } else if (response.responseCode !== 0) {
+            // else if (
+            //     response.responseCode === 0 &&
+            //     !response.user?.passwordUpdated
+            // ) {
+            //     sessionStorage.setItem(
+            //         'isPageActive',
+            //         JSON.stringify({ isPageActive: false })
+            //     );
+            //     router.push('/settings');
+            //     sessionStorage.setItem('user', JSON.stringify(response.user));
+            //     setSuccess(true);
+            // }
+            else if (response.responseCode !== 0) {
                 setError(true);
                 setLoading(false);
                 router.push('/login');
