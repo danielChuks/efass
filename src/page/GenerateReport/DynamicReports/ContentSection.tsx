@@ -43,6 +43,7 @@ export default function ContentSection() {
 
     //download excel sheet
     const downloadExcelReports = () => {
+        if (reportInformation?.length <= 0 || !reportInformation) return;
         const ws = XLSX.utils.json_to_sheet(reportInformation);
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
@@ -54,7 +55,7 @@ export default function ContentSection() {
     };
 
     //get the index of the object with highest key value pairs
-    const maxPropsIndex = reportInformation.reduce(
+    const maxPropsIndex = reportInformation?.reduce(
         (maxIndex: any, currentObj: any, currentIndex: any, arr: any) => {
             if (
                 Object.keys(currentObj).length >
