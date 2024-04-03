@@ -52,6 +52,7 @@ export const GlDialog = ({
         const response = await getStatementCodes();
         try {
             if (response?.data) {
+                console.log(response?.data);
                 setStatementCodes(response?.data);
             } else {
                 setStatementCodes([]);

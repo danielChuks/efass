@@ -44,11 +44,12 @@ export const useGlMapppingActions = () => {
 
     const getStatementDescription = useCallback(
         async (statementCode: string) => {
+            console.log(statementCode)
             try {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/getStatementDesc?statementCode=${statementCode}`
                 );
-              
+
                 return response;
             } catch (error) {
                 return error;
@@ -63,7 +64,7 @@ export const useGlMapppingActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/createGlMappingData`,
                 glData
             );
-          
+
             return response;
         } catch (error) {
             return error;
@@ -76,7 +77,7 @@ export const useGlMapppingActions = () => {
                 `${BASEAPI_EXTENSION.BASEAPI}efassGlMapping/updateGlData`,
                 data
             );
-            
+
             return response;
         } catch (error) {
             console.error('Error updating memo data:', error);

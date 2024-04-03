@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import styles from './index.module.scss';
 import RadioButton from '../../components/RadioButton';
@@ -24,6 +23,7 @@ interface disabledProps {
 }
 
 export function ReportHeader({ setSpinner }: ReportPageProps) {
+    // console.log('rannnnnn')
     const setReportData = useSetRecoilState(generateReportAtom);
     const setSelectedDate = useSetRecoilState(selectedDateAtom);
     const setReportGroup = useSetRecoilState(selectedGroupAtom);
@@ -51,7 +51,7 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
     };
     const handleGroupChange = (group: string) => {
         let newDisabledFields: disabledProps;
-
+            //    console.log(group)
         switch (group) {
             case 'M':
                 newDisabledFields = {
@@ -153,7 +153,7 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
          }
         // Post date to server
         const dateResponse = await postReportDate(formattedDate, selectedGroup);
-
+        // console.log(formattedDate)
         try {
             const response = await handleGenerateReport(selectedGroup);
             if (response && response.responseCode === 0) {
@@ -172,6 +172,8 @@ export function ReportHeader({ setSpinner }: ReportPageProps) {
             setIsOpen(true);
             setSpinner(false);
         }
+
+        
     };
 
     const handleYearChange = (e: any) => {

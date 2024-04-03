@@ -36,13 +36,13 @@ export function SideNavItem({
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
 
     const redirect = () => {
-        if (!isPageActive) {
-            setIsOpen(true);
-            setSnackbarMessage(
-                'To proceed, please update your default password. Once completed, you will have access to this page'
-            );
-            return;
-        }
+        // if (!isPageActive) {
+        //     setIsOpen(true);
+        //     setSnackbarMessage(
+        //         'To proceed, please update your default password. Once completed, you will have access to this page'
+        //     );
+        //     return;
+        // }
         router.push(pageUrl);
         // replace(pageUrl);
     };
@@ -53,11 +53,11 @@ export function SideNavItem({
 
     return (
         <>
-            <SnackbarComponent
+            {/* <SnackbarComponent
                 handleClose={handleClose}
                 isopen={isopen}
                 message={SnackbarMessage}
-            />
+            /> */}
             <div
                 className={classNames(
                     styles['side-nav-item'],

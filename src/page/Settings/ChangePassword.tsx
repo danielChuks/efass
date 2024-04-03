@@ -30,8 +30,7 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
     const [errorText, setErrorText] = useState('');
     const [success, setSuccess] = useState(false);
     const [successText, setSuccessText] = useState('');
-    const [passwordErrorText, setPasswordErrorText] = useState('');
-    const [PasswordError, setPasswordError] = useState<boolean>();
+
     const handleInputchange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
         // if (e.target.name === 'confirm_password') {
@@ -40,14 +39,15 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
     };
     const handleChangePassword = async (e: MouseEvent) => {
         e.preventDefault();
+
         if (validateFields()) {
             try {
                 const response = await changePassword(data);
-                // console.log(response);
-                if (response.responseCode === 0) {
-                    // console.log(response);
+                 //need a loader on that button
+                if (response?.responseCode === 0) {
+                    setError(false)
                     setSuccess(true);
-                    setSuccessText('Password Updated Successfully');
+                    setSuccessText('Password updated Successfully');
                     sessionStorage.setItem(
                         'isPageActive',
                         JSON.stringify(ispageActive)
@@ -55,11 +55,14 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
                     setTimeout(() => {
                         router.push('/dashboard');
                     }, 1000);
-                }
-                if (response.responseCode !== 0) {
-                    // console.log(response);
+                } else if (response?.responseCode !== 0) {
                     setError(true);
                     setErrorText(response?.responseMessage);
+                } else {
+                    setError(true);
+                    setErrorText(
+                        'Cannot update password at the moment, please try again later'
+                    );
                 }
             } catch (err) {
                 setError(true);
@@ -68,6 +71,8 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
                 );
                 console.log(err);
             }
+        } else {
+            console.log('rannn');
         }
     };
 
@@ -81,15 +86,15 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
     };
 
     //check if passwords match
-    const validatePasswords = () => {
-        if (data.password !== data.confirm_password || !data.confirm_password) {
-            setPasswordError(true);
-            setPasswordErrorText('Passwords do not match!');
-        } else {
-            setPasswordError(false);
-            setPasswordErrorText('');
-        }
-    };
+    // const validatePasswords = () => {
+    //     if (data.password !== data.confirm_password || !data.confirm_password) {
+    //         setPasswordError(true);
+    //         setPasswordErrorText('Passwords do not match!');
+    //     } else {
+    //         setPasswordError(false);
+    //         setPasswordErrorText('');
+    //     }
+    // };
 
     return (
         <main
@@ -102,8 +107,8 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
             {value === index && tab === null ? (
                 <>
                     <p className={styles['title']}>
-                        Verify it’s you by entering your old password and new
-                        password
+                        Kindly enter your old password and your new password to
+                        change password
                     </p>
                     <form className={styles['content']}>
                         <InputGroup
@@ -134,8 +139,6 @@ function ChangePassword({ value, index }: ChangePasswordProps) {
                             required={true}
                             placeholder="Confirm Password"
                             handleChange={handleInputchange}
-                            isError={PasswordError}
-                            errorText={passwordErrorText}
                         />
 
                         <SettingsButton

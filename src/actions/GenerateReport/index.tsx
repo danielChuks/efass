@@ -202,16 +202,14 @@ export const useGenerateReportActions = () => {
                 const response = await fetchWrapper.get(
                     `${BASEAPI_EXTENSION.BASEAPI}${sheetName}/${selectedDate}`
                 );
-
-                // Temporary until the response is given a generic name like "data"
+                // console.log(response)
+            
                 if (response.responseCode === 0) {
-                    const modifiedSheetName =
-                        removeFirstFiveCharacters(sheetName);
+                    const modifiedSheetName = removeFirstFiveCharacters(sheetName);
                     // Check if modifiedSheetName is not null before using it
                     if (modifiedSheetName !== null) {
                         if (specialReportNumbers.includes(modifiedSheetName)) {
-                            const reportWithUnderScore =
-                                replaceDot(modifiedSheetName);
+                            const reportWithUnderScore = replaceDot(modifiedSheetName);
                             const dynamicPropertyName = `sheet${reportWithUnderScore}`;
                             setReportInformation(response[dynamicPropertyName]);
                             return;

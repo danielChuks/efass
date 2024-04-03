@@ -18,6 +18,7 @@ export const useAuthActions = () => {
     const [, setAuth] = useRecoilState<Token | null>(authAtom);
     const router = useRouter();
     const IDLE_TIMEOUT = 240000; // 4 minutes
+    // const IDLE_TIMEOUT = 700000
     const isIdle = useIdle(IDLE_TIMEOUT);
 
     const login = useCallback(

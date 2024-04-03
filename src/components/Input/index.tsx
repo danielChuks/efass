@@ -14,8 +14,6 @@ interface InputGroupProps {
     placeholder?: string;
     maxLength?: number;
     required?: boolean;
-    success?: boolean;
-    successText?: string;
     handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

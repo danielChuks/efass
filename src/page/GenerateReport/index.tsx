@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import BaseLayout from '../../components/BaseLayout/index';
 import styles from './index.module.scss';

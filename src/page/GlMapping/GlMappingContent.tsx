@@ -8,6 +8,7 @@ import { GlDialog } from '@/components/GlDialog';
 import PageContent from '../../components/PageContent';
 import { useGlMapppingActions } from '../../actions/glmapping';
 import SnackbarComponent from '../../components/Snackbar';
+import SearchBar from '../../components/SearchBar';
 
 function GlMappingContent() {
     const {
@@ -37,6 +38,7 @@ function GlMappingContent() {
     const [SnackbarMessage, setSnackbarMessage] = useState<string>('');
     const [snackBarColor, setSnackbarColor] = useState<string>('');
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState<string>('');
     useEffect(() => {
         fetchAllGlData();
     }, []);
@@ -290,6 +292,22 @@ function GlMappingContent() {
     const handleClose = () => {
         setIsSnackbarOpen(false);
     };
+
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // setReportData(defaultData);
+        setSearchValue(e.target.value);
+        if (e.target.value) {
+            // Filter reportData based on the lowercase search value in the return_code field
+            const filteredData = allGlData.filter((item) =>
+                item.statementCode
+                    .toLowerCase()
+                    .includes(e.target.value.toLowerCase())
+            );
+            setAllGlData(filteredData);
+        } else {
+            fetchAllGlData();
+        }
+    };
     return (
         <div className={styles['content']}>
             {openDialogModal && (
@@ -318,13 +336,20 @@ function GlMappingContent() {
 
             <div className={styles['content_header']}>
                 <PageContent>
-                    <div className={styles['rightSide']}>
-                        <div
-                            onClick={openAddModal}
-                            className={styles['reportButton']}
-                        >
-                            Add New
-                            <BsPlusLg />
+                    <div className={styles['glHeader']}>
+                        <SearchBar
+                            handleSearchChange={handleSearchChange}
+                            searchValue={searchValue}
+                            placeHolder={'Search by statement code'}
+                        />
+                        <div className={styles['rightSide']}>
+                            <div
+                                onClick={openAddModal}
+                                className={styles['reportButton']}
+                            >
+                                Add New
+                                <BsPlusLg />
+                            </div>
                         </div>
                     </div>
 
