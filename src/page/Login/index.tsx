@@ -181,7 +181,7 @@ export const Login = () => {
                             </div>
                         </div>
                         <div className={styles['footer']}>
-                            2023 &copy; eFASS by Neptune Software Group.
+                            2024 &copy; eFASS by Neptune Software Group.
                         </div>
                     </div>
                 </div>
